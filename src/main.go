@@ -8,5 +8,5 @@ import (
 
 func main() {
     model.MustLoadConfig()
-    fmt.Print("Doet Het")
+    fmt.Printf("%+v", model.TestRemoveGetPokemonByID(1))
 }
