@@ -8,5 +8,6 @@ import (
 
 func main() {
     model.MustLoadConfig()
-    fmt.Printf("%+v", model.TestRemoveGetPokemonByID(1))
+    species := model.GetSpecies("BULBASAUR")
+    fmt.Printf("%+v", species)//model.GetPokemon(10, species))
 }

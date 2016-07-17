@@ -10,12 +10,14 @@ import (
 )
 
 var (
-    dataPath = "../data/pokemon.txt"
+    dataPath = "../data/"
+    pokemonPath = "pokemon.txt"
 )
 
 func MustLoadConfig() {
     absPath, _ := filepath.Abs(dataPath)
-    pokemonData = mustLoadSpecies(absPath)
+    initTypeMap()
+    pokemonData = mustLoadSpecies(absPath + pokemonPath)
 
     rand.Seed(time.Now().UnixNano())
 }
