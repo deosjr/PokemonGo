@@ -1,13 +1,13 @@
-package main 
+package main
 
 import (
-    "fmt"
+	"fmt"
 
-    "model"
+	"model"
 )
 
 func main() {
-    model.MustLoadConfig()
-    species := model.GetSpecies("BULBASAUR")
-    fmt.Printf("%+v", species)//model.GetPokemon(10, species))
+	model.MustLoadConfig()
+	species := model.GetSpecies("BULBASAUR")
+	fmt.Printf("%+v", model.GetPokemon(10, species))
 }
