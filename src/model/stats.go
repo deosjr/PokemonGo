@@ -57,5 +57,5 @@ func calculateStat(iv, base, level int) int {
 }
 
 func generateIVs() Stats {
-	return Stats{[]int{rand.Intn(33), rand.Intn(33), rand.Intn(33), rand.Intn(33), rand.Intn(33), rand.Intn(33)}}
+	return Stats{[]int{rand.Intn(32), rand.Intn(32), rand.Intn(32), rand.Intn(32), rand.Intn(32), rand.Intn(32)}}
 }

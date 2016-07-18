@@ -41,7 +41,7 @@ type Move struct {
 	TotalPP   int
 }
 
-func GetMove(move MoveData, pp int) *Move {
+func GetMove(move *MoveData, pp int) *Move {
 	return &Move{
 		MoveData:  move,
 		CurrentPP: pp,

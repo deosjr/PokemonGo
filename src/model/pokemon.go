@@ -33,6 +33,6 @@ func GetPokemon(level int, species *Species) *Pokemon {
 		Stats:      calculateStats(ivs, species.Stats, level),
 		iv:         ivs,
 		statStages: Stats{make([]int, 6)},
-		Moves:      make([]Move, 4),
+		Moves:      make([]*Move, 4),
 	}
 }
