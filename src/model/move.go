@@ -8,27 +8,25 @@ type MoveData struct {
 	Name            string
 	functionCode    string
 	Power           int
-	Type            *Type
-	Category        string
+	Type            TYPE
+	Category        DMG_CATEGORY
 	Accuracy        int
 	PP              int
 	AddEffectChance int
+	Target          TARGET
+	Priority        int
+	Flags           string
+	Description     string
 }
 
 var nameToMove = make(map[string]*MoveData)
 
-func LoadMove(features []string) {
-	move := &MoveData{
-		Name:            features[2],
-		functionCode:    features[3],
-		Power:           atoiTrusted(features[4]),
-		Type:            GetType(features[5]),
-		Category:        features[6],
-		Accuracy:        atoiTrusted(features[7]),
-		PP:              atoiTrusted(features[8]),
-		AddEffectChance: atoiTrusted(features[9]),
+func initMoveData() {
+	for _, m := range moveData {
+		s := strings.Replace(m.Name, " ", "", -1)
+		s = strings.Replace(s, "-", "", -1)
+		nameToMove[strings.ToUpper(s)] = m
 	}
-	nameToMove[features[1]] = move
 }
 
 func GetMoveData(name string) *MoveData {

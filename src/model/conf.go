@@ -13,13 +13,12 @@ import (
 var (
 	dataPath    = "../data/"
 	pokemonPath = "pokemon.txt"
-	movePath    = "moves.txt"
 )
 
 func MustLoadConfig() {
 	absPath, _ := filepath.Abs(dataPath)
-	initTypeMap()
-	mustLoadMoves(absPath + movePath)
+	initTypeData()
+	initMoveData()
 	mustLoadSpecies(absPath + pokemonPath)
 
 	rand.Seed(time.Now().UnixNano())
@@ -44,25 +43,6 @@ func mustLoadSpecies(path string) {
 		}
 		assignment := strings.Split(line, "=")
 		pokemonData[i-1].update(assignment[0], assignment[1])
-	}
-
-	if err := scanner.Err(); err != nil {
-		panic(err)
-	}
-}
-
-func mustLoadMoves(path string) {
-	file, err := os.Open(path)
-	if err != nil {
-		panic(err)
-	}
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		line := scanner.Text()
-		features := strings.Split(line, ",")
-		LoadMove(features)
 	}
 
 	if err := scanner.Err(); err != nil {
