@@ -1,56 +1,14 @@
 package model
 
 import (
-	"bufio"
 	"math/rand"
-	"os"
-	"path/filepath"
-	"strconv"
-	"strings"
 	"time"
 )
 
-var (
-	dataPath    = "../data/"
-	pokemonPath = "pokemon.txt"
-)
-
 func MustLoadConfig() {
-	absPath, _ := filepath.Abs(dataPath)
 	initTypeData()
 	initMoveData()
-	mustLoadSpecies(absPath + pokemonPath)
+	initSpeciesData()
 
 	rand.Seed(time.Now().UnixNano())
-}
-
-func mustLoadSpecies(path string) {
-	file, err := os.Open(path)
-	if err != nil {
-		panic(err)
-	}
-	defer file.Close()
-
-	var i int
-
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		line := scanner.Text()
-		if strings.HasPrefix(line, "[") {
-			pokemonData = append(pokemonData, &Species{ID: i + 1})
-			i++
-			continue
-		}
-		assignment := strings.Split(line, "=")
-		pokemonData[i-1].update(assignment[0], assignment[1])
-	}
-
-	if err := scanner.Err(); err != nil {
-		panic(err)
-	}
-}
-
-func atoiTrusted(s string) int {
-	i, _ := strconv.Atoi(s)
-	return i
 }

@@ -4,7 +4,7 @@ import ()
 
 type Pokemon struct {
 	Level   int
-	Species *Species
+	Species POKEMON
 	Name    string
 	XP      XP
 
@@ -23,12 +23,13 @@ type XP struct {
 	NextXPLevelReq     int
 }
 
-func GetPokemon(level int, species *Species) *Pokemon {
+func GetPokemon(level int, pType POKEMON) *Pokemon {
 	ivs := generateIVs()
+	species := GetSpeciesByID(pType)
 
 	return &Pokemon{
 		Level:      level,
-		Species:    species,
+		Species:    pType,
 		Name:       species.Name,
 		Stats:      calculateStats(ivs, species.Stats, level),
 		iv:         ivs,

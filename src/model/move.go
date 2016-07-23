@@ -4,6 +4,8 @@ import (
 	"strings"
 )
 
+var nameToMove = make(map[string]*MoveData)
+
 type MoveData struct {
 	Name            string
 	functionCode    string
@@ -19,8 +21,6 @@ type MoveData struct {
 	Description     string
 }
 
-var nameToMove = make(map[string]*MoveData)
-
 func initMoveData() {
 	for _, m := range moveData {
 		s := strings.Replace(m.Name, " ", "", -1)
@@ -31,6 +31,10 @@ func initMoveData() {
 
 func GetMoveData(name string) *MoveData {
 	return nameToMove[strings.ToUpper(name)]
+}
+
+func GetMoveDataByID(mType MOVE) *MoveData {
+	return moveData[mType]
 }
 
 type Move struct {
