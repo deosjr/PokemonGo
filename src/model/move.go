@@ -4,7 +4,7 @@ import (
 	"strings"
 )
 
-var nameToMove = make(map[string]*MoveData)
+var nameToMove = make(map[string]MoveData)
 
 type MoveData struct {
 	Name            string
@@ -29,23 +29,23 @@ func initMoveData() {
 	}
 }
 
-func GetMoveData(name string) *MoveData {
+func GetMoveData(name string) MoveData {
 	return nameToMove[strings.ToUpper(name)]
 }
 
-func GetMoveDataByID(mType MOVE) *MoveData {
+func GetMoveDataByID(mType MOVE) MoveData {
 	return moveData[mType]
 }
 
 type Move struct {
-	MoveData  *MoveData
+	Data      MoveData
 	CurrentPP int
 	TotalPP   int
 }
 
-func GetMove(move *MoveData, pp int) *Move {
+func GetMove(move MoveData, pp int) *Move {
 	return &Move{
-		MoveData:  move,
+		Data:      move,
 		CurrentPP: pp,
 		TotalPP:   pp,
 	}

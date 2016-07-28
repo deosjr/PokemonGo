@@ -37,3 +37,7 @@ func GetPokemon(level int, pType POKEMON) *Pokemon {
 		Moves:      make([]*Move, 4),
 	}
 }
+
+func (p *Pokemon) getSpecies() Species {
+	return GetSpeciesByID(p.Species)
+}

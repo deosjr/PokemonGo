@@ -4,7 +4,7 @@ import (
 	"strings"
 )
 
-var nameToSpecies = make(map[string]*Species)
+var nameToSpecies = make(map[string]Species)
 
 type Species struct {
 	Name  string
@@ -59,11 +59,11 @@ func initSpeciesData() {
 	}
 }
 
-func GetSpecies(name string) *Species {
+func GetSpecies(name string) Species {
 	key := strings.ToUpper(name)
 	return nameToSpecies[key]
 }
 
-func GetSpeciesByID(pType POKEMON) *Species {
+func GetSpeciesByID(pType POKEMON) Species {
 	return pokemonData[pType]
 }

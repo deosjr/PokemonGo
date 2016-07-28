@@ -8,7 +8,9 @@ const (
 	PHYSICAL DMG_CATEGORY = iota
 	SPECIAL
 	STATUS
+)
 
+const (
 	SINGLE_NOT_USER TARGET = iota
 	NONE
 	SINGLE_RANDOM_OPPOSING
@@ -22,7 +24,9 @@ const (
 	SINGLE_USERS_SIDE
 	SINGLE_OPPOSING_SIDE
 	SINGLE_DIRECTLY_OPPOSITE
+)
 
+const (
 	ABSORB MOVE = iota
 	ACIDARMOR
 	ACIDSPRAY
@@ -588,7 +592,7 @@ const (
 // * replace functionCodes with functions
 // * replace flags with array of constants
 
-var moveData = []*MoveData{
+var moveData = []MoveData{
 	{
 		Name:            "Absorb",
 		functionCode:    "0DD",

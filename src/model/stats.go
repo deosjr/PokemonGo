@@ -59,3 +59,36 @@ func calculateStat(iv, base, level int) int {
 func generateIVs() Stats {
 	return Stats{[]int{rand.Intn(32), rand.Intn(32), rand.Intn(32), rand.Intn(32), rand.Intn(32), rand.Intn(32)}}
 }
+
+func attackStat(stats, stages Stats, c DMG_CATEGORY) float64 {
+	var attack int
+	var stage int
+	if c == PHYSICAL {
+		attack = stats.Attack()
+		stage = stages.Attack()
+	} else if c == SPECIAL {
+		attack = stats.SPAttack()
+		stage = stats.SPAttack()
+	}
+	return modifyStat(attack, stage)
+}
+
+func defenseStat(stats, stages Stats, c DMG_CATEGORY) float64 {
+	var defense int
+	var stage int
+	if c == PHYSICAL {
+		defense = stats.Defense()
+		stage = stages.Defense()
+	} else if c == SPECIAL {
+		defense = stats.SPDefense()
+		stage = stats.SPDefense()
+	}
+	return modifyStat(defense, stage)
+}
+
+func modifyStat(stat, stage int) float64 {
+	if stage >= 0 {
+		return float64(stat) * (float64(stage)*0.5 + 1)
+	}
+	return float64(stat) * (1 / ((-float64(stage) * 0.5) + 1))
+}

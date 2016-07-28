@@ -654,7 +654,7 @@ const (
 	GENESECT
 )
 
-var pokemonData = []*Species{
+var pokemonData = []Species{
 	{
 
 		Name:  "Bulbasaur",
