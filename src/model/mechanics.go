@@ -1,16 +1,16 @@
 package model
 
 import (
-	"fmt"
 	"math"
 	"math/rand"
 )
 
-func HandleMove(m MoveData, source, target *Pokemon) {
+func (b *Battle) HandleMove(m attemptedMove) {
+	b.logf("%s used %s!", m.Source.Name, m.Move.Data.Name)
 	miss := attackMisses()
 
-	if !(miss || m.Category == STATUS) {
-		dealDamage(source, target, m)
+	if !(miss || m.Move.Data.Category == STATUS) {
+		b.dealDamage(m)
 	}
 	// TODO: move functions
 }
@@ -18,9 +18,9 @@ func HandleMove(m MoveData, source, target *Pokemon) {
 //TODO
 func attackMisses() bool { return false }
 
-func dealDamage(source, target *Pokemon, m MoveData) {
-	dmg := determineDamage(source, target, m)
-	fmt.Printf("%s took %d damage!\n", target.Name, dmg)
+func (b *Battle) dealDamage(m attemptedMove) {
+	dmg := determineDamage(m.Source, m.Target, m.Move.Data)
+	b.logDamage(m.TargetIndex, dmg)
 }
 
 func determineDamage(source, target *Pokemon, m MoveData) int {
