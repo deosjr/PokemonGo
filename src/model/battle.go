@@ -27,19 +27,23 @@ type attemptedMove struct {
 }
 
 func NewBattle(p1, p2 []*Pokemon) *Battle {
-	return &Battle{
+	b := &Battle{
 		pokemon:    append(p1, p2...),
 		side1Count: len(p1),
 		maxIndex:   len(p1) + len(p2),
 	}
+	b.initialLog()
+	return b
 }
 
 func NewSingleBattle(p1, p2 *Pokemon) *Battle {
-	return &Battle{
+	b := &Battle{
 		pokemon:    []*Pokemon{p1, p2},
 		side1Count: 1,
 		maxIndex:   2,
 	}
+	b.initialLog()
+	return b
 }
 
 func (b *Battle) HandleTurn(commands []Command) error {

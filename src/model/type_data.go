@@ -1,6 +1,6 @@
 package model
 
-type TYPE int
+type TYPE byte
 
 const (
 	NORMAL TYPE = iota

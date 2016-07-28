@@ -36,16 +36,19 @@ func (b *Battle) logDamage(targetIndex, damage int) {
 	b.Logs = append(b.Logs, DamageLog{targetIndex, damage})
 }
 
+func (b *Battle) initialLog() {
+	// TODO: Add Pokemon / Trainer data to log
+	// so we can load an entire battle from logdump
+	b.logf("P1: %+v", b.pokemon[0])
+	b.logf("P2: %+v", b.pokemon[1])
+}
+
 func (b *Battle) String() string {
 	loglines := make([]string, len(b.Logs))
 	for i, log := range b.Logs {
 		loglines[i] = log.replay(b)
 	}
-	return fmt.Sprintf(`
-P1: %+v 
-
-P2: %+v
-
-%s`,
-		b.pokemon[0], b.pokemon[1], strings.Join(loglines, "\n"))
+	return strings.Join(loglines, "\n")
 }
+
+//TODO: func loadBattleFromLog(string) *Battle

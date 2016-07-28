@@ -1,8 +1,8 @@
 package model
 
 type MOVE int
-type DMG_CATEGORY int
-type TARGET int
+type DMG_CATEGORY byte
+type TARGET byte
 
 const (
 	PHYSICAL DMG_CATEGORY = iota
