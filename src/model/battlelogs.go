@@ -39,8 +39,22 @@ func (b *Battle) logDamage(targetIndex, damage int) {
 func (b *Battle) initialLog() {
 	// TODO: Add Pokemon / Trainer data to log
 	// so we can load an entire battle from logdump
-	b.logf("P1: %+v", b.pokemon[0])
-	b.logf("P2: %+v", b.pokemon[1])
+	//b.logf("P1: %+v", b.pokemon[0])
+	//b.logf("P2: %+v", b.pokemon[1])
+}
+
+func (b *Battle) logDamageMessages(name string, dmg int, t, crit float64) {
+	if crit > 1 {
+		b.logf("Critical hit!")
+	}
+	switch {
+	case t == 0:
+		b.logf("It doesn't affect %s.", name)
+	case t > 1:
+		b.logf("It's super effective!")
+	case t < 1:
+		b.logf("It's not very effective..")
+	}
 }
 
 func (b *Battle) String() string {

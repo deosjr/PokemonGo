@@ -1,37 +1,80 @@
 package model
 
 import (
+	"math/rand"
 	"testing"
 )
 
+type testPokemon struct {
+	level   int
+	species POKEMON
+}
+
 func TestHandleMoveSingleBattle(t *testing.T) {
-	for _, tt := range []struct {
-		p1     *Pokemon
-		p2     *Pokemon
-		p1move *Move
-		p2move *Move
+	for i, tt := range []struct {
+		source testPokemon
+		target testPokemon
+		move   *Move
+		logs   []BattleLog
 	}{
 		{
-			p1:     GetPokemon(10, BULBASAUR),
-			p2:     GetPokemon(10, CHARMANDER),
-			p1move: &Move{Data: GetMoveDataByID(TACKLE)},
-			p2move: &Move{Data: GetMoveDataByID(SCRATCH)},
+			source: testPokemon{10, BULBASAUR},
+			target: testPokemon{10, CHARMANDER},
+			move:   &Move{Data: GetMoveDataByID(TACKLE)},
+			logs:   []BattleLog{DamageLog{1, 8}},
 		},
 		{
-			p1:     GetPokemon(100, PONYTA),
-			p2:     GetPokemon(10, CHARMANDER),
-			p1move: &Move{Data: GetMoveDataByID(FLAMETHROWER)},
-			p2move: &Move{Data: GetMoveDataByID(SCRATCH)},
+			source: testPokemon{10, CHARMANDER},
+			target: testPokemon{10, BULBASAUR},
+			move:   &Move{Data: GetMoveDataByID(EMBER)},
+			logs:   []BattleLog{DamageLog{1, 20}},
+		},
+		{
+			source: testPokemon{100, PONYTA},
+			target: testPokemon{10, CHARMANDER},
+			move:   &Move{Data: GetMoveDataByID(FLAMETHROWER)},
+			logs:   []BattleLog{DamageLog{1, 4766}},
 		},
 	} {
-		tt.p1.Moves[0] = tt.p1move
-		tt.p2.Moves[0] = tt.p2move
-		battle := NewSingleBattle(tt.p1, tt.p2)
-		commands := []Command{Command{0, 1, 0}, Command{1, 0, 0}}
-		if err := battle.HandleTurn(commands); err != nil {
-			t.Errorf("%s", err)
+		rand.Seed(42)
+		source := GetPokemon(tt.source.level, tt.source.species)
+		target := GetPokemon(tt.target.level, tt.target.species)
+		source.Moves[0] = tt.move
+		attemptedMove := attemptedMove{
+			Source:      source,
+			SourceIndex: 0,
+			Target:      target,
+			TargetIndex: 1,
+			Move:        tt.move,
 		}
+		battle := NewSingleBattle(source, target)
+		battle.HandleMove(attemptedMove)
+
+		got, want := filterLogs(battle.Logs), tt.logs
+		if len(got) != len(want) {
+			t.Fatalf("%d: got %v want %v", i, got, want)
+		}
+		for j, g := range got {
+			t.Log(g, want[j])
+			if g != want[j] {
+				t.Errorf("%d: got %v want %v", i, g, want[j])
+			}
+		}
+
 		// test with go test -v
 		t.Log(battle.String())
 	}
+}
+
+func filterLogs(logs []BattleLog) []BattleLog {
+	l := []BattleLog{}
+	for _, log := range logs {
+		switch log.(type) {
+		case TextLog:
+			continue
+		default:
+			l = append(l, log)
+		}
+	}
+	return l
 }

@@ -10,7 +10,8 @@ func (b *Battle) HandleMove(m attemptedMove) {
 	miss := attackMisses()
 
 	if !(miss || m.Move.Data.Category == STATUS) {
-		b.dealDamage(m)
+		dmg, t, crit := b.dealDamage(m)
+		b.logDamageMessages(m.Target.Name, dmg, t, crit)
 	}
 	// TODO: move functions
 }
@@ -18,12 +19,13 @@ func (b *Battle) HandleMove(m attemptedMove) {
 //TODO
 func attackMisses() bool { return false }
 
-func (b *Battle) dealDamage(m attemptedMove) {
-	dmg := determineDamage(m.Source, m.Target, m.Move.Data)
+func (b *Battle) dealDamage(m attemptedMove) (dmg int, t, crit float64) {
+	dmg, t, crit = determineDamage(m.Source, m.Target, m.Move.Data)
 	b.logDamage(m.TargetIndex, dmg)
+	return dmg, t, crit
 }
 
-func determineDamage(source, target *Pokemon, m MoveData) int {
+func determineDamage(source, target *Pokemon, m MoveData) (dmg int, t, crit float64) {
 	attack := attackStat(source.Stats, source.statStages, m.Category)
 	defense := defenseStat(target.Stats, target.statStages, m.Category)
 	level := float64(source.Level)
@@ -35,7 +37,7 @@ func determineDamage(source, target *Pokemon, m MoveData) int {
 	random := 1.0 - 0.15*rand.Float64()
 	mod := stab * typeEffectiveness * critical * other * random
 	formula := ((2*level+10)/250)*(attack/defense)*power + 2
-	return int(math.Max(1.0, round(formula*mod)))
+	return int(math.Max(1.0, round(formula*mod))), typeEffectiveness, critical
 }
 
 func round(a float64) float64 {
