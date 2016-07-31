@@ -1,7 +1,5 @@
 package model
 
-import ()
-
 type Pokemon struct {
 	Level     int
 	Species   POKEMON
@@ -35,8 +33,8 @@ func GetPokemon(level int, pType POKEMON) *Pokemon {
 		Name:       species.Name,
 		Stats:      stats,
 		iv:         ivs,
-		currentHP:  stats.HP(),
-		statStages: Stats{make([]int, 6)},
+		currentHP:  stats.hp,
+		statStages: GetStats([6]int{}),
 		Moves:      make([]*Move, 4),
 	}
 }
@@ -45,11 +43,17 @@ func (p *Pokemon) getSpecies() Species {
 	return GetSpeciesByID(p.Species)
 }
 
-func (p *Pokemon) takeDamage(damage int) {
+func (p *Pokemon) TakeDamage(damage int) {
 	hp := p.currentHP - damage
 	if hp < 1 {
 		p.currentHP = 1
 		return
 	}
 	p.currentHP = hp
+}
+
+func (p *Pokemon) ChangeStatStages(changes Stats) (Stats, [6]bool) {
+	newStages, effectiveChanges, maxed := p.statStages.updateStages(changes)
+	p.statStages = newStages
+	return effectiveChanges, maxed
 }

@@ -659,7 +659,7 @@ var pokemonData = []Species{
 
 		Name:  "Bulbasaur",
 		ID:    1,
-		Stats: Stats{[]int{45, 49, 49, 45, 65, 65}},
+		Stats: GetStats([6]int{45, 49, 49, 45, 65, 65}),
 		Types: []TYPE{GRASS, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -703,7 +703,7 @@ var pokemonData = []Species{
 
 		Name:  "Ivysaur",
 		ID:    2,
-		Stats: Stats{[]int{60, 62, 63, 60, 80, 80}},
+		Stats: GetStats([6]int{60, 62, 63, 60, 80, 80}),
 		Types: []TYPE{GRASS, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, GROWL, LEECHSEED},
@@ -746,7 +746,7 @@ var pokemonData = []Species{
 
 		Name:  "Venusaur",
 		ID:    3,
-		Stats: Stats{[]int{80, 82, 83, 80, 100, 100}},
+		Stats: GetStats([6]int{80, 82, 83, 80, 100, 100}),
 		Types: []TYPE{GRASS, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, GROWL, LEECHSEED, VINEWHIP},
@@ -789,7 +789,7 @@ var pokemonData = []Species{
 
 		Name:  "Charmander",
 		ID:    4,
-		Stats: Stats{[]int{39, 52, 43, 65, 60, 50}},
+		Stats: GetStats([6]int{39, 52, 43, 65, 60, 50}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, GROWL},
@@ -831,7 +831,7 @@ var pokemonData = []Species{
 
 		Name:  "Charmeleon",
 		ID:    5,
-		Stats: Stats{[]int{58, 64, 58, 80, 80, 65}},
+		Stats: GetStats([6]int{58, 64, 58, 80, 80, 65}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, GROWL, EMBER},
@@ -872,7 +872,7 @@ var pokemonData = []Species{
 
 		Name:  "Charizard",
 		ID:    6,
-		Stats: Stats{[]int{78, 84, 78, 100, 109, 85}},
+		Stats: GetStats([6]int{78, 84, 78, 100, 109, 85}),
 		Types: []TYPE{FIRE, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {AIRSLASH, DRAGONCLAW, SHADOWCLAW, SCRATCH, GROWL, EMBER, SMOKESCREEN},
@@ -915,7 +915,7 @@ var pokemonData = []Species{
 
 		Name:  "Squirtle",
 		ID:    7,
-		Stats: Stats{[]int{44, 48, 65, 43, 50, 64}},
+		Stats: GetStats([6]int{44, 48, 65, 43, 50, 64}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -960,7 +960,7 @@ var pokemonData = []Species{
 
 		Name:  "Wartortle",
 		ID:    8,
-		Stats: Stats{[]int{59, 63, 80, 58, 65, 80}},
+		Stats: GetStats([6]int{59, 63, 80, 58, 65, 80}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, TAILWHIP, BUBBLE},
@@ -1004,7 +1004,7 @@ var pokemonData = []Species{
 
 		Name:  "Blastoise",
 		ID:    9,
-		Stats: Stats{[]int{79, 83, 100, 78, 85, 105}},
+		Stats: GetStats([6]int{79, 83, 100, 78, 85, 105}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {FLASHCANNON, TACKLE, TAILWHIP, BUBBLE, WITHDRAW},
@@ -1047,7 +1047,7 @@ var pokemonData = []Species{
 
 		Name:  "Caterpie",
 		ID:    10,
-		Stats: Stats{[]int{45, 30, 35, 45, 20, 20}},
+		Stats: GetStats([6]int{45, 30, 35, 45, 20, 20}),
 		Types: []TYPE{BUG},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, STRINGSHOT},
@@ -1079,7 +1079,7 @@ var pokemonData = []Species{
 
 		Name:  "Metapod",
 		ID:    11,
-		Stats: Stats{[]int{50, 20, 55, 30, 25, 25}},
+		Stats: GetStats([6]int{50, 20, 55, 30, 25, 25}),
 		Types: []TYPE{BUG},
 		LearnableMoves: map[int][]MOVE{
 			1: {HARDEN},
@@ -1110,7 +1110,7 @@ var pokemonData = []Species{
 
 		Name:  "Butterfree",
 		ID:    12,
-		Stats: Stats{[]int{60, 45, 50, 70, 80, 80}},
+		Stats: GetStats([6]int{60, 45, 50, 70, 80, 80}),
 		Types: []TYPE{BUG, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {CONFUSION},
@@ -1154,7 +1154,7 @@ var pokemonData = []Species{
 
 		Name:  "Weedle",
 		ID:    13,
-		Stats: Stats{[]int{40, 35, 30, 50, 20, 20}},
+		Stats: GetStats([6]int{40, 35, 30, 50, 20, 20}),
 		Types: []TYPE{BUG, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POISONSTING, STRINGSHOT},
@@ -1186,7 +1186,7 @@ var pokemonData = []Species{
 
 		Name:  "Kakuna",
 		ID:    14,
-		Stats: Stats{[]int{45, 25, 50, 35, 25, 25}},
+		Stats: GetStats([6]int{45, 25, 50, 35, 25, 25}),
 		Types: []TYPE{BUG, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1: {HARDEN},
@@ -1217,7 +1217,7 @@ var pokemonData = []Species{
 
 		Name:  "Beedrill",
 		ID:    15,
-		Stats: Stats{[]int{65, 80, 40, 75, 45, 80}},
+		Stats: GetStats([6]int{65, 80, 40, 75, 45, 80}),
 		Types: []TYPE{BUG, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {FURYATTACK},
@@ -1259,7 +1259,7 @@ var pokemonData = []Species{
 
 		Name:  "Pidgey",
 		ID:    16,
-		Stats: Stats{[]int{40, 45, 40, 56, 35, 35}},
+		Stats: GetStats([6]int{40, 45, 40, 56, 35, 35}),
 		Types: []TYPE{NORMAL, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -1304,7 +1304,7 @@ var pokemonData = []Species{
 
 		Name:  "Pidgeotto",
 		ID:    17,
-		Stats: Stats{[]int{63, 60, 55, 71, 50, 50}},
+		Stats: GetStats([6]int{63, 60, 55, 71, 50, 50}),
 		Types: []TYPE{NORMAL, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, SANDATTACK, GUST},
@@ -1348,7 +1348,7 @@ var pokemonData = []Species{
 
 		Name:  "Pidgeot",
 		ID:    18,
-		Stats: Stats{[]int{83, 80, 75, 91, 70, 70}},
+		Stats: GetStats([6]int{83, 80, 75, 91, 70, 70}),
 		Types: []TYPE{NORMAL, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, SANDATTACK, GUST, QUICKATTACK},
@@ -1391,7 +1391,7 @@ var pokemonData = []Species{
 
 		Name:  "Rattata",
 		ID:    19,
-		Stats: Stats{[]int{30, 56, 35, 72, 25, 35}},
+		Stats: GetStats([6]int{30, 56, 35, 72, 25, 35}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, TAILWHIP},
@@ -1435,7 +1435,7 @@ var pokemonData = []Species{
 
 		Name:  "Raticate",
 		ID:    20,
-		Stats: Stats{[]int{55, 81, 60, 97, 50, 70}},
+		Stats: GetStats([6]int{55, 81, 60, 97, 50, 70}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SWORDSDANCE, TACKLE, TAILWHIP, QUICKATTACK, FOCUSENERGY},
@@ -1478,7 +1478,7 @@ var pokemonData = []Species{
 
 		Name:  "Spearow",
 		ID:    21,
-		Stats: Stats{[]int{40, 60, 30, 70, 31, 31}},
+		Stats: GetStats([6]int{40, 60, 30, 70, 31, 31}),
 		Types: []TYPE{NORMAL, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PECK, GROWL},
@@ -1519,7 +1519,7 @@ var pokemonData = []Species{
 
 		Name:  "Fearow",
 		ID:    22,
-		Stats: Stats{[]int{65, 90, 65, 100, 61, 61}},
+		Stats: GetStats([6]int{65, 90, 65, 100, 61, 61}),
 		Types: []TYPE{NORMAL, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PLUCK, PECK, GROWL, LEER, FURYATTACK},
@@ -1560,7 +1560,7 @@ var pokemonData = []Species{
 
 		Name:  "Ekans",
 		ID:    23,
-		Stats: Stats{[]int{35, 60, 44, 55, 40, 54}},
+		Stats: GetStats([6]int{35, 60, 44, 55, 40, 54}),
 		Types: []TYPE{POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WRAP, LEER},
@@ -1604,7 +1604,7 @@ var pokemonData = []Species{
 
 		Name:  "Arbok",
 		ID:    24,
-		Stats: Stats{[]int{60, 85, 69, 80, 65, 79}},
+		Stats: GetStats([6]int{60, 85, 69, 80, 65, 79}),
 		Types: []TYPE{POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ICEFANG, THUNDERFANG, FIREFANG, WRAP, LEER, POISONSTING, BITE},
@@ -1647,7 +1647,7 @@ var pokemonData = []Species{
 
 		Name:  "Pikachu",
 		ID:    25,
-		Stats: Stats{[]int{35, 55, 30, 90, 50, 40}},
+		Stats: GetStats([6]int{35, 55, 30, 90, 50, 40}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GROWL, THUNDERSHOCK},
@@ -1692,7 +1692,7 @@ var pokemonData = []Species{
 
 		Name:  "Raichu",
 		ID:    26,
-		Stats: Stats{[]int{60, 90, 55, 100, 90, 80}},
+		Stats: GetStats([6]int{60, 90, 55, 100, 90, 80}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1: {THUNDERSHOCK, TAILWHIP, QUICKATTACK, THUNDERBOLT},
@@ -1723,7 +1723,7 @@ var pokemonData = []Species{
 
 		Name:  "Sandshrew",
 		ID:    27,
-		Stats: Stats{[]int{50, 75, 85, 40, 20, 30}},
+		Stats: GetStats([6]int{50, 75, 85, 40, 20, 30}),
 		Types: []TYPE{GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, DEFENSECURL},
@@ -1771,7 +1771,7 @@ var pokemonData = []Species{
 
 		Name:  "Sandslash",
 		ID:    28,
-		Stats: Stats{[]int{75, 100, 110, 65, 45, 55}},
+		Stats: GetStats([6]int{75, 100, 110, 65, 45, 55}),
 		Types: []TYPE{GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, DEFENSECURL, SANDATTACK, POISONSTING},
@@ -1818,7 +1818,7 @@ var pokemonData = []Species{
 
 		Name:  "Nidoran",
 		ID:    29,
-		Stats: Stats{[]int{55, 47, 52, 41, 40, 40}},
+		Stats: GetStats([6]int{55, 47, 52, 41, 40, 40}),
 		Types: []TYPE{POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GROWL, SCRATCH},
@@ -1861,7 +1861,7 @@ var pokemonData = []Species{
 
 		Name:  "Nidorina",
 		ID:    30,
-		Stats: Stats{[]int{70, 62, 67, 56, 55, 55}},
+		Stats: GetStats([6]int{70, 62, 67, 56, 55, 55}),
 		Types: []TYPE{POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GROWL, SCRATCH},
@@ -1903,7 +1903,7 @@ var pokemonData = []Species{
 
 		Name:  "Nidoqueen",
 		ID:    31,
-		Stats: Stats{[]int{90, 82, 87, 76, 75, 85}},
+		Stats: GetStats([6]int{90, 82, 87, 76, 75, 85}),
 		Types: []TYPE{POISON, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, TAILWHIP, DOUBLEKICK, POISONSTING},
@@ -1937,7 +1937,7 @@ var pokemonData = []Species{
 
 		Name:  "Nidoran",
 		ID:    32,
-		Stats: Stats{[]int{46, 57, 40, 50, 40, 40}},
+		Stats: GetStats([6]int{46, 57, 40, 50, 40, 40}),
 		Types: []TYPE{POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LEER, PECK},
@@ -1980,7 +1980,7 @@ var pokemonData = []Species{
 
 		Name:  "Nidorino",
 		ID:    33,
-		Stats: Stats{[]int{61, 72, 57, 65, 55, 55}},
+		Stats: GetStats([6]int{61, 72, 57, 65, 55, 55}),
 		Types: []TYPE{POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LEER, PECK},
@@ -2022,7 +2022,7 @@ var pokemonData = []Species{
 
 		Name:  "Nidoking",
 		ID:    34,
-		Stats: Stats{[]int{81, 92, 77, 85, 85, 75}},
+		Stats: GetStats([6]int{81, 92, 77, 85, 85, 75}),
 		Types: []TYPE{POISON, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PECK, FOCUSENERGY, DOUBLEKICK, POISONSTING},
@@ -2056,7 +2056,7 @@ var pokemonData = []Species{
 
 		Name:  "Clefairy",
 		ID:    35,
-		Stats: Stats{[]int{70, 45, 48, 35, 60, 65}},
+		Stats: GetStats([6]int{70, 45, 48, 35, 60, 65}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND, GROWL},
@@ -2109,7 +2109,7 @@ var pokemonData = []Species{
 
 		Name:  "Clefable",
 		ID:    36,
-		Stats: Stats{[]int{95, 70, 73, 60, 85, 90}},
+		Stats: GetStats([6]int{95, 70, 73, 60, 85, 90}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1: {SING, DOUBLESLAP, MINIMIZE, METRONOME},
@@ -2142,7 +2142,7 @@ var pokemonData = []Species{
 
 		Name:  "Vulpix",
 		ID:    37,
-		Stats: Stats{[]int{38, 41, 40, 65, 50, 65}},
+		Stats: GetStats([6]int{38, 41, 40, 65, 50, 65}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {EMBER},
@@ -2195,7 +2195,7 @@ var pokemonData = []Species{
 
 		Name:  "Ninetales",
 		ID:    38,
-		Stats: Stats{[]int{73, 76, 75, 100, 81, 100}},
+		Stats: GetStats([6]int{73, 76, 75, 100, 81, 100}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1: {NASTYPLOT, EMBER, QUICKATTACK, CONFUSERAY, SAFEGUARD},
@@ -2228,7 +2228,7 @@ var pokemonData = []Species{
 
 		Name:  "Jigglypuff",
 		ID:    39,
-		Stats: Stats{[]int{115, 45, 20, 20, 45, 25}},
+		Stats: GetStats([6]int{115, 45, 20, 20, 45, 25}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SING},
@@ -2272,7 +2272,7 @@ var pokemonData = []Species{
 
 		Name:  "Wigglytuff",
 		ID:    40,
-		Stats: Stats{[]int{140, 70, 45, 45, 75, 50}},
+		Stats: GetStats([6]int{140, 70, 45, 45, 75, 50}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1: {SING, DISABLE, DEFENSECURL, DOUBLESLAP},
@@ -2302,7 +2302,7 @@ var pokemonData = []Species{
 
 		Name:  "Zubat",
 		ID:    41,
-		Stats: Stats{[]int{40, 45, 35, 55, 30, 40}},
+		Stats: GetStats([6]int{40, 45, 35, 55, 30, 40}),
 		Types: []TYPE{POISON, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LEECHLIFE},
@@ -2346,7 +2346,7 @@ var pokemonData = []Species{
 
 		Name:  "Golbat",
 		ID:    42,
-		Stats: Stats{[]int{75, 80, 70, 90, 65, 75}},
+		Stats: GetStats([6]int{75, 80, 70, 90, 65, 75}),
 		Types: []TYPE{POISON, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCREECH, LEECHLIFE, SUPERSONIC, ASTONISH},
@@ -2389,7 +2389,7 @@ var pokemonData = []Species{
 
 		Name:  "Oddish",
 		ID:    43,
-		Stats: Stats{[]int{45, 50, 55, 30, 75, 65}},
+		Stats: GetStats([6]int{45, 50, 55, 30, 75, 65}),
 		Types: []TYPE{GRASS, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ABSORB},
@@ -2432,7 +2432,7 @@ var pokemonData = []Species{
 
 		Name:  "Gloom",
 		ID:    44,
-		Stats: Stats{[]int{60, 65, 70, 40, 85, 75}},
+		Stats: GetStats([6]int{60, 65, 70, 40, 85, 75}),
 		Types: []TYPE{GRASS, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ABSORB, SWEETSCENT, ACID},
@@ -2474,7 +2474,7 @@ var pokemonData = []Species{
 
 		Name:  "Vileplume",
 		ID:    45,
-		Stats: Stats{[]int{75, 80, 85, 50, 100, 90}},
+		Stats: GetStats([6]int{75, 80, 85, 50, 100, 90}),
 		Types: []TYPE{GRASS, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {MEGADRAIN, AROMATHERAPY, STUNSPORE, POISONPOWDER},
@@ -2506,7 +2506,7 @@ var pokemonData = []Species{
 
 		Name:  "Paras",
 		ID:    46,
-		Stats: Stats{[]int{35, 70, 55, 25, 45, 55}},
+		Stats: GetStats([6]int{35, 70, 55, 25, 45, 55}),
 		Types: []TYPE{BUG, GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH},
@@ -2551,7 +2551,7 @@ var pokemonData = []Species{
 
 		Name:  "Parasect",
 		ID:    47,
-		Stats: Stats{[]int{60, 95, 80, 30, 60, 80}},
+		Stats: GetStats([6]int{60, 95, 80, 30, 60, 80}),
 		Types: []TYPE{BUG, GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {CROSSPOISON, SCRATCH, STUNSPORE, POISONPOWDER, LEECHLIFE},
@@ -2594,7 +2594,7 @@ var pokemonData = []Species{
 
 		Name:  "Venonat",
 		ID:    48,
-		Stats: Stats{[]int{60, 55, 50, 45, 40, 55}},
+		Stats: GetStats([6]int{60, 55, 50, 45, 40, 55}),
 		Types: []TYPE{BUG, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, DISABLE, FORESIGHT},
@@ -2637,7 +2637,7 @@ var pokemonData = []Species{
 
 		Name:  "Venomoth",
 		ID:    49,
-		Stats: Stats{[]int{70, 65, 60, 90, 90, 75}},
+		Stats: GetStats([6]int{70, 65, 60, 90, 90, 75}),
 		Types: []TYPE{BUG, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SILVERWIND, TACKLE, DISABLE, FORESIGHT, SUPERSONIC},
@@ -2682,7 +2682,7 @@ var pokemonData = []Species{
 
 		Name:  "Diglett",
 		ID:    50,
-		Stats: Stats{[]int{10, 55, 25, 95, 35, 45}},
+		Stats: GetStats([6]int{10, 55, 25, 95, 35, 45}),
 		Types: []TYPE{GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, SANDATTACK},
@@ -2727,7 +2727,7 @@ var pokemonData = []Species{
 
 		Name:  "Dugtrio",
 		ID:    51,
-		Stats: Stats{[]int{35, 80, 50, 120, 50, 70}},
+		Stats: GetStats([6]int{35, 80, 50, 120, 50, 70}),
 		Types: []TYPE{GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {NIGHTSLASH, TRIATTACK, SCRATCH, SANDATTACK, GROWL},
@@ -2771,7 +2771,7 @@ var pokemonData = []Species{
 
 		Name:  "Meowth",
 		ID:    52,
-		Stats: Stats{[]int{40, 45, 35, 90, 40, 40}},
+		Stats: GetStats([6]int{40, 45, 35, 90, 40, 40}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, GROWL},
@@ -2817,7 +2817,7 @@ var pokemonData = []Species{
 
 		Name:  "Persian",
 		ID:    53,
-		Stats: Stats{[]int{65, 70, 60, 115, 65, 65}},
+		Stats: GetStats([6]int{65, 70, 60, 115, 65, 65}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SWITCHEROO, SCRATCH, GROWL, BITE, FAKEOUT},
@@ -2862,7 +2862,7 @@ var pokemonData = []Species{
 
 		Name:  "Psyduck",
 		ID:    54,
-		Stats: Stats{[]int{50, 52, 48, 55, 65, 50}},
+		Stats: GetStats([6]int{50, 52, 48, 55, 65, 50}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WATERSPORT, SCRATCH},
@@ -2908,7 +2908,7 @@ var pokemonData = []Species{
 
 		Name:  "Golduck",
 		ID:    55,
-		Stats: Stats{[]int{80, 82, 78, 85, 95, 80}},
+		Stats: GetStats([6]int{80, 82, 78, 85, 95, 80}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {AQUAJET, WATERSPORT, SCRATCH, TAILWHIP, WATERGUN},
@@ -2952,7 +2952,7 @@ var pokemonData = []Species{
 
 		Name:  "Mankey",
 		ID:    56,
-		Stats: Stats{[]int{40, 80, 35, 70, 35, 45}},
+		Stats: GetStats([6]int{40, 80, 35, 70, 35, 45}),
 		Types: []TYPE{FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {COVET, SCRATCH, LOWKICK, LEER, FOCUSENERGY},
@@ -2996,7 +2996,7 @@ var pokemonData = []Species{
 
 		Name:  "Primeape",
 		ID:    57,
-		Stats: Stats{[]int{65, 105, 60, 95, 60, 70}},
+		Stats: GetStats([6]int{65, 105, 60, 95, 60, 70}),
 		Types: []TYPE{FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {FLING, SCRATCH, LOWKICK, LEER, FOCUSENERGY},
@@ -3039,7 +3039,7 @@ var pokemonData = []Species{
 
 		Name:  "Growlithe",
 		ID:    58,
-		Stats: Stats{[]int{55, 70, 45, 60, 70, 50}},
+		Stats: GetStats([6]int{55, 70, 45, 60, 70, 50}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BITE, ROAR},
@@ -3090,7 +3090,7 @@ var pokemonData = []Species{
 
 		Name:  "Arcanine",
 		ID:    59,
-		Stats: Stats{[]int{90, 110, 80, 95, 100, 80}},
+		Stats: GetStats([6]int{90, 110, 80, 95, 100, 80}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {THUNDERFANG, BITE, ROAR, FIREFANG, ODORSLEUTH},
@@ -3124,7 +3124,7 @@ var pokemonData = []Species{
 
 		Name:  "Poliwag",
 		ID:    60,
-		Stats: Stats{[]int{40, 50, 40, 90, 40, 40}},
+		Stats: GetStats([6]int{40, 50, 40, 90, 40, 40}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WATERSPORT},
@@ -3168,7 +3168,7 @@ var pokemonData = []Species{
 
 		Name:  "Poliwhirl",
 		ID:    61,
-		Stats: Stats{[]int{65, 65, 65, 90, 50, 50}},
+		Stats: GetStats([6]int{65, 65, 65, 90, 50, 50}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WATERSPORT, BUBBLE, HYPNOSIS},
@@ -3212,7 +3212,7 @@ var pokemonData = []Species{
 
 		Name:  "Poliwrath",
 		ID:    62,
-		Stats: Stats{[]int{90, 85, 95, 70, 70, 90}},
+		Stats: GetStats([6]int{90, 85, 95, 70, 70, 90}),
 		Types: []TYPE{WATER, FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BUBBLEBEAM, HYPNOSIS, DOUBLESLAP, SUBMISSION},
@@ -3246,7 +3246,7 @@ var pokemonData = []Species{
 
 		Name:  "Abra",
 		ID:    63,
-		Stats: Stats{[]int{25, 20, 15, 90, 105, 55}},
+		Stats: GetStats([6]int{25, 20, 15, 90, 105, 55}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1: {TELEPORT},
@@ -3279,7 +3279,7 @@ var pokemonData = []Species{
 
 		Name:  "Kadabra",
 		ID:    64,
-		Stats: Stats{[]int{40, 35, 30, 105, 120, 70}},
+		Stats: GetStats([6]int{40, 35, 30, 105, 120, 70}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TELEPORT, KINESIS, CONFUSION},
@@ -3324,7 +3324,7 @@ var pokemonData = []Species{
 
 		Name:  "Alakazam",
 		ID:    65,
-		Stats: Stats{[]int{55, 50, 45, 120, 135, 85}},
+		Stats: GetStats([6]int{55, 50, 45, 120, 135, 85}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TELEPORT, KINESIS, CONFUSION},
@@ -3368,7 +3368,7 @@ var pokemonData = []Species{
 
 		Name:  "Machop",
 		ID:    66,
-		Stats: Stats{[]int{70, 80, 50, 35, 35, 35}},
+		Stats: GetStats([6]int{70, 80, 50, 35, 35, 35}),
 		Types: []TYPE{FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LOWKICK, LEER},
@@ -3412,7 +3412,7 @@ var pokemonData = []Species{
 
 		Name:  "Machoke",
 		ID:    67,
-		Stats: Stats{[]int{80, 100, 70, 45, 50, 60}},
+		Stats: GetStats([6]int{80, 100, 70, 45, 50, 60}),
 		Types: []TYPE{FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LOWKICK, LEER, FOCUSENERGY, KARATECHOP},
@@ -3455,7 +3455,7 @@ var pokemonData = []Species{
 
 		Name:  "Machamp",
 		ID:    68,
-		Stats: Stats{[]int{90, 130, 80, 55, 65, 85}},
+		Stats: GetStats([6]int{90, 130, 80, 55, 65, 85}),
 		Types: []TYPE{FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WIDEGUARD, LOWKICK, LEER, FOCUSENERGY, KARATECHOP},
@@ -3497,7 +3497,7 @@ var pokemonData = []Species{
 
 		Name:  "Bellsprout",
 		ID:    69,
-		Stats: Stats{[]int{50, 75, 35, 40, 70, 30}},
+		Stats: GetStats([6]int{50, 75, 35, 40, 70, 30}),
 		Types: []TYPE{GRASS, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {VINEWHIP},
@@ -3541,7 +3541,7 @@ var pokemonData = []Species{
 
 		Name:  "Weepinbell",
 		ID:    70,
-		Stats: Stats{[]int{65, 90, 50, 55, 85, 45}},
+		Stats: GetStats([6]int{65, 90, 50, 55, 85, 45}),
 		Types: []TYPE{GRASS, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {VINEWHIP, GROWTH, WRAP},
@@ -3584,7 +3584,7 @@ var pokemonData = []Species{
 
 		Name:  "Victreebel",
 		ID:    71,
-		Stats: Stats{[]int{80, 105, 65, 70, 100, 60}},
+		Stats: GetStats([6]int{80, 105, 65, 70, 100, 60}),
 		Types: []TYPE{GRASS, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {STOCKPILE, SWALLOW, SPITUP, VINEWHIP, SLEEPPOWDER, SWEETSCENT, RAZORLEAF},
@@ -3616,7 +3616,7 @@ var pokemonData = []Species{
 
 		Name:  "Tentacool",
 		ID:    72,
-		Stats: Stats{[]int{40, 40, 35, 70, 50, 100}},
+		Stats: GetStats([6]int{40, 40, 35, 70, 50, 100}),
 		Types: []TYPE{WATER, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POISONSTING},
@@ -3664,7 +3664,7 @@ var pokemonData = []Species{
 
 		Name:  "Tentacruel",
 		ID:    73,
-		Stats: Stats{[]int{80, 70, 65, 100, 80, 120}},
+		Stats: GetStats([6]int{80, 70, 65, 100, 80, 120}),
 		Types: []TYPE{WATER, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POISONSTING, SUPERSONIC, CONSTRICT},
@@ -3710,7 +3710,7 @@ var pokemonData = []Species{
 
 		Name:  "Geodude",
 		ID:    74,
-		Stats: Stats{[]int{40, 80, 100, 20, 30, 30}},
+		Stats: GetStats([6]int{40, 80, 100, 20, 30, 30}),
 		Types: []TYPE{ROCK, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, DEFENSECURL},
@@ -3757,7 +3757,7 @@ var pokemonData = []Species{
 
 		Name:  "Graveler",
 		ID:    75,
-		Stats: Stats{[]int{55, 95, 115, 35, 45, 45}},
+		Stats: GetStats([6]int{55, 95, 115, 35, 45, 45}),
 		Types: []TYPE{ROCK, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, DEFENSECURL, MUDSPORT, ROCKPOLISH},
@@ -3803,7 +3803,7 @@ var pokemonData = []Species{
 
 		Name:  "Golem",
 		ID:    76,
-		Stats: Stats{[]int{80, 110, 130, 45, 55, 65}},
+		Stats: GetStats([6]int{80, 110, 130, 45, 55, 65}),
 		Types: []TYPE{ROCK, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, DEFENSECURL, MUDSPORT, ROCKPOLISH},
@@ -3849,7 +3849,7 @@ var pokemonData = []Species{
 
 		Name:  "Ponyta",
 		ID:    77,
-		Stats: Stats{[]int{50, 85, 55, 90, 65, 65}},
+		Stats: GetStats([6]int{50, 85, 55, 90, 65, 65}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GROWL, TACKLE},
@@ -3894,7 +3894,7 @@ var pokemonData = []Species{
 
 		Name:  "Rapidash",
 		ID:    78,
-		Stats: Stats{[]int{65, 100, 70, 105, 80, 80}},
+		Stats: GetStats([6]int{65, 100, 70, 105, 80, 80}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POISONJAB, MEGAHORN, GROWL, QUICKATTACK, TAILWHIP, EMBER},
@@ -3938,7 +3938,7 @@ var pokemonData = []Species{
 
 		Name:  "Slowpoke",
 		ID:    79,
-		Stats: Stats{[]int{90, 65, 65, 15, 40, 40}},
+		Stats: GetStats([6]int{90, 65, 65, 15, 40, 40}),
 		Types: []TYPE{WATER, PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {CURSE, YAWN, TACKLE},
@@ -3984,7 +3984,7 @@ var pokemonData = []Species{
 
 		Name:  "Slowbro",
 		ID:    80,
-		Stats: Stats{[]int{95, 75, 110, 30, 100, 80}},
+		Stats: GetStats([6]int{95, 75, 110, 30, 100, 80}),
 		Types: []TYPE{WATER, PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {CURSE, YAWN, TACKLE, GROWL},
@@ -4029,7 +4029,7 @@ var pokemonData = []Species{
 
 		Name:  "Magnemite",
 		ID:    81,
-		Stats: Stats{[]int{25, 35, 70, 45, 95, 55}},
+		Stats: GetStats([6]int{25, 35, 70, 45, 95, 55}),
 		Types: []TYPE{ELECTRIC, STEEL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -4077,7 +4077,7 @@ var pokemonData = []Species{
 
 		Name:  "Magneton",
 		ID:    82,
-		Stats: Stats{[]int{50, 60, 95, 70, 120, 70}},
+		Stats: GetStats([6]int{50, 60, 95, 70, 120, 70}),
 		Types: []TYPE{ELECTRIC, STEEL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TRIATTACK, TACKLE, SUPERSONIC, THUNDERSHOCK, SONICBOOM},
@@ -4125,7 +4125,7 @@ var pokemonData = []Species{
 
 		Name:  "Farfetch'd",
 		ID:    83,
-		Stats: Stats{[]int{52, 65, 55, 60, 58, 62}},
+		Stats: GetStats([6]int{52, 65, 55, 60, 58, 62}),
 		Types: []TYPE{NORMAL, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POISONJAB, PECK, SANDATTACK, LEER, FURYCUTTER},
@@ -4170,7 +4170,7 @@ var pokemonData = []Species{
 
 		Name:  "Doduo",
 		ID:    84,
-		Stats: Stats{[]int{35, 85, 45, 75, 35, 35}},
+		Stats: GetStats([6]int{35, 85, 45, 75, 35, 35}),
 		Types: []TYPE{NORMAL, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PECK, GROWL},
@@ -4214,7 +4214,7 @@ var pokemonData = []Species{
 
 		Name:  "Dodrio",
 		ID:    85,
-		Stats: Stats{[]int{60, 110, 70, 100, 60, 60}},
+		Stats: GetStats([6]int{60, 110, 70, 100, 60, 60}),
 		Types: []TYPE{NORMAL, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PLUCK, PECK, GROWL, QUICKATTACK, RAGE},
@@ -4256,7 +4256,7 @@ var pokemonData = []Species{
 
 		Name:  "Seel",
 		ID:    86,
-		Stats: Stats{[]int{65, 45, 55, 45, 45, 70}},
+		Stats: GetStats([6]int{65, 45, 55, 45, 45, 70}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {HEADBUTT},
@@ -4304,7 +4304,7 @@ var pokemonData = []Species{
 
 		Name:  "Dewgong",
 		ID:    87,
-		Stats: Stats{[]int{90, 70, 80, 70, 70, 95}},
+		Stats: GetStats([6]int{90, 70, 80, 70, 70, 95}),
 		Types: []TYPE{WATER, ICE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {HEADBUTT, GROWL, SIGNALBEAM, ICYWIND},
@@ -4351,7 +4351,7 @@ var pokemonData = []Species{
 
 		Name:  "Grimer",
 		ID:    88,
-		Stats: Stats{[]int{80, 80, 50, 25, 40, 50}},
+		Stats: GetStats([6]int{80, 80, 50, 25, 40, 50}),
 		Types: []TYPE{POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POISONGAS, POUND},
@@ -4397,7 +4397,7 @@ var pokemonData = []Species{
 
 		Name:  "Muk",
 		ID:    89,
-		Stats: Stats{[]int{105, 105, 75, 50, 65, 100}},
+		Stats: GetStats([6]int{105, 105, 75, 50, 65, 100}),
 		Types: []TYPE{POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POISONGAS, POUND, HARDEN, MUDSLAP},
@@ -4441,7 +4441,7 @@ var pokemonData = []Species{
 
 		Name:  "Shellder",
 		ID:    90,
-		Stats: Stats{[]int{30, 65, 100, 40, 45, 25}},
+		Stats: GetStats([6]int{30, 65, 100, 40, 45, 25}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -4490,7 +4490,7 @@ var pokemonData = []Species{
 
 		Name:  "Cloyster",
 		ID:    91,
-		Stats: Stats{[]int{50, 95, 180, 70, 85, 45}},
+		Stats: GetStats([6]int{50, 95, 180, 70, 85, 45}),
 		Types: []TYPE{WATER, ICE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TOXICSPIKES, WITHDRAW, SUPERSONIC, PROTECT, AURORABEAM},
@@ -4525,7 +4525,7 @@ var pokemonData = []Species{
 
 		Name:  "Gastly",
 		ID:    92,
-		Stats: Stats{[]int{30, 35, 30, 80, 100, 35}},
+		Stats: GetStats([6]int{30, 35, 30, 80, 100, 35}),
 		Types: []TYPE{GHOST, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {HYPNOSIS, LICK},
@@ -4569,7 +4569,7 @@ var pokemonData = []Species{
 
 		Name:  "Haunter",
 		ID:    93,
-		Stats: Stats{[]int{45, 50, 45, 95, 115, 55}},
+		Stats: GetStats([6]int{45, 50, 45, 95, 115, 55}),
 		Types: []TYPE{GHOST, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {HYPNOSIS, LICK, SPITE},
@@ -4613,7 +4613,7 @@ var pokemonData = []Species{
 
 		Name:  "Gengar",
 		ID:    94,
-		Stats: Stats{[]int{60, 65, 60, 110, 130, 75}},
+		Stats: GetStats([6]int{60, 65, 60, 110, 130, 75}),
 		Types: []TYPE{GHOST, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {HYPNOSIS, LICK, SPITE},
@@ -4656,7 +4656,7 @@ var pokemonData = []Species{
 
 		Name:  "Onix",
 		ID:    95,
-		Stats: Stats{[]int{35, 45, 160, 70, 30, 45}},
+		Stats: GetStats([6]int{35, 45, 160, 70, 30, 45}),
 		Types: []TYPE{ROCK, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {MUDSPORT, TACKLE, HARDEN, BIND},
@@ -4705,7 +4705,7 @@ var pokemonData = []Species{
 
 		Name:  "Drowzee",
 		ID:    96,
-		Stats: Stats{[]int{60, 48, 45, 42, 43, 90}},
+		Stats: GetStats([6]int{60, 48, 45, 42, 43, 90}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND, HYPNOSIS},
@@ -4752,7 +4752,7 @@ var pokemonData = []Species{
 
 		Name:  "Hypno",
 		ID:    97,
-		Stats: Stats{[]int{85, 73, 70, 67, 73, 115}},
+		Stats: GetStats([6]int{85, 73, 70, 67, 73, 115}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {NIGHTMARE, SWITCHEROO, POUND, HYPNOSIS, DISABLE, CONFUSION},
@@ -4797,7 +4797,7 @@ var pokemonData = []Species{
 
 		Name:  "Krabby",
 		ID:    98,
-		Stats: Stats{[]int{30, 105, 90, 50, 25, 25}},
+		Stats: GetStats([6]int{30, 105, 90, 50, 25, 25}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {MUDSPORT, BUBBLE},
@@ -4842,7 +4842,7 @@ var pokemonData = []Species{
 
 		Name:  "Kingler",
 		ID:    99,
-		Stats: Stats{[]int{55, 130, 115, 75, 50, 50}},
+		Stats: GetStats([6]int{55, 130, 115, 75, 50, 50}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WIDEGUARD, MUDSPORT, BUBBLE, VICEGRIP, LEER},
@@ -4885,7 +4885,7 @@ var pokemonData = []Species{
 
 		Name:  "Voltorb",
 		ID:    100,
-		Stats: Stats{[]int{40, 30, 50, 100, 55, 55}},
+		Stats: GetStats([6]int{40, 30, 50, 100, 55, 55}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {CHARGE},
@@ -4930,7 +4930,7 @@ var pokemonData = []Species{
 
 		Name:  "Electrode",
 		ID:    101,
-		Stats: Stats{[]int{60, 50, 70, 140, 80, 80}},
+		Stats: GetStats([6]int{60, 50, 70, 140, 80, 80}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {CHARGE, TACKLE, SONICBOOM, SPARK},
@@ -4974,7 +4974,7 @@ var pokemonData = []Species{
 
 		Name:  "Exeggcute",
 		ID:    102,
-		Stats: Stats{[]int{60, 40, 80, 40, 60, 45}},
+		Stats: GetStats([6]int{60, 40, 80, 40, 60, 45}),
 		Types: []TYPE{GRASS, PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BARRAGE, UPROAR, HYPNOSIS},
@@ -5018,7 +5018,7 @@ var pokemonData = []Species{
 
 		Name:  "Exeggutor",
 		ID:    103,
-		Stats: Stats{[]int{95, 95, 85, 55, 125, 65}},
+		Stats: GetStats([6]int{95, 95, 85, 55, 125, 65}),
 		Types: []TYPE{GRASS, PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SEEDBOMB, BARRAGE, HYPNOSIS, CONFUSION, STOMP},
@@ -5052,7 +5052,7 @@ var pokemonData = []Species{
 
 		Name:  "Cubone",
 		ID:    104,
-		Stats: Stats{[]int{50, 50, 95, 35, 40, 50}},
+		Stats: GetStats([6]int{50, 50, 95, 35, 40, 50}),
 		Types: []TYPE{GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GROWL},
@@ -5099,7 +5099,7 @@ var pokemonData = []Species{
 
 		Name:  "Marowak",
 		ID:    105,
-		Stats: Stats{[]int{60, 80, 110, 45, 50, 80}},
+		Stats: GetStats([6]int{60, 80, 110, 45, 50, 80}),
 		Types: []TYPE{GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GROWL, TAILWHIP, BONECLUB, HEADBUTT},
@@ -5144,7 +5144,7 @@ var pokemonData = []Species{
 
 		Name:  "Hitmonlee",
 		ID:    106,
-		Stats: Stats{[]int{50, 120, 53, 87, 35, 110}},
+		Stats: GetStats([6]int{50, 120, 53, 87, 35, 110}),
 		Types: []TYPE{FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {REVENGE, DOUBLEKICK},
@@ -5189,7 +5189,7 @@ var pokemonData = []Species{
 
 		Name:  "Hitmonchan",
 		ID:    107,
-		Stats: Stats{[]int{50, 105, 79, 76, 35, 110}},
+		Stats: GetStats([6]int{50, 105, 79, 76, 35, 110}),
 		Types: []TYPE{FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {REVENGE, COMETPUNCH},
@@ -5232,7 +5232,7 @@ var pokemonData = []Species{
 
 		Name:  "Lickitung",
 		ID:    108,
-		Stats: Stats{[]int{90, 55, 75, 30, 60, 75}},
+		Stats: GetStats([6]int{90, 55, 75, 30, 60, 75}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LICK},
@@ -5279,7 +5279,7 @@ var pokemonData = []Species{
 
 		Name:  "Koffing",
 		ID:    109,
-		Stats: Stats{[]int{40, 65, 95, 35, 60, 45}},
+		Stats: GetStats([6]int{40, 65, 95, 35, 60, 45}),
 		Types: []TYPE{POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POISONGAS, TACKLE},
@@ -5323,7 +5323,7 @@ var pokemonData = []Species{
 
 		Name:  "Weezing",
 		ID:    110,
-		Stats: Stats{[]int{65, 90, 120, 60, 85, 70}},
+		Stats: GetStats([6]int{65, 90, 120, 60, 85, 70}),
 		Types: []TYPE{POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POISONGAS, TACKLE, SMOG, SMOKESCREEN},
@@ -5365,7 +5365,7 @@ var pokemonData = []Species{
 
 		Name:  "Rhyhorn",
 		ID:    111,
-		Stats: Stats{[]int{80, 85, 95, 25, 30, 30}},
+		Stats: GetStats([6]int{80, 85, 95, 25, 30, 30}),
 		Types: []TYPE{GROUND, ROCK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {HORNATTACK, TAILWHIP},
@@ -5409,7 +5409,7 @@ var pokemonData = []Species{
 
 		Name:  "Rhydon",
 		ID:    112,
-		Stats: Stats{[]int{105, 130, 120, 40, 45, 45}},
+		Stats: GetStats([6]int{105, 130, 120, 40, 45, 45}),
 		Types: []TYPE{GROUND, ROCK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {HORNATTACK, TAILWHIP, STOMP, FURYATTACK},
@@ -5453,7 +5453,7 @@ var pokemonData = []Species{
 
 		Name:  "Chansey",
 		ID:    113,
-		Stats: Stats{[]int{250, 5, 5, 50, 35, 105}},
+		Stats: GetStats([6]int{250, 5, 5, 50, 35, 105}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {DEFENSECURL, POUND, GROWL},
@@ -5501,7 +5501,7 @@ var pokemonData = []Species{
 
 		Name:  "Tangela",
 		ID:    114,
-		Stats: Stats{[]int{65, 55, 115, 60, 100, 40}},
+		Stats: GetStats([6]int{65, 55, 115, 60, 100, 40}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {INGRAIN, CONSTRICT},
@@ -5549,7 +5549,7 @@ var pokemonData = []Species{
 
 		Name:  "Kangaskhan",
 		ID:    115,
-		Stats: Stats{[]int{105, 95, 80, 90, 40, 80}},
+		Stats: GetStats([6]int{105, 95, 80, 90, 40, 80}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {COMETPUNCH, LEER},
@@ -5593,7 +5593,7 @@ var pokemonData = []Species{
 
 		Name:  "Horsea",
 		ID:    116,
-		Stats: Stats{[]int{30, 40, 70, 60, 70, 25}},
+		Stats: GetStats([6]int{30, 40, 70, 60, 70, 25}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BUBBLE},
@@ -5637,7 +5637,7 @@ var pokemonData = []Species{
 
 		Name:  "Seadra",
 		ID:    117,
-		Stats: Stats{[]int{55, 65, 95, 85, 95, 45}},
+		Stats: GetStats([6]int{55, 65, 95, 85, 95, 45}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BUBBLE, SMOKESCREEN, LEER, WATERGUN},
@@ -5680,7 +5680,7 @@ var pokemonData = []Species{
 
 		Name:  "Goldeen",
 		ID:    118,
-		Stats: Stats{[]int{45, 67, 60, 63, 35, 50}},
+		Stats: GetStats([6]int{45, 67, 60, 63, 35, 50}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PECK, TAILWHIP, WATERSPORT},
@@ -5723,7 +5723,7 @@ var pokemonData = []Species{
 
 		Name:  "Seaking",
 		ID:    119,
-		Stats: Stats{[]int{80, 92, 65, 68, 65, 80}},
+		Stats: GetStats([6]int{80, 92, 65, 68, 65, 80}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POISONJAB, PECK, TAILWHIP, WATERSPORT, SUPERSONIC},
@@ -5764,7 +5764,7 @@ var pokemonData = []Species{
 
 		Name:  "Staryu",
 		ID:    120,
-		Stats: Stats{[]int{30, 45, 55, 85, 70, 55}},
+		Stats: GetStats([6]int{30, 45, 55, 85, 70, 55}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, HARDEN},
@@ -5811,7 +5811,7 @@ var pokemonData = []Species{
 
 		Name:  "Starmie",
 		ID:    121,
-		Stats: Stats{[]int{60, 75, 85, 115, 100, 85}},
+		Stats: GetStats([6]int{60, 75, 85, 115, 100, 85}),
 		Types: []TYPE{WATER, PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WATERGUN, RAPIDSPIN, RECOVER, SWIFT},
@@ -5844,7 +5844,7 @@ var pokemonData = []Species{
 
 		Name:  "Mr. Mime",
 		ID:    122,
-		Stats: Stats{[]int{40, 45, 65, 90, 100, 120}},
+		Stats: GetStats([6]int{40, 45, 65, 90, 100, 120}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {MAGICALLEAF, QUICKGUARD, WIDEGUARD, POWERSWAP, GUARDSWAP, BARRIER, CONFUSION},
@@ -5890,7 +5890,7 @@ var pokemonData = []Species{
 
 		Name:  "Scyther",
 		ID:    123,
-		Stats: Stats{[]int{70, 110, 80, 105, 55, 80}},
+		Stats: GetStats([6]int{70, 110, 80, 105, 55, 80}),
 		Types: []TYPE{BUG, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {VACUUMWAVE, QUICKATTACK, LEER},
@@ -5937,7 +5937,7 @@ var pokemonData = []Species{
 
 		Name:  "Jynx",
 		ID:    124,
-		Stats: Stats{[]int{65, 50, 35, 95, 115, 95}},
+		Stats: GetStats([6]int{65, 50, 35, 95, 115, 95}),
 		Types: []TYPE{ICE, PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND, LICK, LOVELYKISS, POWDERSNOW},
@@ -5984,7 +5984,7 @@ var pokemonData = []Species{
 
 		Name:  "Electabuzz",
 		ID:    125,
-		Stats: Stats{[]int{65, 83, 57, 105, 95, 85}},
+		Stats: GetStats([6]int{65, 83, 57, 105, 95, 85}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {QUICKATTACK, LEER, THUNDERSHOCK},
@@ -6028,7 +6028,7 @@ var pokemonData = []Species{
 
 		Name:  "Magmar",
 		ID:    126,
-		Stats: Stats{[]int{65, 95, 57, 93, 100, 85}},
+		Stats: GetStats([6]int{65, 95, 57, 93, 100, 85}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SMOG, LEER, EMBER},
@@ -6072,7 +6072,7 @@ var pokemonData = []Species{
 
 		Name:  "Pinsir",
 		ID:    127,
-		Stats: Stats{[]int{65, 125, 100, 85, 55, 70}},
+		Stats: GetStats([6]int{65, 125, 100, 85, 55, 70}),
 		Types: []TYPE{BUG},
 		LearnableMoves: map[int][]MOVE{
 			1:  {VICEGRIP, FOCUSENERGY},
@@ -6116,7 +6116,7 @@ var pokemonData = []Species{
 
 		Name:  "Tauros",
 		ID:    128,
-		Stats: Stats{[]int{75, 100, 95, 110, 40, 70}},
+		Stats: GetStats([6]int{75, 100, 95, 110, 40, 70}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -6159,7 +6159,7 @@ var pokemonData = []Species{
 
 		Name:  "Magikarp",
 		ID:    129,
-		Stats: Stats{[]int{20, 10, 55, 80, 15, 20}},
+		Stats: GetStats([6]int{20, 10, 55, 80, 15, 20}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SPLASH},
@@ -6192,7 +6192,7 @@ var pokemonData = []Species{
 
 		Name:  "Gyarados",
 		ID:    130,
-		Stats: Stats{[]int{95, 125, 79, 81, 60, 100}},
+		Stats: GetStats([6]int{95, 125, 79, 81, 60, 100}),
 		Types: []TYPE{WATER, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {THRASH},
@@ -6232,7 +6232,7 @@ var pokemonData = []Species{
 
 		Name:  "Lapras",
 		ID:    131,
-		Stats: Stats{[]int{130, 85, 80, 60, 85, 95}},
+		Stats: GetStats([6]int{130, 85, 80, 60, 85, 95}),
 		Types: []TYPE{WATER, ICE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SING, GROWL, WATERGUN},
@@ -6275,7 +6275,7 @@ var pokemonData = []Species{
 
 		Name:  "Ditto",
 		ID:    132,
-		Stats: Stats{[]int{48, 48, 48, 48, 48, 48}},
+		Stats: GetStats([6]int{48, 48, 48, 48, 48, 48}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1: {TRANSFORM},
@@ -6307,7 +6307,7 @@ var pokemonData = []Species{
 
 		Name:  "Eevee",
 		ID:    133,
-		Stats: Stats{[]int{55, 55, 50, 55, 45, 65}},
+		Stats: GetStats([6]int{55, 55, 50, 55, 45, 65}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {HELPINGHAND, TACKLE, TAILWHIP},
@@ -6350,7 +6350,7 @@ var pokemonData = []Species{
 
 		Name:  "Vaporeon",
 		ID:    134,
-		Stats: Stats{[]int{130, 65, 60, 65, 110, 95}},
+		Stats: GetStats([6]int{130, 65, 60, 65, 110, 95}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {HELPINGHAND, TACKLE, TAILWHIP},
@@ -6391,7 +6391,7 @@ var pokemonData = []Species{
 
 		Name:  "Jolteon",
 		ID:    135,
-		Stats: Stats{[]int{65, 65, 60, 130, 110, 95}},
+		Stats: GetStats([6]int{65, 65, 60, 130, 110, 95}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {HELPINGHAND, TACKLE, TAILWHIP},
@@ -6432,7 +6432,7 @@ var pokemonData = []Species{
 
 		Name:  "Flareon",
 		ID:    136,
-		Stats: Stats{[]int{65, 130, 60, 65, 95, 110}},
+		Stats: GetStats([6]int{65, 130, 60, 65, 95, 110}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {HELPINGHAND, TACKLE, TAILWHIP},
@@ -6473,7 +6473,7 @@ var pokemonData = []Species{
 
 		Name:  "Porygon",
 		ID:    137,
-		Stats: Stats{[]int{65, 60, 70, 40, 85, 75}},
+		Stats: GetStats([6]int{65, 60, 70, 40, 85, 75}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {CONVERSION2, TACKLE, CONVERSION, SHARPEN},
@@ -6515,7 +6515,7 @@ var pokemonData = []Species{
 
 		Name:  "Omanyte",
 		ID:    138,
-		Stats: Stats{[]int{35, 40, 100, 35, 90, 55}},
+		Stats: GetStats([6]int{35, 40, 100, 35, 90, 55}),
 		Types: []TYPE{ROCK, WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {CONSTRICT, WITHDRAW},
@@ -6559,7 +6559,7 @@ var pokemonData = []Species{
 
 		Name:  "Omastar",
 		ID:    139,
-		Stats: Stats{[]int{70, 60, 125, 55, 115, 70}},
+		Stats: GetStats([6]int{70, 60, 125, 55, 115, 70}),
 		Types: []TYPE{ROCK, WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {CONSTRICT, WITHDRAW, BITE},
@@ -6602,7 +6602,7 @@ var pokemonData = []Species{
 
 		Name:  "Kabuto",
 		ID:    140,
-		Stats: Stats{[]int{30, 80, 90, 55, 55, 45}},
+		Stats: GetStats([6]int{30, 80, 90, 55, 55, 45}),
 		Types: []TYPE{ROCK, WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, HARDEN},
@@ -6644,7 +6644,7 @@ var pokemonData = []Species{
 
 		Name:  "Kabutops",
 		ID:    141,
-		Stats: Stats{[]int{60, 115, 105, 80, 65, 70}},
+		Stats: GetStats([6]int{60, 115, 105, 80, 65, 70}),
 		Types: []TYPE{ROCK, WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {FEINT, SCRATCH, HARDEN, ABSORB, LEER},
@@ -6686,7 +6686,7 @@ var pokemonData = []Species{
 
 		Name:  "Aerodactyl",
 		ID:    142,
-		Stats: Stats{[]int{80, 105, 65, 130, 60, 75}},
+		Stats: GetStats([6]int{80, 105, 65, 130, 60, 75}),
 		Types: []TYPE{ROCK, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ICEFANG, FIREFANG, THUNDERFANG, WINGATTACK, SUPERSONIC, BITE, SCARYFACE},
@@ -6727,7 +6727,7 @@ var pokemonData = []Species{
 
 		Name:  "Snorlax",
 		ID:    143,
-		Stats: Stats{[]int{160, 110, 65, 30, 65, 110}},
+		Stats: GetStats([6]int{160, 110, 65, 30, 65, 110}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -6775,7 +6775,7 @@ var pokemonData = []Species{
 
 		Name:  "Articuno",
 		ID:    144,
-		Stats: Stats{[]int{90, 85, 100, 85, 95, 125}},
+		Stats: GetStats([6]int{90, 85, 100, 85, 95, 125}),
 		Types: []TYPE{ICE, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GUST, POWDERSNOW},
@@ -6818,7 +6818,7 @@ var pokemonData = []Species{
 
 		Name:  "Zapdos",
 		ID:    145,
-		Stats: Stats{[]int{90, 90, 85, 100, 125, 90}},
+		Stats: GetStats([6]int{90, 90, 85, 100, 125, 90}),
 		Types: []TYPE{ELECTRIC, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PECK, THUNDERSHOCK},
@@ -6861,7 +6861,7 @@ var pokemonData = []Species{
 
 		Name:  "Moltres",
 		ID:    146,
-		Stats: Stats{[]int{90, 100, 90, 90, 125, 85}},
+		Stats: GetStats([6]int{90, 100, 90, 90, 125, 85}),
 		Types: []TYPE{FIRE, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WINGATTACK, EMBER},
@@ -6904,7 +6904,7 @@ var pokemonData = []Species{
 
 		Name:  "Dratini",
 		ID:    147,
-		Stats: Stats{[]int{41, 64, 45, 50, 50, 50}},
+		Stats: GetStats([6]int{41, 64, 45, 50, 50, 50}),
 		Types: []TYPE{DRAGON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WRAP, LEER},
@@ -6949,7 +6949,7 @@ var pokemonData = []Species{
 
 		Name:  "Dragonair",
 		ID:    148,
-		Stats: Stats{[]int{61, 84, 65, 70, 70, 70}},
+		Stats: GetStats([6]int{61, 84, 65, 70, 70, 70}),
 		Types: []TYPE{DRAGON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WRAP, LEER, THUNDERWAVE, TWISTER},
@@ -6993,7 +6993,7 @@ var pokemonData = []Species{
 
 		Name:  "Dragonite",
 		ID:    149,
-		Stats: Stats{[]int{91, 134, 95, 80, 100, 100}},
+		Stats: GetStats([6]int{91, 134, 95, 80, 100, 100}),
 		Types: []TYPE{DRAGON, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {FIREPUNCH, THUNDERPUNCH, ROOST, WRAP, LEER, THUNDERWAVE, TWISTER},
@@ -7038,7 +7038,7 @@ var pokemonData = []Species{
 
 		Name:  "Mewtwo",
 		ID:    150,
-		Stats: Stats{[]int{106, 110, 90, 130, 154, 90}},
+		Stats: GetStats([6]int{106, 110, 90, 130, 154, 90}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:   {CONFUSION, DISABLE, BARRIER},
@@ -7082,7 +7082,7 @@ var pokemonData = []Species{
 
 		Name:  "Mew",
 		ID:    151,
-		Stats: Stats{[]int{100, 100, 100, 100, 100, 100}},
+		Stats: GetStats([6]int{100, 100, 100, 100, 100, 100}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:   {POUND, REFLECTTYPE, TRANSFORM},
@@ -7124,7 +7124,7 @@ var pokemonData = []Species{
 
 		Name:  "Chikorita",
 		ID:    152,
-		Stats: Stats{[]int{45, 49, 65, 45, 49, 65}},
+		Stats: GetStats([6]int{45, 49, 65, 45, 49, 65}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, GROWL},
@@ -7168,7 +7168,7 @@ var pokemonData = []Species{
 
 		Name:  "Bayleef",
 		ID:    153,
-		Stats: Stats{[]int{60, 62, 80, 60, 63, 80}},
+		Stats: GetStats([6]int{60, 62, 80, 60, 63, 80}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, GROWL, RAZORLEAF, POISONPOWDER},
@@ -7211,7 +7211,7 @@ var pokemonData = []Species{
 
 		Name:  "Meganium",
 		ID:    154,
-		Stats: Stats{[]int{80, 82, 100, 80, 83, 100}},
+		Stats: GetStats([6]int{80, 82, 100, 80, 83, 100}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, GROWL, RAZORLEAF, POISONPOWDER},
@@ -7254,7 +7254,7 @@ var pokemonData = []Species{
 
 		Name:  "Cyndaquil",
 		ID:    155,
-		Stats: Stats{[]int{39, 52, 43, 65, 60, 50}},
+		Stats: GetStats([6]int{39, 52, 43, 65, 60, 50}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, LEER},
@@ -7299,7 +7299,7 @@ var pokemonData = []Species{
 
 		Name:  "Quilava",
 		ID:    156,
-		Stats: Stats{[]int{58, 64, 58, 80, 80, 65}},
+		Stats: GetStats([6]int{58, 64, 58, 80, 80, 65}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, LEER, SMOKESCREEN},
@@ -7343,7 +7343,7 @@ var pokemonData = []Species{
 
 		Name:  "Typhlosion",
 		ID:    157,
-		Stats: Stats{[]int{78, 84, 78, 100, 109, 85}},
+		Stats: GetStats([6]int{78, 84, 78, 100, 109, 85}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GYROBALL, TACKLE, LEER, SMOKESCREEN, EMBER},
@@ -7386,7 +7386,7 @@ var pokemonData = []Species{
 
 		Name:  "Totodile",
 		ID:    158,
-		Stats: Stats{[]int{50, 65, 64, 43, 44, 48}},
+		Stats: GetStats([6]int{50, 65, 64, 43, 44, 48}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, LEER},
@@ -7432,7 +7432,7 @@ var pokemonData = []Species{
 
 		Name:  "Croconaw",
 		ID:    159,
-		Stats: Stats{[]int{65, 80, 80, 58, 59, 63}},
+		Stats: GetStats([6]int{65, 80, 80, 58, 59, 63}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, LEER, WATERGUN},
@@ -7477,7 +7477,7 @@ var pokemonData = []Species{
 
 		Name:  "Feraligatr",
 		ID:    160,
-		Stats: Stats{[]int{85, 105, 100, 78, 79, 83}},
+		Stats: GetStats([6]int{85, 105, 100, 78, 79, 83}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, LEER, WATERGUN, RAGE},
@@ -7522,7 +7522,7 @@ var pokemonData = []Species{
 
 		Name:  "Sentret",
 		ID:    161,
-		Stats: Stats{[]int{35, 46, 34, 20, 35, 45}},
+		Stats: GetStats([6]int{35, 46, 34, 20, 35, 45}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, FORESIGHT},
@@ -7567,7 +7567,7 @@ var pokemonData = []Species{
 
 		Name:  "Furret",
 		ID:    162,
-		Stats: Stats{[]int{85, 76, 64, 90, 45, 55}},
+		Stats: GetStats([6]int{85, 76, 64, 90, 45, 55}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, FORESIGHT, DEFENSECURL, QUICKATTACK},
@@ -7611,7 +7611,7 @@ var pokemonData = []Species{
 
 		Name:  "Hoothoot",
 		ID:    163,
-		Stats: Stats{[]int{60, 30, 30, 50, 36, 56}},
+		Stats: GetStats([6]int{60, 30, 30, 50, 36, 56}),
 		Types: []TYPE{NORMAL, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, GROWL, FORESIGHT},
@@ -7657,7 +7657,7 @@ var pokemonData = []Species{
 
 		Name:  "Noctowl",
 		ID:    164,
-		Stats: Stats{[]int{100, 50, 50, 70, 76, 96}},
+		Stats: GetStats([6]int{100, 50, 50, 70, 76, 96}),
 		Types: []TYPE{NORMAL, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SKYATTACK, TACKLE, GROWL, FORESIGHT, HYPNOSIS},
@@ -7701,7 +7701,7 @@ var pokemonData = []Species{
 
 		Name:  "Ledyba",
 		ID:    165,
-		Stats: Stats{[]int{40, 20, 30, 55, 40, 80}},
+		Stats: GetStats([6]int{40, 20, 30, 55, 40, 80}),
 		Types: []TYPE{BUG, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -7743,7 +7743,7 @@ var pokemonData = []Species{
 
 		Name:  "Ledian",
 		ID:    166,
-		Stats: Stats{[]int{55, 35, 50, 85, 55, 110}},
+		Stats: GetStats([6]int{55, 35, 50, 85, 55, 110}),
 		Types: []TYPE{BUG, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, SUPERSONIC, COMETPUNCH},
@@ -7783,7 +7783,7 @@ var pokemonData = []Species{
 
 		Name:  "Spinarak",
 		ID:    167,
-		Stats: Stats{[]int{40, 60, 40, 30, 40, 40}},
+		Stats: GetStats([6]int{40, 60, 40, 30, 40, 40}),
 		Types: []TYPE{BUG, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POISONSTING, STRINGSHOT},
@@ -7828,7 +7828,7 @@ var pokemonData = []Species{
 
 		Name:  "Ariados",
 		ID:    168,
-		Stats: Stats{[]int{70, 90, 70, 40, 60, 60}},
+		Stats: GetStats([6]int{70, 90, 70, 40, 60, 60}),
 		Types: []TYPE{BUG, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BUGBITE, POISONSTING, STRINGSHOT, SCARYFACE, CONSTRICT},
@@ -7871,7 +7871,7 @@ var pokemonData = []Species{
 
 		Name:  "Crobat",
 		ID:    169,
-		Stats: Stats{[]int{85, 90, 80, 130, 70, 80}},
+		Stats: GetStats([6]int{85, 90, 80, 130, 70, 80}),
 		Types: []TYPE{POISON, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {CROSSPOISON, SCREECH, LEECHLIFE, SUPERSONIC, ASTONISH},
@@ -7913,7 +7913,7 @@ var pokemonData = []Species{
 
 		Name:  "Chinchou",
 		ID:    170,
-		Stats: Stats{[]int{75, 38, 38, 67, 56, 56}},
+		Stats: GetStats([6]int{75, 38, 38, 67, 56, 56}),
 		Types: []TYPE{WATER, ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SUPERSONIC, BUBBLE},
@@ -7959,7 +7959,7 @@ var pokemonData = []Species{
 
 		Name:  "Lanturn",
 		ID:    171,
-		Stats: Stats{[]int{125, 58, 58, 67, 76, 76}},
+		Stats: GetStats([6]int{125, 58, 58, 67, 76, 76}),
 		Types: []TYPE{WATER, ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BUBBLE, SUPERSONIC, THUNDERWAVE},
@@ -8004,7 +8004,7 @@ var pokemonData = []Species{
 
 		Name:  "Pichu",
 		ID:    172,
-		Stats: Stats{[]int{20, 40, 15, 60, 35, 35}},
+		Stats: GetStats([6]int{20, 40, 15, 60, 35, 35}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {THUNDERSHOCK, CHARM},
@@ -8042,7 +8042,7 @@ var pokemonData = []Species{
 
 		Name:  "Cleffa",
 		ID:    173,
-		Stats: Stats{[]int{50, 25, 28, 15, 45, 55}},
+		Stats: GetStats([6]int{50, 25, 28, 15, 45, 55}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND, CHARM},
@@ -8082,7 +8082,7 @@ var pokemonData = []Species{
 
 		Name:  "Igglybuff",
 		ID:    174,
-		Stats: Stats{[]int{90, 30, 15, 15, 40, 20}},
+		Stats: GetStats([6]int{90, 30, 15, 15, 40, 20}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SING, CHARM},
@@ -8118,7 +8118,7 @@ var pokemonData = []Species{
 
 		Name:  "Togepi",
 		ID:    175,
-		Stats: Stats{[]int{35, 20, 65, 20, 40, 65}},
+		Stats: GetStats([6]int{35, 20, 65, 20, 40, 65}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GROWL, CHARM},
@@ -8163,7 +8163,7 @@ var pokemonData = []Species{
 
 		Name:  "Togetic",
 		ID:    176,
-		Stats: Stats{[]int{55, 40, 85, 40, 80, 105}},
+		Stats: GetStats([6]int{55, 40, 85, 40, 80, 105}),
 		Types: []TYPE{NORMAL, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {MAGICALLEAF, GROWL, CHARM, METRONOME, SWEETKISS},
@@ -8207,7 +8207,7 @@ var pokemonData = []Species{
 
 		Name:  "Natu",
 		ID:    177,
-		Stats: Stats{[]int{40, 50, 45, 70, 70, 45}},
+		Stats: GetStats([6]int{40, 50, 45, 70, 70, 45}),
 		Types: []TYPE{PSYCHIC, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PECK, LEER},
@@ -8252,7 +8252,7 @@ var pokemonData = []Species{
 
 		Name:  "Xatu",
 		ID:    178,
-		Stats: Stats{[]int{65, 75, 70, 95, 95, 70}},
+		Stats: GetStats([6]int{65, 75, 70, 95, 95, 70}),
 		Types: []TYPE{PSYCHIC, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PECK, LEER},
@@ -8296,7 +8296,7 @@ var pokemonData = []Species{
 
 		Name:  "Mareep",
 		ID:    179,
-		Stats: Stats{[]int{55, 40, 40, 35, 65, 45}},
+		Stats: GetStats([6]int{55, 40, 40, 35, 65, 45}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, GROWL},
@@ -8341,7 +8341,7 @@ var pokemonData = []Species{
 
 		Name:  "Flaaffy",
 		ID:    180,
-		Stats: Stats{[]int{70, 55, 55, 45, 80, 60}},
+		Stats: GetStats([6]int{70, 55, 55, 45, 80, 60}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, GROWL, THUNDERWAVE, THUNDERSHOCK},
@@ -8385,7 +8385,7 @@ var pokemonData = []Species{
 
 		Name:  "Ampharos",
 		ID:    181,
-		Stats: Stats{[]int{90, 75, 75, 55, 115, 90}},
+		Stats: GetStats([6]int{90, 75, 75, 55, 115, 90}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {FIREPUNCH, TACKLE, GROWL, THUNDERWAVE, THUNDERSHOCK},
@@ -8429,7 +8429,7 @@ var pokemonData = []Species{
 
 		Name:  "Bellossom",
 		ID:    182,
-		Stats: Stats{[]int{75, 80, 85, 50, 90, 100}},
+		Stats: GetStats([6]int{75, 80, 85, 50, 90, 100}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LEAFBLADE, MEGADRAIN, SWEETSCENT, STUNSPORE, SUNNYDAY},
@@ -8461,7 +8461,7 @@ var pokemonData = []Species{
 
 		Name:  "Marill",
 		ID:    183,
-		Stats: Stats{[]int{70, 20, 50, 40, 20, 50}},
+		Stats: GetStats([6]int{70, 20, 50, 40, 20, 50}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, BUBBLE},
@@ -8505,7 +8505,7 @@ var pokemonData = []Species{
 
 		Name:  "Azumarill",
 		ID:    184,
-		Stats: Stats{[]int{100, 50, 80, 50, 50, 80}},
+		Stats: GetStats([6]int{100, 50, 80, 50, 50, 80}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, BUBBLE, TAILWHIP, WATERSPORT},
@@ -8547,7 +8547,7 @@ var pokemonData = []Species{
 
 		Name:  "Sudowoodo",
 		ID:    185,
-		Stats: Stats{[]int{70, 100, 115, 30, 30, 65}},
+		Stats: GetStats([6]int{70, 100, 115, 30, 30, 65}),
 		Types: []TYPE{ROCK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WOODHAMMER, COPYCAT, FLAIL, LOWKICK, ROCKTHROW},
@@ -8591,7 +8591,7 @@ var pokemonData = []Species{
 
 		Name:  "Politoed",
 		ID:    186,
-		Stats: Stats{[]int{90, 75, 75, 70, 90, 100}},
+		Stats: GetStats([6]int{90, 75, 75, 70, 90, 100}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BUBBLEBEAM, HYPNOSIS, DOUBLESLAP, PERISHSONG},
@@ -8625,7 +8625,7 @@ var pokemonData = []Species{
 
 		Name:  "Hoppip",
 		ID:    187,
-		Stats: Stats{[]int{35, 35, 40, 50, 35, 55}},
+		Stats: GetStats([6]int{35, 35, 40, 50, 35, 55}),
 		Types: []TYPE{GRASS, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SPLASH},
@@ -8674,7 +8674,7 @@ var pokemonData = []Species{
 
 		Name:  "Skiploom",
 		ID:    188,
-		Stats: Stats{[]int{55, 45, 50, 80, 45, 65}},
+		Stats: GetStats([6]int{55, 45, 50, 80, 45, 65}),
 		Types: []TYPE{GRASS, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SPLASH, SYNTHESIS, TAILWHIP, TACKLE},
@@ -8722,7 +8722,7 @@ var pokemonData = []Species{
 
 		Name:  "Jumpluff",
 		ID:    189,
-		Stats: Stats{[]int{75, 55, 70, 110, 55, 85}},
+		Stats: GetStats([6]int{75, 55, 70, 110, 55, 85}),
 		Types: []TYPE{GRASS, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SPLASH, SYNTHESIS, TAILWHIP, TACKLE},
@@ -8769,7 +8769,7 @@ var pokemonData = []Species{
 
 		Name:  "Aipom",
 		ID:    190,
-		Stats: Stats{[]int{55, 70, 55, 85, 40, 55}},
+		Stats: GetStats([6]int{55, 70, 55, 85, 40, 55}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, TAILWHIP},
@@ -8813,7 +8813,7 @@ var pokemonData = []Species{
 
 		Name:  "Sunkern",
 		ID:    191,
-		Stats: Stats{[]int{30, 30, 30, 30, 30, 30}},
+		Stats: GetStats([6]int{30, 30, 30, 30, 30, 30}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ABSORB, GROWTH},
@@ -8860,7 +8860,7 @@ var pokemonData = []Species{
 
 		Name:  "Sunflora",
 		ID:    192,
-		Stats: Stats{[]int{75, 75, 55, 30, 105, 85}},
+		Stats: GetStats([6]int{75, 75, 55, 30, 105, 85}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ABSORB, POUND, GROWTH},
@@ -8904,7 +8904,7 @@ var pokemonData = []Species{
 
 		Name:  "Yanma",
 		ID:    193,
-		Stats: Stats{[]int{65, 65, 45, 95, 75, 45}},
+		Stats: GetStats([6]int{65, 65, 45, 95, 75, 45}),
 		Types: []TYPE{BUG, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, FORESIGHT},
@@ -8951,7 +8951,7 @@ var pokemonData = []Species{
 
 		Name:  "Wooper",
 		ID:    194,
-		Stats: Stats{[]int{55, 45, 45, 15, 25, 25}},
+		Stats: GetStats([6]int{55, 45, 45, 15, 25, 25}),
 		Types: []TYPE{WATER, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WATERGUN, TAILWHIP},
@@ -8993,7 +8993,7 @@ var pokemonData = []Species{
 
 		Name:  "Quagsire",
 		ID:    195,
-		Stats: Stats{[]int{95, 85, 85, 35, 65, 65}},
+		Stats: GetStats([6]int{95, 85, 85, 35, 65, 65}),
 		Types: []TYPE{WATER, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WATERGUN, TAILWHIP, MUDSPORT},
@@ -9033,7 +9033,7 @@ var pokemonData = []Species{
 
 		Name:  "Espeon",
 		ID:    196,
-		Stats: Stats{[]int{65, 65, 60, 110, 130, 95}},
+		Stats: GetStats([6]int{65, 65, 60, 110, 130, 95}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {HELPINGHAND, TACKLE, TAILWHIP},
@@ -9074,7 +9074,7 @@ var pokemonData = []Species{
 
 		Name:  "Umbreon",
 		ID:    197,
-		Stats: Stats{[]int{95, 65, 110, 65, 60, 130}},
+		Stats: GetStats([6]int{95, 65, 110, 65, 60, 130}),
 		Types: []TYPE{DARK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {HELPINGHAND, TACKLE, TAILWHIP},
@@ -9115,7 +9115,7 @@ var pokemonData = []Species{
 
 		Name:  "Murkrow",
 		ID:    198,
-		Stats: Stats{[]int{60, 85, 42, 91, 85, 42}},
+		Stats: GetStats([6]int{60, 85, 42, 91, 85, 42}),
 		Types: []TYPE{DARK, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PECK, ASTONISH},
@@ -9160,7 +9160,7 @@ var pokemonData = []Species{
 
 		Name:  "Slowking",
 		ID:    199,
-		Stats: Stats{[]int{95, 75, 80, 30, 100, 110}},
+		Stats: GetStats([6]int{95, 75, 80, 30, 100, 110}),
 		Types: []TYPE{WATER, PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POWERGEM, HIDDENPOWER, CURSE, YAWN, TACKLE},
@@ -9204,7 +9204,7 @@ var pokemonData = []Species{
 
 		Name:  "Misdreavus",
 		ID:    200,
-		Stats: Stats{[]int{60, 60, 60, 85, 85, 85}},
+		Stats: GetStats([6]int{60, 60, 60, 85, 85, 85}),
 		Types: []TYPE{GHOST},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GROWL, PSYWAVE},
@@ -9247,7 +9247,7 @@ var pokemonData = []Species{
 
 		Name:  "Unown",
 		ID:    201,
-		Stats: Stats{[]int{48, 72, 48, 48, 72, 48}},
+		Stats: GetStats([6]int{48, 72, 48, 48, 72, 48}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1: {HIDDENPOWER},
@@ -9277,7 +9277,7 @@ var pokemonData = []Species{
 
 		Name:  "Wobbuffet",
 		ID:    202,
-		Stats: Stats{[]int{190, 33, 58, 33, 33, 58}},
+		Stats: GetStats([6]int{190, 33, 58, 33, 33, 58}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1: {COUNTER, MIRRORCOAT, SAFEGUARD, DESTINYBOND},
@@ -9307,7 +9307,7 @@ var pokemonData = []Species{
 
 		Name:  "Girafarig",
 		ID:    203,
-		Stats: Stats{[]int{70, 80, 65, 85, 90, 65}},
+		Stats: GetStats([6]int{70, 80, 65, 85, 90, 65}),
 		Types: []TYPE{NORMAL, PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POWERSWAP, GUARDSWAP, ASTONISH, TACKLE, GROWL, CONFUSION},
@@ -9349,7 +9349,7 @@ var pokemonData = []Species{
 
 		Name:  "Pineco",
 		ID:    204,
-		Stats: Stats{[]int{50, 65, 90, 15, 35, 35}},
+		Stats: GetStats([6]int{50, 65, 90, 15, 35, 35}),
 		Types: []TYPE{BUG},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, PROTECT},
@@ -9393,7 +9393,7 @@ var pokemonData = []Species{
 
 		Name:  "Forretress",
 		ID:    205,
-		Stats: Stats{[]int{75, 90, 140, 40, 60, 60}},
+		Stats: GetStats([6]int{75, 90, 140, 40, 60, 60}),
 		Types: []TYPE{BUG, STEEL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TOXICSPIKES, TACKLE, PROTECT, SELFDESTRUCT, BUGBITE},
@@ -9440,7 +9440,7 @@ var pokemonData = []Species{
 
 		Name:  "Dunsparce",
 		ID:    206,
-		Stats: Stats{[]int{100, 70, 70, 45, 65, 65}},
+		Stats: GetStats([6]int{100, 70, 70, 45, 65, 65}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {RAGE, DEFENSECURL},
@@ -9487,7 +9487,7 @@ var pokemonData = []Species{
 
 		Name:  "Gligar",
 		ID:    207,
-		Stats: Stats{[]int{65, 75, 105, 85, 35, 65}},
+		Stats: GetStats([6]int{65, 75, 105, 85, 35, 65}),
 		Types: []TYPE{GROUND, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POISONSTING},
@@ -9533,7 +9533,7 @@ var pokemonData = []Species{
 
 		Name:  "Steelix",
 		ID:    208,
-		Stats: Stats{[]int{75, 85, 200, 30, 55, 65}},
+		Stats: GetStats([6]int{75, 85, 200, 30, 55, 65}),
 		Types: []TYPE{STEEL, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {THUNDERFANG, ICEFANG, FIREFANG, MUDSPORT, TACKLE, HARDEN, BIND},
@@ -9581,7 +9581,7 @@ var pokemonData = []Species{
 
 		Name:  "Snubbull",
 		ID:    209,
-		Stats: Stats{[]int{60, 80, 50, 30, 40, 40}},
+		Stats: GetStats([6]int{60, 80, 50, 30, 40, 40}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ICEFANG, FIREFANG, THUNDERFANG, TACKLE, SCARYFACE, TAILWHIP, CHARM},
@@ -9621,7 +9621,7 @@ var pokemonData = []Species{
 
 		Name:  "Granbull",
 		ID:    210,
-		Stats: Stats{[]int{90, 120, 75, 45, 60, 60}},
+		Stats: GetStats([6]int{90, 120, 75, 45, 60, 60}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ICEFANG, FIREFANG, THUNDERFANG, TACKLE, SCARYFACE, TAILWHIP, CHARM},
@@ -9660,7 +9660,7 @@ var pokemonData = []Species{
 
 		Name:  "Qwilfish",
 		ID:    211,
-		Stats: Stats{[]int{65, 95, 75, 85, 55, 55}},
+		Stats: GetStats([6]int{65, 95, 75, 85, 55, 55}),
 		Types: []TYPE{WATER, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SPIKES, TACKLE, POISONSTING},
@@ -9705,7 +9705,7 @@ var pokemonData = []Species{
 
 		Name:  "Scizor",
 		ID:    212,
-		Stats: Stats{[]int{70, 130, 100, 65, 55, 80}},
+		Stats: GetStats([6]int{70, 130, 100, 65, 55, 80}),
 		Types: []TYPE{BUG, STEEL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BULLETPUNCH, QUICKATTACK, LEER},
@@ -9750,7 +9750,7 @@ var pokemonData = []Species{
 
 		Name:  "Shuckle",
 		ID:    213,
-		Stats: Stats{[]int{20, 10, 230, 5, 10, 230}},
+		Stats: GetStats([6]int{20, 10, 230, 5, 10, 230}),
 		Types: []TYPE{BUG, ROCK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WITHDRAW, CONSTRICT, BIDE, ROLLOUT},
@@ -9797,7 +9797,7 @@ var pokemonData = []Species{
 
 		Name:  "Heracross",
 		ID:    214,
-		Stats: Stats{[]int{80, 125, 75, 85, 40, 95}},
+		Stats: GetStats([6]int{80, 125, 75, 85, 40, 95}),
 		Types: []TYPE{BUG, FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {NIGHTSLASH, TACKLE, LEER, HORNATTACK, ENDURE},
@@ -9838,7 +9838,7 @@ var pokemonData = []Species{
 
 		Name:  "Sneasel",
 		ID:    215,
-		Stats: Stats{[]int{55, 95, 55, 115, 35, 75}},
+		Stats: GetStats([6]int{55, 95, 55, 115, 35, 75}),
 		Types: []TYPE{DARK, ICE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, LEER, TAUNT},
@@ -9885,7 +9885,7 @@ var pokemonData = []Species{
 
 		Name:  "Teddiursa",
 		ID:    216,
-		Stats: Stats{[]int{60, 80, 50, 40, 50, 50}},
+		Stats: GetStats([6]int{60, 80, 50, 40, 50, 50}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {COVET, SCRATCH, LEER, LICK, FAKETEARS},
@@ -9925,7 +9925,7 @@ var pokemonData = []Species{
 
 		Name:  "Ursaring",
 		ID:    217,
-		Stats: Stats{[]int{90, 130, 75, 55, 75, 75}},
+		Stats: GetStats([6]int{90, 130, 75, 55, 75, 75}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {COVET, SCRATCH, LEER, LICK, FAKETEARS},
@@ -9964,7 +9964,7 @@ var pokemonData = []Species{
 
 		Name:  "Slugma",
 		ID:    218,
-		Stats: Stats{[]int{40, 40, 40, 20, 70, 40}},
+		Stats: GetStats([6]int{40, 40, 40, 20, 70, 40}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {YAWN, SMOG},
@@ -10008,7 +10008,7 @@ var pokemonData = []Species{
 
 		Name:  "Magcargo",
 		ID:    219,
-		Stats: Stats{[]int{50, 50, 120, 30, 80, 80}},
+		Stats: GetStats([6]int{50, 50, 120, 30, 80, 80}),
 		Types: []TYPE{FIRE, ROCK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {YAWN, SMOG, EMBER, ROCKTHROW},
@@ -10051,7 +10051,7 @@ var pokemonData = []Species{
 
 		Name:  "Swinub",
 		ID:    220,
-		Stats: Stats{[]int{50, 50, 40, 50, 30, 30}},
+		Stats: GetStats([6]int{50, 50, 40, 50, 30, 30}),
 		Types: []TYPE{ICE, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, ODORSLEUTH},
@@ -10096,7 +10096,7 @@ var pokemonData = []Species{
 
 		Name:  "Piloswine",
 		ID:    221,
-		Stats: Stats{[]int{100, 100, 80, 50, 60, 60}},
+		Stats: GetStats([6]int{100, 100, 80, 50, 60, 60}),
 		Types: []TYPE{ICE, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ANCIENTPOWER, PECK, ODORSLEUTH, MUDSPORT, POWDERSNOW},
@@ -10141,7 +10141,7 @@ var pokemonData = []Species{
 
 		Name:  "Corsola",
 		ID:    222,
-		Stats: Stats{[]int{55, 55, 85, 35, 65, 85}},
+		Stats: GetStats([6]int{55, 55, 85, 35, 65, 85}),
 		Types: []TYPE{WATER, ROCK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -10189,7 +10189,7 @@ var pokemonData = []Species{
 
 		Name:  "Remoraid",
 		ID:    223,
-		Stats: Stats{[]int{35, 65, 35, 65, 65, 35}},
+		Stats: GetStats([6]int{35, 65, 35, 65, 65, 35}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WATERGUN},
@@ -10233,7 +10233,7 @@ var pokemonData = []Species{
 
 		Name:  "Octillery",
 		ID:    224,
-		Stats: Stats{[]int{75, 105, 75, 45, 105, 75}},
+		Stats: GetStats([6]int{75, 105, 75, 45, 105, 75}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GUNKSHOT, ROCKBLAST, WATERGUN, CONSTRICT, PSYBEAM, AURORABEAM},
@@ -10276,7 +10276,7 @@ var pokemonData = []Species{
 
 		Name:  "Delibird",
 		ID:    225,
-		Stats: Stats{[]int{45, 55, 45, 75, 65, 45}},
+		Stats: GetStats([6]int{45, 55, 45, 75, 65, 45}),
 		Types: []TYPE{ICE, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1: {PRESENT},
@@ -10307,7 +10307,7 @@ var pokemonData = []Species{
 
 		Name:  "Mantine",
 		ID:    226,
-		Stats: Stats{[]int{65, 40, 70, 70, 80, 140}},
+		Stats: GetStats([6]int{65, 40, 70, 70, 80, 140}),
 		Types: []TYPE{WATER, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PSYBEAM, BULLETSEED, SIGNALBEAM, TACKLE, BUBBLE, SUPERSONIC, BUBBLEBEAM},
@@ -10351,7 +10351,7 @@ var pokemonData = []Species{
 
 		Name:  "Skarmory",
 		ID:    227,
-		Stats: Stats{[]int{65, 80, 140, 70, 40, 70}},
+		Stats: GetStats([6]int{65, 80, 140, 70, 40, 70}),
 		Types: []TYPE{STEEL, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LEER, PECK},
@@ -10395,7 +10395,7 @@ var pokemonData = []Species{
 
 		Name:  "Houndour",
 		ID:    228,
-		Stats: Stats{[]int{45, 60, 30, 65, 80, 50}},
+		Stats: GetStats([6]int{45, 60, 30, 65, 80, 50}),
 		Types: []TYPE{DARK, FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LEER, EMBER},
@@ -10441,7 +10441,7 @@ var pokemonData = []Species{
 
 		Name:  "Houndoom",
 		ID:    229,
-		Stats: Stats{[]int{75, 90, 50, 95, 110, 80}},
+		Stats: GetStats([6]int{75, 90, 50, 95, 110, 80}),
 		Types: []TYPE{DARK, FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {THUNDERFANG, LEER, EMBER, HOWL, SMOG},
@@ -10485,7 +10485,7 @@ var pokemonData = []Species{
 
 		Name:  "Kingdra",
 		ID:    230,
-		Stats: Stats{[]int{75, 95, 95, 85, 95, 95}},
+		Stats: GetStats([6]int{75, 95, 95, 85, 95, 95}),
 		Types: []TYPE{WATER, DRAGON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {YAWN, BUBBLE, SMOKESCREEN, LEER, WATERGUN},
@@ -10527,7 +10527,7 @@ var pokemonData = []Species{
 
 		Name:  "Phanpy",
 		ID:    231,
-		Stats: Stats{[]int{90, 60, 60, 40, 40, 40}},
+		Stats: GetStats([6]int{90, 60, 60, 40, 40, 40}),
 		Types: []TYPE{GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ODORSLEUTH, TACKLE, GROWL, DEFENSECURL},
@@ -10569,7 +10569,7 @@ var pokemonData = []Species{
 
 		Name:  "Donphan",
 		ID:    232,
-		Stats: Stats{[]int{90, 120, 120, 50, 60, 60}},
+		Stats: GetStats([6]int{90, 120, 120, 50, 60, 60}),
 		Types: []TYPE{GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {FIREFANG, THUNDERFANG, HORNATTACK, GROWL, DEFENSECURL, BULLDOZE},
@@ -10610,7 +10610,7 @@ var pokemonData = []Species{
 
 		Name:  "Porygon2",
 		ID:    233,
-		Stats: Stats{[]int{85, 80, 90, 60, 105, 95}},
+		Stats: GetStats([6]int{85, 80, 90, 60, 105, 95}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {CONVERSION, CONVERSION2, TACKLE, DEFENSECURL},
@@ -10653,7 +10653,7 @@ var pokemonData = []Species{
 
 		Name:  "Stantler",
 		ID:    234,
-		Stats: Stats{[]int{73, 95, 62, 85, 85, 65}},
+		Stats: GetStats([6]int{73, 95, 62, 85, 85, 65}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -10698,7 +10698,7 @@ var pokemonData = []Species{
 
 		Name:  "Smeargle",
 		ID:    235,
-		Stats: Stats{[]int{55, 20, 35, 75, 20, 45}},
+		Stats: GetStats([6]int{55, 20, 35, 75, 20, 45}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SKETCH},
@@ -10737,7 +10737,7 @@ var pokemonData = []Species{
 
 		Name:  "Tyrogue",
 		ID:    236,
-		Stats: Stats{[]int{35, 35, 35, 35, 35, 35}},
+		Stats: GetStats([6]int{35, 35, 35, 35, 35, 35}),
 		Types: []TYPE{FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1: {TACKLE, HELPINGHAND, FAKEOUT, FORESIGHT},
@@ -10769,7 +10769,7 @@ var pokemonData = []Species{
 
 		Name:  "Hitmontop",
 		ID:    237,
-		Stats: Stats{[]int{50, 95, 95, 70, 35, 110}},
+		Stats: GetStats([6]int{50, 95, 95, 70, 35, 110}),
 		Types: []TYPE{FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {REVENGE, ROLLINGKICK},
@@ -10812,7 +10812,7 @@ var pokemonData = []Species{
 
 		Name:  "Smoochum",
 		ID:    238,
-		Stats: Stats{[]int{45, 30, 15, 65, 85, 65}},
+		Stats: GetStats([6]int{45, 30, 15, 65, 85, 65}),
 		Types: []TYPE{ICE, PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND},
@@ -10861,7 +10861,7 @@ var pokemonData = []Species{
 
 		Name:  "Elekid",
 		ID:    239,
-		Stats: Stats{[]int{45, 63, 37, 95, 65, 55}},
+		Stats: GetStats([6]int{45, 63, 37, 95, 65, 55}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {QUICKATTACK, LEER},
@@ -10906,7 +10906,7 @@ var pokemonData = []Species{
 
 		Name:  "Magby",
 		ID:    240,
-		Stats: Stats{[]int{45, 75, 37, 83, 70, 55}},
+		Stats: GetStats([6]int{45, 75, 37, 83, 70, 55}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SMOG, LEER},
@@ -10951,7 +10951,7 @@ var pokemonData = []Species{
 
 		Name:  "Miltank",
 		ID:    241,
-		Stats: Stats{[]int{95, 80, 105, 100, 40, 70}},
+		Stats: GetStats([6]int{95, 80, 105, 100, 40, 70}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -10997,7 +10997,7 @@ var pokemonData = []Species{
 
 		Name:  "Blissey",
 		ID:    242,
-		Stats: Stats{[]int{255, 10, 10, 55, 75, 135}},
+		Stats: GetStats([6]int{255, 10, 10, 55, 75, 135}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {DEFENSECURL, POUND, GROWL},
@@ -11043,7 +11043,7 @@ var pokemonData = []Species{
 
 		Name:  "Raikou",
 		ID:    243,
-		Stats: Stats{[]int{90, 85, 75, 115, 115, 100}},
+		Stats: GetStats([6]int{90, 85, 75, 115, 115, 100}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BITE, LEER},
@@ -11085,7 +11085,7 @@ var pokemonData = []Species{
 
 		Name:  "Entei",
 		ID:    244,
-		Stats: Stats{[]int{115, 115, 85, 100, 90, 75}},
+		Stats: GetStats([6]int{115, 115, 85, 100, 90, 75}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BITE, LEER},
@@ -11127,7 +11127,7 @@ var pokemonData = []Species{
 
 		Name:  "Suicune",
 		ID:    245,
-		Stats: Stats{[]int{100, 75, 115, 85, 90, 115}},
+		Stats: GetStats([6]int{100, 75, 115, 85, 90, 115}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BITE, LEER},
@@ -11169,7 +11169,7 @@ var pokemonData = []Species{
 
 		Name:  "Larvitar",
 		ID:    246,
-		Stats: Stats{[]int{50, 64, 50, 41, 45, 50}},
+		Stats: GetStats([6]int{50, 64, 50, 41, 45, 50}),
 		Types: []TYPE{ROCK, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BITE, LEER},
@@ -11213,7 +11213,7 @@ var pokemonData = []Species{
 
 		Name:  "Pupitar",
 		ID:    247,
-		Stats: Stats{[]int{70, 84, 70, 51, 65, 70}},
+		Stats: GetStats([6]int{70, 84, 70, 51, 65, 70}),
 		Types: []TYPE{ROCK, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BITE, LEER, SANDSTORM, SCREECH},
@@ -11255,7 +11255,7 @@ var pokemonData = []Species{
 
 		Name:  "Tyranitar",
 		ID:    248,
-		Stats: Stats{[]int{100, 134, 110, 61, 95, 100}},
+		Stats: GetStats([6]int{100, 134, 110, 61, 95, 100}),
 		Types: []TYPE{ROCK, DARK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {THUNDERFANG, ICEFANG, FIREFANG, BITE, LEER, SANDSTORM, SCREECH},
@@ -11298,7 +11298,7 @@ var pokemonData = []Species{
 
 		Name:  "Lugia",
 		ID:    249,
-		Stats: Stats{[]int{106, 90, 130, 110, 90, 154}},
+		Stats: GetStats([6]int{106, 90, 130, 110, 90, 154}),
 		Types: []TYPE{PSYCHIC, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WHIRLWIND, WEATHERBALL},
@@ -11342,7 +11342,7 @@ var pokemonData = []Species{
 
 		Name:  "Ho-Oh",
 		ID:    250,
-		Stats: Stats{[]int{106, 130, 90, 90, 110, 154}},
+		Stats: GetStats([6]int{106, 130, 90, 90, 110, 154}),
 		Types: []TYPE{FIRE, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WHIRLWIND, WEATHERBALL},
@@ -11389,7 +11389,7 @@ var pokemonData = []Species{
 
 		Name:  "Celebi",
 		ID:    251,
-		Stats: Stats{[]int{100, 100, 100, 100, 100, 100}},
+		Stats: GetStats([6]int{100, 100, 100, 100, 100, 100}),
 		Types: []TYPE{PSYCHIC, GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LEECHSEED, CONFUSION, RECOVER, HEALBELL},
@@ -11431,7 +11431,7 @@ var pokemonData = []Species{
 
 		Name:  "Treecko",
 		ID:    252,
-		Stats: Stats{[]int{40, 45, 35, 70, 65, 55}},
+		Stats: GetStats([6]int{40, 45, 35, 70, 65, 55}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND, LEER},
@@ -11472,7 +11472,7 @@ var pokemonData = []Species{
 
 		Name:  "Grovyle",
 		ID:    253,
-		Stats: Stats{[]int{50, 65, 45, 95, 85, 65}},
+		Stats: GetStats([6]int{50, 65, 45, 95, 85, 65}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND, LEER, ABSORB, QUICKATTACK},
@@ -11513,7 +11513,7 @@ var pokemonData = []Species{
 
 		Name:  "Sceptile",
 		ID:    254,
-		Stats: Stats{[]int{70, 85, 65, 120, 105, 85}},
+		Stats: GetStats([6]int{70, 85, 65, 120, 105, 85}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {NIGHTSLASH, POUND, LEER, ABSORB, QUICKATTACK},
@@ -11553,7 +11553,7 @@ var pokemonData = []Species{
 
 		Name:  "Torchic",
 		ID:    255,
-		Stats: Stats{[]int{45, 60, 40, 45, 70, 50}},
+		Stats: GetStats([6]int{45, 60, 40, 45, 70, 50}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, GROWL},
@@ -11593,7 +11593,7 @@ var pokemonData = []Species{
 
 		Name:  "Combusken",
 		ID:    256,
-		Stats: Stats{[]int{60, 85, 60, 55, 85, 60}},
+		Stats: GetStats([6]int{60, 85, 60, 55, 85, 60}),
 		Types: []TYPE{FIRE, FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, GROWL, FOCUSENERGY, EMBER},
@@ -11634,7 +11634,7 @@ var pokemonData = []Species{
 
 		Name:  "Blaziken",
 		ID:    257,
-		Stats: Stats{[]int{80, 120, 70, 80, 110, 70}},
+		Stats: GetStats([6]int{80, 120, 70, 80, 110, 70}),
 		Types: []TYPE{FIRE, FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {FIREPUNCH, HIGHJUMPKICK, SCRATCH, GROWL, FOCUSENERGY, EMBER},
@@ -11675,7 +11675,7 @@ var pokemonData = []Species{
 
 		Name:  "Mudkip",
 		ID:    258,
-		Stats: Stats{[]int{50, 70, 50, 40, 50, 50}},
+		Stats: GetStats([6]int{50, 70, 50, 40, 50, 50}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, GROWL},
@@ -11716,7 +11716,7 @@ var pokemonData = []Species{
 
 		Name:  "Marshtomp",
 		ID:    259,
-		Stats: Stats{[]int{70, 85, 70, 50, 60, 70}},
+		Stats: GetStats([6]int{70, 85, 70, 50, 60, 70}),
 		Types: []TYPE{WATER, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, GROWL, MUDSLAP, WATERGUN},
@@ -11757,7 +11757,7 @@ var pokemonData = []Species{
 
 		Name:  "Swampert",
 		ID:    260,
-		Stats: Stats{[]int{100, 110, 90, 60, 85, 90}},
+		Stats: GetStats([6]int{100, 110, 90, 60, 85, 90}),
 		Types: []TYPE{WATER, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, GROWL, MUDSLAP, WATERGUN},
@@ -11798,7 +11798,7 @@ var pokemonData = []Species{
 
 		Name:  "Poochyena",
 		ID:    261,
-		Stats: Stats{[]int{35, 55, 35, 35, 30, 30}},
+		Stats: GetStats([6]int{35, 55, 35, 35, 30, 30}),
 		Types: []TYPE{DARK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -11843,7 +11843,7 @@ var pokemonData = []Species{
 
 		Name:  "Mightyena",
 		ID:    262,
-		Stats: Stats{[]int{70, 90, 70, 70, 60, 60}},
+		Stats: GetStats([6]int{70, 90, 70, 70, 60, 60}),
 		Types: []TYPE{DARK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, HOWL, SANDATTACK, BITE},
@@ -11886,7 +11886,7 @@ var pokemonData = []Species{
 
 		Name:  "Zigzagoon",
 		ID:    263,
-		Stats: Stats{[]int{38, 30, 41, 60, 30, 41}},
+		Stats: GetStats([6]int{38, 30, 41, 60, 30, 41}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, GROWL},
@@ -11930,7 +11930,7 @@ var pokemonData = []Species{
 
 		Name:  "Linoone",
 		ID:    264,
-		Stats: Stats{[]int{78, 70, 61, 100, 50, 61}},
+		Stats: GetStats([6]int{78, 70, 61, 100, 50, 61}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SWITCHEROO, TACKLE, GROWL, TAILWHIP, HEADBUTT},
@@ -11973,7 +11973,7 @@ var pokemonData = []Species{
 
 		Name:  "Wurmple",
 		ID:    265,
-		Stats: Stats{[]int{45, 45, 35, 20, 20, 30}},
+		Stats: GetStats([6]int{45, 45, 35, 20, 20, 30}),
 		Types: []TYPE{BUG},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, STRINGSHOT},
@@ -12005,7 +12005,7 @@ var pokemonData = []Species{
 
 		Name:  "Silcoon",
 		ID:    266,
-		Stats: Stats{[]int{50, 35, 55, 15, 25, 25}},
+		Stats: GetStats([6]int{50, 35, 55, 15, 25, 25}),
 		Types: []TYPE{BUG},
 		LearnableMoves: map[int][]MOVE{
 			1: {HARDEN},
@@ -12035,7 +12035,7 @@ var pokemonData = []Species{
 
 		Name:  "Beautifly",
 		ID:    267,
-		Stats: Stats{[]int{60, 70, 50, 65, 90, 50}},
+		Stats: GetStats([6]int{60, 70, 50, 65, 90, 50}),
 		Types: []TYPE{BUG, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ABSORB},
@@ -12076,7 +12076,7 @@ var pokemonData = []Species{
 
 		Name:  "Cascoon",
 		ID:    268,
-		Stats: Stats{[]int{50, 35, 55, 15, 25, 25}},
+		Stats: GetStats([6]int{50, 35, 55, 15, 25, 25}),
 		Types: []TYPE{BUG},
 		LearnableMoves: map[int][]MOVE{
 			1: {HARDEN},
@@ -12106,7 +12106,7 @@ var pokemonData = []Species{
 
 		Name:  "Dustox",
 		ID:    269,
-		Stats: Stats{[]int{60, 50, 70, 65, 50, 90}},
+		Stats: GetStats([6]int{60, 50, 70, 65, 50, 90}),
 		Types: []TYPE{BUG, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {CONFUSION},
@@ -12147,7 +12147,7 @@ var pokemonData = []Species{
 
 		Name:  "Lotad",
 		ID:    270,
-		Stats: Stats{[]int{40, 30, 30, 30, 40, 50}},
+		Stats: GetStats([6]int{40, 30, 30, 30, 40, 50}),
 		Types: []TYPE{WATER, GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ASTONISH},
@@ -12188,7 +12188,7 @@ var pokemonData = []Species{
 
 		Name:  "Lombre",
 		ID:    271,
-		Stats: Stats{[]int{60, 50, 50, 50, 60, 70}},
+		Stats: GetStats([6]int{60, 50, 50, 50, 60, 70}),
 		Types: []TYPE{WATER, GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ASTONISH},
@@ -12228,7 +12228,7 @@ var pokemonData = []Species{
 
 		Name:  "Ludicolo",
 		ID:    272,
-		Stats: Stats{[]int{80, 70, 70, 70, 90, 100}},
+		Stats: GetStats([6]int{80, 70, 70, 70, 90, 100}),
 		Types: []TYPE{WATER, GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1: {ASTONISH, GROWL, MEGADRAIN, NATUREPOWER},
@@ -12257,7 +12257,7 @@ var pokemonData = []Species{
 
 		Name:  "Seedot",
 		ID:    273,
-		Stats: Stats{[]int{40, 40, 50, 30, 30, 30}},
+		Stats: GetStats([6]int{40, 40, 50, 30, 30, 30}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BIDE},
@@ -12294,7 +12294,7 @@ var pokemonData = []Species{
 
 		Name:  "Nuzleaf",
 		ID:    274,
-		Stats: Stats{[]int{70, 70, 40, 60, 60, 40}},
+		Stats: GetStats([6]int{70, 70, 40, 60, 60, 40}),
 		Types: []TYPE{GRASS, DARK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND, RAZORLEAF},
@@ -12333,7 +12333,7 @@ var pokemonData = []Species{
 
 		Name:  "Shiftry",
 		ID:    275,
-		Stats: Stats{[]int{90, 100, 60, 80, 90, 60}},
+		Stats: GetStats([6]int{90, 100, 60, 80, 90, 60}),
 		Types: []TYPE{GRASS, DARK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {FEINTATTACK, WHIRLWIND, NASTYPLOT, RAZORLEAF},
@@ -12364,7 +12364,7 @@ var pokemonData = []Species{
 
 		Name:  "Taillow",
 		ID:    276,
-		Stats: Stats{[]int{40, 55, 30, 85, 30, 30}},
+		Stats: GetStats([6]int{40, 55, 30, 85, 30, 30}),
 		Types: []TYPE{NORMAL, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PECK, GROWL},
@@ -12404,7 +12404,7 @@ var pokemonData = []Species{
 
 		Name:  "Swellow",
 		ID:    277,
-		Stats: Stats{[]int{60, 85, 60, 125, 50, 50}},
+		Stats: GetStats([6]int{60, 85, 60, 125, 50, 50}),
 		Types: []TYPE{NORMAL, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PLUCK, PECK, GROWL, FOCUSENERGY, QUICKATTACK},
@@ -12442,7 +12442,7 @@ var pokemonData = []Species{
 
 		Name:  "Wingull",
 		ID:    278,
-		Stats: Stats{[]int{40, 30, 30, 85, 55, 30}},
+		Stats: GetStats([6]int{40, 30, 30, 85, 55, 30}),
 		Types: []TYPE{WATER, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GROWL, WATERGUN},
@@ -12485,7 +12485,7 @@ var pokemonData = []Species{
 
 		Name:  "Pelipper",
 		ID:    279,
-		Stats: Stats{[]int{60, 50, 100, 65, 85, 70}},
+		Stats: GetStats([6]int{60, 50, 100, 65, 85, 70}),
 		Types: []TYPE{WATER, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SOAK, GROWL, WATERGUN, WATERSPORT, WINGATTACK},
@@ -12527,7 +12527,7 @@ var pokemonData = []Species{
 
 		Name:  "Ralts",
 		ID:    280,
-		Stats: Stats{[]int{28, 25, 25, 40, 45, 35}},
+		Stats: GetStats([6]int{28, 25, 25, 40, 45, 35}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GROWL},
@@ -12572,7 +12572,7 @@ var pokemonData = []Species{
 
 		Name:  "Kirlia",
 		ID:    281,
-		Stats: Stats{[]int{38, 35, 35, 50, 65, 55}},
+		Stats: GetStats([6]int{38, 35, 35, 50, 65, 55}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GROWL, CONFUSION, DOUBLETEAM, TELEPORT},
@@ -12616,7 +12616,7 @@ var pokemonData = []Species{
 
 		Name:  "Gardevoir",
 		ID:    282,
-		Stats: Stats{[]int{68, 65, 65, 80, 125, 115}},
+		Stats: GetStats([6]int{68, 65, 65, 80, 125, 115}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {HEALINGWISH, GROWL, CONFUSION, DOUBLETEAM, TELEPORT},
@@ -12659,7 +12659,7 @@ var pokemonData = []Species{
 
 		Name:  "Surskit",
 		ID:    283,
-		Stats: Stats{[]int{40, 30, 32, 65, 50, 52}},
+		Stats: GetStats([6]int{40, 30, 32, 65, 50, 52}),
 		Types: []TYPE{BUG, WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BUBBLE},
@@ -12697,7 +12697,7 @@ var pokemonData = []Species{
 
 		Name:  "Masquerain",
 		ID:    284,
-		Stats: Stats{[]int{70, 60, 62, 60, 80, 82}},
+		Stats: GetStats([6]int{70, 60, 62, 60, 80, 82}),
 		Types: []TYPE{BUG, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {OMINOUSWIND, BUBBLE, QUICKATTACK, SWEETSCENT, WATERSPORT},
@@ -12738,7 +12738,7 @@ var pokemonData = []Species{
 
 		Name:  "Shroomish",
 		ID:    285,
-		Stats: Stats{[]int{60, 40, 60, 35, 40, 60}},
+		Stats: GetStats([6]int{60, 40, 60, 35, 40, 60}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ABSORB},
@@ -12781,7 +12781,7 @@ var pokemonData = []Species{
 
 		Name:  "Breloom",
 		ID:    286,
-		Stats: Stats{[]int{60, 130, 80, 70, 60, 60}},
+		Stats: GetStats([6]int{60, 130, 80, 70, 60, 60}),
 		Types: []TYPE{GRASS, FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ABSORB, TACKLE, STUNSPORE, LEECHSEED},
@@ -12823,7 +12823,7 @@ var pokemonData = []Species{
 
 		Name:  "Slakoth",
 		ID:    287,
-		Stats: Stats{[]int{60, 60, 60, 30, 35, 35}},
+		Stats: GetStats([6]int{60, 60, 60, 30, 35, 35}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, YAWN},
@@ -12861,7 +12861,7 @@ var pokemonData = []Species{
 
 		Name:  "Vigoroth",
 		ID:    288,
-		Stats: Stats{[]int{80, 80, 80, 90, 55, 55}},
+		Stats: GetStats([6]int{80, 80, 80, 90, 55, 55}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, FOCUSENERGY, ENCORE, UPROAR},
@@ -12899,7 +12899,7 @@ var pokemonData = []Species{
 
 		Name:  "Slaking",
 		ID:    289,
-		Stats: Stats{[]int{150, 160, 100, 100, 95, 65}},
+		Stats: GetStats([6]int{150, 160, 100, 100, 95, 65}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, YAWN, ENCORE, SLACKOFF},
@@ -12939,7 +12939,7 @@ var pokemonData = []Species{
 
 		Name:  "Nincada",
 		ID:    290,
-		Stats: Stats{[]int{31, 45, 90, 40, 30, 30}},
+		Stats: GetStats([6]int{31, 45, 90, 40, 30, 30}),
 		Types: []TYPE{BUG, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, HARDEN},
@@ -12978,7 +12978,7 @@ var pokemonData = []Species{
 
 		Name:  "Ninjask",
 		ID:    291,
-		Stats: Stats{[]int{61, 90, 45, 160, 50, 50}},
+		Stats: GetStats([6]int{61, 90, 45, 160, 50, 50}),
 		Types: []TYPE{BUG, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BUGBITE, SCRATCH, HARDEN, LEECHLIFE, SANDATTACK},
@@ -13017,7 +13017,7 @@ var pokemonData = []Species{
 
 		Name:  "Shedinja",
 		ID:    292,
-		Stats: Stats{[]int{1, 90, 45, 40, 30, 30}},
+		Stats: GetStats([6]int{1, 90, 45, 40, 30, 30}),
 		Types: []TYPE{BUG, GHOST},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, HARDEN},
@@ -13055,7 +13055,7 @@ var pokemonData = []Species{
 
 		Name:  "Whismur",
 		ID:    293,
-		Stats: Stats{[]int{64, 51, 23, 28, 51, 23}},
+		Stats: GetStats([6]int{64, 51, 23, 28, 51, 23}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND},
@@ -13097,7 +13097,7 @@ var pokemonData = []Species{
 
 		Name:  "Loudred",
 		ID:    294,
-		Stats: Stats{[]int{84, 71, 43, 48, 71, 43}},
+		Stats: GetStats([6]int{84, 71, 43, 48, 71, 43}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND, UPROAR, ASTONISH, HOWL},
@@ -13139,7 +13139,7 @@ var pokemonData = []Species{
 
 		Name:  "Exploud",
 		ID:    295,
-		Stats: Stats{[]int{104, 91, 63, 68, 91, 63}},
+		Stats: GetStats([6]int{104, 91, 63, 68, 91, 63}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ICEFANG, FIREFANG, THUNDERFANG, POUND, UPROAR, ASTONISH, HOWL},
@@ -13182,7 +13182,7 @@ var pokemonData = []Species{
 
 		Name:  "Makuhita",
 		ID:    296,
-		Stats: Stats{[]int{72, 60, 30, 25, 20, 30}},
+		Stats: GetStats([6]int{72, 60, 30, 25, 20, 30}),
 		Types: []TYPE{FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, FOCUSENERGY},
@@ -13228,7 +13228,7 @@ var pokemonData = []Species{
 
 		Name:  "Hariyama",
 		ID:    297,
-		Stats: Stats{[]int{144, 120, 60, 50, 40, 60}},
+		Stats: GetStats([6]int{144, 120, 60, 50, 40, 60}),
 		Types: []TYPE{FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BRINE, TACKLE, FOCUSENERGY, SANDATTACK, ARMTHRUST},
@@ -13273,7 +13273,7 @@ var pokemonData = []Species{
 
 		Name:  "Azurill",
 		ID:    298,
-		Stats: Stats{[]int{50, 20, 40, 20, 20, 40}},
+		Stats: GetStats([6]int{50, 20, 40, 20, 20, 40}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SPLASH, BUBBLE},
@@ -13313,7 +13313,7 @@ var pokemonData = []Species{
 
 		Name:  "Nosepass",
 		ID:    299,
-		Stats: Stats{[]int{30, 45, 135, 30, 45, 90}},
+		Stats: GetStats([6]int{30, 45, 135, 30, 45, 90}),
 		Types: []TYPE{ROCK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -13359,7 +13359,7 @@ var pokemonData = []Species{
 
 		Name:  "Skitty",
 		ID:    300,
-		Stats: Stats{[]int{50, 45, 45, 50, 35, 35}},
+		Stats: GetStats([6]int{50, 45, 45, 50, 35, 35}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {FAKEOUT, GROWL, TAILWHIP, TACKLE},
@@ -13404,7 +13404,7 @@ var pokemonData = []Species{
 
 		Name:  "Delcatty",
 		ID:    301,
-		Stats: Stats{[]int{70, 65, 65, 70, 55, 55}},
+		Stats: GetStats([6]int{70, 65, 65, 70, 55, 55}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1: {FAKEOUT, ATTRACT, SING, DOUBLESLAP},
@@ -13434,7 +13434,7 @@ var pokemonData = []Species{
 
 		Name:  "Sableye",
 		ID:    302,
-		Stats: Stats{[]int{50, 75, 75, 50, 65, 65}},
+		Stats: GetStats([6]int{50, 75, 75, 50, 65, 65}),
 		Types: []TYPE{DARK, GHOST},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LEER, SCRATCH},
@@ -13481,7 +13481,7 @@ var pokemonData = []Species{
 
 		Name:  "Mawile",
 		ID:    303,
-		Stats: Stats{[]int{50, 85, 85, 50, 55, 55}},
+		Stats: GetStats([6]int{50, 85, 85, 50, 55, 55}),
 		Types: []TYPE{STEEL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ASTONISH},
@@ -13523,7 +13523,7 @@ var pokemonData = []Species{
 
 		Name:  "Aron",
 		ID:    304,
-		Stats: Stats{[]int{50, 70, 100, 30, 40, 40}},
+		Stats: GetStats([6]int{50, 70, 100, 30, 40, 40}),
 		Types: []TYPE{STEEL, ROCK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, HARDEN},
@@ -13569,7 +13569,7 @@ var pokemonData = []Species{
 
 		Name:  "Lairon",
 		ID:    305,
-		Stats: Stats{[]int{60, 90, 140, 40, 50, 50}},
+		Stats: GetStats([6]int{60, 90, 140, 40, 50, 50}),
 		Types: []TYPE{STEEL, ROCK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, HARDEN, MUDSLAP, HEADBUTT},
@@ -13614,7 +13614,7 @@ var pokemonData = []Species{
 
 		Name:  "Aggron",
 		ID:    306,
-		Stats: Stats{[]int{70, 110, 180, 50, 60, 60}},
+		Stats: GetStats([6]int{70, 110, 180, 50, 60, 60}),
 		Types: []TYPE{STEEL, ROCK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, HARDEN, MUDSLAP, HEADBUTT},
@@ -13658,7 +13658,7 @@ var pokemonData = []Species{
 
 		Name:  "Meditite",
 		ID:    307,
-		Stats: Stats{[]int{30, 40, 55, 60, 40, 55}},
+		Stats: GetStats([6]int{30, 40, 55, 60, 40, 55}),
 		Types: []TYPE{FIGHTING, PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BIDE},
@@ -13703,7 +13703,7 @@ var pokemonData = []Species{
 
 		Name:  "Medicham",
 		ID:    308,
-		Stats: Stats{[]int{60, 60, 75, 80, 60, 75}},
+		Stats: GetStats([6]int{60, 60, 75, 80, 60, 75}),
 		Types: []TYPE{FIGHTING, PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {FIREPUNCH, THUNDERPUNCH, ICEPUNCH, BIDE, MEDITATE, CONFUSION, DETECT},
@@ -13746,7 +13746,7 @@ var pokemonData = []Species{
 
 		Name:  "Electrike",
 		ID:    309,
-		Stats: Stats{[]int{40, 45, 40, 65, 65, 40}},
+		Stats: GetStats([6]int{40, 45, 40, 65, 65, 40}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -13790,7 +13790,7 @@ var pokemonData = []Species{
 
 		Name:  "Manectric",
 		ID:    310,
-		Stats: Stats{[]int{70, 75, 60, 105, 105, 60}},
+		Stats: GetStats([6]int{70, 75, 60, 105, 105, 60}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {FIREFANG, TACKLE, THUNDERWAVE, LEER, HOWL},
@@ -13832,7 +13832,7 @@ var pokemonData = []Species{
 
 		Name:  "Plusle",
 		ID:    311,
-		Stats: Stats{[]int{60, 50, 40, 95, 85, 75}},
+		Stats: GetStats([6]int{60, 50, 40, 95, 85, 75}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GROWL},
@@ -13878,7 +13878,7 @@ var pokemonData = []Species{
 
 		Name:  "Minun",
 		ID:    312,
-		Stats: Stats{[]int{60, 40, 50, 95, 75, 85}},
+		Stats: GetStats([6]int{60, 40, 50, 95, 75, 85}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GROWL},
@@ -13924,7 +13924,7 @@ var pokemonData = []Species{
 
 		Name:  "Volbeat",
 		ID:    313,
-		Stats: Stats{[]int{65, 73, 55, 85, 47, 75}},
+		Stats: GetStats([6]int{65, 73, 55, 85, 47, 75}),
 		Types: []TYPE{BUG},
 		LearnableMoves: map[int][]MOVE{
 			1:  {FLASH, TACKLE},
@@ -13965,7 +13965,7 @@ var pokemonData = []Species{
 
 		Name:  "Illumise",
 		ID:    314,
-		Stats: Stats{[]int{65, 47, 55, 85, 73, 75}},
+		Stats: GetStats([6]int{65, 47, 55, 85, 73, 75}),
 		Types: []TYPE{BUG},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -14006,7 +14006,7 @@ var pokemonData = []Species{
 
 		Name:  "Roselia",
 		ID:    315,
-		Stats: Stats{[]int{50, 60, 45, 65, 100, 80}},
+		Stats: GetStats([6]int{50, 60, 45, 65, 100, 80}),
 		Types: []TYPE{GRASS, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ABSORB},
@@ -14053,7 +14053,7 @@ var pokemonData = []Species{
 
 		Name:  "Gulpin",
 		ID:    316,
-		Stats: Stats{[]int{70, 43, 53, 40, 43, 53}},
+		Stats: GetStats([6]int{70, 43, 53, 40, 43, 53}),
 		Types: []TYPE{POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND},
@@ -14097,7 +14097,7 @@ var pokemonData = []Species{
 
 		Name:  "Swalot",
 		ID:    317,
-		Stats: Stats{[]int{100, 73, 83, 55, 73, 83}},
+		Stats: GetStats([6]int{100, 73, 83, 55, 73, 83}),
 		Types: []TYPE{POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND, YAWN, POISONGAS, SLUDGE},
@@ -14140,7 +14140,7 @@ var pokemonData = []Species{
 
 		Name:  "Carvanha",
 		ID:    318,
-		Stats: Stats{[]int{45, 90, 20, 65, 65, 20}},
+		Stats: GetStats([6]int{45, 90, 20, 65, 65, 20}),
 		Types: []TYPE{WATER, DARK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LEER, BITE},
@@ -14183,7 +14183,7 @@ var pokemonData = []Species{
 
 		Name:  "Sharpedo",
 		ID:    319,
-		Stats: Stats{[]int{70, 120, 40, 95, 95, 40}},
+		Stats: GetStats([6]int{70, 120, 40, 95, 95, 40}),
 		Types: []TYPE{WATER, DARK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {FEINT, LEER, BITE, RAGE, FOCUSENERGY},
@@ -14227,7 +14227,7 @@ var pokemonData = []Species{
 
 		Name:  "Wailmer",
 		ID:    320,
-		Stats: Stats{[]int{130, 70, 35, 60, 70, 35}},
+		Stats: GetStats([6]int{130, 70, 35, 60, 70, 35}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SPLASH},
@@ -14273,7 +14273,7 @@ var pokemonData = []Species{
 
 		Name:  "Wailord",
 		ID:    321,
-		Stats: Stats{[]int{170, 90, 45, 60, 90, 45}},
+		Stats: GetStats([6]int{170, 90, 45, 60, 90, 45}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SPLASH, GROWL, WATERGUN, ROLLOUT},
@@ -14317,7 +14317,7 @@ var pokemonData = []Species{
 
 		Name:  "Numel",
 		ID:    322,
-		Stats: Stats{[]int{60, 60, 40, 35, 65, 45}},
+		Stats: GetStats([6]int{60, 60, 40, 35, 65, 45}),
 		Types: []TYPE{FIRE, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GROWL, TACKLE},
@@ -14364,7 +14364,7 @@ var pokemonData = []Species{
 
 		Name:  "Camerupt",
 		ID:    323,
-		Stats: Stats{[]int{70, 100, 70, 40, 105, 75}},
+		Stats: GetStats([6]int{70, 100, 70, 40, 105, 75}),
 		Types: []TYPE{FIRE, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GROWL, TACKLE, EMBER, MAGNITUDE},
@@ -14410,7 +14410,7 @@ var pokemonData = []Species{
 
 		Name:  "Torkoal",
 		ID:    324,
-		Stats: Stats{[]int{70, 85, 140, 20, 85, 70}},
+		Stats: GetStats([6]int{70, 85, 140, 20, 85, 70}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {EMBER},
@@ -14456,7 +14456,7 @@ var pokemonData = []Species{
 
 		Name:  "Spoink",
 		ID:    325,
-		Stats: Stats{[]int{60, 25, 35, 60, 70, 80}},
+		Stats: GetStats([6]int{60, 25, 35, 60, 70, 80}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SPLASH},
@@ -14501,7 +14501,7 @@ var pokemonData = []Species{
 
 		Name:  "Grumpig",
 		ID:    326,
-		Stats: Stats{[]int{80, 45, 65, 80, 90, 110}},
+		Stats: GetStats([6]int{80, 45, 65, 80, 90, 110}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SPLASH, PSYWAVE, ODORSLEUTH, PSYBEAM},
@@ -14544,7 +14544,7 @@ var pokemonData = []Species{
 
 		Name:  "Spinda",
 		ID:    327,
-		Stats: Stats{[]int{60, 60, 60, 60, 60, 60}},
+		Stats: GetStats([6]int{60, 60, 60, 60, 60, 60}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -14587,7 +14587,7 @@ var pokemonData = []Species{
 
 		Name:  "Trapinch",
 		ID:    328,
-		Stats: Stats{[]int{45, 100, 45, 10, 45, 45}},
+		Stats: GetStats([6]int{45, 100, 45, 10, 45, 45}),
 		Types: []TYPE{GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BITE},
@@ -14635,7 +14635,7 @@ var pokemonData = []Species{
 
 		Name:  "Vibrava",
 		ID:    329,
-		Stats: Stats{[]int{50, 70, 50, 70, 50, 50}},
+		Stats: GetStats([6]int{50, 70, 50, 70, 50, 50}),
 		Types: []TYPE{GROUND, DRAGON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SONICBOOM, SANDATTACK, FEINTATTACK, SANDTOMB},
@@ -14677,7 +14677,7 @@ var pokemonData = []Species{
 
 		Name:  "Flygon",
 		ID:    330,
-		Stats: Stats{[]int{80, 100, 80, 100, 80, 80}},
+		Stats: GetStats([6]int{80, 100, 80, 100, 80, 80}),
 		Types: []TYPE{GROUND, DRAGON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SONICBOOM, SANDATTACK, FEINTATTACK, SANDTOMB},
@@ -14720,7 +14720,7 @@ var pokemonData = []Species{
 
 		Name:  "Cacnea",
 		ID:    331,
-		Stats: Stats{[]int{50, 85, 40, 35, 85, 40}},
+		Stats: GetStats([6]int{50, 85, 40, 35, 85, 40}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POISONSTING, LEER},
@@ -14766,7 +14766,7 @@ var pokemonData = []Species{
 
 		Name:  "Cacturne",
 		ID:    332,
-		Stats: Stats{[]int{70, 115, 60, 55, 115, 60}},
+		Stats: GetStats([6]int{70, 115, 60, 55, 115, 60}),
 		Types: []TYPE{GRASS, DARK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {REVENGE, POISONSTING, LEER, ABSORB, GROWTH},
@@ -14810,7 +14810,7 @@ var pokemonData = []Species{
 
 		Name:  "Swablu",
 		ID:    333,
-		Stats: Stats{[]int{45, 40, 60, 50, 40, 75}},
+		Stats: GetStats([6]int{45, 40, 60, 50, 40, 75}),
 		Types: []TYPE{NORMAL, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PECK, GROWL},
@@ -14854,7 +14854,7 @@ var pokemonData = []Species{
 
 		Name:  "Altaria",
 		ID:    334,
-		Stats: Stats{[]int{75, 70, 90, 80, 70, 105}},
+		Stats: GetStats([6]int{75, 70, 90, 80, 70, 105}),
 		Types: []TYPE{DRAGON, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PLUCK, PECK, GROWL, ASTONISH, SING},
@@ -14898,7 +14898,7 @@ var pokemonData = []Species{
 
 		Name:  "Zangoose",
 		ID:    335,
-		Stats: Stats{[]int{73, 115, 60, 90, 60, 60}},
+		Stats: GetStats([6]int{73, 115, 60, 90, 60, 60}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, LEER},
@@ -14942,7 +14942,7 @@ var pokemonData = []Species{
 
 		Name:  "Seviper",
 		ID:    336,
-		Stats: Stats{[]int{73, 100, 60, 65, 100, 60}},
+		Stats: GetStats([6]int{73, 100, 60, 65, 100, 60}),
 		Types: []TYPE{POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WRAP, LICK},
@@ -14986,7 +14986,7 @@ var pokemonData = []Species{
 
 		Name:  "Lunatone",
 		ID:    337,
-		Stats: Stats{[]int{70, 55, 65, 70, 95, 85}},
+		Stats: GetStats([6]int{70, 55, 65, 70, 95, 85}),
 		Types: []TYPE{ROCK, PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, HARDEN, CONFUSION},
@@ -15029,7 +15029,7 @@ var pokemonData = []Species{
 
 		Name:  "Solrock",
 		ID:    338,
-		Stats: Stats{[]int{70, 95, 85, 70, 55, 65}},
+		Stats: GetStats([6]int{70, 95, 85, 70, 55, 65}),
 		Types: []TYPE{ROCK, PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, HARDEN, CONFUSION},
@@ -15072,7 +15072,7 @@ var pokemonData = []Species{
 
 		Name:  "Barboach",
 		ID:    339,
-		Stats: Stats{[]int{50, 48, 43, 60, 46, 41}},
+		Stats: GetStats([6]int{50, 48, 43, 60, 46, 41}),
 		Types: []TYPE{WATER, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {MUDSLAP},
@@ -15114,7 +15114,7 @@ var pokemonData = []Species{
 
 		Name:  "Whiscash",
 		ID:    340,
-		Stats: Stats{[]int{110, 78, 73, 60, 76, 71}},
+		Stats: GetStats([6]int{110, 78, 73, 60, 76, 71}),
 		Types: []TYPE{WATER, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ZENHEADBUTT, TICKLE, MUDSLAP, MUDSPORT, WATERSPORT},
@@ -15154,7 +15154,7 @@ var pokemonData = []Species{
 
 		Name:  "Corphish",
 		ID:    341,
-		Stats: Stats{[]int{43, 80, 65, 35, 50, 35}},
+		Stats: GetStats([6]int{43, 80, 65, 35, 50, 35}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BUBBLE},
@@ -15197,7 +15197,7 @@ var pokemonData = []Species{
 
 		Name:  "Crawdaunt",
 		ID:    342,
-		Stats: Stats{[]int{63, 120, 85, 55, 90, 55}},
+		Stats: GetStats([6]int{63, 120, 85, 55, 90, 55}),
 		Types: []TYPE{WATER, DARK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BUBBLE, HARDEN, VICEGRIP, LEER},
@@ -15239,7 +15239,7 @@ var pokemonData = []Species{
 
 		Name:  "Baltoy",
 		ID:    343,
-		Stats: Stats{[]int{40, 40, 55, 55, 40, 70}},
+		Stats: GetStats([6]int{40, 40, 55, 55, 40, 70}),
 		Types: []TYPE{GROUND, PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {HARDEN, CONFUSION},
@@ -15281,7 +15281,7 @@ var pokemonData = []Species{
 
 		Name:  "Claydol",
 		ID:    344,
-		Stats: Stats{[]int{60, 70, 105, 75, 70, 120}},
+		Stats: GetStats([6]int{60, 70, 105, 75, 70, 120}),
 		Types: []TYPE{GROUND, PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TELEPORT, HARDEN, CONFUSION, RAPIDSPIN},
@@ -15324,7 +15324,7 @@ var pokemonData = []Species{
 
 		Name:  "Lileep",
 		ID:    345,
-		Stats: Stats{[]int{66, 41, 77, 23, 61, 87}},
+		Stats: GetStats([6]int{66, 41, 77, 23, 61, 87}),
 		Types: []TYPE{ROCK, GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ASTONISH, CONSTRICT},
@@ -15365,7 +15365,7 @@ var pokemonData = []Species{
 
 		Name:  "Cradily",
 		ID:    346,
-		Stats: Stats{[]int{86, 81, 97, 43, 81, 107}},
+		Stats: GetStats([6]int{86, 81, 97, 43, 81, 107}),
 		Types: []TYPE{ROCK, GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ASTONISH, CONSTRICT, ACID, INGRAIN},
@@ -15404,7 +15404,7 @@ var pokemonData = []Species{
 
 		Name:  "Anorith",
 		ID:    347,
-		Stats: Stats{[]int{45, 95, 50, 75, 40, 50}},
+		Stats: GetStats([6]int{45, 95, 50, 75, 40, 50}),
 		Types: []TYPE{ROCK, BUG},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, HARDEN},
@@ -15445,7 +15445,7 @@ var pokemonData = []Species{
 
 		Name:  "Armaldo",
 		ID:    348,
-		Stats: Stats{[]int{75, 125, 100, 45, 70, 80}},
+		Stats: GetStats([6]int{75, 125, 100, 45, 70, 80}),
 		Types: []TYPE{ROCK, BUG},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, HARDEN, MUDSPORT, WATERGUN},
@@ -15484,7 +15484,7 @@ var pokemonData = []Species{
 
 		Name:  "Feebas",
 		ID:    349,
-		Stats: Stats{[]int{20, 15, 20, 80, 10, 55}},
+		Stats: GetStats([6]int{20, 15, 20, 80, 10, 55}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SPLASH},
@@ -15517,7 +15517,7 @@ var pokemonData = []Species{
 
 		Name:  "Milotic",
 		ID:    350,
-		Stats: Stats{[]int{95, 60, 79, 81, 100, 125}},
+		Stats: GetStats([6]int{95, 60, 79, 81, 100, 125}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WATERGUN, WRAP},
@@ -15558,7 +15558,7 @@ var pokemonData = []Species{
 
 		Name:  "Castform",
 		ID:    351,
-		Stats: Stats{[]int{70, 70, 70, 70, 70, 70}},
+		Stats: GetStats([6]int{70, 70, 70, 70, 70, 70}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -15596,7 +15596,7 @@ var pokemonData = []Species{
 
 		Name:  "Kecleon",
 		ID:    352,
-		Stats: Stats{[]int{60, 90, 70, 40, 60, 120}},
+		Stats: GetStats([6]int{60, 90, 70, 40, 60, 120}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {THIEF, TAILWHIP, ASTONISH, LICK, SCRATCH},
@@ -15639,7 +15639,7 @@ var pokemonData = []Species{
 
 		Name:  "Shuppet",
 		ID:    353,
-		Stats: Stats{[]int{44, 75, 35, 45, 63, 33}},
+		Stats: GetStats([6]int{44, 75, 35, 45, 63, 33}),
 		Types: []TYPE{GHOST},
 		LearnableMoves: map[int][]MOVE{
 			1:  {KNOCKOFF},
@@ -15685,7 +15685,7 @@ var pokemonData = []Species{
 
 		Name:  "Banette",
 		ID:    354,
-		Stats: Stats{[]int{64, 115, 65, 65, 83, 63}},
+		Stats: GetStats([6]int{64, 115, 65, 65, 83, 63}),
 		Types: []TYPE{GHOST},
 		LearnableMoves: map[int][]MOVE{
 			1:  {KNOCKOFF, SCREECH, NIGHTSHADE, CURSE},
@@ -15729,7 +15729,7 @@ var pokemonData = []Species{
 
 		Name:  "Duskull",
 		ID:    355,
-		Stats: Stats{[]int{20, 40, 90, 25, 30, 90}},
+		Stats: GetStats([6]int{20, 40, 90, 25, 30, 90}),
 		Types: []TYPE{GHOST},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LEER, NIGHTSHADE},
@@ -15772,7 +15772,7 @@ var pokemonData = []Species{
 
 		Name:  "Dusclops",
 		ID:    356,
-		Stats: Stats{[]int{40, 70, 130, 25, 60, 130}},
+		Stats: GetStats([6]int{40, 70, 130, 25, 60, 130}),
 		Types: []TYPE{GHOST},
 		LearnableMoves: map[int][]MOVE{
 			1:  {FIREPUNCH, ICEPUNCH, THUNDERPUNCH, GRAVITY, BIND, LEER, NIGHTSHADE, DISABLE},
@@ -15815,7 +15815,7 @@ var pokemonData = []Species{
 
 		Name:  "Tropius",
 		ID:    357,
-		Stats: Stats{[]int{99, 68, 83, 51, 72, 87}},
+		Stats: GetStats([6]int{99, 68, 83, 51, 72, 87}),
 		Types: []TYPE{GRASS, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LEER, GUST},
@@ -15859,7 +15859,7 @@ var pokemonData = []Species{
 
 		Name:  "Chimecho",
 		ID:    358,
-		Stats: Stats{[]int{65, 50, 70, 65, 95, 80}},
+		Stats: GetStats([6]int{65, 50, 70, 65, 95, 80}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WRAP},
@@ -15903,7 +15903,7 @@ var pokemonData = []Species{
 
 		Name:  "Absol",
 		ID:    359,
-		Stats: Stats{[]int{65, 130, 60, 75, 75, 60}},
+		Stats: GetStats([6]int{65, 130, 60, 75, 75, 60}),
 		Types: []TYPE{DARK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, FEINT},
@@ -15949,7 +15949,7 @@ var pokemonData = []Species{
 
 		Name:  "Wynaut",
 		ID:    360,
-		Stats: Stats{[]int{95, 23, 48, 23, 23, 48}},
+		Stats: GetStats([6]int{95, 23, 48, 23, 23, 48}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SPLASH, CHARM, ENCORE},
@@ -15981,7 +15981,7 @@ var pokemonData = []Species{
 
 		Name:  "Snorunt",
 		ID:    361,
-		Stats: Stats{[]int{50, 50, 50, 50, 50, 50}},
+		Stats: GetStats([6]int{50, 50, 50, 50, 50, 50}),
 		Types: []TYPE{ICE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POWDERSNOW, LEER},
@@ -16023,7 +16023,7 @@ var pokemonData = []Species{
 
 		Name:  "Glalie",
 		ID:    362,
-		Stats: Stats{[]int{80, 80, 80, 80, 80, 80}},
+		Stats: GetStats([6]int{80, 80, 80, 80, 80, 80}),
 		Types: []TYPE{ICE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POWDERSNOW, LEER, DOUBLETEAM, BITE},
@@ -16064,7 +16064,7 @@ var pokemonData = []Species{
 
 		Name:  "Spheal",
 		ID:    363,
-		Stats: Stats{[]int{70, 40, 50, 25, 55, 50}},
+		Stats: GetStats([6]int{70, 40, 50, 25, 55, 50}),
 		Types: []TYPE{ICE, WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {DEFENSECURL, POWDERSNOW, GROWL, WATERGUN},
@@ -16103,7 +16103,7 @@ var pokemonData = []Species{
 
 		Name:  "Sealeo",
 		ID:    364,
-		Stats: Stats{[]int{90, 60, 70, 45, 75, 70}},
+		Stats: GetStats([6]int{90, 60, 70, 45, 75, 70}),
 		Types: []TYPE{ICE, WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POWDERSNOW, GROWL, WATERGUN, ENCORE},
@@ -16142,7 +16142,7 @@ var pokemonData = []Species{
 
 		Name:  "Walrein",
 		ID:    365,
-		Stats: Stats{[]int{110, 80, 90, 65, 95, 90}},
+		Stats: GetStats([6]int{110, 80, 90, 65, 95, 90}),
 		Types: []TYPE{ICE, WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {CRUNCH, POWDERSNOW, GROWL, WATERGUN, ENCORE},
@@ -16181,7 +16181,7 @@ var pokemonData = []Species{
 
 		Name:  "Clamperl",
 		ID:    366,
-		Stats: Stats{[]int{35, 64, 85, 32, 74, 55}},
+		Stats: GetStats([6]int{35, 64, 85, 32, 74, 55}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {CLAMP, WATERGUN, WHIRLPOOL, IRONDEFENSE},
@@ -16214,7 +16214,7 @@ var pokemonData = []Species{
 
 		Name:  "Huntail",
 		ID:    367,
-		Stats: Stats{[]int{55, 104, 105, 52, 94, 75}},
+		Stats: GetStats([6]int{55, 104, 105, 52, 94, 75}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WHIRLPOOL},
@@ -16255,7 +16255,7 @@ var pokemonData = []Species{
 
 		Name:  "Gorebyss",
 		ID:    368,
-		Stats: Stats{[]int{55, 84, 105, 52, 114, 75}},
+		Stats: GetStats([6]int{55, 84, 105, 52, 114, 75}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WHIRLPOOL},
@@ -16296,7 +16296,7 @@ var pokemonData = []Species{
 
 		Name:  "Relicanth",
 		ID:    369,
-		Stats: Stats{[]int{100, 90, 130, 55, 45, 65}},
+		Stats: GetStats([6]int{100, 90, 130, 55, 45, 65}),
 		Types: []TYPE{WATER, ROCK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, HARDEN},
@@ -16338,7 +16338,7 @@ var pokemonData = []Species{
 
 		Name:  "Luvdisc",
 		ID:    370,
-		Stats: Stats{[]int{43, 30, 55, 97, 40, 65}},
+		Stats: GetStats([6]int{43, 30, 55, 97, 40, 65}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -16382,7 +16382,7 @@ var pokemonData = []Species{
 
 		Name:  "Bagon",
 		ID:    371,
-		Stats: Stats{[]int{45, 75, 60, 50, 40, 30}},
+		Stats: GetStats([6]int{45, 75, 60, 50, 40, 30}),
 		Types: []TYPE{DRAGON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {RAGE},
@@ -16425,7 +16425,7 @@ var pokemonData = []Species{
 
 		Name:  "Shelgon",
 		ID:    372,
-		Stats: Stats{[]int{65, 95, 100, 50, 60, 50}},
+		Stats: GetStats([6]int{65, 95, 100, 50, 60, 50}),
 		Types: []TYPE{DRAGON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {RAGE, BITE, LEER, HEADBUTT},
@@ -16468,7 +16468,7 @@ var pokemonData = []Species{
 
 		Name:  "Salamence",
 		ID:    373,
-		Stats: Stats{[]int{95, 135, 80, 100, 110, 80}},
+		Stats: GetStats([6]int{95, 135, 80, 100, 110, 80}),
 		Types: []TYPE{DRAGON, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {FIREFANG, THUNDERFANG, RAGE, BITE, LEER, HEADBUTT},
@@ -16512,7 +16512,7 @@ var pokemonData = []Species{
 
 		Name:  "Beldum",
 		ID:    374,
-		Stats: Stats{[]int{40, 55, 80, 30, 35, 60}},
+		Stats: GetStats([6]int{40, 55, 80, 30, 35, 60}),
 		Types: []TYPE{STEEL, PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1: {TAKEDOWN},
@@ -16543,7 +16543,7 @@ var pokemonData = []Species{
 
 		Name:  "Metang",
 		ID:    375,
-		Stats: Stats{[]int{60, 75, 100, 50, 55, 80}},
+		Stats: GetStats([6]int{60, 75, 100, 50, 55, 80}),
 		Types: []TYPE{STEEL, PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {MAGNETRISE, TAKEDOWN, METALCLAW, CONFUSION},
@@ -16585,7 +16585,7 @@ var pokemonData = []Species{
 
 		Name:  "Metagross",
 		ID:    376,
-		Stats: Stats{[]int{80, 135, 130, 70, 95, 90}},
+		Stats: GetStats([6]int{80, 135, 130, 70, 95, 90}),
 		Types: []TYPE{STEEL, PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {MAGNETRISE, TAKEDOWN, METALCLAW, CONFUSION},
@@ -16627,7 +16627,7 @@ var pokemonData = []Species{
 
 		Name:  "Regirock",
 		ID:    377,
-		Stats: Stats{[]int{80, 100, 200, 50, 50, 100}},
+		Stats: GetStats([6]int{80, 100, 200, 50, 50, 100}),
 		Types: []TYPE{ROCK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {EXPLOSION, STOMP},
@@ -16667,7 +16667,7 @@ var pokemonData = []Species{
 
 		Name:  "Regice",
 		ID:    378,
-		Stats: Stats{[]int{80, 50, 100, 50, 100, 200}},
+		Stats: GetStats([6]int{80, 50, 100, 50, 100, 200}),
 		Types: []TYPE{ICE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {EXPLOSION, STOMP},
@@ -16707,7 +16707,7 @@ var pokemonData = []Species{
 
 		Name:  "Registeel",
 		ID:    379,
-		Stats: Stats{[]int{80, 75, 150, 50, 75, 150}},
+		Stats: GetStats([6]int{80, 75, 150, 50, 75, 150}),
 		Types: []TYPE{STEEL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {EXPLOSION, STOMP},
@@ -16747,7 +16747,7 @@ var pokemonData = []Species{
 
 		Name:  "Latias",
 		ID:    380,
-		Stats: Stats{[]int{80, 80, 90, 110, 110, 130}},
+		Stats: GetStats([6]int{80, 80, 90, 110, 110, 130}),
 		Types: []TYPE{DRAGON, PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PSYWAVE},
@@ -16792,7 +16792,7 @@ var pokemonData = []Species{
 
 		Name:  "Latios",
 		ID:    381,
-		Stats: Stats{[]int{80, 90, 80, 110, 130, 110}},
+		Stats: GetStats([6]int{80, 90, 80, 110, 130, 110}),
 		Types: []TYPE{DRAGON, PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PSYWAVE},
@@ -16837,7 +16837,7 @@ var pokemonData = []Species{
 
 		Name:  "Kyogre",
 		ID:    382,
-		Stats: Stats{[]int{100, 100, 90, 90, 150, 140}},
+		Stats: GetStats([6]int{100, 100, 90, 90, 150, 140}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WATERPULSE},
@@ -16877,7 +16877,7 @@ var pokemonData = []Species{
 
 		Name:  "Groudon",
 		ID:    383,
-		Stats: Stats{[]int{100, 150, 140, 90, 100, 90}},
+		Stats: GetStats([6]int{100, 150, 140, 90, 100, 90}),
 		Types: []TYPE{GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {MUDSHOT},
@@ -16917,7 +16917,7 @@ var pokemonData = []Species{
 
 		Name:  "Rayquaza",
 		ID:    384,
-		Stats: Stats{[]int{105, 150, 90, 95, 150, 90}},
+		Stats: GetStats([6]int{105, 150, 90, 95, 150, 90}),
 		Types: []TYPE{DRAGON, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TWISTER},
@@ -16957,7 +16957,7 @@ var pokemonData = []Species{
 
 		Name:  "Jirachi",
 		ID:    385,
-		Stats: Stats{[]int{100, 100, 100, 100, 100, 100}},
+		Stats: GetStats([6]int{100, 100, 100, 100, 100, 100}),
 		Types: []TYPE{STEEL, PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WISH, CONFUSION},
@@ -17002,7 +17002,7 @@ var pokemonData = []Species{
 
 		Name:  "Deoxys",
 		ID:    386,
-		Stats: Stats{[]int{50, 150, 50, 150, 150, 50}},
+		Stats: GetStats([6]int{50, 150, 50, 150, 150, 50}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LEER, WRAP},
@@ -17043,7 +17043,7 @@ var pokemonData = []Species{
 
 		Name:  "Turtwig",
 		ID:    387,
-		Stats: Stats{[]int{55, 68, 64, 31, 45, 55}},
+		Stats: GetStats([6]int{55, 68, 64, 31, 45, 55}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -17084,7 +17084,7 @@ var pokemonData = []Species{
 
 		Name:  "Grotle",
 		ID:    388,
-		Stats: Stats{[]int{75, 89, 85, 36, 55, 65}},
+		Stats: GetStats([6]int{75, 89, 85, 36, 55, 65}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, WITHDRAW},
@@ -17124,7 +17124,7 @@ var pokemonData = []Species{
 
 		Name:  "Torterra",
 		ID:    389,
-		Stats: Stats{[]int{95, 109, 105, 56, 75, 85}},
+		Stats: GetStats([6]int{95, 109, 105, 56, 75, 85}),
 		Types: []TYPE{GRASS, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WOODHAMMER, TACKLE, WITHDRAW, ABSORB, RAZORLEAF},
@@ -17164,7 +17164,7 @@ var pokemonData = []Species{
 
 		Name:  "Chimchar",
 		ID:    390,
-		Stats: Stats{[]int{44, 58, 44, 61, 58, 44}},
+		Stats: GetStats([6]int{44, 58, 44, 61, 58, 44}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, LEER},
@@ -17205,7 +17205,7 @@ var pokemonData = []Species{
 
 		Name:  "Monferno",
 		ID:    391,
-		Stats: Stats{[]int{64, 78, 52, 81, 78, 52}},
+		Stats: GetStats([6]int{64, 78, 52, 81, 78, 52}),
 		Types: []TYPE{FIRE, FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, LEER, EMBER},
@@ -17246,7 +17246,7 @@ var pokemonData = []Species{
 
 		Name:  "Infernape",
 		ID:    392,
-		Stats: Stats{[]int{76, 104, 71, 108, 104, 71}},
+		Stats: GetStats([6]int{76, 104, 71, 108, 104, 71}),
 		Types: []TYPE{FIRE, FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, LEER, EMBER, TAUNT},
@@ -17286,7 +17286,7 @@ var pokemonData = []Species{
 
 		Name:  "Piplup",
 		ID:    393,
-		Stats: Stats{[]int{53, 51, 53, 40, 61, 56}},
+		Stats: GetStats([6]int{53, 51, 53, 40, 61, 56}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND},
@@ -17328,7 +17328,7 @@ var pokemonData = []Species{
 
 		Name:  "Prinplup",
 		ID:    394,
-		Stats: Stats{[]int{64, 66, 68, 50, 81, 76}},
+		Stats: GetStats([6]int{64, 66, 68, 50, 81, 76}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, GROWL},
@@ -17370,7 +17370,7 @@ var pokemonData = []Species{
 
 		Name:  "Empoleon",
 		ID:    395,
-		Stats: Stats{[]int{84, 86, 88, 60, 111, 101}},
+		Stats: GetStats([6]int{84, 86, 88, 60, 111, 101}),
 		Types: []TYPE{WATER, STEEL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, GROWL, BUBBLE},
@@ -17412,7 +17412,7 @@ var pokemonData = []Species{
 
 		Name:  "Starly",
 		ID:    396,
-		Stats: Stats{[]int{40, 55, 30, 60, 30, 30}},
+		Stats: GetStats([6]int{40, 55, 30, 60, 30, 30}),
 		Types: []TYPE{NORMAL, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, GROWL},
@@ -17452,7 +17452,7 @@ var pokemonData = []Species{
 
 		Name:  "Staravia",
 		ID:    397,
-		Stats: Stats{[]int{55, 75, 50, 80, 40, 40}},
+		Stats: GetStats([6]int{55, 75, 50, 80, 40, 40}),
 		Types: []TYPE{NORMAL, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, GROWL, QUICKATTACK},
@@ -17492,7 +17492,7 @@ var pokemonData = []Species{
 
 		Name:  "Staraptor",
 		ID:    398,
-		Stats: Stats{[]int{85, 120, 70, 100, 50, 50}},
+		Stats: GetStats([6]int{85, 120, 70, 100, 50, 50}),
 		Types: []TYPE{NORMAL, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, GROWL, QUICKATTACK, WINGATTACK},
@@ -17532,7 +17532,7 @@ var pokemonData = []Species{
 
 		Name:  "Bidoof",
 		ID:    399,
-		Stats: Stats{[]int{59, 45, 40, 31, 35, 40}},
+		Stats: GetStats([6]int{59, 45, 40, 31, 35, 40}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -17573,7 +17573,7 @@ var pokemonData = []Species{
 
 		Name:  "Bibarel",
 		ID:    400,
-		Stats: Stats{[]int{79, 85, 60, 71, 55, 60}},
+		Stats: GetStats([6]int{79, 85, 60, 71, 55, 60}),
 		Types: []TYPE{NORMAL, WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, GROWL},
@@ -17615,7 +17615,7 @@ var pokemonData = []Species{
 
 		Name:  "Kricketot",
 		ID:    401,
-		Stats: Stats{[]int{37, 25, 41, 25, 25, 41}},
+		Stats: GetStats([6]int{37, 25, 41, 25, 25, 41}),
 		Types: []TYPE{BUG},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GROWL, BIDE},
@@ -17647,7 +17647,7 @@ var pokemonData = []Species{
 
 		Name:  "Kricketune",
 		ID:    402,
-		Stats: Stats{[]int{77, 85, 51, 65, 55, 51}},
+		Stats: GetStats([6]int{77, 85, 51, 65, 55, 51}),
 		Types: []TYPE{BUG},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GROWL, BIDE},
@@ -17687,7 +17687,7 @@ var pokemonData = []Species{
 
 		Name:  "Shinx",
 		ID:    403,
-		Stats: Stats{[]int{45, 65, 34, 45, 40, 34}},
+		Stats: GetStats([6]int{45, 65, 34, 45, 40, 34}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -17728,7 +17728,7 @@ var pokemonData = []Species{
 
 		Name:  "Luxio",
 		ID:    404,
-		Stats: Stats{[]int{60, 85, 49, 60, 60, 49}},
+		Stats: GetStats([6]int{60, 85, 49, 60, 60, 49}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, LEER},
@@ -17768,7 +17768,7 @@ var pokemonData = []Species{
 
 		Name:  "Luxray",
 		ID:    405,
-		Stats: Stats{[]int{80, 120, 79, 70, 95, 79}},
+		Stats: GetStats([6]int{80, 120, 79, 70, 95, 79}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, LEER, CHARGE},
@@ -17807,7 +17807,7 @@ var pokemonData = []Species{
 
 		Name:  "Budew",
 		ID:    406,
-		Stats: Stats{[]int{40, 30, 35, 55, 50, 70}},
+		Stats: GetStats([6]int{40, 30, 35, 55, 50, 70}),
 		Types: []TYPE{GRASS, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ABSORB},
@@ -17844,7 +17844,7 @@ var pokemonData = []Species{
 
 		Name:  "Roserade",
 		ID:    407,
-		Stats: Stats{[]int{60, 70, 55, 90, 125, 105}},
+		Stats: GetStats([6]int{60, 70, 55, 90, 125, 105}),
 		Types: []TYPE{GRASS, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1: {WEATHERBALL, POISONSTING, MEGADRAIN, MAGICALLEAF, SWEETSCENT},
@@ -17873,7 +17873,7 @@ var pokemonData = []Species{
 
 		Name:  "Cranidos",
 		ID:    408,
-		Stats: Stats{[]int{67, 125, 40, 58, 30, 30}},
+		Stats: GetStats([6]int{67, 125, 40, 58, 30, 30}),
 		Types: []TYPE{ROCK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {HEADBUTT, LEER},
@@ -17913,7 +17913,7 @@ var pokemonData = []Species{
 
 		Name:  "Rampardos",
 		ID:    409,
-		Stats: Stats{[]int{97, 165, 60, 58, 65, 50}},
+		Stats: GetStats([6]int{97, 165, 60, 58, 65, 50}),
 		Types: []TYPE{ROCK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {HEADBUTT, LEER},
@@ -17952,7 +17952,7 @@ var pokemonData = []Species{
 
 		Name:  "Shieldon",
 		ID:    410,
-		Stats: Stats{[]int{30, 42, 118, 30, 42, 88}},
+		Stats: GetStats([6]int{30, 42, 118, 30, 42, 88}),
 		Types: []TYPE{ROCK, STEEL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, PROTECT},
@@ -17992,7 +17992,7 @@ var pokemonData = []Species{
 
 		Name:  "Bastiodon",
 		ID:    411,
-		Stats: Stats{[]int{60, 52, 168, 30, 47, 138}},
+		Stats: GetStats([6]int{60, 52, 168, 30, 47, 138}),
 		Types: []TYPE{ROCK, STEEL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, PROTECT, TAUNT, METALSOUND},
@@ -18031,7 +18031,7 @@ var pokemonData = []Species{
 
 		Name:  "Burmy",
 		ID:    412,
-		Stats: Stats{[]int{40, 29, 45, 36, 29, 45}},
+		Stats: GetStats([6]int{40, 29, 45, 36, 29, 45}),
 		Types: []TYPE{BUG},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PROTECT},
@@ -18064,7 +18064,7 @@ var pokemonData = []Species{
 
 		Name:  "Wormadam",
 		ID:    413,
-		Stats: Stats{[]int{60, 59, 85, 36, 79, 105}},
+		Stats: GetStats([6]int{60, 59, 85, 36, 79, 105}),
 		Types: []TYPE{BUG, GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -18106,7 +18106,7 @@ var pokemonData = []Species{
 
 		Name:  "Mothim",
 		ID:    414,
-		Stats: Stats{[]int{70, 94, 50, 66, 94, 50}},
+		Stats: GetStats([6]int{70, 94, 50, 66, 94, 50}),
 		Types: []TYPE{BUG, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -18148,7 +18148,7 @@ var pokemonData = []Species{
 
 		Name:  "Combee",
 		ID:    415,
-		Stats: Stats{[]int{30, 30, 42, 70, 30, 42}},
+		Stats: GetStats([6]int{30, 30, 42, 70, 30, 42}),
 		Types: []TYPE{BUG, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SWEETSCENT, GUST},
@@ -18182,7 +18182,7 @@ var pokemonData = []Species{
 
 		Name:  "Vespiquen",
 		ID:    416,
-		Stats: Stats{[]int{70, 80, 102, 40, 80, 102}},
+		Stats: GetStats([6]int{70, 80, 102, 40, 80, 102}),
 		Types: []TYPE{BUG, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SWEETSCENT, GUST, POISONSTING, CONFUSERAY},
@@ -18224,7 +18224,7 @@ var pokemonData = []Species{
 
 		Name:  "Pachirisu",
 		ID:    417,
-		Stats: Stats{[]int{60, 45, 70, 95, 45, 90}},
+		Stats: GetStats([6]int{60, 45, 70, 95, 45, 90}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GROWL, BIDE},
@@ -18265,7 +18265,7 @@ var pokemonData = []Species{
 
 		Name:  "Buizel",
 		ID:    418,
-		Stats: Stats{[]int{55, 65, 35, 85, 60, 30}},
+		Stats: GetStats([6]int{55, 65, 35, 85, 60, 30}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SONICBOOM},
@@ -18309,7 +18309,7 @@ var pokemonData = []Species{
 
 		Name:  "Floatzel",
 		ID:    419,
-		Stats: Stats{[]int{85, 105, 55, 115, 85, 50}},
+		Stats: GetStats([6]int{85, 105, 55, 115, 85, 50}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ICEFANG, CRUNCH, SONICBOOM, GROWL, WATERSPORT, QUICKATTACK},
@@ -18351,7 +18351,7 @@ var pokemonData = []Species{
 
 		Name:  "Cherubi",
 		ID:    420,
-		Stats: Stats{[]int{45, 35, 45, 35, 62, 53}},
+		Stats: GetStats([6]int{45, 35, 45, 35, 62, 53}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {MORNINGSUN, TACKLE},
@@ -18390,7 +18390,7 @@ var pokemonData = []Species{
 
 		Name:  "Cherrim",
 		ID:    421,
-		Stats: Stats{[]int{70, 60, 70, 85, 87, 78}},
+		Stats: GetStats([6]int{70, 60, 70, 85, 87, 78}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {MORNINGSUN, TACKLE, GROWTH},
@@ -18429,7 +18429,7 @@ var pokemonData = []Species{
 
 		Name:  "Shellos",
 		ID:    422,
-		Stats: Stats{[]int{76, 48, 48, 34, 57, 62}},
+		Stats: GetStats([6]int{76, 48, 48, 34, 57, 62}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {MUDSLAP},
@@ -18469,7 +18469,7 @@ var pokemonData = []Species{
 
 		Name:  "Gastrodon",
 		ID:    423,
-		Stats: Stats{[]int{111, 83, 68, 39, 92, 82}},
+		Stats: GetStats([6]int{111, 83, 68, 39, 92, 82}),
 		Types: []TYPE{WATER, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {MUDSLAP, MUDSPORT, HARDEN, WATERPULSE},
@@ -18507,7 +18507,7 @@ var pokemonData = []Species{
 
 		Name:  "Ambipom",
 		ID:    424,
-		Stats: Stats{[]int{75, 100, 66, 115, 60, 66}},
+		Stats: GetStats([6]int{75, 100, 66, 115, 60, 66}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, TAILWHIP, SANDATTACK, ASTONISH},
@@ -18548,7 +18548,7 @@ var pokemonData = []Species{
 
 		Name:  "Drifloon",
 		ID:    425,
-		Stats: Stats{[]int{90, 50, 34, 70, 60, 44}},
+		Stats: GetStats([6]int{90, 50, 34, 70, 60, 44}),
 		Types: []TYPE{GHOST, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {CONSTRICT, MINIMIZE},
@@ -18590,7 +18590,7 @@ var pokemonData = []Species{
 
 		Name:  "Drifblim",
 		ID:    426,
-		Stats: Stats{[]int{150, 80, 44, 80, 90, 54}},
+		Stats: GetStats([6]int{150, 80, 44, 80, 90, 54}),
 		Types: []TYPE{GHOST, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {CONSTRICT, MINIMIZE, ASTONISH, GUST},
@@ -18630,7 +18630,7 @@ var pokemonData = []Species{
 
 		Name:  "Buneary",
 		ID:    427,
-		Stats: Stats{[]int{55, 66, 44, 85, 44, 56}},
+		Stats: GetStats([6]int{55, 66, 44, 85, 44, 56}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SPLASH, POUND, DEFENSECURL, FORESIGHT},
@@ -18673,7 +18673,7 @@ var pokemonData = []Species{
 
 		Name:  "Lopunny",
 		ID:    428,
-		Stats: Stats{[]int{65, 76, 84, 105, 54, 96}},
+		Stats: GetStats([6]int{65, 76, 84, 105, 54, 96}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {MIRRORCOAT, MAGICCOAT, SPLASH, POUND, DEFENSECURL, FORESIGHT},
@@ -18714,7 +18714,7 @@ var pokemonData = []Species{
 
 		Name:  "Mismagius",
 		ID:    429,
-		Stats: Stats{[]int{60, 60, 60, 105, 105, 105}},
+		Stats: GetStats([6]int{60, 60, 60, 105, 105, 105}),
 		Types: []TYPE{GHOST},
 		LearnableMoves: map[int][]MOVE{
 			1: {LUCKYCHANT, MAGICALLEAF, GROWL, PSYWAVE, SPITE, ASTONISH},
@@ -18741,7 +18741,7 @@ var pokemonData = []Species{
 
 		Name:  "Honchkrow",
 		ID:    430,
-		Stats: Stats{[]int{100, 125, 52, 71, 105, 52}},
+		Stats: GetStats([6]int{100, 125, 52, 71, 105, 52}),
 		Types: []TYPE{DARK, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ASTONISH, PURSUIT, HAZE, WINGATTACK},
@@ -18775,7 +18775,7 @@ var pokemonData = []Species{
 
 		Name:  "Glameow",
 		ID:    431,
-		Stats: Stats{[]int{49, 55, 42, 85, 42, 37}},
+		Stats: GetStats([6]int{49, 55, 42, 85, 42, 37}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {FAKEOUT},
@@ -18818,7 +18818,7 @@ var pokemonData = []Species{
 
 		Name:  "Purugly",
 		ID:    432,
-		Stats: Stats{[]int{71, 82, 64, 112, 64, 59}},
+		Stats: GetStats([6]int{71, 82, 64, 112, 64, 59}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {FAKEOUT, SCRATCH, GROWL},
@@ -18860,7 +18860,7 @@ var pokemonData = []Species{
 
 		Name:  "Chingling",
 		ID:    433,
-		Stats: Stats{[]int{45, 30, 50, 45, 65, 50}},
+		Stats: GetStats([6]int{45, 30, 50, 45, 65, 50}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WRAP},
@@ -18897,7 +18897,7 @@ var pokemonData = []Species{
 
 		Name:  "Stunky",
 		ID:    434,
-		Stats: Stats{[]int{63, 63, 47, 74, 41, 41}},
+		Stats: GetStats([6]int{63, 63, 47, 74, 41, 41}),
 		Types: []TYPE{POISON, DARK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, FOCUSENERGY},
@@ -18939,7 +18939,7 @@ var pokemonData = []Species{
 
 		Name:  "Skuntank",
 		ID:    435,
-		Stats: Stats{[]int{103, 93, 67, 84, 71, 61}},
+		Stats: GetStats([6]int{103, 93, 67, 84, 71, 61}),
 		Types: []TYPE{POISON, DARK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, FOCUSENERGY, POISONGAS},
@@ -18980,7 +18980,7 @@ var pokemonData = []Species{
 
 		Name:  "Bronzor",
 		ID:    436,
-		Stats: Stats{[]int{57, 24, 86, 23, 24, 86}},
+		Stats: GetStats([6]int{57, 24, 86, 23, 24, 86}),
 		Types: []TYPE{STEEL, PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, CONFUSION},
@@ -19024,7 +19024,7 @@ var pokemonData = []Species{
 
 		Name:  "Bronzong",
 		ID:    437,
-		Stats: Stats{[]int{67, 89, 116, 33, 79, 116}},
+		Stats: GetStats([6]int{67, 89, 116, 33, 79, 116}),
 		Types: []TYPE{STEEL, PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SUNNYDAY, RAINDANCE, TACKLE, CONFUSION, HYPNOSIS, IMPRISON},
@@ -19068,7 +19068,7 @@ var pokemonData = []Species{
 
 		Name:  "Bonsly",
 		ID:    438,
-		Stats: Stats{[]int{50, 80, 95, 10, 10, 45}},
+		Stats: GetStats([6]int{50, 80, 95, 10, 10, 45}),
 		Types: []TYPE{ROCK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {FAKETEARS, COPYCAT},
@@ -19110,7 +19110,7 @@ var pokemonData = []Species{
 
 		Name:  "Mime Jr.",
 		ID:    439,
-		Stats: Stats{[]int{20, 25, 45, 60, 70, 90}},
+		Stats: GetStats([6]int{20, 25, 45, 60, 70, 90}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TICKLE, BARRIER, CONFUSION},
@@ -19156,7 +19156,7 @@ var pokemonData = []Species{
 
 		Name:  "Happiny",
 		ID:    440,
-		Stats: Stats{[]int{100, 5, 5, 30, 15, 65}},
+		Stats: GetStats([6]int{100, 5, 5, 30, 15, 65}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND, CHARM},
@@ -19192,7 +19192,7 @@ var pokemonData = []Species{
 
 		Name:  "Chatot",
 		ID:    441,
-		Stats: Stats{[]int{76, 65, 45, 91, 92, 42}},
+		Stats: GetStats([6]int{76, 65, 45, 91, 92, 42}),
 		Types: []TYPE{NORMAL, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PECK},
@@ -19236,7 +19236,7 @@ var pokemonData = []Species{
 
 		Name:  "Spiritomb",
 		ID:    442,
-		Stats: Stats{[]int{50, 92, 108, 35, 92, 108}},
+		Stats: GetStats([6]int{50, 92, 108, 35, 92, 108}),
 		Types: []TYPE{GHOST, DARK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {CURSE, PURSUIT, CONFUSERAY, SPITE, SHADOWSNEAK},
@@ -19273,7 +19273,7 @@ var pokemonData = []Species{
 
 		Name:  "Gible",
 		ID:    443,
-		Stats: Stats{[]int{58, 70, 45, 42, 40, 45}},
+		Stats: GetStats([6]int{58, 70, 45, 42, 40, 45}),
 		Types: []TYPE{DRAGON, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -19313,7 +19313,7 @@ var pokemonData = []Species{
 
 		Name:  "Gabite",
 		ID:    444,
-		Stats: Stats{[]int{68, 90, 65, 82, 50, 55}},
+		Stats: GetStats([6]int{68, 90, 65, 82, 50, 55}),
 		Types: []TYPE{DRAGON, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, SANDATTACK},
@@ -19353,7 +19353,7 @@ var pokemonData = []Species{
 
 		Name:  "Garchomp",
 		ID:    445,
-		Stats: Stats{[]int{108, 130, 95, 102, 80, 85}},
+		Stats: GetStats([6]int{108, 130, 95, 102, 80, 85}),
 		Types: []TYPE{DRAGON, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {FIREFANG, TACKLE, SANDATTACK, DRAGONRAGE, SANDSTORM},
@@ -19393,7 +19393,7 @@ var pokemonData = []Species{
 
 		Name:  "Munchlax",
 		ID:    446,
-		Stats: Stats{[]int{135, 85, 40, 5, 40, 85}},
+		Stats: GetStats([6]int{135, 85, 40, 5, 40, 85}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {METRONOME, ODORSLEUTH, TACKLE},
@@ -19441,7 +19441,7 @@ var pokemonData = []Species{
 
 		Name:  "Riolu",
 		ID:    447,
-		Stats: Stats{[]int{40, 70, 40, 60, 35, 40}},
+		Stats: GetStats([6]int{40, 70, 40, 60, 35, 40}),
 		Types: []TYPE{FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {FORESIGHT, QUICKATTACK, ENDURE},
@@ -19479,7 +19479,7 @@ var pokemonData = []Species{
 
 		Name:  "Lucario",
 		ID:    448,
-		Stats: Stats{[]int{70, 110, 70, 90, 115, 70}},
+		Stats: GetStats([6]int{70, 110, 70, 90, 115, 70}),
 		Types: []TYPE{FIGHTING, STEEL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {DARKPULSE, FORESIGHT, QUICKATTACK, DETECT, METALCLAW},
@@ -19521,7 +19521,7 @@ var pokemonData = []Species{
 
 		Name:  "Hippopotas",
 		ID:    449,
-		Stats: Stats{[]int{68, 72, 78, 32, 38, 42}},
+		Stats: GetStats([6]int{68, 72, 78, 32, 38, 42}),
 		Types: []TYPE{GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, SANDATTACK},
@@ -19559,7 +19559,7 @@ var pokemonData = []Species{
 
 		Name:  "Hippowdon",
 		ID:    450,
-		Stats: Stats{[]int{108, 112, 118, 47, 68, 72}},
+		Stats: GetStats([6]int{108, 112, 118, 47, 68, 72}),
 		Types: []TYPE{GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ICEFANG, FIREFANG, THUNDERFANG, TACKLE, SANDATTACK, BITE, YAWN},
@@ -19595,7 +19595,7 @@ var pokemonData = []Species{
 
 		Name:  "Skorupi",
 		ID:    451,
-		Stats: Stats{[]int{40, 50, 90, 65, 30, 55}},
+		Stats: GetStats([6]int{40, 50, 90, 65, 30, 55}),
 		Types: []TYPE{POISON, BUG},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BITE, POISONSTING, LEER},
@@ -19639,7 +19639,7 @@ var pokemonData = []Species{
 
 		Name:  "Drapion",
 		ID:    452,
-		Stats: Stats{[]int{70, 90, 110, 95, 60, 75}},
+		Stats: GetStats([6]int{70, 90, 110, 95, 60, 75}),
 		Types: []TYPE{POISON, DARK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {THUNDERFANG, ICEFANG, FIREFANG, BITE, POISONSTING, LEER, KNOCKOFF},
@@ -19681,7 +19681,7 @@ var pokemonData = []Species{
 
 		Name:  "Croagunk",
 		ID:    453,
-		Stats: Stats{[]int{48, 61, 40, 50, 61, 40}},
+		Stats: GetStats([6]int{48, 61, 40, 50, 61, 40}),
 		Types: []TYPE{POISON, FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ASTONISH},
@@ -19726,7 +19726,7 @@ var pokemonData = []Species{
 
 		Name:  "Toxicroak",
 		ID:    454,
-		Stats: Stats{[]int{83, 106, 65, 85, 86, 65}},
+		Stats: GetStats([6]int{83, 106, 65, 85, 86, 65}),
 		Types: []TYPE{POISON, FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ASTONISH, MUDSLAP, POISONSTING},
@@ -19769,7 +19769,7 @@ var pokemonData = []Species{
 
 		Name:  "Carnivine",
 		ID:    455,
-		Stats: Stats{[]int{74, 100, 72, 46, 90, 72}},
+		Stats: GetStats([6]int{74, 100, 72, 46, 90, 72}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BIND, GROWTH},
@@ -19807,7 +19807,7 @@ var pokemonData = []Species{
 
 		Name:  "Finneon",
 		ID:    456,
-		Stats: Stats{[]int{49, 49, 56, 66, 49, 61}},
+		Stats: GetStats([6]int{49, 49, 56, 66, 49, 61}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND},
@@ -19851,7 +19851,7 @@ var pokemonData = []Species{
 
 		Name:  "Lumineon",
 		ID:    457,
-		Stats: Stats{[]int{69, 69, 76, 91, 69, 86}},
+		Stats: GetStats([6]int{69, 69, 76, 91, 69, 86}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND, WATERGUN, ATTRACT},
@@ -19893,7 +19893,7 @@ var pokemonData = []Species{
 
 		Name:  "Mantyke",
 		ID:    458,
-		Stats: Stats{[]int{45, 20, 50, 50, 60, 120}},
+		Stats: GetStats([6]int{45, 20, 50, 50, 60, 120}),
 		Types: []TYPE{WATER, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, BUBBLE},
@@ -19937,7 +19937,7 @@ var pokemonData = []Species{
 
 		Name:  "Snover",
 		ID:    459,
-		Stats: Stats{[]int{60, 62, 50, 40, 62, 60}},
+		Stats: GetStats([6]int{60, 62, 50, 40, 62, 60}),
 		Types: []TYPE{GRASS, ICE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POWDERSNOW, LEER},
@@ -19978,7 +19978,7 @@ var pokemonData = []Species{
 
 		Name:  "Abomasnow",
 		ID:    460,
-		Stats: Stats{[]int{90, 92, 75, 60, 92, 85}},
+		Stats: GetStats([6]int{90, 92, 75, 60, 92, 85}),
 		Types: []TYPE{GRASS, ICE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ICEPUNCH, POWDERSNOW, LEER, RAZORLEAF, ICYWIND},
@@ -20017,7 +20017,7 @@ var pokemonData = []Species{
 
 		Name:  "Weavile",
 		ID:    461,
-		Stats: Stats{[]int{70, 120, 65, 125, 45, 85}},
+		Stats: GetStats([6]int{70, 120, 65, 125, 45, 85}),
 		Types: []TYPE{DARK, ICE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {EMBARGO, REVENGE, ASSURANCE, SCRATCH, LEER, TAUNT, QUICKATTACK},
@@ -20060,7 +20060,7 @@ var pokemonData = []Species{
 
 		Name:  "Magnezone",
 		ID:    462,
-		Stats: Stats{[]int{70, 70, 115, 60, 130, 90}},
+		Stats: GetStats([6]int{70, 70, 115, 60, 130, 90}),
 		Types: []TYPE{ELECTRIC, STEEL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {MIRRORCOAT, BARRIER, TACKLE, SUPERSONIC, THUNDERSHOCK, SONICBOOM},
@@ -20105,7 +20105,7 @@ var pokemonData = []Species{
 
 		Name:  "Lickilicky",
 		ID:    463,
-		Stats: Stats{[]int{110, 85, 95, 50, 80, 95}},
+		Stats: GetStats([6]int{110, 85, 95, 50, 80, 95}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LICK},
@@ -20150,7 +20150,7 @@ var pokemonData = []Species{
 
 		Name:  "Rhyperior",
 		ID:    464,
-		Stats: Stats{[]int{115, 140, 130, 40, 55, 55}},
+		Stats: GetStats([6]int{115, 140, 130, 40, 55, 55}),
 		Types: []TYPE{GROUND, ROCK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POISONJAB, HORNATTACK, TAILWHIP, STOMP, FURYATTACK},
@@ -20190,7 +20190,7 @@ var pokemonData = []Species{
 
 		Name:  "Tangrowth",
 		ID:    465,
-		Stats: Stats{[]int{100, 100, 125, 50, 110, 50}},
+		Stats: GetStats([6]int{100, 100, 125, 50, 110, 50}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {INGRAIN, CONSTRICT},
@@ -20236,7 +20236,7 @@ var pokemonData = []Species{
 
 		Name:  "Electivire",
 		ID:    466,
-		Stats: Stats{[]int{75, 123, 67, 95, 95, 85}},
+		Stats: GetStats([6]int{75, 123, 67, 95, 95, 85}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {FIREPUNCH, QUICKATTACK, LEER, THUNDERSHOCK, LOWKICK},
@@ -20278,7 +20278,7 @@ var pokemonData = []Species{
 
 		Name:  "Magmortar",
 		ID:    467,
-		Stats: Stats{[]int{75, 95, 67, 83, 125, 95}},
+		Stats: GetStats([6]int{75, 95, 67, 83, 125, 95}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {THUNDERPUNCH, SMOG, LEER, EMBER, SMOKESCREEN},
@@ -20320,7 +20320,7 @@ var pokemonData = []Species{
 
 		Name:  "Togekiss",
 		ID:    468,
-		Stats: Stats{[]int{85, 50, 95, 80, 120, 115}},
+		Stats: GetStats([6]int{85, 50, 95, 80, 120, 115}),
 		Types: []TYPE{NORMAL, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1: {SKYATTACK, EXTREMESPEED, AURASPHERE, AIRSLASH},
@@ -20348,7 +20348,7 @@ var pokemonData = []Species{
 
 		Name:  "Yanmega",
 		ID:    469,
-		Stats: Stats{[]int{86, 76, 86, 95, 116, 56}},
+		Stats: GetStats([6]int{86, 76, 86, 95, 116, 56}),
 		Types: []TYPE{BUG, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {NIGHTSLASH, BUGBITE, TACKLE, FORESIGHT, QUICKATTACK, DOUBLETEAM},
@@ -20392,7 +20392,7 @@ var pokemonData = []Species{
 
 		Name:  "Leafeon",
 		ID:    470,
-		Stats: Stats{[]int{65, 110, 130, 95, 60, 65}},
+		Stats: GetStats([6]int{65, 110, 130, 95, 60, 65}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {HELPINGHAND, TACKLE, TAILWHIP},
@@ -20431,7 +20431,7 @@ var pokemonData = []Species{
 
 		Name:  "Glaceon",
 		ID:    471,
-		Stats: Stats{[]int{65, 60, 110, 65, 130, 95}},
+		Stats: GetStats([6]int{65, 60, 110, 65, 130, 95}),
 		Types: []TYPE{ICE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {HELPINGHAND, TACKLE, TAILWHIP},
@@ -20470,7 +20470,7 @@ var pokemonData = []Species{
 
 		Name:  "Gliscor",
 		ID:    472,
-		Stats: Stats{[]int{75, 95, 125, 95, 45, 75}},
+		Stats: GetStats([6]int{75, 95, 125, 95, 45, 75}),
 		Types: []TYPE{GROUND, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {THUNDERFANG, ICEFANG, FIREFANG, POISONJAB, SANDATTACK, HARDEN, KNOCKOFF},
@@ -20512,7 +20512,7 @@ var pokemonData = []Species{
 
 		Name:  "Mamoswine",
 		ID:    473,
-		Stats: Stats{[]int{110, 130, 80, 80, 70, 60}},
+		Stats: GetStats([6]int{110, 130, 80, 80, 70, 60}),
 		Types: []TYPE{ICE, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ANCIENTPOWER, PECK, ODORSLEUTH, MUDSPORT, POWDERSNOW},
@@ -20555,7 +20555,7 @@ var pokemonData = []Species{
 
 		Name:  "Porygon-Z",
 		ID:    474,
-		Stats: Stats{[]int{85, 80, 70, 90, 135, 75}},
+		Stats: GetStats([6]int{85, 80, 70, 90, 135, 75}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TRICKROOM, NASTYPLOT, CONVERSION, CONVERSION2, TACKLE},
@@ -20595,7 +20595,7 @@ var pokemonData = []Species{
 
 		Name:  "Gallade",
 		ID:    475,
-		Stats: Stats{[]int{68, 125, 65, 80, 65, 115}},
+		Stats: GetStats([6]int{68, 125, 65, 80, 65, 115}),
 		Types: []TYPE{PSYCHIC, FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LEAFBLADE, NIGHTSLASH, LEER, CONFUSION, DOUBLETEAM, TELEPORT},
@@ -20637,7 +20637,7 @@ var pokemonData = []Species{
 
 		Name:  "Probopass",
 		ID:    476,
-		Stats: Stats{[]int{60, 55, 145, 40, 75, 150}},
+		Stats: GetStats([6]int{60, 55, 145, 40, 75, 150}),
 		Types: []TYPE{ROCK, STEEL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {MAGNETRISE, GRAVITY, TACKLE, IRONDEFENSE, BLOCK, MAGNETBOMB},
@@ -20680,7 +20680,7 @@ var pokemonData = []Species{
 
 		Name:  "Dusknoir",
 		ID:    477,
-		Stats: Stats{[]int{45, 100, 135, 45, 65, 135}},
+		Stats: GetStats([6]int{45, 100, 135, 45, 65, 135}),
 		Types: []TYPE{GHOST},
 		LearnableMoves: map[int][]MOVE{
 			1:  {FIREPUNCH, ICEPUNCH, THUNDERPUNCH, GRAVITY, BIND, LEER, NIGHTSHADE, DISABLE},
@@ -20721,7 +20721,7 @@ var pokemonData = []Species{
 
 		Name:  "Froslass",
 		ID:    478,
-		Stats: Stats{[]int{70, 80, 70, 110, 80, 70}},
+		Stats: GetStats([6]int{70, 80, 70, 110, 80, 70}),
 		Types: []TYPE{ICE, GHOST},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POWDERSNOW, LEER, DOUBLETEAM, ASTONISH},
@@ -20761,7 +20761,7 @@ var pokemonData = []Species{
 
 		Name:  "Rotom",
 		ID:    479,
-		Stats: Stats{[]int{50, 50, 77, 91, 95, 77}},
+		Stats: GetStats([6]int{50, 50, 77, 91, 95, 77}),
 		Types: []TYPE{ELECTRIC, GHOST},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TRICK, ASTONISH, THUNDERWAVE, THUNDERSHOCK, CONFUSERAY},
@@ -20798,7 +20798,7 @@ var pokemonData = []Species{
 
 		Name:  "Uxie",
 		ID:    480,
-		Stats: Stats{[]int{75, 75, 130, 95, 75, 130}},
+		Stats: GetStats([6]int{75, 75, 130, 95, 75, 130}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {REST, CONFUSION},
@@ -20835,7 +20835,7 @@ var pokemonData = []Species{
 
 		Name:  "Mesprit",
 		ID:    481,
-		Stats: Stats{[]int{80, 105, 105, 80, 105, 105}},
+		Stats: GetStats([6]int{80, 105, 105, 80, 105, 105}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {REST, CONFUSION},
@@ -20872,7 +20872,7 @@ var pokemonData = []Species{
 
 		Name:  "Azelf",
 		ID:    482,
-		Stats: Stats{[]int{75, 125, 70, 115, 125, 70}},
+		Stats: GetStats([6]int{75, 125, 70, 115, 125, 70}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {REST, CONFUSION},
@@ -20909,7 +20909,7 @@ var pokemonData = []Species{
 
 		Name:  "Dialga",
 		ID:    483,
-		Stats: Stats{[]int{100, 120, 120, 90, 150, 100}},
+		Stats: GetStats([6]int{100, 120, 120, 90, 150, 100}),
 		Types: []TYPE{STEEL, DRAGON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {DRAGONBREATH, SCARYFACE},
@@ -20948,7 +20948,7 @@ var pokemonData = []Species{
 
 		Name:  "Palkia",
 		ID:    484,
-		Stats: Stats{[]int{90, 120, 100, 100, 150, 120}},
+		Stats: GetStats([6]int{90, 120, 100, 100, 150, 120}),
 		Types: []TYPE{WATER, DRAGON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {DRAGONBREATH, SCARYFACE},
@@ -20987,7 +20987,7 @@ var pokemonData = []Species{
 
 		Name:  "Heatran",
 		ID:    485,
-		Stats: Stats{[]int{91, 90, 106, 77, 130, 106}},
+		Stats: GetStats([6]int{91, 90, 106, 77, 130, 106}),
 		Types: []TYPE{FIRE, STEEL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ANCIENTPOWER},
@@ -21027,7 +21027,7 @@ var pokemonData = []Species{
 
 		Name:  "Regigigas",
 		ID:    486,
-		Stats: Stats{[]int{110, 160, 110, 100, 80, 110}},
+		Stats: GetStats([6]int{110, 160, 110, 100, 80, 110}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:   {FIREPUNCH, ICEPUNCH, THUNDERPUNCH, DIZZYPUNCH, KNOCKOFF, CONFUSERAY, FORESIGHT},
@@ -21061,7 +21061,7 @@ var pokemonData = []Species{
 
 		Name:  "Giratina",
 		ID:    487,
-		Stats: Stats{[]int{150, 100, 120, 90, 100, 120}},
+		Stats: GetStats([6]int{150, 100, 120, 90, 100, 120}),
 		Types: []TYPE{GHOST, DRAGON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {DRAGONBREATH, SCARYFACE},
@@ -21101,7 +21101,7 @@ var pokemonData = []Species{
 
 		Name:  "Cresselia",
 		ID:    488,
-		Stats: Stats{[]int{120, 70, 120, 85, 75, 130}},
+		Stats: GetStats([6]int{120, 70, 120, 85, 75, 130}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {CONFUSION, DOUBLETEAM},
@@ -21138,7 +21138,7 @@ var pokemonData = []Species{
 
 		Name:  "Phione",
 		ID:    489,
-		Stats: Stats{[]int{80, 80, 80, 80, 80, 80}},
+		Stats: GetStats([6]int{80, 80, 80, 80, 80, 80}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BUBBLE, WATERSPORT},
@@ -21174,7 +21174,7 @@ var pokemonData = []Species{
 
 		Name:  "Manaphy",
 		ID:    490,
-		Stats: Stats{[]int{100, 100, 100, 100, 100, 100}},
+		Stats: GetStats([6]int{100, 100, 100, 100, 100, 100}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TAILGLOW, BUBBLE, WATERSPORT},
@@ -21211,7 +21211,7 @@ var pokemonData = []Species{
 
 		Name:  "Darkrai",
 		ID:    491,
-		Stats: Stats{[]int{70, 90, 90, 125, 135, 90}},
+		Stats: GetStats([6]int{70, 90, 90, 125, 135, 90}),
 		Types: []TYPE{DARK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {OMINOUSWIND, DISABLE},
@@ -21248,7 +21248,7 @@ var pokemonData = []Species{
 
 		Name:  "Shaymin",
 		ID:    492,
-		Stats: Stats{[]int{100, 100, 100, 100, 100, 100}},
+		Stats: GetStats([6]int{100, 100, 100, 100, 100, 100}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:   {GROWTH},
@@ -21290,7 +21290,7 @@ var pokemonData = []Species{
 
 		Name:  "Arceus",
 		ID:    493,
-		Stats: Stats{[]int{120, 120, 120, 120, 120, 120}},
+		Stats: GetStats([6]int{120, 120, 120, 120, 120, 120}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:   {SEISMICTOSS, COSMICPOWER, NATURALGIFT, PUNISHMENT},
@@ -21328,7 +21328,7 @@ var pokemonData = []Species{
 
 		Name:  "Victini",
 		ID:    494,
-		Stats: Stats{[]int{100, 100, 100, 100, 100, 100}},
+		Stats: GetStats([6]int{100, 100, 100, 100, 100, 100}),
 		Types: []TYPE{PSYCHIC, FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SEARINGSHOT, FOCUSENERGY, CONFUSION, INCINERATE, QUICKATTACK},
@@ -21367,7 +21367,7 @@ var pokemonData = []Species{
 
 		Name:  "Snivy",
 		ID:    495,
-		Stats: Stats{[]int{45, 45, 55, 63, 45, 55}},
+		Stats: GetStats([6]int{45, 45, 55, 63, 45, 55}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -21411,7 +21411,7 @@ var pokemonData = []Species{
 
 		Name:  "Servine",
 		ID:    496,
-		Stats: Stats{[]int{60, 60, 75, 83, 60, 75}},
+		Stats: GetStats([6]int{60, 60, 75, 83, 60, 75}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, LEER, VINEWHIP, WRAP},
@@ -21454,7 +21454,7 @@ var pokemonData = []Species{
 
 		Name:  "Serperior",
 		ID:    497,
-		Stats: Stats{[]int{75, 75, 95, 113, 75, 95}},
+		Stats: GetStats([6]int{75, 75, 95, 113, 75, 95}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, LEER, VINEWHIP, WRAP},
@@ -21496,7 +21496,7 @@ var pokemonData = []Species{
 
 		Name:  "Tepig",
 		ID:    498,
-		Stats: Stats{[]int{65, 63, 45, 45, 45, 45}},
+		Stats: GetStats([6]int{65, 63, 45, 45, 45, 45}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -21540,7 +21540,7 @@ var pokemonData = []Species{
 
 		Name:  "Pignite",
 		ID:    499,
-		Stats: Stats{[]int{90, 93, 55, 55, 70, 55}},
+		Stats: GetStats([6]int{90, 93, 55, 55, 70, 55}),
 		Types: []TYPE{FIRE, FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, TAILWHIP, EMBER, ODORSLEUTH},
@@ -21584,7 +21584,7 @@ var pokemonData = []Species{
 
 		Name:  "Emboar",
 		ID:    500,
-		Stats: Stats{[]int{110, 123, 65, 65, 100, 65}},
+		Stats: GetStats([6]int{110, 123, 65, 65, 100, 65}),
 		Types: []TYPE{FIRE, FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {HAMMERARM, TACKLE, TAILWHIP, EMBER, ODORSLEUTH},
@@ -21627,7 +21627,7 @@ var pokemonData = []Species{
 
 		Name:  "Oshawott",
 		ID:    501,
-		Stats: Stats{[]int{55, 55, 45, 45, 63, 45}},
+		Stats: GetStats([6]int{55, 55, 45, 45, 63, 45}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -21671,7 +21671,7 @@ var pokemonData = []Species{
 
 		Name:  "Dewott",
 		ID:    502,
-		Stats: Stats{[]int{75, 75, 60, 60, 83, 60}},
+		Stats: GetStats([6]int{75, 75, 60, 60, 83, 60}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, TAILWHIP, WATERGUN, WATERSPORT},
@@ -21714,7 +21714,7 @@ var pokemonData = []Species{
 
 		Name:  "Samurott",
 		ID:    503,
-		Stats: Stats{[]int{95, 100, 85, 70, 108, 70}},
+		Stats: GetStats([6]int{95, 100, 85, 70, 108, 70}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {MEGAHORN, TACKLE, TAILWHIP, WATERGUN, WATERSPORT},
@@ -21757,7 +21757,7 @@ var pokemonData = []Species{
 
 		Name:  "Patrat",
 		ID:    504,
-		Stats: Stats{[]int{45, 55, 39, 42, 35, 39}},
+		Stats: GetStats([6]int{45, 55, 39, 42, 35, 39}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -21801,7 +21801,7 @@ var pokemonData = []Species{
 
 		Name:  "Watchog",
 		ID:    505,
-		Stats: Stats{[]int{60, 85, 69, 77, 60, 69}},
+		Stats: GetStats([6]int{60, 85, 69, 77, 60, 69}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LOWKICK, TACKLE, LEER, BITE},
@@ -21844,7 +21844,7 @@ var pokemonData = []Species{
 
 		Name:  "Lillipup",
 		ID:    506,
-		Stats: Stats{[]int{45, 60, 45, 55, 25, 45}},
+		Stats: GetStats([6]int{45, 60, 45, 55, 25, 45}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LEER, TACKLE},
@@ -21885,7 +21885,7 @@ var pokemonData = []Species{
 
 		Name:  "Herdier",
 		ID:    507,
-		Stats: Stats{[]int{65, 80, 65, 60, 35, 65}},
+		Stats: GetStats([6]int{65, 80, 65, 60, 35, 65}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LEER, TACKLE, ODORSLEUTH, BITE},
@@ -21925,7 +21925,7 @@ var pokemonData = []Species{
 
 		Name:  "Stoutland",
 		ID:    508,
-		Stats: Stats{[]int{85, 100, 90, 80, 45, 90}},
+		Stats: GetStats([6]int{85, 100, 90, 80, 45, 90}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ICEFANG, FIREFANG, THUNDERFANG, LEER, TACKLE, ODORSLEUTH, BITE},
@@ -21964,7 +21964,7 @@ var pokemonData = []Species{
 
 		Name:  "Purrloin",
 		ID:    509,
-		Stats: Stats{[]int{41, 50, 37, 66, 50, 37}},
+		Stats: GetStats([6]int{41, 50, 37, 66, 50, 37}),
 		Types: []TYPE{DARK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH},
@@ -22009,7 +22009,7 @@ var pokemonData = []Species{
 
 		Name:  "Liepard",
 		ID:    510,
-		Stats: Stats{[]int{64, 88, 50, 106, 88, 50}},
+		Stats: GetStats([6]int{64, 88, 50, 106, 88, 50}),
 		Types: []TYPE{DARK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, GROWL, ASSIST, SANDATTACK},
@@ -22052,7 +22052,7 @@ var pokemonData = []Species{
 
 		Name:  "Pansage",
 		ID:    511,
-		Stats: Stats{[]int{50, 53, 48, 64, 53, 48}},
+		Stats: GetStats([6]int{50, 53, 48, 64, 53, 48}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH},
@@ -22098,7 +22098,7 @@ var pokemonData = []Species{
 
 		Name:  "Simisage",
 		ID:    512,
-		Stats: Stats{[]int{75, 98, 63, 101, 98, 63}},
+		Stats: GetStats([6]int{75, 98, 63, 101, 98, 63}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1: {LEER, LICK, FURYSWIPES, SEEDBOMB},
@@ -22128,7 +22128,7 @@ var pokemonData = []Species{
 
 		Name:  "Pansear",
 		ID:    513,
-		Stats: Stats{[]int{50, 53, 48, 64, 53, 48}},
+		Stats: GetStats([6]int{50, 53, 48, 64, 53, 48}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH},
@@ -22174,7 +22174,7 @@ var pokemonData = []Species{
 
 		Name:  "Simisear",
 		ID:    514,
-		Stats: Stats{[]int{75, 98, 63, 101, 98, 63}},
+		Stats: GetStats([6]int{75, 98, 63, 101, 98, 63}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1: {LEER, LICK, FURYSWIPES, FLAMEBURST},
@@ -22204,7 +22204,7 @@ var pokemonData = []Species{
 
 		Name:  "Panpour",
 		ID:    515,
-		Stats: Stats{[]int{50, 53, 48, 64, 53, 48}},
+		Stats: GetStats([6]int{50, 53, 48, 64, 53, 48}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH},
@@ -22250,7 +22250,7 @@ var pokemonData = []Species{
 
 		Name:  "Simipour",
 		ID:    516,
-		Stats: Stats{[]int{75, 98, 63, 101, 98, 63}},
+		Stats: GetStats([6]int{75, 98, 63, 101, 98, 63}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1: {LEER, LICK, FURYSWIPES, SCALD},
@@ -22280,7 +22280,7 @@ var pokemonData = []Species{
 
 		Name:  "Munna",
 		ID:    517,
-		Stats: Stats{[]int{76, 25, 45, 24, 67, 55}},
+		Stats: GetStats([6]int{76, 25, 45, 24, 67, 55}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PSYWAVE, DEFENSECURL},
@@ -22325,7 +22325,7 @@ var pokemonData = []Species{
 
 		Name:  "Musharna",
 		ID:    518,
-		Stats: Stats{[]int{116, 55, 85, 29, 107, 95}},
+		Stats: GetStats([6]int{116, 55, 85, 29, 107, 95}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1: {DEFENSECURL, LUCKYCHANT, PSYBEAM, HYPNOSIS},
@@ -22353,7 +22353,7 @@ var pokemonData = []Species{
 
 		Name:  "Pidove",
 		ID:    519,
-		Stats: Stats{[]int{50, 55, 50, 43, 36, 30}},
+		Stats: GetStats([6]int{50, 55, 50, 43, 36, 30}),
 		Types: []TYPE{NORMAL, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GUST},
@@ -22397,7 +22397,7 @@ var pokemonData = []Species{
 
 		Name:  "Tranquill",
 		ID:    520,
-		Stats: Stats{[]int{62, 77, 62, 65, 50, 42}},
+		Stats: GetStats([6]int{62, 77, 62, 65, 50, 42}),
 		Types: []TYPE{NORMAL, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GUST, GROWL, LEER, QUICKATTACK},
@@ -22440,7 +22440,7 @@ var pokemonData = []Species{
 
 		Name:  "Unfezant",
 		ID:    521,
-		Stats: Stats{[]int{80, 105, 80, 93, 65, 55}},
+		Stats: GetStats([6]int{80, 105, 80, 93, 65, 55}),
 		Types: []TYPE{NORMAL, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GUST, GROWL, LEER, QUICKATTACK},
@@ -22482,7 +22482,7 @@ var pokemonData = []Species{
 
 		Name:  "Blitzle",
 		ID:    522,
-		Stats: Stats{[]int{45, 60, 32, 76, 50, 32}},
+		Stats: GetStats([6]int{45, 60, 32, 76, 50, 32}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {QUICKATTACK},
@@ -22525,7 +22525,7 @@ var pokemonData = []Species{
 
 		Name:  "Zebstrika",
 		ID:    523,
-		Stats: Stats{[]int{75, 100, 63, 116, 80, 63}},
+		Stats: GetStats([6]int{75, 100, 63, 116, 80, 63}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {QUICKATTACK, TAILWHIP, CHARGE, THUNDERWAVE},
@@ -22566,7 +22566,7 @@ var pokemonData = []Species{
 
 		Name:  "Roggenrola",
 		ID:    524,
-		Stats: Stats{[]int{55, 75, 85, 15, 25, 25}},
+		Stats: GetStats([6]int{55, 75, 85, 15, 25, 25}),
 		Types: []TYPE{ROCK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -22610,7 +22610,7 @@ var pokemonData = []Species{
 
 		Name:  "Boldore",
 		ID:    525,
-		Stats: Stats{[]int{70, 105, 105, 20, 50, 40}},
+		Stats: GetStats([6]int{70, 105, 105, 20, 50, 40}),
 		Types: []TYPE{ROCK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, HARDEN, SANDATTACK, HEADBUTT},
@@ -22654,7 +22654,7 @@ var pokemonData = []Species{
 
 		Name:  "Gigalith",
 		ID:    526,
-		Stats: Stats{[]int{85, 135, 130, 25, 60, 70}},
+		Stats: GetStats([6]int{85, 135, 130, 25, 60, 70}),
 		Types: []TYPE{ROCK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, HARDEN, SANDATTACK, HEADBUTT},
@@ -22697,7 +22697,7 @@ var pokemonData = []Species{
 
 		Name:  "Woobat",
 		ID:    527,
-		Stats: Stats{[]int{55, 45, 43, 72, 55, 43}},
+		Stats: GetStats([6]int{55, 45, 43, 72, 55, 43}),
 		Types: []TYPE{PSYCHIC, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {CONFUSION},
@@ -22739,7 +22739,7 @@ var pokemonData = []Species{
 
 		Name:  "Swoobat",
 		ID:    528,
-		Stats: Stats{[]int{67, 57, 55, 114, 77, 55}},
+		Stats: GetStats([6]int{67, 57, 55, 114, 77, 55}),
 		Types: []TYPE{PSYCHIC, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {CONFUSION, ODORSLEUTH, GUST, ASSURANCE},
@@ -22779,7 +22779,7 @@ var pokemonData = []Species{
 
 		Name:  "Drilbur",
 		ID:    529,
-		Stats: Stats{[]int{60, 85, 40, 68, 30, 45}},
+		Stats: GetStats([6]int{60, 85, 40, 68, 30, 45}),
 		Types: []TYPE{GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, MUDSPORT},
@@ -22822,7 +22822,7 @@ var pokemonData = []Species{
 
 		Name:  "Excadrill",
 		ID:    530,
-		Stats: Stats{[]int{110, 135, 60, 88, 50, 65}},
+		Stats: GetStats([6]int{110, 135, 60, 88, 50, 65}),
 		Types: []TYPE{GROUND, STEEL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, MUDSPORT, RAPIDSPIN, MUDSLAP},
@@ -22864,7 +22864,7 @@ var pokemonData = []Species{
 
 		Name:  "Audino",
 		ID:    531,
-		Stats: Stats{[]int{103, 60, 86, 50, 60, 86}},
+		Stats: GetStats([6]int{103, 60, 86, 50, 60, 86}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND, GROWL, HELPINGHAND},
@@ -22906,7 +22906,7 @@ var pokemonData = []Species{
 
 		Name:  "Timburr",
 		ID:    532,
-		Stats: Stats{[]int{75, 80, 55, 35, 25, 35}},
+		Stats: GetStats([6]int{75, 80, 55, 35, 25, 35}),
 		Types: []TYPE{FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND, LEER},
@@ -22950,7 +22950,7 @@ var pokemonData = []Species{
 
 		Name:  "Gurdurr",
 		ID:    533,
-		Stats: Stats{[]int{85, 105, 85, 40, 40, 50}},
+		Stats: GetStats([6]int{85, 105, 85, 40, 40, 50}),
 		Types: []TYPE{FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND, LEER, FOCUSENERGY, BIDE},
@@ -22993,7 +22993,7 @@ var pokemonData = []Species{
 
 		Name:  "Conkeldurr",
 		ID:    534,
-		Stats: Stats{[]int{105, 140, 95, 45, 55, 65}},
+		Stats: GetStats([6]int{105, 140, 95, 45, 55, 65}),
 		Types: []TYPE{FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND, LEER, FOCUSENERGY, BIDE},
@@ -23035,7 +23035,7 @@ var pokemonData = []Species{
 
 		Name:  "Tympole",
 		ID:    535,
-		Stats: Stats{[]int{50, 50, 40, 64, 50, 40}},
+		Stats: GetStats([6]int{50, 50, 40, 64, 50, 40}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BUBBLE, GROWL},
@@ -23078,7 +23078,7 @@ var pokemonData = []Species{
 
 		Name:  "Palpitoad",
 		ID:    536,
-		Stats: Stats{[]int{75, 65, 55, 69, 65, 55}},
+		Stats: GetStats([6]int{75, 65, 55, 69, 65, 55}),
 		Types: []TYPE{WATER, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BUBBLE, GROWL, SUPERSONIC, ROUND},
@@ -23120,7 +23120,7 @@ var pokemonData = []Species{
 
 		Name:  "Seismitoad",
 		ID:    537,
-		Stats: Stats{[]int{105, 85, 75, 74, 85, 75}},
+		Stats: GetStats([6]int{105, 85, 75, 74, 85, 75}),
 		Types: []TYPE{WATER, GROUND},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BUBBLE, GROWL, SUPERSONIC, ROUND},
@@ -23163,7 +23163,7 @@ var pokemonData = []Species{
 
 		Name:  "Throh",
 		ID:    538,
-		Stats: Stats{[]int{120, 100, 85, 45, 30, 85}},
+		Stats: GetStats([6]int{120, 100, 85, 45, 30, 85}),
 		Types: []TYPE{FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BIND, LEER},
@@ -23206,7 +23206,7 @@ var pokemonData = []Species{
 
 		Name:  "Sawk",
 		ID:    539,
-		Stats: Stats{[]int{75, 125, 75, 85, 30, 75}},
+		Stats: GetStats([6]int{75, 125, 75, 85, 30, 75}),
 		Types: []TYPE{FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ROCKSMASH, LEER},
@@ -23249,7 +23249,7 @@ var pokemonData = []Species{
 
 		Name:  "Sewaddle",
 		ID:    540,
-		Stats: Stats{[]int{45, 53, 70, 42, 40, 60}},
+		Stats: GetStats([6]int{45, 53, 70, 42, 40, 60}),
 		Types: []TYPE{BUG, GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, STRINGSHOT},
@@ -23286,7 +23286,7 @@ var pokemonData = []Species{
 
 		Name:  "Swadloon",
 		ID:    541,
-		Stats: Stats{[]int{55, 63, 90, 42, 50, 80}},
+		Stats: GetStats([6]int{55, 63, 90, 42, 50, 80}),
 		Types: []TYPE{BUG, GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GRASSWHISTLE, TACKLE, STRINGSHOT, BUGBITE, RAZORLEAF},
@@ -23317,7 +23317,7 @@ var pokemonData = []Species{
 
 		Name:  "Leavanny",
 		ID:    542,
-		Stats: Stats{[]int{75, 103, 80, 92, 70, 70}},
+		Stats: GetStats([6]int{75, 103, 80, 92, 70, 70}),
 		Types: []TYPE{BUG, GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {FALSESWIPE, TACKLE, STRINGSHOT, BUGBITE, RAZORLEAF},
@@ -23356,7 +23356,7 @@ var pokemonData = []Species{
 
 		Name:  "Venipede",
 		ID:    543,
-		Stats: Stats{[]int{30, 45, 59, 57, 30, 39}},
+		Stats: GetStats([6]int{30, 45, 59, 57, 30, 39}),
 		Types: []TYPE{BUG, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {DEFENSECURL, ROLLOUT},
@@ -23400,7 +23400,7 @@ var pokemonData = []Species{
 
 		Name:  "Whirlipede",
 		ID:    544,
-		Stats: Stats{[]int{40, 55, 99, 47, 40, 79}},
+		Stats: GetStats([6]int{40, 55, 99, 47, 40, 79}),
 		Types: []TYPE{BUG, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {DEFENSECURL, ROLLOUT, POISONSTING, SCREECH},
@@ -23444,7 +23444,7 @@ var pokemonData = []Species{
 
 		Name:  "Scolipede",
 		ID:    545,
-		Stats: Stats{[]int{60, 90, 89, 112, 55, 69}},
+		Stats: GetStats([6]int{60, 90, 89, 112, 55, 69}),
 		Types: []TYPE{BUG, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {MEGAHORN, DEFENSECURL, ROLLOUT, POISONSTING, SCREECH},
@@ -23487,7 +23487,7 @@ var pokemonData = []Species{
 
 		Name:  "Cottonee",
 		ID:    546,
-		Stats: Stats{[]int{40, 27, 60, 66, 37, 50}},
+		Stats: GetStats([6]int{40, 27, 60, 66, 37, 50}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ABSORB},
@@ -23532,7 +23532,7 @@ var pokemonData = []Species{
 
 		Name:  "Whimsicott",
 		ID:    547,
-		Stats: Stats{[]int{60, 67, 85, 116, 77, 75}},
+		Stats: GetStats([6]int{60, 67, 85, 116, 77, 75}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GROWTH, LEECHSEED, MEGADRAIN, COTTONSPORE},
@@ -23563,7 +23563,7 @@ var pokemonData = []Species{
 
 		Name:  "Petilil",
 		ID:    548,
-		Stats: Stats{[]int{45, 35, 50, 30, 70, 50}},
+		Stats: GetStats([6]int{45, 35, 50, 30, 70, 50}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ABSORB},
@@ -23608,7 +23608,7 @@ var pokemonData = []Species{
 
 		Name:  "Lilligant",
 		ID:    549,
-		Stats: Stats{[]int{70, 60, 75, 90, 110, 75}},
+		Stats: GetStats([6]int{70, 60, 75, 90, 110, 75}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GROWTH, LEECHSEED, MEGADRAIN, SYNTHESIS},
@@ -23639,7 +23639,7 @@ var pokemonData = []Species{
 
 		Name:  "Basculin",
 		ID:    550,
-		Stats: Stats{[]int{70, 92, 65, 98, 80, 55}},
+		Stats: GetStats([6]int{70, 92, 65, 98, 80, 55}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, WATERGUN},
@@ -23684,7 +23684,7 @@ var pokemonData = []Species{
 
 		Name:  "Sandile",
 		ID:    551,
-		Stats: Stats{[]int{50, 72, 35, 65, 35, 35}},
+		Stats: GetStats([6]int{50, 72, 35, 65, 35, 35}),
 		Types: []TYPE{GROUND, DARK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LEER, RAGE},
@@ -23729,7 +23729,7 @@ var pokemonData = []Species{
 
 		Name:  "Krokorok",
 		ID:    552,
-		Stats: Stats{[]int{60, 82, 45, 74, 45, 45}},
+		Stats: GetStats([6]int{60, 82, 45, 74, 45, 45}),
 		Types: []TYPE{GROUND, DARK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LEER, RAGE, BITE, SANDATTACK},
@@ -23773,7 +23773,7 @@ var pokemonData = []Species{
 
 		Name:  "Krookodile",
 		ID:    553,
-		Stats: Stats{[]int{95, 117, 70, 92, 65, 70}},
+		Stats: GetStats([6]int{95, 117, 70, 92, 65, 70}),
 		Types: []TYPE{GROUND, DARK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LEER, RAGE, BITE, SANDATTACK},
@@ -23816,7 +23816,7 @@ var pokemonData = []Species{
 
 		Name:  "Darumaka",
 		ID:    554,
-		Stats: Stats{[]int{70, 90, 45, 50, 15, 45}},
+		Stats: GetStats([6]int{70, 90, 45, 50, 15, 45}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE},
@@ -23862,7 +23862,7 @@ var pokemonData = []Species{
 
 		Name:  "Darmanitan",
 		ID:    555,
-		Stats: Stats{[]int{105, 140, 55, 95, 30, 55}},
+		Stats: GetStats([6]int{105, 140, 55, 95, 30, 55}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, ROLLOUT, INCINERATE, RAGE},
@@ -23908,7 +23908,7 @@ var pokemonData = []Species{
 
 		Name:  "Maractus",
 		ID:    556,
-		Stats: Stats{[]int{75, 86, 67, 60, 106, 67}},
+		Stats: GetStats([6]int{75, 86, 67, 60, 106, 67}),
 		Types: []TYPE{GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PECK, ABSORB},
@@ -23954,7 +23954,7 @@ var pokemonData = []Species{
 
 		Name:  "Dwebble",
 		ID:    557,
-		Stats: Stats{[]int{50, 65, 85, 55, 35, 35}},
+		Stats: GetStats([6]int{50, 65, 85, 55, 35, 35}),
 		Types: []TYPE{BUG, ROCK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {FURYCUTTER},
@@ -24000,7 +24000,7 @@ var pokemonData = []Species{
 
 		Name:  "Crustle",
 		ID:    558,
-		Stats: Stats{[]int{70, 95, 125, 45, 65, 75}},
+		Stats: GetStats([6]int{70, 95, 125, 45, 65, 75}),
 		Types: []TYPE{BUG, ROCK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SHELLSMASH, ROCKBLAST, WITHDRAW, SANDATTACK},
@@ -24044,7 +24044,7 @@ var pokemonData = []Species{
 
 		Name:  "Scraggy",
 		ID:    559,
-		Stats: Stats{[]int{50, 75, 70, 48, 35, 70}},
+		Stats: GetStats([6]int{50, 75, 70, 48, 35, 70}),
 		Types: []TYPE{DARK, FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LEER, LOWKICK},
@@ -24089,7 +24089,7 @@ var pokemonData = []Species{
 
 		Name:  "Scrafty",
 		ID:    560,
-		Stats: Stats{[]int{65, 90, 115, 58, 45, 115}},
+		Stats: GetStats([6]int{65, 90, 115, 58, 45, 115}),
 		Types: []TYPE{DARK, FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LEER, LOWKICK, SANDATTACK, FEINTATTACK},
@@ -24132,7 +24132,7 @@ var pokemonData = []Species{
 
 		Name:  "Sigilyph",
 		ID:    561,
-		Stats: Stats{[]int{72, 58, 80, 97, 103, 80}},
+		Stats: GetStats([6]int{72, 58, 80, 97, 103, 80}),
 		Types: []TYPE{PSYCHIC, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GUST, MIRACLEEYE},
@@ -24176,7 +24176,7 @@ var pokemonData = []Species{
 
 		Name:  "Yamask",
 		ID:    562,
-		Stats: Stats{[]int{38, 30, 85, 30, 55, 65}},
+		Stats: GetStats([6]int{38, 30, 85, 30, 55, 65}),
 		Types: []TYPE{GHOST},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ASTONISH, PROTECT},
@@ -24218,7 +24218,7 @@ var pokemonData = []Species{
 
 		Name:  "Cofagrigus",
 		ID:    563,
-		Stats: Stats{[]int{58, 50, 145, 30, 95, 105}},
+		Stats: GetStats([6]int{58, 50, 145, 30, 95, 105}),
 		Types: []TYPE{GHOST},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ASTONISH, PROTECT, DISABLE, HAZE},
@@ -24259,7 +24259,7 @@ var pokemonData = []Species{
 
 		Name:  "Tirtouga",
 		ID:    564,
-		Stats: Stats{[]int{54, 78, 103, 22, 53, 45}},
+		Stats: GetStats([6]int{54, 78, 103, 22, 53, 45}),
 		Types: []TYPE{WATER, ROCK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BIDE, WITHDRAW, WATERGUN},
@@ -24304,7 +24304,7 @@ var pokemonData = []Species{
 
 		Name:  "Carracosta",
 		ID:    565,
-		Stats: Stats{[]int{74, 108, 133, 32, 83, 65}},
+		Stats: GetStats([6]int{74, 108, 133, 32, 83, 65}),
 		Types: []TYPE{WATER, ROCK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BIDE, WITHDRAW, WATERGUN, ROLLOUT},
@@ -24347,7 +24347,7 @@ var pokemonData = []Species{
 
 		Name:  "Archen",
 		ID:    566,
-		Stats: Stats{[]int{55, 112, 45, 70, 74, 45}},
+		Stats: GetStats([6]int{55, 112, 45, 70, 74, 45}),
 		Types: []TYPE{ROCK, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {QUICKATTACK, LEER, WINGATTACK},
@@ -24391,7 +24391,7 @@ var pokemonData = []Species{
 
 		Name:  "Archeops",
 		ID:    567,
-		Stats: Stats{[]int{75, 140, 65, 110, 112, 65}},
+		Stats: GetStats([6]int{75, 140, 65, 110, 112, 65}),
 		Types: []TYPE{ROCK, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {QUICKATTACK, LEER, WINGATTACK, ROCKTHROW},
@@ -24433,7 +24433,7 @@ var pokemonData = []Species{
 
 		Name:  "Trubbish",
 		ID:    568,
-		Stats: Stats{[]int{50, 50, 62, 65, 40, 62}},
+		Stats: GetStats([6]int{50, 50, 62, 65, 40, 62}),
 		Types: []TYPE{POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND, POISONGAS},
@@ -24478,7 +24478,7 @@ var pokemonData = []Species{
 
 		Name:  "Garbodor",
 		ID:    569,
-		Stats: Stats{[]int{80, 95, 82, 75, 60, 82}},
+		Stats: GetStats([6]int{80, 95, 82, 75, 60, 82}),
 		Types: []TYPE{POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND, POISONGAS, RECYCLE, TOXICSPIKES},
@@ -24522,7 +24522,7 @@ var pokemonData = []Species{
 
 		Name:  "Zorua",
 		ID:    570,
-		Stats: Stats{[]int{40, 65, 40, 65, 80, 40}},
+		Stats: GetStats([6]int{40, 65, 40, 65, 80, 40}),
 		Types: []TYPE{DARK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, LEER},
@@ -24565,7 +24565,7 @@ var pokemonData = []Species{
 
 		Name:  "Zoroark",
 		ID:    571,
-		Stats: Stats{[]int{60, 105, 60, 105, 120, 60}},
+		Stats: GetStats([6]int{60, 105, 60, 105, 120, 60}),
 		Types: []TYPE{DARK},
 		LearnableMoves: map[int][]MOVE{
 			1:  {UTURN, SCRATCH, LEER, PURSUIT, HONECLAWS},
@@ -24607,7 +24607,7 @@ var pokemonData = []Species{
 
 		Name:  "Minccino",
 		ID:    572,
-		Stats: Stats{[]int{55, 50, 40, 75, 40, 40}},
+		Stats: GetStats([6]int{55, 50, 40, 75, 40, 40}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND},
@@ -24654,7 +24654,7 @@ var pokemonData = []Species{
 
 		Name:  "Cinccino",
 		ID:    573,
-		Stats: Stats{[]int{75, 95, 60, 115, 65, 60}},
+		Stats: GetStats([6]int{75, 95, 60, 115, 65, 60}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1: {BULLETSEED, ROCKBLAST, HELPINGHAND, TICKLE, SING, TAILSLAP},
@@ -24683,7 +24683,7 @@ var pokemonData = []Species{
 
 		Name:  "Gothita",
 		ID:    574,
-		Stats: Stats{[]int{45, 30, 50, 45, 55, 65}},
+		Stats: GetStats([6]int{45, 30, 50, 45, 55, 65}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND},
@@ -24728,7 +24728,7 @@ var pokemonData = []Species{
 
 		Name:  "Gothorita",
 		ID:    575,
-		Stats: Stats{[]int{60, 45, 70, 55, 75, 85}},
+		Stats: GetStats([6]int{60, 45, 70, 55, 75, 85}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND, CONFUSION, TICKLE, FAKETEARS},
@@ -24772,7 +24772,7 @@ var pokemonData = []Species{
 
 		Name:  "Gothitelle",
 		ID:    576,
-		Stats: Stats{[]int{70, 55, 95, 65, 95, 110}},
+		Stats: GetStats([6]int{70, 55, 95, 65, 95, 110}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND, CONFUSION, TICKLE, FAKETEARS},
@@ -24815,7 +24815,7 @@ var pokemonData = []Species{
 
 		Name:  "Solosis",
 		ID:    577,
-		Stats: Stats{[]int{45, 30, 40, 20, 105, 50}},
+		Stats: GetStats([6]int{45, 30, 40, 20, 105, 50}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PSYWAVE},
@@ -24860,7 +24860,7 @@ var pokemonData = []Species{
 
 		Name:  "Duosion",
 		ID:    578,
-		Stats: Stats{[]int{65, 40, 50, 30, 125, 60}},
+		Stats: GetStats([6]int{65, 40, 50, 30, 125, 60}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PSYWAVE, REFLECT, ROLLOUT, SNATCH},
@@ -24904,7 +24904,7 @@ var pokemonData = []Species{
 
 		Name:  "Reuniclus",
 		ID:    579,
-		Stats: Stats{[]int{110, 65, 75, 30, 125, 85}},
+		Stats: GetStats([6]int{110, 65, 75, 30, 125, 85}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PSYWAVE, REFLECT, ROLLOUT, SNATCH},
@@ -24948,7 +24948,7 @@ var pokemonData = []Species{
 
 		Name:  "Ducklett",
 		ID:    580,
-		Stats: Stats{[]int{62, 44, 50, 55, 44, 50}},
+		Stats: GetStats([6]int{62, 44, 50, 55, 44, 50}),
 		Types: []TYPE{WATER, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WATERGUN},
@@ -24992,7 +24992,7 @@ var pokemonData = []Species{
 
 		Name:  "Swanna",
 		ID:    581,
-		Stats: Stats{[]int{75, 87, 63, 98, 87, 63}},
+		Stats: GetStats([6]int{75, 87, 63, 98, 87, 63}),
 		Types: []TYPE{WATER, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WATERGUN, WATERSPORT, DEFOG, WINGATTACK},
@@ -25034,7 +25034,7 @@ var pokemonData = []Species{
 
 		Name:  "Vanillite",
 		ID:    582,
-		Stats: Stats{[]int{36, 50, 50, 44, 65, 60}},
+		Stats: GetStats([6]int{36, 50, 50, 44, 65, 60}),
 		Types: []TYPE{ICE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ICICLESPEAR},
@@ -25078,7 +25078,7 @@ var pokemonData = []Species{
 
 		Name:  "Vanillish",
 		ID:    583,
-		Stats: Stats{[]int{51, 65, 65, 59, 80, 75}},
+		Stats: GetStats([6]int{51, 65, 65, 59, 80, 75}),
 		Types: []TYPE{ICE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ICICLESPEAR, HARDEN, ASTONISH, UPROAR},
@@ -25121,7 +25121,7 @@ var pokemonData = []Species{
 
 		Name:  "Vanilluxe",
 		ID:    584,
-		Stats: Stats{[]int{71, 95, 85, 79, 110, 95}},
+		Stats: GetStats([6]int{71, 95, 85, 79, 110, 95}),
 		Types: []TYPE{ICE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {WEATHERBALL, ICICLESPEAR, HARDEN, ASTONISH, UPROAR},
@@ -25163,7 +25163,7 @@ var pokemonData = []Species{
 
 		Name:  "Deerling",
 		ID:    585,
-		Stats: Stats{[]int{60, 60, 50, 75, 40, 50}},
+		Stats: GetStats([6]int{60, 60, 50, 75, 40, 50}),
 		Types: []TYPE{NORMAL, GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, CAMOUFLAGE},
@@ -25207,7 +25207,7 @@ var pokemonData = []Species{
 
 		Name:  "Sawsbuck",
 		ID:    586,
-		Stats: Stats{[]int{80, 100, 70, 95, 60, 70}},
+		Stats: GetStats([6]int{80, 100, 70, 95, 60, 70}),
 		Types: []TYPE{NORMAL, GRASS},
 		LearnableMoves: map[int][]MOVE{
 			1:  {MEGAHORN, TACKLE, CAMOUFLAGE, GROWL, SANDATTACK},
@@ -25250,7 +25250,7 @@ var pokemonData = []Species{
 
 		Name:  "Emolga",
 		ID:    587,
-		Stats: Stats{[]int{55, 75, 60, 103, 75, 60}},
+		Stats: GetStats([6]int{55, 75, 60, 103, 75, 60}),
 		Types: []TYPE{ELECTRIC, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {THUNDERSHOCK},
@@ -25296,7 +25296,7 @@ var pokemonData = []Species{
 
 		Name:  "Karrablast",
 		ID:    588,
-		Stats: Stats{[]int{50, 75, 45, 60, 40, 45}},
+		Stats: GetStats([6]int{50, 75, 45, 60, 40, 45}),
 		Types: []TYPE{BUG},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PECK},
@@ -25340,7 +25340,7 @@ var pokemonData = []Species{
 
 		Name:  "Escavalier",
 		ID:    589,
-		Stats: Stats{[]int{70, 135, 105, 20, 60, 105}},
+		Stats: GetStats([6]int{70, 135, 105, 20, 60, 105}),
 		Types: []TYPE{BUG, STEEL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PECK, LEER, QUICKGUARD, TWINEEDLE},
@@ -25382,7 +25382,7 @@ var pokemonData = []Species{
 
 		Name:  "Foongus",
 		ID:    590,
-		Stats: Stats{[]int{69, 55, 45, 15, 55, 55}},
+		Stats: GetStats([6]int{69, 55, 45, 15, 55, 55}),
 		Types: []TYPE{GRASS, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ABSORB},
@@ -25429,7 +25429,7 @@ var pokemonData = []Species{
 
 		Name:  "Amoonguss",
 		ID:    591,
-		Stats: Stats{[]int{114, 85, 70, 30, 85, 80}},
+		Stats: GetStats([6]int{114, 85, 70, 30, 85, 80}),
 		Types: []TYPE{GRASS, POISON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ABSORB, GROWTH, ASTONISH, BIDE},
@@ -25474,7 +25474,7 @@ var pokemonData = []Species{
 
 		Name:  "Frillish",
 		ID:    592,
-		Stats: Stats{[]int{55, 40, 50, 40, 65, 85}},
+		Stats: GetStats([6]int{55, 40, 50, 40, 65, 85}),
 		Types: []TYPE{WATER, GHOST},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BUBBLE, WATERSPORT},
@@ -25516,7 +25516,7 @@ var pokemonData = []Species{
 
 		Name:  "Jellicent",
 		ID:    593,
-		Stats: Stats{[]int{100, 60, 70, 60, 85, 105}},
+		Stats: GetStats([6]int{100, 60, 70, 60, 85, 105}),
 		Types: []TYPE{WATER, GHOST},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BUBBLE, WATERSPORT, ABSORB, NIGHTSHADE},
@@ -25556,7 +25556,7 @@ var pokemonData = []Species{
 
 		Name:  "Alomomola",
 		ID:    594,
-		Stats: Stats{[]int{165, 75, 80, 65, 40, 45}},
+		Stats: GetStats([6]int{165, 75, 80, 65, 40, 45}),
 		Types: []TYPE{WATER},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND, WATERSPORT},
@@ -25600,7 +25600,7 @@ var pokemonData = []Species{
 
 		Name:  "Joltik",
 		ID:    595,
-		Stats: Stats{[]int{50, 47, 50, 65, 57, 50}},
+		Stats: GetStats([6]int{50, 47, 50, 65, 57, 50}),
 		Types: []TYPE{BUG, ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {STRINGSHOT, LEECHLIFE, SPIDERWEB},
@@ -25643,7 +25643,7 @@ var pokemonData = []Species{
 
 		Name:  "Galvantula",
 		ID:    596,
-		Stats: Stats{[]int{70, 77, 60, 108, 97, 60}},
+		Stats: GetStats([6]int{70, 77, 60, 108, 97, 60}),
 		Types: []TYPE{BUG, ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {STRINGSHOT, LEECHLIFE, SPIDERWEB, THUNDERWAVE},
@@ -25684,7 +25684,7 @@ var pokemonData = []Species{
 
 		Name:  "Ferroseed",
 		ID:    597,
-		Stats: Stats{[]int{44, 50, 91, 10, 24, 86}},
+		Stats: GetStats([6]int{44, 50, 91, 10, 24, 86}),
 		Types: []TYPE{GRASS, STEEL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, HARDEN},
@@ -25727,7 +25727,7 @@ var pokemonData = []Species{
 
 		Name:  "Ferrothorn",
 		ID:    598,
-		Stats: Stats{[]int{74, 94, 131, 20, 54, 116}},
+		Stats: GetStats([6]int{74, 94, 131, 20, 54, 116}),
 		Types: []TYPE{GRASS, STEEL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ROCKCLIMB, TACKLE, HARDEN, ROLLOUT, CURSE},
@@ -25769,7 +25769,7 @@ var pokemonData = []Species{
 
 		Name:  "Klink",
 		ID:    599,
-		Stats: Stats{[]int{40, 55, 70, 30, 45, 60}},
+		Stats: GetStats([6]int{40, 55, 70, 30, 45, 60}),
 		Types: []TYPE{STEEL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {VICEGRIP},
@@ -25812,7 +25812,7 @@ var pokemonData = []Species{
 
 		Name:  "Klang",
 		ID:    600,
-		Stats: Stats{[]int{60, 80, 95, 50, 70, 85}},
+		Stats: GetStats([6]int{60, 80, 95, 50, 70, 85}),
 		Types: []TYPE{STEEL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {VICEGRIP, CHARGE, THUNDERSHOCK, GEARGRIND},
@@ -25855,7 +25855,7 @@ var pokemonData = []Species{
 
 		Name:  "Klinklang",
 		ID:    601,
-		Stats: Stats{[]int{60, 100, 115, 90, 70, 85}},
+		Stats: GetStats([6]int{60, 100, 115, 90, 70, 85}),
 		Types: []TYPE{STEEL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {VICEGRIP, CHARGE, THUNDERSHOCK, GEARGRIND},
@@ -25897,7 +25897,7 @@ var pokemonData = []Species{
 
 		Name:  "Tynamo",
 		ID:    602,
-		Stats: Stats{[]int{35, 55, 40, 60, 45, 40}},
+		Stats: GetStats([6]int{35, 55, 40, 60, 45, 40}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1: {TACKLE, THUNDERWAVE, SPARK, CHARGEBEAM},
@@ -25925,7 +25925,7 @@ var pokemonData = []Species{
 
 		Name:  "Eelektrik",
 		ID:    603,
-		Stats: Stats{[]int{65, 85, 70, 40, 75, 70}},
+		Stats: GetStats([6]int{65, 85, 70, 40, 75, 70}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {HEADBUTT, THUNDERWAVE, SPARK, CHARGEBEAM},
@@ -25964,7 +25964,7 @@ var pokemonData = []Species{
 
 		Name:  "Eelektross",
 		ID:    604,
-		Stats: Stats{[]int{85, 115, 80, 50, 105, 80}},
+		Stats: GetStats([6]int{85, 115, 80, 50, 105, 80}),
 		Types: []TYPE{ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1: {CRUSHCLAW, HEADBUTT, ACID, DISCHARGE, CRUNCH},
@@ -25991,7 +25991,7 @@ var pokemonData = []Species{
 
 		Name:  "Elgyem",
 		ID:    605,
-		Stats: Stats{[]int{55, 55, 55, 30, 85, 55}},
+		Stats: GetStats([6]int{55, 55, 55, 30, 85, 55}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {CONFUSION},
@@ -26037,7 +26037,7 @@ var pokemonData = []Species{
 
 		Name:  "Beheeyem",
 		ID:    606,
-		Stats: Stats{[]int{75, 75, 75, 40, 125, 95}},
+		Stats: GetStats([6]int{75, 75, 75, 40, 125, 95}),
 		Types: []TYPE{PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {CONFUSION, GROWL, HEALBLOCK, MIRACLEEYE},
@@ -26082,7 +26082,7 @@ var pokemonData = []Species{
 
 		Name:  "Litwick",
 		ID:    607,
-		Stats: Stats{[]int{50, 30, 55, 20, 65, 55}},
+		Stats: GetStats([6]int{50, 30, 55, 20, 65, 55}),
 		Types: []TYPE{GHOST, FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {EMBER, ASTONISH},
@@ -26127,7 +26127,7 @@ var pokemonData = []Species{
 
 		Name:  "Lampent",
 		ID:    608,
-		Stats: Stats{[]int{60, 40, 60, 55, 95, 60}},
+		Stats: GetStats([6]int{60, 40, 60, 55, 95, 60}),
 		Types: []TYPE{GHOST, FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {EMBER, ASTONISH, MINIMIZE, SMOG},
@@ -26171,7 +26171,7 @@ var pokemonData = []Species{
 
 		Name:  "Chandelure",
 		ID:    609,
-		Stats: Stats{[]int{60, 55, 90, 80, 145, 90}},
+		Stats: GetStats([6]int{60, 55, 90, 80, 145, 90}),
 		Types: []TYPE{GHOST, FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1: {SMOG, CONFUSERAY, FLAMEBURST, HEX},
@@ -26199,7 +26199,7 @@ var pokemonData = []Species{
 
 		Name:  "Axew",
 		ID:    610,
-		Stats: Stats{[]int{46, 87, 60, 57, 30, 40}},
+		Stats: GetStats([6]int{46, 87, 60, 57, 30, 40}),
 		Types: []TYPE{DRAGON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH},
@@ -26244,7 +26244,7 @@ var pokemonData = []Species{
 
 		Name:  "Fraxure",
 		ID:    611,
-		Stats: Stats{[]int{66, 117, 70, 67, 40, 50}},
+		Stats: GetStats([6]int{66, 117, 70, 67, 40, 50}),
 		Types: []TYPE{DRAGON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, LEER, ASSURANCE, DRAGONRAGE},
@@ -26288,7 +26288,7 @@ var pokemonData = []Species{
 
 		Name:  "Haxorus",
 		ID:    612,
-		Stats: Stats{[]int{76, 147, 90, 97, 60, 70}},
+		Stats: GetStats([6]int{76, 147, 90, 97, 60, 70}),
 		Types: []TYPE{DRAGON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH, LEER, ASSURANCE, DRAGONRAGE},
@@ -26331,7 +26331,7 @@ var pokemonData = []Species{
 
 		Name:  "Cubchoo",
 		ID:    613,
-		Stats: Stats{[]int{55, 70, 40, 40, 60, 40}},
+		Stats: GetStats([6]int{55, 70, 40, 40, 60, 40}),
 		Types: []TYPE{ICE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POWDERSNOW},
@@ -26376,7 +26376,7 @@ var pokemonData = []Species{
 
 		Name:  "Beartic",
 		ID:    614,
-		Stats: Stats{[]int{95, 110, 80, 50, 70, 80}},
+		Stats: GetStats([6]int{95, 110, 80, 50, 70, 80}),
 		Types: []TYPE{ICE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SUPERPOWER, AQUAJET, POWDERSNOW, GROWL, BIDE, ICYWIND},
@@ -26420,7 +26420,7 @@ var pokemonData = []Species{
 
 		Name:  "Cryogonal",
 		ID:    615,
-		Stats: Stats{[]int{70, 50, 30, 105, 95, 135}},
+		Stats: GetStats([6]int{70, 50, 30, 105, 95, 135}),
 		Types: []TYPE{ICE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BIND},
@@ -26463,7 +26463,7 @@ var pokemonData = []Species{
 
 		Name:  "Shelmet",
 		ID:    616,
-		Stats: Stats{[]int{50, 40, 85, 25, 40, 65}},
+		Stats: GetStats([6]int{50, 40, 85, 25, 40, 65}),
 		Types: []TYPE{BUG},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LEECHLIFE},
@@ -26507,7 +26507,7 @@ var pokemonData = []Species{
 
 		Name:  "Accelgor",
 		ID:    617,
-		Stats: Stats{[]int{80, 70, 40, 145, 100, 60}},
+		Stats: GetStats([6]int{80, 70, 40, 145, 100, 60}),
 		Types: []TYPE{BUG},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LEECHLIFE, ACIDSPRAY, DOUBLETEAM, QUICKATTACK},
@@ -26549,7 +26549,7 @@ var pokemonData = []Species{
 
 		Name:  "Stunfisk",
 		ID:    618,
-		Stats: Stats{[]int{109, 66, 84, 32, 81, 99}},
+		Stats: GetStats([6]int{109, 66, 84, 32, 81, 99}),
 		Types: []TYPE{GROUND, ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {MUDSLAP, MUDSPORT},
@@ -26592,7 +26592,7 @@ var pokemonData = []Species{
 
 		Name:  "Mienfoo",
 		ID:    619,
-		Stats: Stats{[]int{45, 85, 50, 65, 55, 50}},
+		Stats: GetStats([6]int{45, 85, 50, 65, 55, 50}),
 		Types: []TYPE{FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND},
@@ -26637,7 +26637,7 @@ var pokemonData = []Species{
 
 		Name:  "Mienshao",
 		ID:    620,
-		Stats: Stats{[]int{65, 125, 60, 105, 95, 60}},
+		Stats: GetStats([6]int{65, 125, 60, 105, 95, 60}),
 		Types: []TYPE{FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND, MEDITATE, DETECT, FAKEOUT},
@@ -26680,7 +26680,7 @@ var pokemonData = []Species{
 
 		Name:  "Druddigon",
 		ID:    621,
-		Stats: Stats{[]int{77, 120, 90, 48, 60, 90}},
+		Stats: GetStats([6]int{77, 120, 90, 48, 60, 90}),
 		Types: []TYPE{DRAGON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {LEER, SCRATCH},
@@ -26724,7 +26724,7 @@ var pokemonData = []Species{
 
 		Name:  "Golett",
 		ID:    622,
-		Stats: Stats{[]int{59, 74, 50, 35, 35, 50}},
+		Stats: GetStats([6]int{59, 74, 50, 35, 35, 50}),
 		Types: []TYPE{GROUND, GHOST},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND, ASTONISH, DEFENSECURL},
@@ -26766,7 +26766,7 @@ var pokemonData = []Species{
 
 		Name:  "Golurk",
 		ID:    623,
-		Stats: Stats{[]int{89, 124, 80, 55, 55, 80}},
+		Stats: GetStats([6]int{89, 124, 80, 55, 55, 80}),
 		Types: []TYPE{GROUND, GHOST},
 		LearnableMoves: map[int][]MOVE{
 			1:  {POUND, ASTONISH, DEFENSECURL, MUDSLAP},
@@ -26808,7 +26808,7 @@ var pokemonData = []Species{
 
 		Name:  "Pawniard",
 		ID:    624,
-		Stats: Stats{[]int{45, 85, 70, 60, 40, 40}},
+		Stats: GetStats([6]int{45, 85, 70, 60, 40, 40}),
 		Types: []TYPE{DARK, STEEL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {SCRATCH},
@@ -26853,7 +26853,7 @@ var pokemonData = []Species{
 
 		Name:  "Bisharp",
 		ID:    625,
-		Stats: Stats{[]int{65, 125, 100, 70, 60, 70}},
+		Stats: GetStats([6]int{65, 125, 100, 70, 60, 70}),
 		Types: []TYPE{DARK, STEEL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {METALBURST, SCRATCH, LEER, FURYCUTTER, TORMENT},
@@ -26896,7 +26896,7 @@ var pokemonData = []Species{
 
 		Name:  "Bouffalant",
 		ID:    626,
-		Stats: Stats{[]int{95, 110, 95, 55, 40, 95}},
+		Stats: GetStats([6]int{95, 110, 95, 55, 40, 95}),
 		Types: []TYPE{NORMAL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PURSUIT, LEER},
@@ -26937,7 +26937,7 @@ var pokemonData = []Species{
 
 		Name:  "Rufflet",
 		ID:    627,
-		Stats: Stats{[]int{70, 83, 50, 60, 37, 50}},
+		Stats: GetStats([6]int{70, 83, 50, 60, 37, 50}),
 		Types: []TYPE{NORMAL, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PECK, LEER},
@@ -26980,7 +26980,7 @@ var pokemonData = []Species{
 
 		Name:  "Braviary",
 		ID:    628,
-		Stats: Stats{[]int{100, 123, 75, 80, 57, 75}},
+		Stats: GetStats([6]int{100, 123, 75, 80, 57, 75}),
 		Types: []TYPE{NORMAL, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {PECK, LEER, FURYATTACK, WINGATTACK},
@@ -27023,7 +27023,7 @@ var pokemonData = []Species{
 
 		Name:  "Vullaby",
 		ID:    629,
-		Stats: Stats{[]int{70, 55, 75, 60, 45, 65}},
+		Stats: GetStats([6]int{70, 55, 75, 60, 45, 65}),
 		Types: []TYPE{DARK, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GUST, LEER},
@@ -27067,7 +27067,7 @@ var pokemonData = []Species{
 
 		Name:  "Mandibuzz",
 		ID:    630,
-		Stats: Stats{[]int{110, 65, 105, 80, 55, 95}},
+		Stats: GetStats([6]int{110, 65, 105, 80, 55, 95}),
 		Types: []TYPE{DARK, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {GUST, LEER, FURYATTACK, PLUCK},
@@ -27110,7 +27110,7 @@ var pokemonData = []Species{
 
 		Name:  "Heatmor",
 		ID:    631,
-		Stats: Stats{[]int{85, 97, 66, 65, 105, 66}},
+		Stats: GetStats([6]int{85, 97, 66, 65, 105, 66}),
 		Types: []TYPE{FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {INCINERATE, LICK},
@@ -27151,7 +27151,7 @@ var pokemonData = []Species{
 
 		Name:  "Durant",
 		ID:    632,
-		Stats: Stats{[]int{58, 109, 112, 109, 48, 48}},
+		Stats: GetStats([6]int{58, 109, 112, 109, 48, 48}),
 		Types: []TYPE{BUG, STEEL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {VICEGRIP, SANDATTACK},
@@ -27193,7 +27193,7 @@ var pokemonData = []Species{
 
 		Name:  "Deino",
 		ID:    633,
-		Stats: Stats{[]int{52, 65, 50, 38, 45, 50}},
+		Stats: GetStats([6]int{52, 65, 50, 38, 45, 50}),
 		Types: []TYPE{DARK, DRAGON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TACKLE, DRAGONRAGE},
@@ -27236,7 +27236,7 @@ var pokemonData = []Species{
 
 		Name:  "Zweilous",
 		ID:    634,
-		Stats: Stats{[]int{72, 85, 70, 58, 65, 70}},
+		Stats: GetStats([6]int{72, 85, 70, 58, 65, 70}),
 		Types: []TYPE{DARK, DRAGON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {DOUBLEHIT, DRAGONRAGE, FOCUSENERGY, BITE},
@@ -27278,7 +27278,7 @@ var pokemonData = []Species{
 
 		Name:  "Hydreigon",
 		ID:    635,
-		Stats: Stats{[]int{92, 105, 90, 98, 125, 90}},
+		Stats: GetStats([6]int{92, 105, 90, 98, 125, 90}),
 		Types: []TYPE{DARK, DRAGON},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TRIATTACK, DRAGONRAGE, FOCUSENERGY, BITE},
@@ -27319,7 +27319,7 @@ var pokemonData = []Species{
 
 		Name:  "Larvesta",
 		ID:    636,
-		Stats: Stats{[]int{55, 85, 55, 60, 50, 55}},
+		Stats: GetStats([6]int{55, 85, 55, 60, 50, 55}),
 		Types: []TYPE{BUG, FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:   {EMBER, STRINGSHOT},
@@ -27359,7 +27359,7 @@ var pokemonData = []Species{
 
 		Name:  "Volcarona",
 		ID:    637,
-		Stats: Stats{[]int{85, 60, 65, 100, 135, 105}},
+		Stats: GetStats([6]int{85, 60, 65, 100, 135, 105}),
 		Types: []TYPE{BUG, FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:   {EMBER, STRINGSHOT, LEECHLIFE, GUST},
@@ -27401,7 +27401,7 @@ var pokemonData = []Species{
 
 		Name:  "Cobalion",
 		ID:    638,
-		Stats: Stats{[]int{91, 90, 129, 108, 90, 72}},
+		Stats: GetStats([6]int{91, 90, 129, 108, 90, 72}),
 		Types: []TYPE{STEEL, FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {QUICKATTACK, LEER},
@@ -27440,7 +27440,7 @@ var pokemonData = []Species{
 
 		Name:  "Terrakion",
 		ID:    639,
-		Stats: Stats{[]int{91, 129, 90, 108, 72, 90}},
+		Stats: GetStats([6]int{91, 129, 90, 108, 72, 90}),
 		Types: []TYPE{ROCK, FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {QUICKATTACK, LEER},
@@ -27479,7 +27479,7 @@ var pokemonData = []Species{
 
 		Name:  "Virizion",
 		ID:    640,
-		Stats: Stats{[]int{91, 90, 72, 108, 90, 129}},
+		Stats: GetStats([6]int{91, 90, 72, 108, 90, 129}),
 		Types: []TYPE{GRASS, FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {QUICKATTACK, LEER},
@@ -27518,7 +27518,7 @@ var pokemonData = []Species{
 
 		Name:  "Tornadus",
 		ID:    641,
-		Stats: Stats{[]int{79, 115, 70, 111, 125, 80}},
+		Stats: GetStats([6]int{79, 115, 70, 111, 125, 80}),
 		Types: []TYPE{FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {UPROAR, ASTONISH, GUST},
@@ -27561,7 +27561,7 @@ var pokemonData = []Species{
 
 		Name:  "Thundurus",
 		ID:    642,
-		Stats: Stats{[]int{79, 115, 70, 111, 125, 80}},
+		Stats: GetStats([6]int{79, 115, 70, 111, 125, 80}),
 		Types: []TYPE{ELECTRIC, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {UPROAR, ASTONISH, THUNDERSHOCK},
@@ -27604,7 +27604,7 @@ var pokemonData = []Species{
 
 		Name:  "Reshiram",
 		ID:    643,
-		Stats: Stats{[]int{100, 120, 100, 90, 150, 120}},
+		Stats: GetStats([6]int{100, 120, 100, 90, 150, 120}),
 		Types: []TYPE{DRAGON, FIRE},
 		LearnableMoves: map[int][]MOVE{
 			1:   {FIREFANG, DRAGONRAGE},
@@ -27645,7 +27645,7 @@ var pokemonData = []Species{
 
 		Name:  "Zekrom",
 		ID:    644,
-		Stats: Stats{[]int{100, 150, 120, 90, 120, 100}},
+		Stats: GetStats([6]int{100, 150, 120, 90, 120, 100}),
 		Types: []TYPE{DRAGON, ELECTRIC},
 		LearnableMoves: map[int][]MOVE{
 			1:   {THUNDERFANG, DRAGONRAGE},
@@ -27686,7 +27686,7 @@ var pokemonData = []Species{
 
 		Name:  "Landorus",
 		ID:    645,
-		Stats: Stats{[]int{89, 125, 90, 101, 115, 80}},
+		Stats: GetStats([6]int{89, 125, 90, 101, 115, 80}),
 		Types: []TYPE{GROUND, FLYING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {BLOCK, MUDSHOT, ROCKTOMB},
@@ -27729,7 +27729,7 @@ var pokemonData = []Species{
 
 		Name:  "Kyurem",
 		ID:    646,
-		Stats: Stats{[]int{125, 130, 90, 95, 130, 90}},
+		Stats: GetStats([6]int{125, 130, 90, 95, 130, 90}),
 		Types: []TYPE{DRAGON, ICE},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ICYWIND, DRAGONRAGE},
@@ -27770,7 +27770,7 @@ var pokemonData = []Species{
 
 		Name:  "Keldeo",
 		ID:    647,
-		Stats: Stats{[]int{91, 72, 90, 108, 129, 90}},
+		Stats: GetStats([6]int{91, 72, 90, 108, 129, 90}),
 		Types: []TYPE{WATER, FIGHTING},
 		LearnableMoves: map[int][]MOVE{
 			1:  {AQUAJET, LEER},
@@ -27810,7 +27810,7 @@ var pokemonData = []Species{
 
 		Name:  "Meloetta",
 		ID:    648,
-		Stats: Stats{[]int{100, 77, 77, 90, 128, 128}},
+		Stats: GetStats([6]int{100, 77, 77, 90, 128, 128}),
 		Types: []TYPE{NORMAL, PSYCHIC},
 		LearnableMoves: map[int][]MOVE{
 			1:  {ROUND},
@@ -27855,7 +27855,7 @@ var pokemonData = []Species{
 
 		Name:  "Genesect",
 		ID:    649,
-		Stats: Stats{[]int{71, 120, 95, 99, 120, 95}},
+		Stats: GetStats([6]int{71, 120, 95, 99, 120, 95}),
 		Types: []TYPE{BUG, STEEL},
 		LearnableMoves: map[int][]MOVE{
 			1:  {TECHNOBLAST, QUICKATTACK, MAGNETRISE, METALCLAW, SCREECH},

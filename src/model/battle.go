@@ -21,7 +21,6 @@ type Command struct {
 type attemptedMove struct {
 	Source      *Pokemon
 	SourceIndex int
-	Target      *Pokemon
 	TargetIndex int
 	Move        *Move
 }
@@ -62,9 +61,42 @@ func (b *Battle) HandleMoves(attemptedMoves []attemptedMove) error {
 	// TODO: sort by priority
 
 	for _, m := range attemptedMoves {
-		b.HandleMove(m)
+		if err := b.HandleMove(m); err != nil {
+			return err
+		}
 	}
 
+	return nil
+}
+
+func (b *Battle) HandleMove(m attemptedMove) error {
+	md := m.Move.Data
+	b.logf("%s used %s!", m.Source.Name, md.Name)
+	for _, targetIndex := range b.getTargets(m.SourceIndex, m.TargetIndex, md.Target) {
+		target, err := b.pokemonAtIndex(targetIndex)
+		if err != nil {
+			return err
+		}
+		miss := attackMisses()
+		if miss {
+			b.logf("%s's attack missed!", m.Source.Name)
+			continue
+		}
+
+		if md.Category != STATUS {
+			dmg, t, crit := dealDamage(m.Source, target, md)
+			b.logDamageWithMessages(target.Name, targetIndex, dmg, t, crit)
+			target.TakeDamage(dmg)
+		}
+
+		if md.statStageChanges != emptyStages {
+			if !moveHasEffect(md.AddEffectChance) {
+				continue
+			}
+			effectiveChanges, maxed := target.ChangeStatStages(md.statStageChanges)
+			b.logStatStageChanges(target.Name, targetIndex, effectiveChanges, maxed)
+		}
+	}
 	return nil
 }
 
@@ -87,11 +119,7 @@ func (b *Battle) lookupAttemptedMoves(commands []Command) ([]attemptedMove, erro
 }
 
 func (b *Battle) lookupAttemptedMove(c Command) (attemptedMove, error) {
-	source, err := pokemonAtIndex(c.SourceIndex, b.side1Count, b.maxIndex, b.pokemon)
-	if err != nil {
-		return attemptedMove{}, fmt.Errorf("error parsing command: %v", err)
-	}
-	target, err := pokemonAtIndex(c.TargetIndex, b.side1Count, b.maxIndex, b.pokemon)
+	source, err := b.pokemonAtIndex(c.SourceIndex)
 	if err != nil {
 		return attemptedMove{}, fmt.Errorf("error parsing command: %v", err)
 	}
@@ -100,15 +128,25 @@ func (b *Battle) lookupAttemptedMove(c Command) (attemptedMove, error) {
 	return attemptedMove{
 		Source:      source,
 		SourceIndex: c.SourceIndex,
-		Target:      target,
 		TargetIndex: c.TargetIndex,
 		Move:        source.Moves[c.MoveIndex],
 	}, nil
 }
 
-func pokemonAtIndex(i, side1Count, total int, pokemon []*Pokemon) (p *Pokemon, err error) {
-	if i < 0 || i >= total {
+func (b *Battle) pokemonAtIndex(i int) (p *Pokemon, err error) {
+	if i < 0 || i >= b.maxIndex {
 		return nil, fmt.Errorf("invalid index %d", i)
 	}
-	return pokemon[i], nil
+	return b.pokemon[i], nil
+}
+
+// assumes valid single target
+func (b *Battle) getTargets(sourceIndex, targetIndex int, target TARGET) []int {
+	//TODO: more than just single battle targets
+	switch target {
+	case USER, USERS_SIDE, SINGLE_USERS_SIDE:
+		return []int{sourceIndex}
+	default:
+		return []int{targetIndex}
+	}
 }

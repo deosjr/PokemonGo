@@ -1,47 +1,70 @@
 package model
 
 import (
-	"fmt"
 	"math/rand"
 )
 
 type Stats struct {
-	stats []int
+	hp        int
+	attack    int
+	defense   int
+	spattack  int
+	spdefense int
+	speed     int
 }
 
-func (s Stats) HP() int {
-	return s.stats[0]
-}
-func (s Stats) Attack() int {
-	return s.stats[1]
-}
-func (s Stats) Defense() int {
-	return s.stats[2]
-}
-func (s Stats) SPAttack() int {
-	return s.stats[3]
-}
-func (s Stats) SPDefense() int {
-	return s.stats[4]
-}
-func (s Stats) Speed() int {
-	return s.stats[5]
+var emptyStages Stats
+
+func GetStats(values [6]int) Stats {
+	hp, attack, defense, spattack, spdefense, speed := values[0], values[1], values[2], values[3], values[4], values[5]
+	return Stats{hp, attack, defense, spattack, spdefense, speed}
 }
 
-func GetStats(values []int) (Stats, error) {
-	if len(values) != 6 {
-		return Stats{}, fmt.Errorf("Length stats is %d instead of 6", len(values))
+func (s Stats) stats() [6]int {
+	return [6]int{s.hp, s.attack, s.defense, s.spattack, s.spdefense, s.speed}
+}
+
+func (s Stats) updateStages(changes Stats) (Stats, Stats, [6]bool) {
+	validStatStage := func(stage, change int) (effect int, maxed bool) {
+		switch {
+		case stage == 6 && change > 0:
+			return 6, true
+		case stage < -6 && change < 0:
+			return -6, true
+		default:
+			changed := stage + change
+			switch {
+			case changed > 6:
+				return 6, false
+			case changed < -6:
+				return -6, false
+			default:
+				return changed, false
+			}
+		}
 	}
-	return Stats{values}, nil
+
+	newStages := [6]int{}
+	effectiveChanges := [6]int{}
+	maxedOut := [6]bool{}
+	stats, changeStats := s.stats(), changes.stats()
+	for i := 0; i < 6; i++ {
+		changedStat, maxed := validStatStage(stats[i], changeStats[i])
+		effectiveChanges[i] = changedStat - stats[i]
+		newStages[i] = changedStat
+		maxedOut[i] = maxed
+	}
+	return GetStats(newStages), GetStats(effectiveChanges), maxedOut
 }
 
 func calculateStats(ivs, base Stats, level int) Stats {
-	stats := make([]int, 6)
-	stats[0] = calculateHP(ivs.stats[0], base.stats[0], level)
+	stats := [6]int{}
+	ivStats, baseStats := ivs.stats(), base.stats()
+	stats[0] = calculateHP(ivs.hp, base.hp, level)
 	for i := 1; i < 6; i++ {
-		stats[i] = calculateStat(ivs.stats[i], base.stats[i], level)
+		stats[i] = calculateStat(ivStats[i], baseStats[i], level)
 	}
-	return Stats{stats}
+	return GetStats(stats)
 }
 
 func calculateHP(iv, base, level int) int {
@@ -57,18 +80,18 @@ func calculateStat(iv, base, level int) int {
 }
 
 func generateIVs() Stats {
-	return Stats{[]int{rand.Intn(32), rand.Intn(32), rand.Intn(32), rand.Intn(32), rand.Intn(32), rand.Intn(32)}}
+	return GetStats([6]int{rand.Intn(32), rand.Intn(32), rand.Intn(32), rand.Intn(32), rand.Intn(32), rand.Intn(32)})
 }
 
 func attackStat(stats, stages Stats, c DMG_CATEGORY) float64 {
 	var attack int
 	var stage int
 	if c == PHYSICAL {
-		attack = stats.Attack()
-		stage = stages.Attack()
+		attack = stats.attack
+		stage = stages.attack
 	} else if c == SPECIAL {
-		attack = stats.SPAttack()
-		stage = stats.SPAttack()
+		attack = stats.spattack
+		stage = stats.spattack
 	}
 	return modifyStat(attack, stage)
 }
@@ -77,11 +100,11 @@ func defenseStat(stats, stages Stats, c DMG_CATEGORY) float64 {
 	var defense int
 	var stage int
 	if c == PHYSICAL {
-		defense = stats.Defense()
-		stage = stages.Defense()
+		defense = stats.defense
+		stage = stages.defense
 	} else if c == SPECIAL {
-		defense = stats.SPDefense()
-		stage = stats.SPDefense()
+		defense = stats.spdefense
+		stage = stats.spdefense
 	}
 	return modifyStat(defense, stage)
 }

@@ -35,6 +35,12 @@ func TestHandleMoveSingleBattle(t *testing.T) {
 			move:   &Move{Data: GetMoveDataByID(FLAMETHROWER)},
 			logs:   []BattleLog{DamageLog{1, 4766}},
 		},
+		{
+			source: testPokemon{5, CHARMANDER},
+			target: testPokemon{5, BULBASAUR},
+			move:   &Move{Data: GetMoveDataByID(GROWL)},
+			logs:   []BattleLog{StatStageChangeLog{1, Stats{attack: -1}}},
+		},
 	} {
 		rand.Seed(42)
 		source := GetPokemon(tt.source.level, tt.source.species)
@@ -43,7 +49,6 @@ func TestHandleMoveSingleBattle(t *testing.T) {
 		attemptedMove := attemptedMove{
 			Source:      source,
 			SourceIndex: 0,
-			Target:      target,
 			TargetIndex: 1,
 			Move:        tt.move,
 		}
@@ -55,14 +60,13 @@ func TestHandleMoveSingleBattle(t *testing.T) {
 			t.Fatalf("%d: got %v want %v", i, got, want)
 		}
 		for j, g := range got {
-			t.Log(g, want[j])
 			if g != want[j] {
-				t.Errorf("%d: got %v want %v", i, g, want[j])
+				t.Errorf("%d: got %+v want %+v", i, g, want[j])
 			}
 		}
 
-		// test with go test -v
-		t.Log(battle.String())
+		// NOTE: REplays, so effects are applied twice!
+		//t.Log(battle.String())
 	}
 }
 

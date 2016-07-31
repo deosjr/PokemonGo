@@ -5,23 +5,11 @@ import (
 	"math/rand"
 )
 
-func (b *Battle) HandleMove(m attemptedMove) {
-	b.logf("%s used %s!", m.Source.Name, m.Move.Data.Name)
-	miss := attackMisses()
-
-	if !(miss || m.Move.Data.Category == STATUS) {
-		dmg, t, crit := b.dealDamage(m)
-		b.logDamageMessages(m.Target.Name, dmg, t, crit)
-	}
-	// TODO: move functions
-}
-
 //TODO
 func attackMisses() bool { return false }
 
-func (b *Battle) dealDamage(m attemptedMove) (dmg int, t, crit float64) {
-	dmg, t, crit = determineDamage(m.Source, m.Target, m.Move.Data)
-	b.logDamage(m.TargetIndex, dmg)
+func dealDamage(source, target *Pokemon, moveData MoveData) (dmg int, t, crit float64) {
+	dmg, t, crit = determineDamage(source, target, moveData)
 	return dmg, t, crit
 }
 
@@ -38,6 +26,13 @@ func determineDamage(source, target *Pokemon, m MoveData) (dmg int, t, crit floa
 	mod := stab * typeEffectiveness * critical * other * random
 	formula := ((2*level+10)/250)*(attack/defense)*power + 2
 	return int(math.Max(1.0, round(formula*mod))), typeEffectiveness, critical
+}
+
+func moveHasEffect(effectChance int) bool {
+	if effectChance == 0 {
+		return true
+	}
+	return rand.Intn(100) < effectChance
 }
 
 func round(a float64) float64 {
