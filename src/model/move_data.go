@@ -686,7 +686,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Aeroblast",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        100,
 		Type:         FLYING,
 		Category:     SPECIAL,
@@ -722,7 +722,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Air Cutter",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        55,
 		Type:         FLYING,
 		Category:     SPECIAL,
@@ -786,7 +786,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Aqua Jet",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        40,
 		Type:         WATER,
 		Category:     PHYSICAL,
@@ -810,7 +810,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Aqua Tail",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        90,
 		Type:         WATER,
 		Category:     PHYSICAL,
@@ -885,7 +885,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Attack Order",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        90,
 		Type:         BUG,
 		Category:     PHYSICAL,
@@ -1344,7 +1344,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Bullet Punch",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        40,
 		Type:         STEEL,
 		Category:     PHYSICAL,
@@ -1683,7 +1683,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Crabhammer",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        90,
 		Type:         WATER,
 		Category:     PHYSICAL,
@@ -1696,7 +1696,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Cross Chop",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        100,
 		Type:         FIGHTING,
 		Category:     PHYSICAL,
@@ -1777,7 +1777,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Cut",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        50,
 		Type:         NORMAL,
 		Category:     PHYSICAL,
@@ -2029,7 +2029,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Dragon Claw",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        80,
 		Type:         DRAGON,
 		Category:     PHYSICAL,
@@ -2054,7 +2054,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Dragon Pulse",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        90,
 		Type:         DRAGON,
 		Category:     SPECIAL,
@@ -2147,7 +2147,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Drill Peck",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        80,
 		Type:         FLYING,
 		Category:     PHYSICAL,
@@ -2160,7 +2160,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Drill Run",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        80,
 		Type:         GROUND,
 		Category:     PHYSICAL,
@@ -2241,7 +2241,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Egg Bomb",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        100,
 		Type:         NORMAL,
 		Category:     PHYSICAL,
@@ -2410,7 +2410,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "ExtremeSpeed",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        80,
 		Type:         NORMAL,
 		Category:     PHYSICAL,
@@ -3496,7 +3496,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Horn Attack",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        65,
 		Type:         NORMAL,
 		Category:     PHYSICAL,
@@ -3574,7 +3574,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Hydro Pump",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        120,
 		Type:         WATER,
 		Category:     SPECIAL,
@@ -3614,7 +3614,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Hyper Voice",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        90,
 		Type:         NORMAL,
 		Category:     SPECIAL,
@@ -3708,7 +3708,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Ice Shard",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        40,
 		Type:         ICE,
 		Category:     PHYSICAL,
@@ -3879,7 +3879,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Karate Chop",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        50,
 		Type:         FIGHTING,
 		Category:     PHYSICAL,
@@ -3944,7 +3944,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Leaf Blade",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        90,
 		Type:         GRASS,
 		Category:     PHYSICAL,
@@ -4135,7 +4135,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Mach Punch",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        40,
 		Type:         FIGHTING,
 		Category:     PHYSICAL,
@@ -4278,7 +4278,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Mega Kick",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        120,
 		Type:         NORMAL,
 		Category:     PHYSICAL,
@@ -4291,7 +4291,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Mega Punch",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        80,
 		Type:         NORMAL,
 		Category:     PHYSICAL,
@@ -4304,7 +4304,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Megahorn",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        120,
 		Type:         BUG,
 		Category:     PHYSICAL,
@@ -4680,7 +4680,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Night Slash",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        70,
 		Type:         DARK,
 		Category:     PHYSICAL,
@@ -4808,7 +4808,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Peck",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        35,
 		Type:         FLYING,
 		Category:     PHYSICAL,
@@ -4951,7 +4951,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Pound",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        40,
 		Type:         NORMAL,
 		Category:     PHYSICAL,
@@ -4978,7 +4978,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Power Gem",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        70,
 		Type:         ROCK,
 		Category:     SPECIAL,
@@ -5024,7 +5024,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Power Whip",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        120,
 		Type:         GRASS,
 		Category:     PHYSICAL,
@@ -5115,7 +5115,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Psycho Cut",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        70,
 		Type:         PSYCHIC,
 		Category:     PHYSICAL,
@@ -5217,7 +5217,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Quick Attack",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        40,
 		Type:         NORMAL,
 		Category:     PHYSICAL,
@@ -5301,7 +5301,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Razor Leaf",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        55,
 		Type:         GRASS,
 		Category:     PHYSICAL,
@@ -5567,7 +5567,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Rock Throw",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        50,
 		Type:         ROCK,
 		Category:     PHYSICAL,
@@ -5771,7 +5771,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Scratch",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        40,
 		Type:         NORMAL,
 		Category:     PHYSICAL,
@@ -5838,7 +5838,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Seed Bomb",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        80,
 		Type:         GRASS,
 		Category:     PHYSICAL,
@@ -5907,7 +5907,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Shadow Claw",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        70,
 		Type:         GHOST,
 		Category:     PHYSICAL,
@@ -5945,7 +5945,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Shadow Sneak",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        40,
 		Type:         GHOST,
 		Category:     PHYSICAL,
@@ -6158,7 +6158,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Slam",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        80,
 		Type:         NORMAL,
 		Category:     PHYSICAL,
@@ -6171,7 +6171,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Slash",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        70,
 		Type:         NORMAL,
 		Category:     PHYSICAL,
@@ -6389,7 +6389,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Spacial Rend",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        100,
 		Type:         DRAGON,
 		Category:     SPECIAL,
@@ -6563,7 +6563,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Stone Edge",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        100,
 		Type:         ROCK,
 		Category:     PHYSICAL,
@@ -6602,7 +6602,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Strength",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        80,
 		Type:         NORMAL,
 		Category:     PHYSICAL,
@@ -6872,7 +6872,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Tackle",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        50,
 		Type:         NORMAL,
 		Category:     PHYSICAL,
@@ -7302,7 +7302,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Vacuum Wave",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        40,
 		Type:         FIGHTING,
 		Category:     SPECIAL,
@@ -7328,7 +7328,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "ViceGrip",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        55,
 		Type:         NORMAL,
 		Category:     PHYSICAL,
@@ -7341,7 +7341,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Vine Whip",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        35,
 		Type:         GRASS,
 		Category:     PHYSICAL,
@@ -7406,7 +7406,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Water Gun",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        40,
 		Type:         WATER,
 		Category:     SPECIAL,
@@ -7558,7 +7558,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Wing Attack",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        60,
 		Type:         FLYING,
 		Category:     PHYSICAL,
@@ -7668,7 +7668,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "X-Scissor",
-		functionCode: "000",
+		functionCode: "DONE",
 		Power:        80,
 		Type:         BUG,
 		Category:     PHYSICAL,

@@ -59,15 +59,18 @@ type StatStageChangeLog struct {
 func (l StatStageChangeLog) replay(b *Battle) string {
 	target, _ := b.pokemonAtIndex(l.index)
 	effectiveChanges, _ := target.ChangeStatStages(l.changes)
-	return fmt.Sprintf("DEBUG: %s changed stats: %v! New stages: %v", target.Name, effectiveChanges, target.statStages)
+	return fmt.Sprintf("DEBUG: %s changed stats: %v!", target.Name, effectiveChanges)
 }
 
 func (b *Battle) logStatStageChanges(name string, index int, changes Stats, maxed [6]bool) {
 	b.Logs = append(b.Logs, StatStageChangeLog{index, changes})
 	statNames := []string{"attack", "defense", "special attack", "special defense", "speed"}
 	sharply := func(n int) string {
-		if n > 1 || n < -1 {
+		if n > 1 {
 			return " sharply"
+		}
+		if n < -1 {
+			return " harshly"
 		}
 		return ""
 	}

@@ -57,3 +57,20 @@ func (p *Pokemon) ChangeStatStages(changes Stats) (Stats, [6]bool) {
 	p.statStages = newStages
 	return effectiveChanges, maxed
 }
+
+// Returns modified stat rounded down to an int
+func (p *Pokemon) Attack() int {
+	return int(modifyStat(p.Stats.attack, p.statStages.attack))
+}
+func (p *Pokemon) Defense() int {
+	return int(modifyStat(p.Stats.defense, p.statStages.defense))
+}
+func (p *Pokemon) SpAttack() int {
+	return int(modifyStat(p.Stats.spattack, p.statStages.spattack))
+}
+func (p *Pokemon) SpDefense() int {
+	return int(modifyStat(p.Stats.spdefense, p.statStages.spdefense))
+}
+func (p *Pokemon) Speed() int {
+	return int(modifyStat(p.Stats.speed, p.statStages.speed))
+}

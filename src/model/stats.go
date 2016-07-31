@@ -83,32 +83,6 @@ func generateIVs() Stats {
 	return GetStats([6]int{rand.Intn(32), rand.Intn(32), rand.Intn(32), rand.Intn(32), rand.Intn(32), rand.Intn(32)})
 }
 
-func attackStat(stats, stages Stats, c DMG_CATEGORY) float64 {
-	var attack int
-	var stage int
-	if c == PHYSICAL {
-		attack = stats.attack
-		stage = stages.attack
-	} else if c == SPECIAL {
-		attack = stats.spattack
-		stage = stats.spattack
-	}
-	return modifyStat(attack, stage)
-}
-
-func defenseStat(stats, stages Stats, c DMG_CATEGORY) float64 {
-	var defense int
-	var stage int
-	if c == PHYSICAL {
-		defense = stats.defense
-		stage = stages.defense
-	} else if c == SPECIAL {
-		defense = stats.spdefense
-		stage = stats.spdefense
-	}
-	return modifyStat(defense, stage)
-}
-
 func modifyStat(stat, stage int) float64 {
 	if stage >= 0 {
 		return float64(stat) * (float64(stage)*0.5 + 1)

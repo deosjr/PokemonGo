@@ -3,6 +3,7 @@ package model
 import (
 	"math"
 	"math/rand"
+	"sort"
 )
 
 //TODO
@@ -14,8 +15,8 @@ func dealDamage(source, target *Pokemon, moveData MoveData) (dmg int, t, crit fl
 }
 
 func determineDamage(source, target *Pokemon, m MoveData) (dmg int, t, crit float64) {
-	attack := attackStat(source.Stats, source.statStages, m.Category)
-	defense := defenseStat(target.Stats, target.statStages, m.Category)
+	attack := attackStat(source, m.Category)
+	defense := defenseStat(target, m.Category)
 	level := float64(source.Level)
 	power := float64(m.Power)
 	stab := getSTAB(m.Type, source.getSpecies().Types)
@@ -40,4 +41,68 @@ func round(a float64) float64 {
 		return math.Ceil(a - 0.5)
 	}
 	return math.Floor(a + 0.5)
+}
+
+func attackStat(p *Pokemon, c DMG_CATEGORY) float64 {
+	var attack int
+	var stage int
+	if c == PHYSICAL {
+		attack = p.Stats.attack
+		stage = p.statStages.attack
+	} else if c == SPECIAL {
+		attack = p.Stats.spattack
+		stage = p.statStages.spattack
+	}
+	return modifyStat(attack, stage)
+}
+
+func defenseStat(p *Pokemon, c DMG_CATEGORY) float64 {
+	var defense int
+	var stage int
+	if c == PHYSICAL {
+		defense = p.Stats.defense
+		stage = p.statStages.defense
+	} else if c == SPECIAL {
+		defense = p.Stats.spdefense
+		stage = p.statStages.spdefense
+	}
+	return modifyStat(defense, stage)
+}
+
+// radixsort: first sort on user speed, then on priority
+func sortMoves(unsorted []attemptedMove) []attemptedMove {
+	moves := []attemptedMove{}
+	speed := make(map[int][]int)
+	priorities := make(map[int][]int)
+	for i, m := range unsorted {
+		s := m.Source.Speed()
+		if list, ok := speed[s]; ok {
+			speed[s] = append(list, i)
+			continue
+		}
+		speed[s] = []int{i}
+	}
+	speedKeys := []int{}
+	for k, _ := range speed {
+		speedKeys = append(speedKeys, k)
+	}
+	sort.Ints(speedKeys)
+	for _, k := range speedKeys {
+		for _, i := range speed[k] {
+			prio := unsorted[i].Move.Data.Priority
+			if list, ok := priorities[prio]; ok {
+				priorities[prio] = append(list, i)
+			}
+			priorities[prio] = []int{i}
+		}
+	}
+	for p := 6; p >= -6; p-- {
+		plist := priorities[p]
+		// move backwards: speed is sorted low->high
+		for n := len(plist) - 1; n >= 0; n-- {
+			move := unsorted[plist[n]]
+			moves = append(moves, move)
+		}
+	}
+	return moves
 }

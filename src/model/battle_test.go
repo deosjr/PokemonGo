@@ -1,7 +1,6 @@
 package model
 
 import (
-	"math/rand"
 	"testing"
 )
 
@@ -14,59 +13,103 @@ func TestHandleMoveSingleBattle(t *testing.T) {
 	for i, tt := range []struct {
 		source testPokemon
 		target testPokemon
-		move   *Move
+		move   MOVE
 		logs   []BattleLog
 	}{
 		{
 			source: testPokemon{10, BULBASAUR},
 			target: testPokemon{10, CHARMANDER},
-			move:   &Move{Data: GetMoveDataByID(TACKLE)},
-			logs:   []BattleLog{DamageLog{1, 8}},
+			move:   TACKLE,
+			logs:   []BattleLog{DamageLog{index: 1}},
 		},
 		{
 			source: testPokemon{10, CHARMANDER},
 			target: testPokemon{10, BULBASAUR},
-			move:   &Move{Data: GetMoveDataByID(EMBER)},
-			logs:   []BattleLog{DamageLog{1, 20}},
+			move:   EMBER,
+			logs:   []BattleLog{DamageLog{index: 1}},
 		},
 		{
 			source: testPokemon{100, PONYTA},
 			target: testPokemon{10, CHARMANDER},
-			move:   &Move{Data: GetMoveDataByID(FLAMETHROWER)},
-			logs:   []BattleLog{DamageLog{1, 4766}},
+			move:   FLAMETHROWER,
+			logs:   []BattleLog{DamageLog{index: 1}},
 		},
 		{
 			source: testPokemon{5, CHARMANDER},
 			target: testPokemon{5, BULBASAUR},
-			move:   &Move{Data: GetMoveDataByID(GROWL)},
+			move:   GROWL,
 			logs:   []BattleLog{StatStageChangeLog{1, Stats{attack: -1}}},
 		},
 	} {
-		rand.Seed(42)
 		source := GetPokemon(tt.source.level, tt.source.species)
 		target := GetPokemon(tt.target.level, tt.target.species)
-		source.Moves[0] = tt.move
+		source.Moves[0] = &Move{Data: GetMoveDataByID(tt.move)}
 		attemptedMove := attemptedMove{
 			Source:      source,
 			SourceIndex: 0,
 			TargetIndex: 1,
-			Move:        tt.move,
+			Move:        source.Moves[0],
 		}
 		battle := NewSingleBattle(source, target)
 		battle.HandleMove(attemptedMove)
 
-		got, want := filterLogs(battle.Logs), tt.logs
-		if len(got) != len(want) {
-			t.Fatalf("%d: got %v want %v", i, got, want)
-		}
-		for j, g := range got {
-			if g != want[j] {
-				t.Errorf("%d: got %+v want %+v", i, g, want[j])
+		evaluateLogs(t, i, battle.Logs, tt.logs)
+		// NOTE: REplays, so effects are applied twice!
+		t.Log(battle.String())
+	}
+}
+
+func TestMovePriority(t *testing.T) {
+	for i, tt := range []struct {
+		source     testPokemon
+		target     testPokemon
+		sourceMove MOVE
+		targetMove MOVE
+		logs       []BattleLog
+	}{
+		{
+			source:     testPokemon{10, PIKACHU},
+			target:     testPokemon{10, RATTATA},
+			sourceMove: SPARK,
+			targetMove: QUICKATTACK,
+			logs:       []BattleLog{DamageLog{index: 0}, DamageLog{index: 1}},
+		},
+	} {
+		source := GetPokemon(tt.source.level, tt.source.species)
+		target := GetPokemon(tt.target.level, tt.target.species)
+		source.Moves[0] = &Move{Data: GetMoveDataByID(tt.sourceMove)}
+		target.Moves[0] = &Move{Data: GetMoveDataByID(tt.targetMove)}
+		battle := NewSingleBattle(source, target)
+		commands := []Command{{0, 1, 0}, {1, 0, 0}}
+		battle.HandleTurn(commands)
+
+		evaluateLogs(t, i, battle.Logs, tt.logs)
+		// NOTE: REplays, so effects are applied twice!
+		t.Log(battle.String())
+	}
+}
+
+func evaluateLogs(t *testing.T, n int, gotLogs, wantLogs []BattleLog) {
+	got, want := filterLogs(gotLogs), wantLogs
+	if len(got) != len(want) {
+		t.Fatalf("%d: got %v want %v", n, got, want)
+	}
+	for i, g := range got {
+		wantLog := want[i]
+		switch gotLog := g.(type) {
+		case DamageLog:
+			wantDamageLog, ok := wantLog.(DamageLog)
+			if !ok {
+				t.Errorf("%d: got %+v want %+v", n, gotLog, wantLog)
+			}
+			if gotLog.index != wantDamageLog.index {
+				t.Errorf("%d: got %+v want %+v (exact damage doesn't matter)", n, gotLog, wantLog)
+			}
+		default:
+			if gotLog != wantLog {
+				t.Errorf("%d: got %+v want %+v", n, gotLog, wantLog)
 			}
 		}
-
-		// NOTE: REplays, so effects are applied twice!
-		//t.Log(battle.String())
 	}
 }
 

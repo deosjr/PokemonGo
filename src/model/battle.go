@@ -58,9 +58,9 @@ func (b *Battle) HandleTurnSingleBattle(c1, c2 Command) error {
 }
 
 func (b *Battle) HandleMoves(attemptedMoves []attemptedMove) error {
-	// TODO: sort by priority
+	sortedMoves := sortMoves(attemptedMoves)
 
-	for _, m := range attemptedMoves {
+	for _, m := range sortedMoves {
 		if err := b.HandleMove(m); err != nil {
 			return err
 		}
