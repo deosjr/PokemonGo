@@ -13,9 +13,9 @@ type Battle struct {
 }
 
 type Command struct {
-	SourceIndex int
-	TargetIndex int
-	MoveIndex   int
+	SourceIndex int `json:"source"`
+	TargetIndex int `json:"target"`
+	MoveIndex   int `json:"move"`
 }
 
 type attemptedMove struct {
@@ -23,6 +23,23 @@ type attemptedMove struct {
 	SourceIndex int
 	TargetIndex int
 	Move        *Move
+}
+
+func WaitForMoves(battle *Battle, c chan Command, t chan []string) {
+	var commands []Command
+	for {
+		select {
+		case command := <-c:
+			commands = append(commands, command)
+			if len(commands) == 2 {
+				battle.HandleTurn(commands)
+				commands = []Command{}
+				// TODO: Remove this 'fix'!
+				t <- []string{battle.String()}
+				t <- []string{battle.String()}
+			}
+		}
+	}
 }
 
 func NewBattle(p1, p2 []*Pokemon) *Battle {
