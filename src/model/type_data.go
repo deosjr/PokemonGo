@@ -22,7 +22,7 @@ const (
 	DARK
 )
 
-var typeData = []*Type{
+var typeData = []Type{
 	{
 		Name:       "Normal",
 		Weaknesses: []TYPE{FIGHTING},

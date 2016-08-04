@@ -11,7 +11,7 @@ type Type struct {
 	Immunities  []TYPE
 }
 
-var nameToType = make(map[string]*Type)
+var nameToType = make(map[string]Type)
 
 func initTypeData() {
 	for _, t := range typeData {
@@ -19,11 +19,11 @@ func initTypeData() {
 	}
 }
 
-func GetType(name string) *Type {
+func GetType(name string) Type {
 	return nameToType[strings.ToUpper(name)]
 }
 
-func GetTypeByID(t TYPE) *Type {
+func GetTypeByID(t TYPE) Type {
 	return typeData[t]
 }
 

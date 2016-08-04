@@ -96,7 +96,7 @@ func sortMoves(unsorted []attemptedMove) []attemptedMove {
 			priorities[prio] = []int{i}
 		}
 	}
-	for p := 6; p >= -6; p-- {
+	for p := 6; p >= -7; p-- {
 		plist := priorities[p]
 		// move backwards: speed is sorted low->high
 		for n := len(plist) - 1; n >= 0; n-- {
