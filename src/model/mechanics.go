@@ -92,6 +92,7 @@ func sortMoves(unsorted []attemptedMove) []attemptedMove {
 			prio := unsorted[i].Move.Data.Priority
 			if list, ok := priorities[prio]; ok {
 				priorities[prio] = append(list, i)
+				continue
 			}
 			priorities[prio] = []int{i}
 		}

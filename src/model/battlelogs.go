@@ -6,14 +6,22 @@ import (
 )
 
 type BattleLog interface {
-	replay(*Battle) string
+	replay(Battle) string
+}
+
+func (b *battle) addToLogs(l BattleLog) {
+	if list, ok := b.logs[b.turn]; ok {
+		b.logs[b.turn] = append(list, l)
+		return
+	}
+	b.logs[b.turn] = []BattleLog{l}
 }
 
 type TextLog struct {
 	text string
 }
 
-func (l TextLog) replay(b *Battle) string {
+func (l TextLog) replay(b Battle) string {
 	return l.text
 }
 
@@ -22,21 +30,21 @@ type DamageLog struct {
 	damage int
 }
 
-func (l DamageLog) replay(b *Battle) string {
+func (l DamageLog) replay(b Battle) string {
 	target, _ := b.pokemonAtIndex(l.index)
 	target.TakeDamage(l.damage)
 	return fmt.Sprintf("DEBUG: %s took %d damage!", target.Name, l.damage)
 }
 
-func (b *Battle) logf(f string, s ...interface{}) {
-	b.Logs = append(b.Logs, TextLog{fmt.Sprintf(f, s...)})
+func (b *battle) logf(f string, s ...interface{}) {
+	b.addToLogs(TextLog{fmt.Sprintf(f, s...)})
 }
 
-func (b *Battle) logDamage(index, damage int) {
-	b.Logs = append(b.Logs, DamageLog{index, damage})
+func (b *battle) logDamage(index, damage int) {
+	b.addToLogs(DamageLog{index, damage})
 }
 
-func (b *Battle) logDamageWithMessages(name string, index, dmg int, t, crit float64) {
+func (b *battle) logDamageWithMessages(name string, index, dmg int, t, crit float64) {
 	b.logDamage(index, dmg)
 	if crit > 1 {
 		b.logf("Critical hit!")
@@ -56,14 +64,14 @@ type StatStageChangeLog struct {
 	changes Stats
 }
 
-func (l StatStageChangeLog) replay(b *Battle) string {
+func (l StatStageChangeLog) replay(b Battle) string {
 	target, _ := b.pokemonAtIndex(l.index)
 	effectiveChanges, _ := target.ChangeStatStages(l.changes)
 	return fmt.Sprintf("DEBUG: %s changed stats: %v!", target.Name, effectiveChanges)
 }
 
-func (b *Battle) logStatStageChanges(name string, index int, changes Stats, maxed [6]bool) {
-	b.Logs = append(b.Logs, StatStageChangeLog{index, changes})
+func (b *battle) logStatStageChanges(name string, index int, changes Stats, maxed [6]bool) {
+	b.addToLogs(StatStageChangeLog{index, changes})
 	statNames := []string{"attack", "defense", "special attack", "special defense", "speed"}
 	sharply := func(n int) string {
 		if n > 1 {
@@ -93,19 +101,44 @@ func (b *Battle) logStatStageChanges(name string, index int, changes Stats, maxe
 	}
 }
 
-func (b *Battle) initialLog() {
+func (b *battle) initialLog() {
 	// TODO: Add Pokemon / Trainer data to log
 	// so we can load an entire battle from logdump
 	//b.logf("P1: %+v", b.pokemon[0])
 	//b.logf("P2: %+v", b.pokemon[1])
 }
 
-func (b *Battle) String() string {
-	loglines := make([]string, len(b.Logs))
-	for i, log := range b.Logs {
-		loglines[i] = log.replay(b)
+func LogsToString(logs map[int][]BattleLog) string {
+	loglines := []string{}
+	turn := 1
+	for {
+		s := TurnToString(logs, turn)
+		if s == "" {
+			break
+		}
+		loglines = append(loglines, s)
+		turn++
 	}
 	return strings.Join(loglines, "\n")
+}
+
+func TurnToString(logs map[int][]BattleLog, turn int) string {
+	loglines := []string{}
+	list, ok := logs[turn]
+	if !ok {
+		return ""
+	}
+	for _, log := range list {
+		switch log.(type) {
+		case TextLog:
+			loglines = append(loglines, fmt.Sprintf("%d): %s", turn, log.replay(nil)))
+		}
+	}
+	return strings.Join(loglines, "\n")
+}
+
+func (b *battle) Logs() map[int][]BattleLog {
+	return b.logs
 }
 
 //TODO: func loadBattleFromLog(string) *Battle

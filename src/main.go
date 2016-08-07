@@ -18,12 +18,7 @@ func main() {
 	p2.Moves[0] = &model.Move{Data: model.GetMoveDataByID(model.EMBER)}
 	battle := model.NewSingleBattle(p1, p2)
 
-	c := make(chan model.Command)
-	t := make(chan []string)
-	handler.Battle = battle
-	handler.CommandChannel = c
-	handler.TurnChannel = t
-	go model.WaitForMoves(battle, c, t)
+	go handler.Handle(battle)
 
 	http.HandleFunc("/move", handler.HandleMove)
 	http.ListenAndServe(":8080", nil)

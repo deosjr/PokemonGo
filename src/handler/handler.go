@@ -4,16 +4,19 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	// "sync"
 
 	"model"
 )
 
 var (
-	Battle         *model.Battle
-	CommandChannel chan model.Command
-	TurnChannel    chan []string
+	battle         model.Battle
+	requestChannel chan request
 )
+
+type request struct {
+	Command         model.Command
+	ResponseChannel chan int
+}
 
 type input struct {
 	Player  string        `json:"player"`
@@ -21,17 +24,18 @@ type input struct {
 }
 
 func HandleMove(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("Requested %s %v\n", r.URL.Path, r.FormValue("input"))
-
 	var i input
 	err := json.Unmarshal([]byte(r.FormValue("input")), &i)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	fmt.Printf("Issued command %+v \n", i.Command)
+	fmt.Printf("Player %s issued command %+v \n", i.Player, i.Command)
 	// TODO: command validation
-	CommandChannel <- i.Command
+
+	resp := make(chan int)
+	req := request{i.Command, resp}
+	requestChannel <- req
 
 	// CORS stuff
 	w.Header().Set("Content-Type", "application/json")
@@ -42,9 +46,36 @@ func HandleMove(w http.ResponseWriter, r *http.Request) {
 
 	for {
 		select {
-		case turnResolution := <-TurnChannel:
-			json.NewEncoder(w).Encode(turnResolution)
+		case resolvedTurn := <-resp:
+			text := model.TurnToString(battle.Logs(), resolvedTurn)
+			json.NewEncoder(w).Encode(text)
 			return
+		}
+	}
+}
+
+func Handle(b model.Battle) {
+	var commands []model.Command
+	var channels []chan int
+	battle = b
+	requestChannel = make(chan request)
+
+	for {
+		select {
+		case req := <-requestChannel:
+			commands = append(commands, req.Command)
+			channels = append(channels, req.ResponseChannel)
+			if len(commands) == 2 {
+				err := model.HandleTurn(battle, commands)
+				if err != nil {
+					panic(err)
+				}
+				for _, r := range channels {
+					r <- battle.Turn() - 1
+				}
+				commands = []model.Command{}
+				channels = []chan int{}
+			}
 		}
 	}
 }

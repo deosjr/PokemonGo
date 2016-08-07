@@ -4,12 +4,29 @@ import (
 	"fmt"
 )
 
-type Battle struct {
-	pokemon    []*Pokemon
-	side1Count int
-	maxIndex   int
+type Battle interface {
+	pokemonAtIndex(int) (*Pokemon, error)
+	getTargets(int, int, TARGET) []int
 
-	Logs []BattleLog
+	addToLogs(BattleLog)
+	logf(string, ...interface{})
+	logDamage(int, int)
+	logDamageWithMessages(string, int, int, float64, float64)
+	logStatStageChanges(string, int, Stats, [6]bool)
+	Logs() map[int][]BattleLog
+
+	NextTurn()
+	Turn() int
+}
+
+type battle struct {
+	turn int
+	logs map[int][]BattleLog
+}
+
+type singleBattle struct {
+	battle
+	pokemon [2]*Pokemon
 }
 
 type Command struct {
@@ -25,60 +42,20 @@ type attemptedMove struct {
 	Move        *Move
 }
 
-func WaitForMoves(battle *Battle, c chan Command, t chan []string) {
-	var commands []Command
-	for {
-		select {
-		case command := <-c:
-			commands = append(commands, command)
-			if len(commands) == 2 {
-				battle.HandleTurn(commands)
-				commands = []Command{}
-				// TODO: Remove this 'fix'!
-				t <- []string{battle.String()}
-				t <- []string{battle.String()}
-			}
-		}
-	}
-}
-
-func NewBattle(p1, p2 []*Pokemon) *Battle {
-	b := &Battle{
-		pokemon:    append(p1, p2...),
-		side1Count: len(p1),
-		maxIndex:   len(p1) + len(p2),
-	}
-	b.initialLog()
-	return b
-}
-
-func NewSingleBattle(p1, p2 *Pokemon) *Battle {
-	b := &Battle{
-		pokemon:    []*Pokemon{p1, p2},
-		side1Count: 1,
-		maxIndex:   2,
-	}
-	b.initialLog()
-	return b
-}
-
-func (b *Battle) HandleTurn(commands []Command) error {
-	m, err := b.lookupAttemptedMoves(commands)
+func HandleTurn(b Battle, commands []Command) error {
+	m, err := lookupAttemptedMoves(b, commands)
 	if err != nil {
 		return err
 	}
-	return b.HandleMoves(m)
+	err = HandleMoves(b, m)
+	b.NextTurn()
+	return err
 }
 
-func (b *Battle) HandleTurnSingleBattle(c1, c2 Command) error {
-	return b.HandleTurn([]Command{c1, c2})
-}
-
-func (b *Battle) HandleMoves(attemptedMoves []attemptedMove) error {
+func HandleMoves(b Battle, attemptedMoves []attemptedMove) error {
 	sortedMoves := sortMoves(attemptedMoves)
-
 	for _, m := range sortedMoves {
-		if err := b.HandleMove(m); err != nil {
+		if err := HandleMove(b, m); err != nil {
 			return err
 		}
 	}
@@ -86,7 +63,7 @@ func (b *Battle) HandleMoves(attemptedMoves []attemptedMove) error {
 	return nil
 }
 
-func (b *Battle) HandleMove(m attemptedMove) error {
+func HandleMove(b Battle, m attemptedMove) error {
 	md := m.Move.Data
 	b.logf("%s used %s!", m.Source.Name, md.Name)
 	for _, targetIndex := range b.getTargets(m.SourceIndex, m.TargetIndex, md.Target) {
@@ -123,10 +100,10 @@ func (b *Battle) HandleMove(m attemptedMove) error {
 //
 //	side1 [0 ... n-1] and side2 [n ... m-1]
 
-func (b *Battle) lookupAttemptedMoves(commands []Command) ([]attemptedMove, error) {
+func lookupAttemptedMoves(b Battle, commands []Command) ([]attemptedMove, error) {
 	attemptedMoves := []attemptedMove{}
 	for _, c := range commands {
-		m, err := b.lookupAttemptedMove(c)
+		m, err := lookupAttemptedMove(b, c)
 		if err != nil {
 			return nil, err
 		}
@@ -135,7 +112,7 @@ func (b *Battle) lookupAttemptedMoves(commands []Command) ([]attemptedMove, erro
 	return attemptedMoves, nil
 }
 
-func (b *Battle) lookupAttemptedMove(c Command) (attemptedMove, error) {
+func lookupAttemptedMove(b Battle, c Command) (attemptedMove, error) {
 	source, err := b.pokemonAtIndex(c.SourceIndex)
 	if err != nil {
 		return attemptedMove{}, fmt.Errorf("error parsing command: %v", err)
@@ -150,16 +127,36 @@ func (b *Battle) lookupAttemptedMove(c Command) (attemptedMove, error) {
 	}, nil
 }
 
-func (b *Battle) pokemonAtIndex(i int) (p *Pokemon, err error) {
-	if i < 0 || i >= b.maxIndex {
+func (b *battle) init() {
+	b.logs = make(map[int][]BattleLog)
+	b.turn = 1
+	b.initialLog()
+}
+
+func (b *battle) NextTurn() {
+	b.turn++
+}
+
+func (b *battle) Turn() int {
+	return b.turn
+}
+
+func NewSingleBattle(p1, p2 *Pokemon) Battle {
+	b := &singleBattle{
+		pokemon: [2]*Pokemon{p1, p2},
+	}
+	b.init()
+	return b
+}
+
+func (b *singleBattle) pokemonAtIndex(i int) (p *Pokemon, err error) {
+	if i < 0 || i > 1 {
 		return nil, fmt.Errorf("invalid index %d", i)
 	}
 	return b.pokemon[i], nil
 }
 
-// assumes valid single target
-func (b *Battle) getTargets(sourceIndex, targetIndex int, target TARGET) []int {
-	//TODO: more than just single battle targets
+func (b *singleBattle) getTargets(sourceIndex, targetIndex int, target TARGET) []int {
 	switch target {
 	case USER, USERS_SIDE, SINGLE_USERS_SIDE:
 		return []int{sourceIndex}

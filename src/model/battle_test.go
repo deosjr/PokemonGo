@@ -51,11 +51,10 @@ func TestHandleMoveSingleBattle(t *testing.T) {
 			Move:        source.Moves[0],
 		}
 		battle := NewSingleBattle(source, target)
-		battle.HandleMove(attemptedMove)
+		HandleMove(battle, attemptedMove)
 
-		evaluateLogs(t, i, battle.Logs, tt.logs)
-		// NOTE: REplays, so effects are applied twice!
-		t.Log(battle.String())
+		evaluateLogs(t, i, battle.Logs()[1], tt.logs)
+		t.Log(LogsToString(battle.Logs()))
 	}
 }
 
@@ -80,12 +79,11 @@ func TestMovePriority(t *testing.T) {
 		source.Moves[0] = &Move{Data: GetMoveDataByID(tt.sourceMove)}
 		target.Moves[0] = &Move{Data: GetMoveDataByID(tt.targetMove)}
 		battle := NewSingleBattle(source, target)
-		commands := []Command{{0, 1, 0}, {1, 0, 0}}
-		battle.HandleTurn(commands)
+		HandleTurn(battle, []Command{{0, 1, 0}, {1, 0, 0}})
 
-		evaluateLogs(t, i, battle.Logs, tt.logs)
+		evaluateLogs(t, i, battle.Logs()[1], tt.logs)
 		// NOTE: REplays, so effects are applied twice!
-		t.Log(battle.String())
+		t.Log(LogsToString(battle.Logs()))
 	}
 }
 
