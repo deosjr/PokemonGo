@@ -47,7 +47,7 @@ func HandleMove(w http.ResponseWriter, r *http.Request) {
 	for {
 		select {
 		case resolvedTurn := <-resp:
-			text := model.TurnToString(battle.Logs(), resolvedTurn)
+			text := model.TurnToString(battle.Log().Logs(), resolvedTurn)
 			json.NewEncoder(w).Encode(text)
 			return
 		}
@@ -71,7 +71,7 @@ func Handle(b model.Battle) {
 					panic(err)
 				}
 				for _, r := range channels {
-					r <- battle.Turn() - 1
+					r <- battle.Log().Turn() - 1
 				}
 				commands = []model.Command{}
 				channels = []chan int{}

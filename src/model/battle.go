@@ -5,28 +5,14 @@ import (
 )
 
 type Battle interface {
+	Log() *Logger
 	pokemonAtIndex(int) (*Pokemon, error)
 	getTargets(int, int, TARGET) []int
-
-	addToLogs(BattleLog)
-	logf(string, ...interface{})
-	logDamage(int, int)
-	logDamageWithMessages(string, int, int, float64, float64)
-	logStatStageChanges(string, int, Stats, [6]bool)
-	Logs() map[int][]BattleLog
-
-	NextTurn()
-	Turn() int
-}
-
-type battle struct {
-	turn int
-	logs map[int][]BattleLog
 }
 
 type singleBattle struct {
-	battle
 	pokemon [2]*Pokemon
+	logger *Logger
 }
 
 type Command struct {
@@ -48,7 +34,7 @@ func HandleTurn(b Battle, commands []Command) error {
 		return err
 	}
 	err = HandleMoves(b, m)
-	b.NextTurn()
+	b.Log().nextTurn()
 	return err
 }
 
@@ -65,7 +51,7 @@ func HandleMoves(b Battle, attemptedMoves []attemptedMove) error {
 
 func HandleMove(b Battle, m attemptedMove) error {
 	md := m.Move.Data
-	b.logf("%s used %s!", m.Source.Name, md.Name)
+	b.Log().logf("%s used %s!", m.Source.Name, md.Name)
 	for _, targetIndex := range b.getTargets(m.SourceIndex, m.TargetIndex, md.Target) {
 		target, err := b.pokemonAtIndex(targetIndex)
 		if err != nil {
@@ -73,13 +59,13 @@ func HandleMove(b Battle, m attemptedMove) error {
 		}
 		miss := attackMisses()
 		if miss {
-			b.logf("%s's attack missed!", m.Source.Name)
+			b.Log().logf("%s's attack missed!", m.Source.Name)
 			continue
 		}
 
 		if md.Category != STATUS {
 			dmg, t, crit := dealDamage(m.Source, target, md)
-			b.logDamageWithMessages(target.Name, targetIndex, dmg, t, crit)
+			b.Log().logDamageWithMessages(target.Name, targetIndex, dmg, t, crit)
 			target.TakeDamage(dmg)
 		}
 
@@ -88,7 +74,7 @@ func HandleMove(b Battle, m attemptedMove) error {
 				continue
 			}
 			effectiveChanges, maxed := target.ChangeStatStages(md.statStageChanges)
-			b.logStatStageChanges(target.Name, targetIndex, effectiveChanges, maxed)
+			b.Log().logStatStageChanges(target.Name, targetIndex, effectiveChanges, maxed)
 		}
 	}
 	return nil
@@ -127,26 +113,15 @@ func lookupAttemptedMove(b Battle, c Command) (attemptedMove, error) {
 	}, nil
 }
 
-func (b *battle) init() {
-	b.logs = make(map[int][]BattleLog)
-	b.turn = 1
-	b.initialLog()
-}
-
-func (b *battle) NextTurn() {
-	b.turn++
-}
-
-func (b *battle) Turn() int {
-	return b.turn
-}
-
 func NewSingleBattle(p1, p2 *Pokemon) Battle {
-	b := &singleBattle{
+	return &singleBattle{
 		pokemon: [2]*Pokemon{p1, p2},
+		logger: NewLogger(),
 	}
-	b.init()
-	return b
+}
+
+func (b *singleBattle) Log() *Logger {
+	return b.logger
 }
 
 func (b *singleBattle) pokemonAtIndex(i int) (p *Pokemon, err error) {
