@@ -1,19 +1,16 @@
 package model
 
-import (
-	"fmt"
-	"strings"
-)
+import "fmt"
 
 type Logger struct {
 	turn int
-	logs map[int][]BattleLog
+	logs map[int][]battleLog
 }
 
 func NewLogger() *Logger {
 	return &Logger{
 		turn: 1,
-		logs: make(map[int][]BattleLog),
+		logs: make(map[int][]battleLog),
 	}
 	// TODO: Add Pokemon / Trainer data to log
 	// so we can load an entire battle from logdump
@@ -29,43 +26,43 @@ func (l *Logger) Turn() int {
 	return l.turn
 }
 
-type BattleLog interface {
+type battleLog interface {
 	replay(Battle) string
 }
 
-func (l *Logger) addToLogs(bl BattleLog) {
+func (l *Logger) addToLogs(bl battleLog) {
 	if list, ok := l.logs[l.turn]; ok {
 		l.logs[l.turn] = append(list, bl)
 		return
 	}
-	l.logs[l.turn] = []BattleLog{bl}
+	l.logs[l.turn] = []battleLog{bl}
 }
 
-type TextLog struct {
-	text string
+type textLog struct {
+	Text string `json:"text"`
 }
 
-func (l TextLog) replay(b Battle) string {
-	return l.text
+func (l textLog) replay(b Battle) string {
+	return l.Text
 }
 
-type DamageLog struct {
-	index  int
-	damage int
+type damageLog struct {
+	Index  int `json:"index"`
+	Damage int `json:"damage"`
 }
 
-func (l DamageLog) replay(b Battle) string {
-	target, _ := b.pokemonAtIndex(l.index)
-	target.TakeDamage(l.damage)
-	return fmt.Sprintf("DEBUG: %s took %d damage!", target.Name, l.damage)
+func (l damageLog) replay(b Battle) string {
+	target, _ := b.pokemonAtIndex(l.Index)
+	target.TakeDamage(l.Damage)
+	return fmt.Sprintf("DEBUG: %s took %d damage!", target.Name, l.Damage)
 }
 
 func (l *Logger) logf(f string, s ...interface{}) {
-	l.addToLogs(TextLog{fmt.Sprintf(f, s...)})
+	l.addToLogs(textLog{fmt.Sprintf(f, s...)})
 }
 
 func (l *Logger) logDamage(index, damage int) {
-	l.addToLogs(DamageLog{index, damage})
+	l.addToLogs(damageLog{index, damage})
 }
 
 func (l *Logger) logDamageWithMessages(name string, index, dmg int, t, crit float64) {
@@ -83,19 +80,19 @@ func (l *Logger) logDamageWithMessages(name string, index, dmg int, t, crit floa
 	}
 }
 
-type StatStageChangeLog struct {
-	index   int
-	changes Stats
+type statStageChangeLog struct {
+	Index   int   `json:"index"`
+	Changes Stats `json:"statChanges"`
 }
 
-func (l StatStageChangeLog) replay(b Battle) string {
-	target, _ := b.pokemonAtIndex(l.index)
-	effectiveChanges, _ := target.ChangeStatStages(l.changes)
+func (l statStageChangeLog) replay(b Battle) string {
+	target, _ := b.pokemonAtIndex(l.Index)
+	effectiveChanges, _ := target.ChangeStatStages(l.Changes)
 	return fmt.Sprintf("DEBUG: %s changed stats: %v!", target.Name, effectiveChanges)
 }
 
 func (l *Logger) logStatStageChanges(name string, index int, changes Stats, maxed [6]bool) {
-	l.addToLogs(StatStageChangeLog{index, changes})
+	l.addToLogs(statStageChangeLog{index, changes})
 	statNames := []string{"attack", "defense", "special attack", "special defense", "speed"}
 	sharply := func(n int) string {
 		if n > 1 {
@@ -125,36 +122,7 @@ func (l *Logger) logStatStageChanges(name string, index int, changes Stats, maxe
 	}
 }
 
-func LogsToString(logs map[int][]BattleLog) string {
-	loglines := []string{}
-	turn := 1
-	for {
-		s := TurnToString(logs, turn)
-		if s == "" {
-			break
-		}
-		loglines = append(loglines, s)
-		turn++
-	}
-	return strings.Join(loglines, "\n")
-}
-
-func TurnToString(logs map[int][]BattleLog, turn int) string {
-	loglines := []string{}
-	list, ok := logs[turn]
-	if !ok {
-		return ""
-	}
-	for _, log := range list {
-		switch log.(type) {
-		case TextLog:
-			loglines = append(loglines, fmt.Sprintf("%d): %s", turn, log.replay(nil)))
-		}
-	}
-	return strings.Join(loglines, "\n")
-}
-
-func (l *Logger) Logs() map[int][]BattleLog {
+func (l *Logger) Logs() map[int][]battleLog {
 	return l.logs
 }
 

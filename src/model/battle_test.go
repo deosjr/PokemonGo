@@ -14,31 +14,31 @@ func TestHandleMoveSingleBattle(t *testing.T) {
 		source testPokemon
 		target testPokemon
 		move   MOVE
-		logs   []BattleLog
+		logs   []battleLog
 	}{
 		{
 			source: testPokemon{10, BULBASAUR},
 			target: testPokemon{10, CHARMANDER},
 			move:   TACKLE,
-			logs:   []BattleLog{DamageLog{index: 1}},
+			logs:   []battleLog{damageLog{Index: 1}},
 		},
 		{
 			source: testPokemon{10, CHARMANDER},
 			target: testPokemon{10, BULBASAUR},
 			move:   EMBER,
-			logs:   []BattleLog{DamageLog{index: 1}},
+			logs:   []battleLog{damageLog{Index: 1}},
 		},
 		{
 			source: testPokemon{100, PONYTA},
 			target: testPokemon{10, CHARMANDER},
 			move:   FLAMETHROWER,
-			logs:   []BattleLog{DamageLog{index: 1}},
+			logs:   []battleLog{damageLog{Index: 1}},
 		},
 		{
 			source: testPokemon{5, CHARMANDER},
 			target: testPokemon{5, BULBASAUR},
 			move:   GROWL,
-			logs:   []BattleLog{StatStageChangeLog{1, Stats{attack: -1}}},
+			logs:   []battleLog{statStageChangeLog{Index: 1, Changes: Stats{attack: -1}}},
 		},
 	} {
 		source := GetPokemon(tt.source.level, tt.source.species)
@@ -63,14 +63,14 @@ func TestMovePriority(t *testing.T) {
 		target     testPokemon
 		sourceMove MOVE
 		targetMove MOVE
-		logs       []BattleLog
+		logs       []battleLog
 	}{
 		{
 			source:     testPokemon{10, PIKACHU},
 			target:     testPokemon{10, RATTATA},
 			sourceMove: SPARK,
 			targetMove: QUICKATTACK,
-			logs:       []BattleLog{DamageLog{index: 0}, DamageLog{index: 1}},
+			logs:       []battleLog{damageLog{Index: 0}, damageLog{Index: 1}},
 		},
 	} {
 		source := GetPokemon(tt.source.level, tt.source.species)
@@ -84,7 +84,7 @@ func TestMovePriority(t *testing.T) {
 	}
 }
 
-func evaluateLogs(t *testing.T, n int, gotLogs, wantLogs []BattleLog) {
+func evaluateLogs(t *testing.T, n int, gotLogs, wantLogs []battleLog) {
 	got, want := filterLogs(gotLogs), wantLogs
 	if len(got) != len(want) {
 		t.Fatalf("%d: got %v want %v", n, got, want)
@@ -92,12 +92,12 @@ func evaluateLogs(t *testing.T, n int, gotLogs, wantLogs []BattleLog) {
 	for i, g := range got {
 		wantLog := want[i]
 		switch gotLog := g.(type) {
-		case DamageLog:
-			wantDamageLog, ok := wantLog.(DamageLog)
+		case damageLog:
+			wantDamageLog, ok := wantLog.(damageLog)
 			if !ok {
 				t.Errorf("%d: got %+v want %+v", n, gotLog, wantLog)
 			}
-			if gotLog.index != wantDamageLog.index {
+			if gotLog.Index != wantDamageLog.Index {
 				t.Errorf("%d: got %+v want %+v (exact damage doesn't matter)", n, gotLog, wantLog)
 			}
 		default:
@@ -108,11 +108,11 @@ func evaluateLogs(t *testing.T, n int, gotLogs, wantLogs []BattleLog) {
 	}
 }
 
-func filterLogs(logs []BattleLog) []BattleLog {
-	l := []BattleLog{}
+func filterLogs(logs []battleLog) []battleLog {
+	l := []battleLog{}
 	for _, log := range logs {
 		switch log.(type) {
-		case TextLog:
+		case textLog:
 			continue
 		default:
 			l = append(l, log)

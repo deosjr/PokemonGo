@@ -25,7 +25,7 @@ type input struct {
 
 func HandleMove(w http.ResponseWriter, r *http.Request) {
 	var i input
-	err := json.Unmarshal([]byte(r.FormValue("input")), &i)
+	err := json.NewDecoder(r.Body).Decode(&i)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -37,21 +37,16 @@ func HandleMove(w http.ResponseWriter, r *http.Request) {
 	req := request{i.Command, resp}
 	requestChannel <- req
 
-	// CORS stuff
+	// CORS Headers
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Credentials", "true")
 	w.Header().Set("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
 	w.Header().Set("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers")
 
-	for {
-		select {
-		case resolvedTurn := <-resp:
-			text := model.TurnToString(battle.Log().Logs(), resolvedTurn)
-			json.NewEncoder(w).Encode(text)
-			return
-		}
-	}
+	resolvedTurn := <-resp
+	turnResolution := battle.Log().Logs()[resolvedTurn]
+	json.NewEncoder(w).Encode(turnResolution)
 }
 
 func Handle(b model.Battle) {
@@ -65,17 +60,18 @@ func Handle(b model.Battle) {
 		case req := <-requestChannel:
 			commands = append(commands, req.Command)
 			channels = append(channels, req.ResponseChannel)
-			if len(commands) == 2 {
-				err := model.HandleTurn(battle, commands)
-				if err != nil {
-					panic(err)
-				}
-				for _, r := range channels {
-					r <- battle.Log().Turn() - 1
-				}
-				commands = []model.Command{}
-				channels = []chan int{}
+			if len(commands) != 2 {
+				break
 			}
+			err := model.HandleTurn(battle, commands)
+			if err != nil {
+				panic(err)
+			}
+			for _, r := range channels {
+				r <- battle.Log().Turn() - 1
+			}
+			commands = []model.Command{}
+			channels = []chan int{}
 		}
 	}
 }
