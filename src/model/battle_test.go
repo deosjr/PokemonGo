@@ -93,6 +93,61 @@ func TestMovePriority(t *testing.T) {
 	}
 }
 
+func TestExactDamage(t *testing.T) {
+	for i, tt := range []struct {
+		source testPokemon
+		target testPokemon
+		move   move
+		damage int
+	}{
+		{
+			source: testPokemon{10, MAGNEMITE},
+			target: testPokemon{10, RATTATA},
+			move:   SONICBOOM,
+			damage: 20,
+		},
+		{
+			source: testPokemon{10, MAGNEMITE},
+			target: testPokemon{10, GASTLY},
+			move:   SONICBOOM,
+			damage: 0,
+		},
+		{
+			source: testPokemon{10, HAUNTER},
+			target: testPokemon{12, GOLEM},
+			move:   NIGHTSHADE,
+			damage: 10,
+		},
+		{
+			source: testPokemon{10, HAUNTER},
+			target: testPokemon{12, RATTATA},
+			move:   NIGHTSHADE,
+			damage: 0,
+		},
+	} {
+		source := GetPokemon(tt.source.level, tt.source.species)
+		target := GetPokemon(tt.target.level, tt.target.species)
+		source.Moves[0] = &Move{Data: GetMoveDataByID(tt.move)}
+		attemptedMove := attemptedMove{
+			Source:      source,
+			SourceIndex: 0,
+			TargetIndex: 1,
+			Move:        source.Moves[0],
+		}
+		battle := NewSingleBattle(source, target)
+		HandleMove(battle, attemptedMove)
+
+		log := battle.Log().Logs()[1][1]
+		dLog, ok := log.(damageLog)
+		if !ok {
+			t.Fatalf("%d): expected a damageLog got %v", i, log)
+		}
+		if dLog.Damage != tt.damage {
+			t.Errorf("%d): got %d want %d", i, dLog.Damage, tt.damage)
+		}
+	}
+}
+
 func evaluateLogs(t *testing.T, n int, gotLogs, wantLogs []battleLog) {
 	got, want := filterLogs(gotLogs), wantLogs
 	if len(got) != len(want) {

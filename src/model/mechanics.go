@@ -9,8 +9,10 @@ import (
 //TODO
 func attackMisses() bool { return false }
 
-// TODO: power=1 indicates move-specific damage calculation
 func dealDamage(source, target *Pokemon, moveData MoveData) (dmg int, t, crit float64) {
+	if moveData.damageFunction != nil {
+		return moveData.damageFunction(source, target)
+	}
 	dmg, t, crit = determineDamage(source, target, moveData)
 	return dmg, t, crit
 }
@@ -112,4 +114,12 @@ func sortMoves(unsorted []attemptedMove) []attemptedMove {
 func changeStatStages(log *Logger, p *Pokemon, index int, changes Stats) {
 	stats, effectiveChanges, maxed := p.ChangeStatStages(changes)
 	log.logStatStages(p.Name, index, stats, effectiveChanges, maxed)
+}
+
+func fixedDamage(damage int, typ pType, target *Pokemon) (int, float64, float64) {
+	t := typeEffectiveness(typ, target.getSpecies().Types)
+	if t == 0 {
+		return 0, 0, 1
+	}
+	return damage, 1, 1
 }

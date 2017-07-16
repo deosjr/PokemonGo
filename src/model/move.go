@@ -8,8 +8,6 @@ var nameToMove = make(map[string]MoveData)
 
 type MoveData struct {
 	Name            string
-	functionCode    string //TODO: replace with other properties
-	effect          func(logger *Logger, source, target *Pokemon, sourceIndex, targetIndex int)
 	Power           int
 	Type            pType
 	Category        damageCategory
@@ -20,6 +18,10 @@ type MoveData struct {
 	Priority        int
 	Flags           string
 	Description     string
+
+	functionCode   string //TODO: replace with other properties
+	effect         func(logger *Logger, source, target *Pokemon, sourceIndex, targetIndex int)
+	damageFunction func(source, target *Pokemon) (dmg int, t, crit float64)
 }
 
 func initMoveData() {
