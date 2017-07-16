@@ -81,14 +81,14 @@ func (l *Logger) logDamageWithMessages(name string, index, dmg int, t, crit floa
 }
 
 type statStageLog struct {
-	Index      int   `json:"index"`
-	StatStages Stats `json:"statStages"`
+	Index   int   `json:"index"`
+	Changes Stats `json:"statStageChanges"`
 }
 
 func (l statStageLog) replay(b Battle) string {
 	target, _ := b.pokemonAtIndex(l.Index)
-	target.statStages = l.StatStages
-	return fmt.Sprintf("Debug: %s changed stats: %v!", target.Name, l.StatStages)
+	effectiveChanges, _ := target.ChangeStatStages(l.Changes)
+	return fmt.Sprintf("Debug: %s changed stats: %v!", target.Name, effectiveChanges)
 }
 
 func sharply(n int) string {
@@ -103,7 +103,7 @@ func sharply(n int) string {
 
 var statNames = []string{"attack", "defense", "special attack", "special defense", "speed"}
 
-func (l *Logger) logStatStages(name string, index int, stats, changes Stats, maxed [6]bool) {
+func (l *Logger) logStatStages(name string, index int, changes Stats, maxed [6]bool) {
 	l.addToLogs(statStageLog{index, changes})
 	for i, v := range changes.stats() {
 		if i == 0 {
@@ -126,6 +126,17 @@ func (l *Logger) logStatStages(name string, index int, stats, changes Stats, max
 			l.logf("%s's %s%s fell!", name, statName, sharply(v))
 		}
 	}
+}
+
+// ugly catch-all log for edge cases
+// might change a lot in the future
+type genericUpdateLog struct {
+	Index      int   `json:"index"`
+	StatStages Stats `json:"statStages"`
+}
+
+func (l genericUpdateLog) replay(b Battle) string {
+	return fmt.Sprintf("Debug: TODO!")
 }
 
 func (l *Logger) Logs() map[int][]battleLog {

@@ -38,7 +38,7 @@ func TestHandleMoveSingleBattle(t *testing.T) {
 			source: testPokemon{5, CHARMANDER},
 			target: testPokemon{5, BULBASAUR},
 			move:   GROWL,
-			logs:   []battleLog{statStageLog{Index: 1, StatStages: Stats{attack: -1}}},
+			logs:   []battleLog{statStageLog{Index: 1, Changes: Stats{attack: -1}}},
 		},
 		{
 			source: testPokemon{5, CHARMANDER},
@@ -46,7 +46,7 @@ func TestHandleMoveSingleBattle(t *testing.T) {
 			move:   FLAMECHARGE,
 			logs: []battleLog{
 				damageLog{Index: 1},
-				statStageLog{Index: 0, StatStages: Stats{speed: +1}},
+				statStageLog{Index: 0, Changes: Stats{speed: +1}},
 			},
 		},
 	} {

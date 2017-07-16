@@ -1513,7 +1513,7 @@ var moveData = []MoveData{
 		Name: "Clear Smog",
 		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
 			t.statStages = emptyStages
-			l.addToLogs(statStageLog{Index: ti, StatStages: emptyStages})
+			l.addToLogs(genericUpdateLog{Index: ti, StatStages: emptyStages})
 			l.logf("%s's stat changes were removed!", t.Name)
 		},
 		Power:       50,
@@ -3207,8 +3207,8 @@ var moveData = []MoveData{
 		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
 			s.statStages.defense, t.statStages.defense = t.statStages.defense, s.statStages.defense
 			s.statStages.spdefense, t.statStages.spdefense = t.statStages.spdefense, s.statStages.spdefense
-			l.addToLogs(statStageLog{Index: si, StatStages: s.statStages})
-			l.addToLogs(statStageLog{Index: ti, StatStages: t.statStages})
+			l.addToLogs(genericUpdateLog{Index: si, StatStages: s.statStages})
+			l.addToLogs(genericUpdateLog{Index: ti, StatStages: t.statStages})
 			l.logf("%s switched all changes to its Defense and Sp. Def with the target!", s.Name)
 		},
 		Type:        PSYCHIC,
@@ -3436,8 +3436,8 @@ var moveData = []MoveData{
 		Name: "Heart Swap",
 		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
 			s.statStages, t.statStages = t.statStages, s.statStages
-			l.addToLogs(statStageLog{Index: si, StatStages: s.statStages})
-			l.addToLogs(statStageLog{Index: ti, StatStages: t.statStages})
+			l.addToLogs(genericUpdateLog{Index: si, StatStages: s.statStages})
+			l.addToLogs(genericUpdateLog{Index: ti, StatStages: t.statStages})
 			l.logf("%s switched stat changes with the target!", s.Name)
 		},
 		Type:        PSYCHIC,
@@ -5071,8 +5071,8 @@ var moveData = []MoveData{
 		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
 			s.statStages.attack, t.statStages.attack = t.statStages.attack, s.statStages.attack
 			s.statStages.spattack, t.statStages.spattack = t.statStages.spattack, s.statStages.spattack
-			l.addToLogs(statStageLog{Index: si, StatStages: s.statStages})
-			l.addToLogs(statStageLog{Index: ti, StatStages: t.statStages})
+			l.addToLogs(genericUpdateLog{Index: si, StatStages: s.statStages})
+			l.addToLogs(genericUpdateLog{Index: ti, StatStages: t.statStages})
 			l.logf("%s switched all changes to its Attack and Sp. Atk with the target!", s.Name)
 		},
 		Type:        PSYCHIC,
@@ -5148,7 +5148,7 @@ var moveData = []MoveData{
 		Name: "Psych Up",
 		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
 			s.statStages = t.statStages
-			l.addToLogs(statStageLog{Index: si, StatStages: s.statStages})
+			l.addToLogs(genericUpdateLog{Index: si, StatStages: s.statStages})
 			l.logf("%s copied %s's stat changes!", s.Name, t.Name)
 		},
 		Type:        NORMAL,
