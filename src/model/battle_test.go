@@ -127,7 +127,9 @@ func TestExactDamage(t *testing.T) {
 	} {
 		source := GetPokemon(tt.source.level, tt.source.species)
 		target := GetPokemon(tt.target.level, tt.target.species)
-		source.Moves[0] = &Move{Data: GetMoveDataByID(tt.move)}
+		md := GetMoveDataByID(tt.move)
+		md.Accuracy = 100 // we only want to test cases that hit
+		source.Moves[0] = &Move{Data: md}
 		attemptedMove := attemptedMove{
 			Source:      source,
 			SourceIndex: 0,

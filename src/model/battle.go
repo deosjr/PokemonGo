@@ -57,7 +57,7 @@ func HandleMove(b Battle, m attemptedMove) error {
 		if err != nil {
 			return err
 		}
-		miss := attackMisses()
+		miss := determineHit(md, m.Source.Accuracy(), target.Evasion())
 		if miss {
 			b.Log().logf("%s's attack missed!", m.Source.Name)
 			continue

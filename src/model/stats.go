@@ -1,13 +1,5 @@
 package model
 
-import (
-	"math/rand"
-)
-
-// TODO: stats include accuracy/evasion
-// although they're treated slightly differently.
-// Look at HeartSwap for why they should be Stats
-
 type Stats struct {
 	hp        int
 	attack    int
@@ -84,7 +76,7 @@ func calculateStat(iv, base, level int) int {
 }
 
 func generateIVs() Stats {
-	return GetStats([6]int{rand.Intn(32), rand.Intn(32), rand.Intn(32), rand.Intn(32), rand.Intn(32), rand.Intn(32)})
+	return GetStats([6]int{random.Intn(32), random.Intn(32), random.Intn(32), random.Intn(32), random.Intn(32), random.Intn(32)})
 }
 
 func modifyStat(stat, stage int) float64 {
@@ -92,4 +84,11 @@ func modifyStat(stat, stage int) float64 {
 		return float64(stat) * (float64(stage)*0.5 + 1)
 	}
 	return float64(stat) * (1 / ((-float64(stage) * 0.5) + 1))
+}
+
+func accuracyOrEvasionToMod(stage int) float64 {
+	if stage >= 0 {
+		return float64(stage+3) * 100 / 3.0
+	}
+	return 300 / float64(3-stage)
 }

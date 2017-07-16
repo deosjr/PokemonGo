@@ -2,12 +2,16 @@ package model
 
 import (
 	"math"
-	"math/rand"
 	"sort"
 )
 
-//TODO
-func attackMisses() bool { return false }
+func determineHit(moveData MoveData, accuracy, evasion float64) (miss bool) {
+	if moveData.Accuracy == 0 {
+		return false
+	}
+	p := float64(moveData.Accuracy) / 100 * (accuracy / evasion)
+	return random.Float64() > p
+}
 
 func dealDamage(source, target *Pokemon, moveData MoveData) (dmg int, t, crit float64) {
 	if moveData.damageFunction != nil {
@@ -26,8 +30,8 @@ func determineDamage(source, target *Pokemon, m MoveData) (dmg int, t, crit floa
 	typeEffectiveness := typeEffectiveness(m.Type, target.getSpecies().Types)
 	critical := 1.0 //TODO
 	other := 1.0    //TODO
-	random := 1.0 - 0.15*rand.Float64()
-	mod := stab * typeEffectiveness * critical * other * random
+	r := 1.0 - 0.15*random.Float64()
+	mod := stab * typeEffectiveness * critical * other * r
 	formula := ((2*level+10)/250)*(attack/defense)*power + 2
 	return int(math.Max(1.0, round(formula*mod))), typeEffectiveness, critical
 }
@@ -36,7 +40,7 @@ func moveHasEffect(effectChance int) bool {
 	if effectChance == 0 {
 		return true
 	}
-	return rand.Intn(100) < effectChance
+	return random.Intn(100) < effectChance
 }
 
 func round(a float64) float64 {

@@ -5,10 +5,10 @@ import (
 	"time"
 )
 
+var random = rand.New(rand.NewSource(time.Now().UnixNano()))
+
 func MustLoadConfig() {
 	initTypeData()
 	initMoveData()
 	initSpeciesData()
-
-	rand.Seed(time.Now().UnixNano())
 }

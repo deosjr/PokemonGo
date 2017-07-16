@@ -7,9 +7,11 @@ type Pokemon struct {
 	XP        XP
 	currentHP int
 
-	Stats      Stats
-	iv         Stats
-	statStages Stats
+	Stats         Stats
+	iv            Stats
+	statStages    Stats
+	accuracyStage int
+	evasionStage  int
 
 	Moves []*Move
 	//NonVolatileCondition Condition
@@ -73,4 +75,12 @@ func (p *Pokemon) SpDefense() int {
 }
 func (p *Pokemon) Speed() int {
 	return int(modifyStat(p.Stats.speed, p.statStages.speed))
+}
+
+// These stats are handled a little differently
+func (p *Pokemon) Accuracy() float64 {
+	return accuracyOrEvasionToMod(p.accuracyStage)
+}
+func (p *Pokemon) Evasion() float64 {
+	return accuracyOrEvasionToMod(p.evasionStage)
 }
