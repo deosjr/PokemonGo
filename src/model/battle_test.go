@@ -40,6 +40,15 @@ func TestHandleMoveSingleBattle(t *testing.T) {
 			move:   GROWL,
 			logs:   []battleLog{statStageChangeLog{Index: 1, Changes: Stats{attack: -1}}},
 		},
+		{
+			source: testPokemon{5, CHARMANDER},
+			target: testPokemon{5, BULBASAUR},
+			move:   FLAMECHARGE,
+			logs: []battleLog{
+				damageLog{Index: 1},
+				statStageChangeLog{Index: 0, Changes: Stats{speed: +1}},
+			},
+		},
 	} {
 		source := GetPokemon(tt.source.level, tt.source.species)
 		target := GetPokemon(tt.target.level, tt.target.species)
@@ -98,6 +107,14 @@ func evaluateLogs(t *testing.T, n int, gotLogs, wantLogs []battleLog) {
 				t.Errorf("%d: got %+v want %+v", n, gotLog, wantLog)
 			}
 			if gotLog.Index != wantDamageLog.Index {
+				t.Errorf("%d: got %+v want %+v (exact damage doesn't matter)", n, gotLog, wantLog)
+			}
+		case statStageChangeLog:
+			wantStatLog, ok := wantLog.(statStageChangeLog)
+			if !ok {
+				t.Errorf("%d: got %+v want %+v", n, gotLog, wantLog)
+			}
+			if gotLog.Index != wantStatLog.Index || gotLog.Changes != wantStatLog.Changes {
 				t.Errorf("%d: got %+v want %+v (exact damage doesn't matter)", n, gotLog, wantLog)
 			}
 		default:

@@ -774,8 +774,10 @@ var moveData = []MoveData{
 		Description: "The user temporarily empties its mind to forget its concerns. It sharply raises the user's Sp. Def stat.",
 	},
 	{
-		Name:            "AncientPower",
-		functionCode:    "02D",
+		Name: "Ancient Power",
+		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+			changeStatStages(l, s, si, Stats{attack: +1, defense: +1, speed: +1, spattack: +1, spdefense: +1})
+		},
 		Power:           60,
 		Type:            ROCK,
 		Category:        special,
@@ -1414,8 +1416,10 @@ var moveData = []MoveData{
 		Description:  "If it is the opposite gender of the user, the target is charmed into harshly lowering its Sp. Atk stat.",
 	},
 	{
-		Name:            "Charge Beam",
-		functionCode:    "020",
+		Name: "Charge Beam",
+		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+			changeStatStages(l, s, si, Stats{spattack: +1})
+		},
 		Power:           50,
 		Type:            ELECTRIC,
 		Category:        special,
@@ -1520,17 +1524,19 @@ var moveData = []MoveData{
 		Description:  "The user attacks by throwing a clump of special mud. All status changes are returned to normal.",
 	},
 	{
-		Name:         "Close Combat",
-		functionCode: "03C",
-		Power:        120,
-		Type:         FIGHTING,
-		Category:     physical,
-		Accuracy:     100,
-		PP:           5,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "abef",
-		Description:  "The user fights the target up close without guarding itself. It also cuts the user's Defense and Sp. Def.",
+		Name: "Close Combat",
+		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+			changeStatStages(l, s, si, Stats{defense: -1, spdefense: -1})
+		},
+		Power:       120,
+		Type:        FIGHTING,
+		Category:    physical,
+		Accuracy:    100,
+		PP:          5,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "abef",
+		Description: "The user fights the target up close without guarding itself. It also cuts the user's Defense and Sp. Def.",
 	},
 	{
 		Name:         "Coil",
@@ -2022,7 +2028,7 @@ var moveData = []MoveData{
 		Description:  "A reckless, life-risking tackle. It also damages the user by a fairly large amount, however.",
 	},
 	{
-		Name:         "DoubleSlap",
+		Name:         "Double Slap",
 		functionCode: "0C0",
 		Power:        15,
 		Type:         NORMAL,
@@ -2035,8 +2041,10 @@ var moveData = []MoveData{
 		Description:  "The target is slapped repeatedly, back and forth, two to five times in a row.",
 	},
 	{
-		Name:            "Draco Meteor",
-		functionCode:    "03F",
+		Name: "Draco Meteor",
+		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+			changeStatStages(l, s, si, Stats{spattack: -2})
+		},
 		Power:           140,
 		Type:            DRAGON,
 		Category:        special,
@@ -2534,8 +2542,10 @@ var moveData = []MoveData{
 		Description:  "An attack that hits a target using Protect or Detect. It also lifts the effects of those moves.",
 	},
 	{
-		Name:            "Fiery Dance",
-		functionCode:    "020",
+		Name: "Fiery Dance",
+		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+			changeStatStages(l, s, si, Stats{spattack: +1})
+		},
 		Power:           80,
 		Type:            FIRE,
 		Category:        special,
@@ -2668,8 +2678,10 @@ var moveData = []MoveData{
 		Description:  "The user attacks the target with a bursting flame. The bursting flame damages Pokémon next to the target as well.",
 	},
 	{
-		Name:            "Flame Charge",
-		functionCode:    "01F",
+		Name: "Flame Charge",
+		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+			changeStatStages(l, s, si, Stats{speed: +1})
+		},
 		Power:           50,
 		Type:            FIRE,
 		Category:        physical,
@@ -3263,17 +3275,19 @@ var moveData = []MoveData{
 		Description:  "The user summons a hail storm lasting five turns. It damages all Pokémon except the Ice type.",
 	},
 	{
-		Name:         "Hammer Arm",
-		functionCode: "03E",
-		Power:        100,
-		Type:         FIGHTING,
-		Category:     physical,
-		Accuracy:     90,
-		PP:           10,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "abefj",
-		Description:  "The user swings and hits with its strong and heavy fist. It lowers the user's Speed, however.",
+		Name: "Hammer Arm",
+		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+			changeStatStages(l, s, si, Stats{speed: -1})
+		},
+		Power:       100,
+		Type:        FIGHTING,
+		Category:    physical,
+		Accuracy:    90,
+		PP:          10,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "abefj",
+		Description: "The user swings and hits with its strong and heavy fist. It lowers the user's Speed, however.",
 	},
 	{
 		Name: "Harden",
@@ -3984,8 +3998,10 @@ var moveData = []MoveData{
 		Description: "The user handles a sharp leaf like a sword and attacks by cutting its target. Critical hits land more easily.",
 	},
 	{
-		Name:            "Leaf Storm",
-		functionCode:    "03F",
+		Name: "Leaf Storm",
+		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+			changeStatStages(l, s, si, Stats{spattack: -2})
+		},
 		Power:           140,
 		Type:            GRASS,
 		Category:        special,
@@ -4369,8 +4385,10 @@ var moveData = []MoveData{
 		Description:  "The user retaliates with much greater power against the target that last inflicted damage on it.",
 	},
 	{
-		Name:            "Metal Claw",
-		functionCode:    "01C",
+		Name: "Metal Claw",
+		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+			changeStatStages(l, s, si, Stats{attack: +1})
+		},
 		Power:           50,
 		Type:            STEEL,
 		Category:        physical,
@@ -4397,8 +4415,10 @@ var moveData = []MoveData{
 		Description: "A horrible sound like scraping metal harshly reduces the target's Sp. Def stat.",
 	},
 	{
-		Name:            "Meteor Mash",
-		functionCode:    "01C",
+		Name: "Meteor Mash",
+		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+			changeStatStages(l, s, si, Stats{attack: +1})
+		},
 		Power:           100,
 		Type:            STEEL,
 		Category:        physical,
@@ -4760,8 +4780,10 @@ var moveData = []MoveData{
 		Description:  "Enables a Ghost-type target to be hit with Normal- and Fighting-type attacks. It also enables an evasive target to be hit.",
 	},
 	{
-		Name:            "Ominous Wind",
-		functionCode:    "02D",
+		Name: "Ominous Wind",
+		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+			changeStatStages(l, s, si, Stats{attack: +1, defense: +1, speed: +1, spattack: +1, spdefense: +1})
+		},
 		Power:           60,
 		Type:            GHOST,
 		Category:        special,
@@ -4787,8 +4809,10 @@ var moveData = []MoveData{
 		Description:  "The user rampages and attacks for two to three turns. It then becomes confused, however.",
 	},
 	{
-		Name:            "Overheat",
-		functionCode:    "03F",
+		Name: "Overheat",
+		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+			changeStatStages(l, s, si, Stats{spattack: -2})
+		},
 		Power:           140,
 		Type:            FIRE,
 		Category:        special,
@@ -5128,8 +5152,10 @@ var moveData = []MoveData{
 		Description:     "The target is hit by a strong telekinetic force. It may also reduce the target's Sp. Def stat.",
 	},
 	{
-		Name:            "Psycho Boost",
-		functionCode:    "03F",
+		Name: "Psycho Boost",
+		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+			changeStatStages(l, s, si, Stats{spattack: -2})
+		},
 		Power:           140,
 		Type:            PSYCHIC,
 		Category:        special,
@@ -6064,8 +6090,10 @@ var moveData = []MoveData{
 		Description:     "The user attacks with a sinister beam of light. It may also confuse the target.",
 	},
 	{
-		Name:            "Silver Wind",
-		functionCode:    "02D",
+		Name: "Silver Wind",
+		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+			changeStatStages(l, s, si, Stats{attack: +1, defense: +1, speed: +1, spattack: +1, spdefense: +1})
+		},
 		Power:           60,
 		Type:            BUG,
 		Category:        special,
@@ -6553,8 +6581,10 @@ var moveData = []MoveData{
 		Description:     "The user crushes its targets by rolling over them with its rolled-up body. This attack may make the target flinch.",
 	},
 	{
-		Name:            "Steel Wing",
-		functionCode:    "01D",
+		Name: "Steel Wing",
+		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+			changeStatStages(l, s, si, Stats{defense: +1})
+		},
 		Power:           70,
 		Type:            STEEL,
 		Category:        physical,
@@ -6756,17 +6786,19 @@ var moveData = []MoveData{
 		Description:  "The user chomps hard on the target with its sharp front fangs. It cuts the target's HP to half.",
 	},
 	{
-		Name:         "Superpower",
-		functionCode: "03B",
-		Power:        120,
-		Type:         FIGHTING,
-		Category:     physical,
-		Accuracy:     100,
-		PP:           5,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "abe",
-		Description:  "The user attacks the target with great power. However, it also lowers the user's Attack and Defense.",
+		Name: "Superpower",
+		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+			changeStatStages(l, s, si, Stats{attack: -1, defense: -1})
+		},
+		Power:       120,
+		Type:        FIGHTING,
+		Category:    physical,
+		Accuracy:    100,
+		PP:          5,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "abe",
+		Description: "The user attacks the target with great power. However, it also lowers the user's Attack and Defense.",
 	},
 	{
 		Name:         "Supersonic",
@@ -7323,15 +7355,18 @@ var moveData = []MoveData{
 	{
 		Name:         "V-create",
 		functionCode: "03D",
-		Power:        180,
-		Type:         FIRE,
-		Category:     physical,
-		Accuracy:     95,
-		PP:           5,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "abef",
-		Description:  "With a hot flame on its forehead, the user hurls itself at its target. It lowers the user's Defense, Sp. Def, and Speed stats.",
+		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+			changeStatStages(l, s, si, Stats{defense: -1, spdefense: -1, speed: -1})
+		},
+		Power:       180,
+		Type:        FIRE,
+		Category:    physical,
+		Accuracy:    95,
+		PP:          5,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "abef",
+		Description: "With a hot flame on its forehead, the user hurls itself at its target. It lowers the user's Defense, Sp. Def, and Speed stats.",
 	},
 	{
 		Name:        "Vacuum Wave",
