@@ -11,8 +11,8 @@ type Species struct {
 	ID    int
 	Stats Stats
 
-	Types          []TYPE
-	LearnableMoves map[int][]MOVE
+	Types          []pType
+	LearnableMoves map[int][]move
 
 	GrowthRate string
 	BaseXP     int
@@ -64,6 +64,6 @@ func GetSpecies(name string) Species {
 	return nameToSpecies[key]
 }
 
-func GetSpeciesByID(pType POKEMON) Species {
-	return pokemonData[pType]
+func GetSpeciesByID(p pokemon) Species {
+	return pokemonData[p]
 }

@@ -6,9 +6,9 @@ import (
 
 type Type struct {
 	Name        string
-	Weaknesses  []TYPE
-	Resistances []TYPE
-	Immunities  []TYPE
+	Weaknesses  []pType
+	Resistances []pType
+	Immunities  []pType
 }
 
 var nameToType = make(map[string]Type)
@@ -23,18 +23,18 @@ func GetType(name string) Type {
 	return nameToType[strings.ToUpper(name)]
 }
 
-func GetTypeByID(t TYPE) Type {
+func GetTypeByID(t pType) Type {
 	return typeData[t]
 }
 
-func getSTAB(attackType TYPE, sourceTypes []TYPE) float64 {
+func getSTAB(attackType pType, sourceTypes []pType) float64 {
 	if typeContains(attackType, sourceTypes) {
 		return 1.5
 	}
 	return 1.0
 }
 
-func typeEffectiveness(attackType TYPE, targetTypes []TYPE) (t float64) {
+func typeEffectiveness(attackType pType, targetTypes []pType) (t float64) {
 	t = 1
 	for _, tt := range targetTypes {
 		targetType := GetTypeByID(tt)
@@ -52,7 +52,7 @@ func typeEffectiveness(attackType TYPE, targetTypes []TYPE) (t float64) {
 	return t
 }
 
-func typeContains(t TYPE, tt []TYPE) bool {
+func typeContains(t pType, tt []pType) bool {
 	for _, v := range tt {
 		if v == t {
 			return true

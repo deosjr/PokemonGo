@@ -11,12 +11,12 @@ type MoveData struct {
 	functionCode     string //TODO: replace with other properties
 	statStageChanges Stats
 	Power            int
-	Type             TYPE
-	Category         DMG_CATEGORY
+	Type             pType
+	Category         damageCategory
 	Accuracy         int
 	PP               int
 	AddEffectChance  int
-	Target           TARGET
+	Target           target
 	Priority         int
 	Flags            string
 	Description      string
@@ -34,8 +34,8 @@ func GetMoveData(name string) MoveData {
 	return nameToMove[strings.ToUpper(name)]
 }
 
-func GetMoveDataByID(mType MOVE) MoveData {
-	return moveData[mType]
+func GetMoveDataByID(m move) MoveData {
+	return moveData[m]
 }
 
 type Move struct {

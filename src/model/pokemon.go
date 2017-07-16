@@ -2,7 +2,7 @@ package model
 
 type Pokemon struct {
 	Level     int
-	Species   POKEMON
+	Species   pokemon
 	Name      string
 	XP        XP
 	currentHP int
@@ -22,7 +22,7 @@ type XP struct {
 	NextXPLevelReq     int
 }
 
-func GetPokemon(level int, pType POKEMON) *Pokemon {
+func GetPokemon(level int, pType pokemon) *Pokemon {
 	ivs := generateIVs()
 	species := GetSpeciesByID(pType)
 	stats := calculateStats(ivs, species.Stats, level)

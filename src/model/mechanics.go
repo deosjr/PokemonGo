@@ -43,26 +43,26 @@ func round(a float64) float64 {
 	return math.Floor(a + 0.5)
 }
 
-func attackStat(p *Pokemon, c DMG_CATEGORY) float64 {
+func attackStat(p *Pokemon, c damageCategory) float64 {
 	var attack int
 	var stage int
-	if c == PHYSICAL {
+	if c == physical {
 		attack = p.Stats.attack
 		stage = p.statStages.attack
-	} else if c == SPECIAL {
+	} else if c == special {
 		attack = p.Stats.spattack
 		stage = p.statStages.spattack
 	}
 	return modifyStat(attack, stage)
 }
 
-func defenseStat(p *Pokemon, c DMG_CATEGORY) float64 {
+func defenseStat(p *Pokemon, c damageCategory) float64 {
 	var defense int
 	var stage int
-	if c == PHYSICAL {
+	if c == physical {
 		defense = p.Stats.defense
 		stage = p.statStages.defense
-	} else if c == SPECIAL {
+	} else if c == special {
 		defense = p.Stats.spdefense
 		stage = p.statStages.spdefense
 	}

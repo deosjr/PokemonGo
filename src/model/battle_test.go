@@ -6,14 +6,14 @@ import (
 
 type testPokemon struct {
 	level   int
-	species POKEMON
+	species pokemon
 }
 
 func TestHandleMoveSingleBattle(t *testing.T) {
 	for i, tt := range []struct {
 		source testPokemon
 		target testPokemon
-		move   MOVE
+		move   move
 		logs   []battleLog
 	}{
 		{
@@ -61,8 +61,8 @@ func TestMovePriority(t *testing.T) {
 	for i, tt := range []struct {
 		source     testPokemon
 		target     testPokemon
-		sourceMove MOVE
-		targetMove MOVE
+		sourceMove move
+		targetMove move
 		logs       []battleLog
 	}{
 		{

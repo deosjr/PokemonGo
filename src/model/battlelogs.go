@@ -54,7 +54,7 @@ type damageLog struct {
 func (l damageLog) replay(b Battle) string {
 	target, _ := b.pokemonAtIndex(l.Index)
 	target.TakeDamage(l.Damage)
-	return fmt.Sprintf("DEBUG: %s took %d damage!", target.Name, l.Damage)
+	return fmt.Sprintf("DEbug: %s took %d damage!", target.Name, l.Damage)
 }
 
 func (l *Logger) logf(f string, s ...interface{}) {
@@ -88,7 +88,7 @@ type statStageChangeLog struct {
 func (l statStageChangeLog) replay(b Battle) string {
 	target, _ := b.pokemonAtIndex(l.Index)
 	effectiveChanges, _ := target.ChangeStatStages(l.Changes)
-	return fmt.Sprintf("DEBUG: %s changed stats: %v!", target.Name, effectiveChanges)
+	return fmt.Sprintf("DEbug: %s changed stats: %v!", target.Name, effectiveChanges)
 }
 
 func (l *Logger) logStatStageChanges(name string, index int, changes Stats, maxed [6]bool) {

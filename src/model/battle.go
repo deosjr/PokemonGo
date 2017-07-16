@@ -7,12 +7,12 @@ import (
 type Battle interface {
 	Log() *Logger
 	pokemonAtIndex(int) (*Pokemon, error)
-	getTargets(int, int, TARGET) []int
+	getTargets(int, int, target) []int
 }
 
 type singleBattle struct {
 	pokemon [2]*Pokemon
-	logger *Logger
+	logger  *Logger
 }
 
 type Command struct {
@@ -63,7 +63,7 @@ func HandleMove(b Battle, m attemptedMove) error {
 			continue
 		}
 
-		if md.Category != STATUS {
+		if md.Category != status {
 			dmg, t, crit := dealDamage(m.Source, target, md)
 			b.Log().logDamageWithMessages(target.Name, targetIndex, dmg, t, crit)
 			target.TakeDamage(dmg)
@@ -116,7 +116,7 @@ func lookupAttemptedMove(b Battle, c Command) (attemptedMove, error) {
 func NewSingleBattle(p1, p2 *Pokemon) Battle {
 	return &singleBattle{
 		pokemon: [2]*Pokemon{p1, p2},
-		logger: NewLogger(),
+		logger:  NewLogger(),
 	}
 }
 
@@ -131,9 +131,9 @@ func (b *singleBattle) pokemonAtIndex(i int) (p *Pokemon, err error) {
 	return b.pokemon[i], nil
 }
 
-func (b *singleBattle) getTargets(sourceIndex, targetIndex int, target TARGET) []int {
+func (b *singleBattle) getTargets(sourceIndex, targetIndex int, target target) []int {
 	switch target {
-	case USER, USERS_SIDE, SINGLE_USERS_SIDE:
+	case user, usersSide, singleUsersSide:
 		return []int{sourceIndex}
 	default:
 		return []int{targetIndex}
