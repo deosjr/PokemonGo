@@ -4,6 +4,10 @@ import (
 	"math/rand"
 )
 
+// TODO: stats include accuracy/evasion
+// although they're treated slightly differently.
+// Look at HeartSwap for why they should be Stats
+
 type Stats struct {
 	hp        int
 	attack    int
@@ -25,25 +29,6 @@ func (s Stats) stats() [6]int {
 }
 
 func (s Stats) updateStages(changes Stats) (Stats, Stats, [6]bool) {
-	validStatStage := func(stage, change int) (effect int, maxed bool) {
-		switch {
-		case stage == 6 && change > 0:
-			return 6, true
-		case stage < -6 && change < 0:
-			return -6, true
-		default:
-			changed := stage + change
-			switch {
-			case changed > 6:
-				return 6, false
-			case changed < -6:
-				return -6, false
-			default:
-				return changed, false
-			}
-		}
-	}
-
 	newStages := [6]int{}
 	effectiveChanges := [6]int{}
 	maxedOut := [6]bool{}
@@ -55,6 +40,25 @@ func (s Stats) updateStages(changes Stats) (Stats, Stats, [6]bool) {
 		maxedOut[i] = maxed
 	}
 	return GetStats(newStages), GetStats(effectiveChanges), maxedOut
+}
+
+func validStatStage(stage, change int) (effect int, maxed bool) {
+	switch {
+	case stage == 6 && change > 0:
+		return 6, true
+	case stage == -6 && change < 0:
+		return -6, true
+	default:
+		changed := stage + change
+		switch {
+		case changed > 6:
+			return 6, false
+		case changed < -6:
+			return -6, false
+		default:
+			return changed, false
+		}
+	}
 }
 
 func calculateStats(ivs, base Stats, level int) Stats {

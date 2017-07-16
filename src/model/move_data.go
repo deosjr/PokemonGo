@@ -3204,15 +3204,21 @@ var moveData = []MoveData{
 		Description:  "The user employs its psychic power to average its Defense and Sp. Def stats with those of its target's.",
 	},
 	{
-		Name:         "Guard Swap",
-		functionCode: "053",
-		Type:         PSYCHIC,
-		Category:     status,
-		PP:           10,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "be",
-		Description:  "The user employs its psychic power to switch changes to its Defense and Sp. Def with the target.",
+		Name: "Guard Swap",
+		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+			s.statStages.defense, t.statStages.defense = t.statStages.defense, s.statStages.defense
+			s.statStages.spdefense, t.statStages.spdefense = t.statStages.spdefense, s.statStages.spdefense
+			l.addToLogs(statStageLog{Index: si, StatStages: s.statStages})
+			l.addToLogs(statStageLog{Index: ti, StatStages: t.statStages})
+			l.logf("%s switched all changes to its Defense and Sp. Def with the target!", s.Name)
+		},
+		Type:        PSYCHIC,
+		Category:    status,
+		PP:          10,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "be",
+		Description: "The user employs its psychic power to switch changes to its Defense and Sp. Def with the target.",
 	},
 	{
 		Name:         "Guillotine",
@@ -3428,15 +3434,20 @@ var moveData = []MoveData{
 		Description:     "The user unleashes a vicious blow after its cute act makes the target less wary. It may also make the target flinch.",
 	},
 	{
-		Name:         "Heart Swap",
-		functionCode: "054",
-		Type:         PSYCHIC,
-		Category:     status,
-		PP:           10,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "be",
-		Description:  "The user employs its psychic power to switch stat changes with the target.",
+		Name: "Heart Swap",
+		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+			s.statStages, t.statStages = t.statStages, s.statStages
+			l.addToLogs(statStageLog{Index: si, StatStages: s.statStages})
+			l.addToLogs(statStageLog{Index: ti, StatStages: t.statStages})
+			l.logf("%s switched stat changes with the target!", s.Name)
+		},
+		Type:        PSYCHIC,
+		Category:    status,
+		PP:          10,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "be",
+		Description: "The user employs its psychic power to switch stat changes with the target.",
 	},
 	{
 		Name:         "Heat Crash",
@@ -5057,15 +5068,21 @@ var moveData = []MoveData{
 		Description:  "The user employs its psychic power to average its Attack and Sp. Atk stats with those of the target's.",
 	},
 	{
-		Name:         "Power Swap",
-		functionCode: "052",
-		Type:         PSYCHIC,
-		Category:     status,
-		PP:           10,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "be",
-		Description:  "The user employs its psychic power to switch changes to its Attack and Sp. Atk with the target.",
+		Name: "Power Swap",
+		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+			s.statStages.attack, t.statStages.attack = t.statStages.attack, s.statStages.attack
+			s.statStages.spattack, t.statStages.spattack = t.statStages.spattack, s.statStages.spattack
+			l.addToLogs(statStageLog{Index: si, StatStages: s.statStages})
+			l.addToLogs(statStageLog{Index: ti, StatStages: t.statStages})
+			l.logf("%s switched all changes to its Attack and Sp. Atk with the target!", s.Name)
+		},
+		Type:        PSYCHIC,
+		Category:    status,
+		PP:          10,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "be",
+		Description: "The user employs its psychic power to switch changes to its Attack and Sp. Atk with the target.",
 	},
 	{
 		Name:         "Power Trick",
@@ -5129,15 +5146,19 @@ var moveData = []MoveData{
 		Description:     "The target is attacked with a peculiar ray. It may also cause confusion.",
 	},
 	{
-		Name:         "Psych Up",
-		functionCode: "055",
-		Type:         NORMAL,
-		Category:     status,
-		PP:           10,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "",
-		Description:  "The user hypnotizes itself into copying any stat change made by the target.",
+		Name: "Psych Up",
+		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+			s.statStages = t.statStages
+			l.addToLogs(statStageLog{Index: si, StatStages: s.statStages})
+			l.logf("%s copied %s's stat changes!", s.Name, t.Name)
+		},
+		Type:        NORMAL,
+		Category:    status,
+		PP:          10,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "",
+		Description: "The user hypnotizes itself into copying any stat change made by the target.",
 	},
 	{
 		Name: "Psychic",

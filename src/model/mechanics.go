@@ -9,6 +9,7 @@ import (
 //TODO
 func attackMisses() bool { return false }
 
+// TODO: power=1 indicates move-specific damage calculation
 func dealDamage(source, target *Pokemon, moveData MoveData) (dmg int, t, crit float64) {
 	dmg, t, crit = determineDamage(source, target, moveData)
 	return dmg, t, crit
