@@ -52,10 +52,10 @@ func (p *Pokemon) TakeDamage(damage int) {
 	p.currentHP = hp
 }
 
-func (p *Pokemon) ChangeStatStages(changes Stats) (Stats, [6]bool) {
+func (p *Pokemon) ChangeStatStages(changes Stats) (Stats, Stats, [6]bool) {
 	newStages, effectiveChanges, maxed := p.statStages.updateStages(changes)
 	p.statStages = newStages
-	return effectiveChanges, maxed
+	return newStages, effectiveChanges, maxed
 }
 
 // Returns modified stat rounded down to an int

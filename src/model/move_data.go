@@ -1512,16 +1512,20 @@ var moveData = []MoveData{
 		Description:  "The target is clamped and squeezed by the user's very thick and sturdy shell for four to five turns.",
 	},
 	{
-		Name:         "Clear Smog",
-		functionCode: "050",
-		Power:        50,
-		Type:         POISON,
-		Category:     special,
-		PP:           15,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "bef",
-		Description:  "The user attacks by throwing a clump of special mud. All status changes are returned to normal.",
+		Name: "Clear Smog",
+		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+			t.statStages = emptyStages
+			l.addToLogs(statStageLog{Index: ti, StatStages: emptyStages})
+			l.logf("%s's stat changes were removed!", t.Name)
+		},
+		Power:       50,
+		Type:        POISON,
+		Category:    special,
+		PP:          15,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "bef",
+		Description: "The user attacks by throwing a clump of special mud. All status changes are returned to normal.",
 	},
 	{
 		Name: "Close Combat",

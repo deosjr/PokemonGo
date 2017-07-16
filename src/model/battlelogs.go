@@ -54,7 +54,7 @@ type damageLog struct {
 func (l damageLog) replay(b Battle) string {
 	target, _ := b.pokemonAtIndex(l.Index)
 	target.TakeDamage(l.Damage)
-	return fmt.Sprintf("DEbug: %s took %d damage!", target.Name, l.Damage)
+	return fmt.Sprintf("Debug: %s took %d damage!", target.Name, l.Damage)
 }
 
 func (l *Logger) logf(f string, s ...interface{}) {
@@ -80,29 +80,31 @@ func (l *Logger) logDamageWithMessages(name string, index, dmg int, t, crit floa
 	}
 }
 
-type statStageChangeLog struct {
-	Index   int   `json:"index"`
-	Changes Stats `json:"statChanges"`
+type statStageLog struct {
+	Index      int   `json:"index"`
+	StatStages Stats `json:"statStages"`
 }
 
-func (l statStageChangeLog) replay(b Battle) string {
+func (l statStageLog) replay(b Battle) string {
 	target, _ := b.pokemonAtIndex(l.Index)
-	effectiveChanges, _ := target.ChangeStatStages(l.Changes)
-	return fmt.Sprintf("DEbug: %s changed stats: %v!", target.Name, effectiveChanges)
+	target.statStages = l.StatStages
+	return fmt.Sprintf("Debug: %s changed stats: %v!", target.Name, l.StatStages)
 }
 
-func (l *Logger) logStatStageChanges(name string, index int, changes Stats, maxed [6]bool) {
-	l.addToLogs(statStageChangeLog{index, changes})
-	statNames := []string{"attack", "defense", "special attack", "special defense", "speed"}
-	sharply := func(n int) string {
-		if n > 1 {
-			return " sharply"
-		}
-		if n < -1 {
-			return " harshly"
-		}
-		return ""
+func sharply(n int) string {
+	if n > 1 {
+		return " sharply"
 	}
+	if n < -1 {
+		return " harshly"
+	}
+	return ""
+}
+
+var statNames = []string{"attack", "defense", "special attack", "special defense", "speed"}
+
+func (l *Logger) logStatStages(name string, index int, stats, changes Stats, maxed [6]bool) {
+	l.addToLogs(statStageLog{index, changes})
 	for i, v := range changes.stats() {
 		if i == 0 {
 			continue
@@ -117,6 +119,10 @@ func (l *Logger) logStatStageChanges(name string, index int, changes Stats, maxe
 			continue
 		}
 		if v < 0 {
+			if maxed[i] {
+				l.logf("%s's %s won't go any lower!", name, statName)
+				continue
+			}
 			l.logf("%s's %s%s fell!", name, statName, sharply(v))
 		}
 	}
