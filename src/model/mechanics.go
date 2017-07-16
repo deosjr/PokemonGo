@@ -107,3 +107,8 @@ func sortMoves(unsorted []attemptedMove) []attemptedMove {
 	}
 	return moves
 }
+
+func changeStatStages(log *Logger, p *Pokemon, index int, changes Stats) {
+	effectiveChanges, maxed := p.ChangeStatStages(changes)
+	log.logStatStageChanges(p.Name, index, effectiveChanges, maxed)
+}

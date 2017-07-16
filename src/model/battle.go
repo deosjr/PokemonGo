@@ -69,13 +69,10 @@ func HandleMove(b Battle, m attemptedMove) error {
 			target.TakeDamage(dmg)
 		}
 
-		if md.statStageChanges != emptyStages {
-			if !moveHasEffect(md.AddEffectChance) {
-				continue
-			}
-			effectiveChanges, maxed := target.ChangeStatStages(md.statStageChanges)
-			b.Log().logStatStageChanges(target.Name, targetIndex, effectiveChanges, maxed)
+		if md.effect == nil || !moveHasEffect(md.AddEffectChance) {
+			continue
 		}
+		md.effect(b.Log(), m.Source, target, m.SourceIndex, targetIndex)
 	}
 	return nil
 }

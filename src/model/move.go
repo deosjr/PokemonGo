@@ -7,19 +7,19 @@ import (
 var nameToMove = make(map[string]MoveData)
 
 type MoveData struct {
-	Name             string
-	functionCode     string //TODO: replace with other properties
-	statStageChanges Stats
-	Power            int
-	Type             pType
-	Category         damageCategory
-	Accuracy         int
-	PP               int
-	AddEffectChance  int
-	Target           target
-	Priority         int
-	Flags            string
-	Description      string
+	Name            string
+	functionCode    string //TODO: replace with other properties
+	effect          func(logger *Logger, source, target *Pokemon, sourceIndex, targetIndex int)
+	Power           int
+	Type            pType
+	Category        damageCategory
+	Accuracy        int
+	PP              int
+	AddEffectChance int
+	Target          target
+	Priority        int
+	Flags           string
+	Description     string
 }
 
 func initMoveData() {
