@@ -13,9 +13,9 @@ type Pokemon struct {
 	accuracyStage int
 	evasionStage  int
 
-	Moves []*Move
-	//NonVolatileCondition Condition
-	//VolatileConditions []VolatileCondition
+	Moves                []*Move
+	NonVolatileCondition NonVolatileCondition
+	VolatileConditions   []VolatileCondition
 }
 
 type XP struct {
@@ -62,7 +62,14 @@ func (p *Pokemon) ChangeStatStages(changes Stats) (Stats, [6]bool) {
 
 // Returns modified stat rounded down to an int
 func (p *Pokemon) Attack() int {
-	return int(modifyStat(p.Stats.attack, p.statStages.attack))
+	attack := int(modifyStat(p.Stats.attack, p.statStages.attack))
+	if p.NonVolatileCondition == nil || p.NonVolatileCondition.name() == "burned" {
+		// TODO: (since Gen III) Instead of modifying the Attack stat,
+		// a burn now technically halves the damage a burned Pokémon does with physical moves;
+		// it still does not reduce damage done by moves that deal direct damage (such as Seismic Toss)
+		return attack / 2
+	}
+	return attack
 }
 func (p *Pokemon) Defense() int {
 	return int(modifyStat(p.Stats.defense, p.statStages.defense))
@@ -74,13 +81,34 @@ func (p *Pokemon) SpDefense() int {
 	return int(modifyStat(p.Stats.spdefense, p.statStages.spdefense))
 }
 func (p *Pokemon) Speed() int {
-	return int(modifyStat(p.Stats.speed, p.statStages.speed))
+	speed := int(modifyStat(p.Stats.speed, p.statStages.speed))
+	if p.NonVolatileCondition == nil || p.NonVolatileCondition.name() == "paralyzed" {
+		return speed / 4 // speed / 2 since Gen VII
+	}
+	return speed
 }
 
 // These stats are handled a little differently
+// TODO: changes in these stats
 func (p *Pokemon) Accuracy() float64 {
 	return accuracyOrEvasionToMod(p.accuracyStage)
 }
 func (p *Pokemon) Evasion() float64 {
 	return accuracyOrEvasionToMod(p.evasionStage)
+}
+
+func (p *Pokemon) setNonVolatile(c NonVolatileCondition) (succes bool) {
+	if p.NonVolatileCondition != nil || !c.applicable(p) {
+		return false
+	}
+	p.NonVolatileCondition = c
+	return true
+}
+
+func (p *Pokemon) clearNonVolatile() {
+	p.NonVolatileCondition = nil
+}
+
+func (p *Pokemon) addVolatile(c VolatileCondition) (succes bool) {
+	return true
 }

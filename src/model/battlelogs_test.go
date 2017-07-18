@@ -14,9 +14,9 @@ func TestLogText(t *testing.T) {
 			want: []battleLog{textLog{Text: "Critical hit!"}},
 		},
 	} {
-		l := NewLogger()
-		l.logf(tt.text)
-		got := l.Logs()[1]
+		log := NewLogger()
+		log.f(tt.text)
+		got := log.Logs()[1]
 		if len(got) != len(tt.want) {
 			t.Errorf("%d) different length output: got %d want %d", i, len(got), len(tt.want))
 			continue
@@ -66,9 +66,9 @@ func TestDamageLog(t *testing.T) {
 			},
 		},
 	} {
-		l := NewLogger()
-		l.logDamageWithMessages(tt.name, tt.index, tt.damage, tt.t, tt.crit)
-		got := l.Logs()[1]
+		log := NewLogger()
+		log.damageWithMessages(tt.name, tt.index, tt.damage, tt.t, tt.crit)
+		got := log.Logs()[1]
 		if len(got) != len(tt.want) {
 			t.Errorf("%d) different length output: got %d want %d", i, len(got), len(tt.want))
 			continue

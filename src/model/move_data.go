@@ -7,7 +7,7 @@ type target byte
 const (
 	physical damageCategory = iota
 	special
-	status
+	statusEffect
 )
 
 const (
@@ -612,7 +612,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{defense: +2})
 		},
 		Type:        POISON,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          40,
 		Target:      user,
 		Priority:    0,
@@ -668,7 +668,7 @@ var moveData = []MoveData{
 		Name:         "Acupressure",
 		functionCode: "037",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           30,
 		Target:       singleUsersSide,
 		Priority:     0,
@@ -702,7 +702,7 @@ var moveData = []MoveData{
 		Name:         "After You",
 		functionCode: "11D",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           15,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -715,7 +715,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{speed: +2})
 		},
 		Type:        PSYCHIC,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          30,
 		Target:      user,
 		Priority:    0,
@@ -752,7 +752,7 @@ var moveData = []MoveData{
 		Name:         "Ally Switch",
 		functionCode: "120",
 		Type:         PSYCHIC,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           15,
 		Target:       user,
 		Priority:     1,
@@ -765,7 +765,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{spdefense: +2})
 		},
 		Type:        PSYCHIC,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          20,
 		Target:      user,
 		Priority:    0,
@@ -804,7 +804,7 @@ var moveData = []MoveData{
 		Name:         "Aqua Ring",
 		functionCode: "0DA",
 		Type:         WATER,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           20,
 		Target:       user,
 		Priority:     0,
@@ -840,7 +840,7 @@ var moveData = []MoveData{
 		Name:         "Aromatherapy",
 		functionCode: "019",
 		Type:         GRASS,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           5,
 		Target:       bothSides,
 		Priority:     0,
@@ -851,7 +851,7 @@ var moveData = []MoveData{
 		Name:         "Assist",
 		functionCode: "0B5",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           20,
 		Target:       user,
 		Priority:     0,
@@ -901,7 +901,7 @@ var moveData = []MoveData{
 		Name:         "Attract",
 		functionCode: "016",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           15,
 		Target:       singleNotUser,
@@ -943,7 +943,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{speed: +2})
 		},
 		Type:        STEEL,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          15,
 		Target:      user,
 		Priority:    0,
@@ -982,7 +982,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{defense: +2})
 		},
 		Type:        PSYCHIC,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          30,
 		Target:      user,
 		Priority:    0,
@@ -993,7 +993,7 @@ var moveData = []MoveData{
 		Name:         "Baton Pass",
 		functionCode: "0ED",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           40,
 		Target:       user,
 		Priority:     0,
@@ -1017,7 +1017,7 @@ var moveData = []MoveData{
 		Name:         "Belly Drum",
 		functionCode: "03A",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       user,
 		Priority:     0,
@@ -1028,7 +1028,7 @@ var moveData = []MoveData{
 		Name:         "Bestow",
 		functionCode: "0F3",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           15,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -1089,7 +1089,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Blaze Kick",
-		functionCode:    "00A",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Burn{})
+			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		},
 		Power:           85,
 		Type:            FIRE,
 		Category:        physical,
@@ -1104,6 +1107,10 @@ var moveData = []MoveData{
 	{
 		Name:            "Blizzard",
 		functionCode:    "00D",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Freeze{})
+			log.nonVolatileCondition(t.Name, ti, success, Freeze{})
+		},
 		Power:           120,
 		Type:            ICE,
 		Category:        special,
@@ -1119,7 +1126,7 @@ var moveData = []MoveData{
 		Name:         "Block",
 		functionCode: "0EF",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           5,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -1129,6 +1136,11 @@ var moveData = []MoveData{
 	{
 		Name:            "Blue Flare",
 		functionCode:    "00A",
+		// TODO: For Blue Flare only, will double the power of the next Fusion Bolt used this round.
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Burn{})
+			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		},
 		Power:           130,
 		Type:            FIRE,
 		Category:        special,
@@ -1142,7 +1154,11 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Body Slam",
-		functionCode:    "007",
+		// TODO: Gen 6: For Body Slam only, power is doubled and accuracy is perfect if the target is Minimized.
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Paralysis{})
+			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		},
 		Power:           85,
 		Type:            NORMAL,
 		Category:        physical,
@@ -1157,6 +1173,11 @@ var moveData = []MoveData{
 	{
 		Name:            "Bolt Strike",
 		functionCode:    "007",
+		// TODO: For Bolt Strike only, will double the power of the next Fusion Flare used this round.
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Paralysis{})
+			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		},
 		Power:           130,
 		Type:            ELECTRIC,
 		Category:        physical,
@@ -1328,7 +1349,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{attack: +1, defense: +1})
 		},
 		Type:        FIGHTING,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          20,
 		Target:      user,
 		Priority:    0,
@@ -1383,7 +1404,7 @@ var moveData = []MoveData{
 		},
 		//statStageChanges: Stats{spattack: +1, spdefense: +1},
 		Type:        PSYCHIC,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          20,
 		Target:      user,
 		Priority:    0,
@@ -1394,7 +1415,7 @@ var moveData = []MoveData{
 		Name:         "Camouflage",
 		functionCode: "060",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           20,
 		Target:       user,
 		Priority:     0,
@@ -1405,7 +1426,7 @@ var moveData = []MoveData{
 		Name:         "Captivate",
 		functionCode: "04E",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           20,
 		Target:       allOpposing,
@@ -1436,7 +1457,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{spdefense: +1})
 		},
 		Type:        ELECTRIC,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          20,
 		Target:      user,
 		Priority:    0,
@@ -1449,7 +1470,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{attack: -2})
 		},
 		Type:        NORMAL,
-		Category:    status,
+		Category:    statusEffect,
 		Accuracy:    100,
 		PP:          20,
 		Target:      singleNotUser,
@@ -1511,10 +1532,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Clear Smog",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
 			t.statStages = emptyStages
-			l.addToLogs(genericUpdateLog{Index: ti, StatStages: emptyStages})
-			l.logf("%s's stat changes were removed!", t.Name)
+			log.add(genericUpdateLog{Index: ti, StatStages: emptyStages})
+			log.f("%s's stat changes were removed!", t.Name)
 		},
 		Power:       50,
 		Type:        POISON,
@@ -1547,7 +1568,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{attack: +1, defense: +1})
 		},
 		Type:        POISON,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          20,
 		Target:      user,
 		Priority:    0,
@@ -1571,7 +1592,7 @@ var moveData = []MoveData{
 		Name:         "Confuse Ray",
 		functionCode: "013",
 		Type:         GHOST,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           10,
 		Target:       singleNotUser,
@@ -1613,7 +1634,7 @@ var moveData = []MoveData{
 		Name:         "Conversion 2",
 		functionCode: "05F",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           30,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -1624,7 +1645,7 @@ var moveData = []MoveData{
 		Name:         "Conversion",
 		functionCode: "05E",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           30,
 		Target:       user,
 		Priority:     0,
@@ -1635,7 +1656,7 @@ var moveData = []MoveData{
 		Name:         "Copycat",
 		functionCode: "0AF",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           20,
 		Target:       none,
 		Priority:     0,
@@ -1648,7 +1669,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{defense: +1, spdefense: +1})
 		},
 		Type:        PSYCHIC,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          20,
 		Target:      user,
 		Priority:    0,
@@ -1661,7 +1682,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{defense: +3})
 		},
 		Type:        GRASS,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          10,
 		Target:      user,
 		Priority:    0,
@@ -1674,7 +1695,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{speed: -2})
 		},
 		Type:        GRASS,
-		Category:    status,
+		Category:    statusEffect,
 		Accuracy:    100,
 		PP:          40,
 		Target:      singleNotUser,
@@ -1734,7 +1755,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Cross Poison",
-		functionCode:    "005",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Poison{})
+			log.nonVolatileCondition(t.Name, ti, success, Poison{})
+		},
 		Power:           70,
 		Type:            POISON,
 		Category:        physical,
@@ -1795,7 +1819,7 @@ var moveData = []MoveData{
 		Name:         "Curse",
 		functionCode: "10D",
 		Type:         GHOST,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       user,
 		Priority:     0,
@@ -1829,16 +1853,20 @@ var moveData = []MoveData{
 		Description:     "The user releases a horrible aura imbued with dark thoughts. It may also make the target flinch.",
 	},
 	{
-		Name:         "Dark Void",
-		functionCode: "003",
-		Type:         DARK,
-		Category:     status,
-		Accuracy:     80,
-		PP:           10,
-		Target:       allOpposing,
-		Priority:     0,
-		Flags:        "bce",
-		Description:  "Opposing Pokémon are dragged into a world of total darkness that makes them sleep.",
+		Name: "Dark Void",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			sleep := NewSleep()
+			success := t.setNonVolatile(sleep)
+			log.nonVolatileCondition(t.Name, ti, success, sleep)
+		},
+		Type:        DARK,
+		Category:    statusEffect,
+		Accuracy:    80,
+		PP:          10,
+		Target:      allOpposing,
+		Priority:    0,
+		Flags:       "bce",
+		Description: "Opposing Pokémon are dragged into a world of total darkness that makes them sleep.",
 	},
 	{
 		Name: "Defend Order",
@@ -1846,7 +1874,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{defense: +1, spdefense: +1})
 		},
 		Type:        BUG,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          10,
 		Target:      user,
 		Priority:    0,
@@ -1860,7 +1888,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{defense: +1})
 		},
 		Type:        NORMAL,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          40,
 		Target:      user,
 		Priority:    0,
@@ -1871,7 +1899,7 @@ var moveData = []MoveData{
 		Name:         "Defog",
 		functionCode: "049",
 		Type:         FLYING,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           15,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -1882,7 +1910,7 @@ var moveData = []MoveData{
 		Name:         "Destiny Bond",
 		functionCode: "0E7",
 		Type:         GHOST,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           5,
 		Target:       user,
 		Priority:     0,
@@ -1893,7 +1921,7 @@ var moveData = []MoveData{
 		Name:         "Detect",
 		functionCode: "0AA",
 		Type:         FIGHTING,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           5,
 		Target:       user,
 		Priority:     3,
@@ -1917,7 +1945,7 @@ var moveData = []MoveData{
 		Name:         "Disable",
 		functionCode: "0B9",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           20,
 		Target:       singleNotUser,
@@ -1927,7 +1955,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Discharge",
-		functionCode:    "007",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Paralysis{})
+			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		},
 		Power:           80,
 		Type:            ELECTRIC,
 		Category:        special,
@@ -2009,7 +2040,7 @@ var moveData = []MoveData{
 		Name:         "Double Team",
 		functionCode: "022",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           15,
 		Target:       user,
 		Priority:     0,
@@ -2076,7 +2107,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{attack: +1, speed: +1})
 		},
 		Type:        DRAGON,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          20,
 		Target:      user,
 		Priority:    0,
@@ -2138,8 +2169,11 @@ var moveData = []MoveData{
 		Description:  "The user knocks away the target and drags out another Pokémon in its party. In the wild, the battle ends.",
 	},
 	{
-		Name:            "DragonBreath",
-		functionCode:    "007",
+		Name:            "Dragon Breath",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Paralysis{})
+			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		},
 		Power:           60,
 		Type:            DRAGON,
 		Category:        special,
@@ -2314,7 +2348,7 @@ var moveData = []MoveData{
 		Name:         "Embargo",
 		functionCode: "0F8",
 		Type:         DARK,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           15,
 		Target:       singleNotUser,
@@ -2324,7 +2358,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Ember",
-		functionCode:    "00A",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Burn{})
+			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		},
 		Power:           40,
 		Type:            FIRE,
 		Category:        special,
@@ -2340,7 +2377,7 @@ var moveData = []MoveData{
 		Name:         "Encore",
 		functionCode: "0BC",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           5,
 		Target:       singleNotUser,
@@ -2365,7 +2402,7 @@ var moveData = []MoveData{
 		Name:         "Endure",
 		functionCode: "0E8",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       user,
 		Priority:     3,
@@ -2392,7 +2429,7 @@ var moveData = []MoveData{
 		Name:         "Entrainment",
 		functionCode: "066",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           15,
 		Target:       singleNotUser,
@@ -2496,7 +2533,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{spdefense: -2})
 		},
 		Type:        DARK,
-		Category:    status,
+		Category:    statusEffect,
 		Accuracy:    100,
 		PP:          20,
 		Target:      singleNotUser,
@@ -2523,7 +2560,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{attack: -2})
 		},
 		Type:        FLYING,
-		Category:    status,
+		Category:    statusEffect,
 		Accuracy:    100,
 		PP:          15,
 		Target:      singleNotUser,
@@ -2575,7 +2612,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Fire Blast",
-		functionCode:    "00A",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Burn{})
+			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		},
 		Power:           120,
 		Type:            FIRE,
 		Category:        special,
@@ -2616,7 +2656,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Fire Punch",
-		functionCode:    "00A",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Burn{})
+			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		},
 		Power:           75,
 		Type:            FIRE,
 		Category:        physical,
@@ -2698,7 +2741,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Flame Wheel",
-		functionCode:    "00A",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Burn{})
+			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		},
 		Power:           60,
 		Type:            FIRE,
 		Category:        physical,
@@ -2712,7 +2758,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Flamethrower",
-		functionCode:    "00A",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Burn{})
+			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		},
 		Power:           95,
 		Type:            FIRE,
 		Category:        special,
@@ -2758,7 +2807,7 @@ var moveData = []MoveData{
 		Name:         "Flash",
 		functionCode: "047",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           20,
 		Target:       singleNotUser,
@@ -2770,7 +2819,7 @@ var moveData = []MoveData{
 		Name:         "Flatter",
 		functionCode: "040",
 		Type:         DARK,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           15,
 		Target:       singleNotUser,
@@ -2824,7 +2873,7 @@ var moveData = []MoveData{
 		Name:         "Focus Energy",
 		functionCode: "023",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           30,
 		Target:       user,
 		Priority:     0,
@@ -2848,7 +2897,7 @@ var moveData = []MoveData{
 		Name:         "Follow Me",
 		functionCode: "117",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           20,
 		Target:       user,
 		Priority:     3,
@@ -2857,7 +2906,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Force Palm",
-		functionCode:    "007",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Paralysis{})
+			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		},
 		Power:           60,
 		Type:            FIGHTING,
 		Category:        physical,
@@ -2873,7 +2925,7 @@ var moveData = []MoveData{
 		Name:         "Foresight",
 		functionCode: "0A7",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           40,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -3028,7 +3080,7 @@ var moveData = []MoveData{
 		Name:         "Gastro Acid",
 		functionCode: "068",
 		Type:         POISON,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           10,
 		Target:       singleNotUser,
@@ -3093,9 +3145,12 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Glare",
-		functionCode: "007",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Paralysis{})
+			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		},
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     90,
 		PP:           30,
 		Target:       singleNotUser,
@@ -3130,22 +3185,26 @@ var moveData = []MoveData{
 		Description:  "A column of grass hits opposing Pokémon. When used with its water equivalent, its damage increases into a vast swamp.",
 	},
 	{
-		Name:         "GrassWhistle",
-		functionCode: "003",
-		Type:         GRASS,
-		Category:     status,
-		Accuracy:     55,
-		PP:           15,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "bcek",
-		Description:  "The user plays a pleasant melody that lulls the target into a deep sleep.",
+		Name: "Grass Whistle",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			sleep := NewSleep()
+			success := t.setNonVolatile(sleep)
+			log.nonVolatileCondition(t.Name, ti, success, sleep)
+		},
+		Type:        GRASS,
+		Category:    statusEffect,
+		Accuracy:    55,
+		PP:          15,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "bcek",
+		Description: "The user plays a pleasant melody that lulls the target into a deep sleep.",
 	},
 	{
 		Name:         "Gravity",
 		functionCode: "118",
 		Type:         PSYCHIC,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           5,
 		Target:       usersSide,
 		Priority:     0,
@@ -3158,7 +3217,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{attack: -1})
 		},
 		Type:        NORMAL,
-		Category:    status,
+		Category:    statusEffect,
 		Accuracy:    100,
 		PP:          40,
 		Target:      allOpposing,
@@ -3173,7 +3232,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{attack: +1, spattack: +1})
 		},
 		Type:        NORMAL,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          40,
 		Target:      user,
 		Priority:    0,
@@ -3184,7 +3243,7 @@ var moveData = []MoveData{
 		Name:         "Grudge",
 		functionCode: "0E6",
 		Type:         GHOST,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           5,
 		Target:       user,
 		Priority:     0,
@@ -3195,7 +3254,7 @@ var moveData = []MoveData{
 		Name:         "Guard Split",
 		functionCode: "059",
 		Type:         PSYCHIC,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -3204,15 +3263,15 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Guard Swap",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
 			s.statStages.defense, t.statStages.defense = t.statStages.defense, s.statStages.defense
 			s.statStages.spdefense, t.statStages.spdefense = t.statStages.spdefense, s.statStages.spdefense
-			l.addToLogs(genericUpdateLog{Index: si, StatStages: s.statStages})
-			l.addToLogs(genericUpdateLog{Index: ti, StatStages: t.statStages})
-			l.logf("%s switched all changes to its Defense and Sp. Def with the target!", s.Name)
+			log.add(genericUpdateLog{Index: si, StatStages: s.statStages})
+			log.add(genericUpdateLog{Index: ti, StatStages: t.statStages})
+			log.f("%s switched all changes to its Defense and Sp. Def with the target!", s.Name)
 		},
 		Type:        PSYCHIC,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          10,
 		Target:      singleNotUser,
 		Priority:    0,
@@ -3234,7 +3293,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Gunk Shot",
-		functionCode:    "005",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Poison{})
+			log.nonVolatileCondition(t.Name, ti, success, Poison{})
+		},
 		Power:           120,
 		Type:            POISON,
 		Category:        physical,
@@ -3276,7 +3338,7 @@ var moveData = []MoveData{
 		Name:         "Hail",
 		functionCode: "102",
 		Type:         ICE,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       usersSide,
 		Priority:     0,
@@ -3304,7 +3366,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{defense: +1})
 		},
 		Type:        NORMAL,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          30,
 		Target:      user,
 		Priority:    0,
@@ -3315,7 +3377,7 @@ var moveData = []MoveData{
 		Name:         "Haze",
 		functionCode: "051",
 		Type:         ICE,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           30,
 		Target:       usersSide,
 		Priority:     0,
@@ -3366,7 +3428,7 @@ var moveData = []MoveData{
 		Name:         "Heal Bell",
 		functionCode: "019",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           5,
 		Target:       bothSides,
 		Priority:     0,
@@ -3377,7 +3439,7 @@ var moveData = []MoveData{
 		Name:         "Heal Block",
 		functionCode: "0BB",
 		Type:         PSYCHIC,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           15,
 		Target:       allOpposing,
@@ -3389,7 +3451,7 @@ var moveData = []MoveData{
 		Name:         "Heal Order",
 		functionCode: "0D5",
 		Type:         BUG,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       user,
 		Priority:     0,
@@ -3400,7 +3462,7 @@ var moveData = []MoveData{
 		Name:         "Heal Pulse",
 		functionCode: "0DF",
 		Type:         PSYCHIC,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -3411,7 +3473,7 @@ var moveData = []MoveData{
 		Name:         "Healing Wish",
 		functionCode: "0E3",
 		Type:         PSYCHIC,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       user,
 		Priority:     0,
@@ -3434,14 +3496,14 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Heart Swap",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
 			s.statStages, t.statStages = t.statStages, s.statStages
-			l.addToLogs(genericUpdateLog{Index: si, StatStages: s.statStages})
-			l.addToLogs(genericUpdateLog{Index: ti, StatStages: t.statStages})
-			l.logf("%s switched stat changes with the target!", s.Name)
+			log.add(genericUpdateLog{Index: si, StatStages: s.statStages})
+			log.add(genericUpdateLog{Index: ti, StatStages: t.statStages})
+			log.f("%s switched stat changes with the target!", s.Name)
 		},
 		Type:        PSYCHIC,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          10,
 		Target:      singleNotUser,
 		Priority:    0,
@@ -3463,7 +3525,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Heat Wave",
-		functionCode:    "00A",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Burn{})
+			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		},
 		Power:           100,
 		Type:            FIRE,
 		Category:        special,
@@ -3492,7 +3557,7 @@ var moveData = []MoveData{
 		Name:         "Helping Hand",
 		functionCode: "09C",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           20,
 		Target:       partner,
 		Priority:     5,
@@ -3545,7 +3610,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{attack: +1})
 		},
 		Type:        DARK,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          15,
 		Target:      user,
 		Priority:    0,
@@ -3596,7 +3661,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{attack: +1})
 		},
 		Type:        NORMAL,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          40,
 		Target:      user,
 		Priority:    0,
@@ -3682,16 +3747,20 @@ var moveData = []MoveData{
 		Description: "The user lets loose a horribly echoing shout with the power to inflict damage.",
 	},
 	{
-		Name:         "Hypnosis",
-		functionCode: "003",
-		Type:         PSYCHIC,
-		Category:     status,
-		Accuracy:     60,
-		PP:           20,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "bce",
-		Description:  "The user employs hypnotic suggestion to make the target fall into a deep sleep.",
+		Name: "Hypnosis",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			sleep := NewSleep()
+			success := t.setNonVolatile(sleep)
+			log.nonVolatileCondition(t.Name, ti, success, sleep)
+		},
+		Type:        PSYCHIC,
+		Category:    statusEffect,
+		Accuracy:    60,
+		PP:          20,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "bce",
+		Description: "The user employs hypnotic suggestion to make the target fall into a deep sleep.",
 	},
 	{
 		Name:         "Ice Ball",
@@ -3708,7 +3777,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Ice Beam",
-		functionCode:    "00C",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Freeze{})
+			log.nonVolatileCondition(t.Name, ti, success, Freeze{})
+		},
 		Power:           95,
 		Type:            ICE,
 		Category:        special,
@@ -3750,7 +3822,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Ice Punch",
-		functionCode:    "00C",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Freeze{})
+			log.nonVolatileCondition(t.Name, ti, success, Freeze{})
+		},
 		Power:           75,
 		Type:            ICE,
 		Category:        physical,
@@ -3821,7 +3896,7 @@ var moveData = []MoveData{
 		Name:         "Imprison",
 		functionCode: "0B8",
 		Type:         PSYCHIC,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       user,
 		Priority:     0,
@@ -3843,7 +3918,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Inferno",
-		functionCode:    "00A",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Burn{})
+			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		},
 		Power:           100,
 		Type:            FIRE,
 		Category:        special,
@@ -3859,7 +3937,7 @@ var moveData = []MoveData{
 		Name:         "Ingrain",
 		functionCode: "0DB",
 		Type:         GRASS,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           20,
 		Target:       user,
 		Priority:     0,
@@ -3872,7 +3950,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{defense: +2})
 		},
 		Type:        STEEL,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          15,
 		Target:      user,
 		Priority:    0,
@@ -3951,7 +4029,7 @@ var moveData = []MoveData{
 		Name:         "Kinesis",
 		functionCode: "047",
 		Type:         PSYCHIC,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     80,
 		PP:           15,
 		Target:       singleNotUser,
@@ -3987,7 +4065,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Lava Plume",
-		functionCode:    "00A",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Burn{})
+			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		},
 		Power:           80,
 		Type:            FIRE,
 		Category:        special,
@@ -4058,7 +4139,7 @@ var moveData = []MoveData{
 		Name:         "Leech Seed",
 		functionCode: "0DC",
 		Type:         GRASS,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     90,
 		PP:           10,
 		Target:       singleNotUser,
@@ -4072,7 +4153,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{defense: -1})
 		},
 		Type:        NORMAL,
-		Category:    status,
+		Category:    statusEffect,
 		Accuracy:    100,
 		PP:          30,
 		Target:      allOpposing,
@@ -4082,7 +4163,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Lick",
-		functionCode:    "007",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Paralysis{})
+			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		},
 		Power:           20,
 		Type:            GHOST,
 		Category:        physical,
@@ -4098,7 +4182,7 @@ var moveData = []MoveData{
 		Name:         "Light Screen",
 		functionCode: "0A3",
 		Type:         PSYCHIC,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           30,
 		Target:       bothSides,
 		Priority:     0,
@@ -4109,7 +4193,7 @@ var moveData = []MoveData{
 		Name:         "Lock-On",
 		functionCode: "0A6",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           5,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -4117,16 +4201,20 @@ var moveData = []MoveData{
 		Description:  "The user takes sure aim at the target. It ensures the next attack does not fail to hit the target.",
 	},
 	{
-		Name:         "Lovely Kiss",
-		functionCode: "003",
-		Type:         NORMAL,
-		Category:     status,
-		Accuracy:     75,
-		PP:           10,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "bce",
-		Description:  "With a scary face, the user tries to force a kiss on the target. If it suceeds, the target falls asleep.",
+		Name: "Lovely Kiss",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			sleep := NewSleep()
+			success := t.setNonVolatile(sleep)
+			log.nonVolatileCondition(t.Name, ti, success, sleep)
+		},
+		Type:        NORMAL,
+		Category:    statusEffect,
+		Accuracy:    75,
+		PP:          10,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "bce",
+		Description: "With a scary face, the user tries to force a kiss on the target. If it suceeds, the target falls asleep.",
 	},
 	{
 		Name:         "Low Kick",
@@ -4160,7 +4248,7 @@ var moveData = []MoveData{
 		Name:         "Lucky Chant",
 		functionCode: "0A1",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           30,
 		Target:       bothSides,
 		Priority:     0,
@@ -4171,7 +4259,7 @@ var moveData = []MoveData{
 		Name:         "Lunar Dance",
 		functionCode: "0E4",
 		Type:         PSYCHIC,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       user,
 		Priority:     0,
@@ -4210,7 +4298,7 @@ var moveData = []MoveData{
 		Name:         "Magic Coat",
 		functionCode: "0B1",
 		Type:         PSYCHIC,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           15,
 		Target:       user,
 		Priority:     4,
@@ -4221,7 +4309,7 @@ var moveData = []MoveData{
 		Name:         "Magic Room",
 		functionCode: "0F9",
 		Type:         PSYCHIC,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       usersSide,
 		Priority:     -7,
@@ -4267,7 +4355,7 @@ var moveData = []MoveData{
 		Name:         "Magnet Rise",
 		functionCode: "119",
 		Type:         ELECTRIC,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       user,
 		Priority:     0,
@@ -4291,7 +4379,7 @@ var moveData = []MoveData{
 		Name:         "Me First",
 		functionCode: "0B0",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           20,
 		Target:       singleOpposingSide,
 		Priority:     0,
@@ -4302,7 +4390,7 @@ var moveData = []MoveData{
 		Name:         "Mean Look",
 		functionCode: "0EF",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           5,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -4315,7 +4403,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{attack: +1})
 		},
 		Type:        PSYCHIC,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          40,
 		Target:      user,
 		Priority:    0,
@@ -4375,7 +4463,7 @@ var moveData = []MoveData{
 		Name:         "Memento",
 		functionCode: "0E2",
 		Type:         DARK,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           10,
 		Target:       singleNotUser,
@@ -4418,7 +4506,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{spdefense: -2})
 		},
 		Type:        STEEL,
-		Category:    status,
+		Category:    statusEffect,
 		Accuracy:    85,
 		PP:          40,
 		Target:      singleNotUser,
@@ -4446,7 +4534,7 @@ var moveData = []MoveData{
 		Name:         "Metronome",
 		functionCode: "0B6",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       none,
 		Priority:     0,
@@ -4457,7 +4545,7 @@ var moveData = []MoveData{
 		Name:         "Milk Drink",
 		functionCode: "0D5",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       user,
 		Priority:     0,
@@ -4468,7 +4556,7 @@ var moveData = []MoveData{
 		Name:         "Mimic",
 		functionCode: "05C",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -4479,7 +4567,7 @@ var moveData = []MoveData{
 		Name:         "Mind Reader",
 		functionCode: "0A6",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           5,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -4490,7 +4578,7 @@ var moveData = []MoveData{
 		Name:         "Minimize",
 		functionCode: "034",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           20,
 		Target:       user,
 		Priority:     0,
@@ -4501,7 +4589,7 @@ var moveData = []MoveData{
 		Name:         "Miracle Eye",
 		functionCode: "0A8",
 		Type:         PSYCHIC,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           40,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -4525,7 +4613,7 @@ var moveData = []MoveData{
 		Name:         "Mirror Move",
 		functionCode: "0AE",
 		Type:         FLYING,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           20,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -4566,7 +4654,7 @@ var moveData = []MoveData{
 		Name:         "Mist",
 		functionCode: "056",
 		Type:         ICE,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           30,
 		Target:       bothSides,
 		Priority:     0,
@@ -4577,7 +4665,7 @@ var moveData = []MoveData{
 		Name:         "Moonlight",
 		functionCode: "0D8",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           5,
 		Target:       user,
 		Priority:     0,
@@ -4588,7 +4676,7 @@ var moveData = []MoveData{
 		Name:         "Morning Sun",
 		functionCode: "0D8",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           5,
 		Target:       user,
 		Priority:     0,
@@ -4629,7 +4717,7 @@ var moveData = []MoveData{
 		Name:         "Mud Sport",
 		functionCode: "09D",
 		Type:         GROUND,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           15,
 		Target:       bothSides,
 		Priority:     0,
@@ -4670,7 +4758,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{spattack: +2})
 		},
 		Type:        DARK,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          20,
 		Target:      user,
 		Priority:    0,
@@ -4694,7 +4782,7 @@ var moveData = []MoveData{
 		Name:         "Nature Power",
 		functionCode: "0B3",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           20,
 		Target:       none,
 		Priority:     0,
@@ -4760,7 +4848,7 @@ var moveData = []MoveData{
 		Name:         "Nightmare",
 		functionCode: "10F",
 		Type:         GHOST,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           15,
 		Target:       singleNotUser,
@@ -4786,7 +4874,7 @@ var moveData = []MoveData{
 		Name:         "Odor Sleuth",
 		functionCode: "0A7",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           40,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -4842,7 +4930,7 @@ var moveData = []MoveData{
 		Name:         "Pain Split",
 		functionCode: "05A",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           20,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -4891,7 +4979,7 @@ var moveData = []MoveData{
 		Name:         "Perish Song",
 		functionCode: "0E5",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           5,
 		Target:       usersSide,
 		Priority:     0,
@@ -4939,13 +5027,17 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Poison Fang",
-		functionCode:    "006",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			badPoison := NewBadPoison()
+			success := t.setNonVolatile(badPoison)
+			log.nonVolatileCondition(t.Name, ti, success, badPoison)
+		},
 		Power:           50,
 		Type:            POISON,
 		Category:        physical,
 		Accuracy:        100,
 		PP:              15,
-		AddEffectChance: 30,
+		AddEffectChance: 30, // TODO: 50% since Gen VI
 		Target:          singleNotUser,
 		Priority:        0,
 		Flags:           "abe",
@@ -4953,9 +5045,12 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Poison Gas",
-		functionCode: "005",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Poison{})
+			log.nonVolatileCondition(t.Name, ti, success, Poison{})
+		},
 		Type:         POISON,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     80,
 		PP:           40,
 		Target:       allOpposing,
@@ -4965,7 +5060,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Poison Jab",
-		functionCode:    "005",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Poison{})
+			log.nonVolatileCondition(t.Name, ti, success, Poison{})
+		},
 		Power:           80,
 		Type:            POISON,
 		Category:        physical,
@@ -4979,7 +5077,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Poison Sting",
-		functionCode:    "005",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Poison{})
+			log.nonVolatileCondition(t.Name, ti, success, Poison{})
+		},
 		Power:           15,
 		Type:            POISON,
 		Category:        physical,
@@ -4993,7 +5094,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Poison Tail",
-		functionCode:    "005",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Poison{})
+			log.nonVolatileCondition(t.Name, ti, success, Poison{})
+		},
 		Power:           50,
 		Type:            POISON,
 		Category:        physical,
@@ -5007,9 +5111,12 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "PoisonPowder",
-		functionCode: "005",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Poison{})
+			log.nonVolatileCondition(t.Name, ti, success, Poison{})
+		},
 		Type:         POISON,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     75,
 		PP:           35,
 		Target:       singleNotUser,
@@ -5031,7 +5138,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Powder Snow",
-		functionCode:    "00C",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Freeze{})
+			log.nonVolatileCondition(t.Name, ti, success, Freeze{})
+		},
 		Power:           40,
 		Type:            ICE,
 		Category:        special,
@@ -5059,7 +5169,7 @@ var moveData = []MoveData{
 		Name:         "Power Split",
 		functionCode: "058",
 		Type:         PSYCHIC,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -5068,15 +5178,15 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Power Swap",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
 			s.statStages.attack, t.statStages.attack = t.statStages.attack, s.statStages.attack
 			s.statStages.spattack, t.statStages.spattack = t.statStages.spattack, s.statStages.spattack
-			l.addToLogs(genericUpdateLog{Index: si, StatStages: s.statStages})
-			l.addToLogs(genericUpdateLog{Index: ti, StatStages: t.statStages})
-			l.logf("%s switched all changes to its Attack and Sp. Atk with the target!", s.Name)
+			log.add(genericUpdateLog{Index: si, StatStages: s.statStages})
+			log.add(genericUpdateLog{Index: ti, StatStages: t.statStages})
+			log.f("%s switched all changes to its Attack and Sp. Atk with the target!", s.Name)
 		},
 		Type:        PSYCHIC,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          10,
 		Target:      singleNotUser,
 		Priority:    0,
@@ -5087,7 +5197,7 @@ var moveData = []MoveData{
 		Name:         "Power Trick",
 		functionCode: "057",
 		Type:         PSYCHIC,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       user,
 		Priority:     0,
@@ -5123,7 +5233,7 @@ var moveData = []MoveData{
 		Name:         "Protect",
 		functionCode: "0AA",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       user,
 		Priority:     4,
@@ -5146,13 +5256,13 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Psych Up",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
 			s.statStages = t.statStages
-			l.addToLogs(genericUpdateLog{Index: si, StatStages: s.statStages})
-			l.logf("%s copied %s's stat changes!", s.Name, t.Name)
+			log.add(genericUpdateLog{Index: si, StatStages: s.statStages})
+			log.f("%s copied %s's stat changes!", s.Name, t.Name)
 		},
 		Type:        NORMAL,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          10,
 		Target:      singleNotUser,
 		Priority:    0,
@@ -5207,7 +5317,7 @@ var moveData = []MoveData{
 		Name:         "Psycho Shift",
 		functionCode: "01B",
 		Type:         PSYCHIC,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     90,
 		PP:           10,
 		Target:       singleNotUser,
@@ -5284,7 +5394,7 @@ var moveData = []MoveData{
 		Name:         "Quash",
 		functionCode: "11E",
 		Type:         DARK,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           15,
 		Target:       singleNotUser,
@@ -5308,7 +5418,7 @@ var moveData = []MoveData{
 		Name:         "Quick Guard",
 		functionCode: "0AB",
 		Type:         FIGHTING,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           15,
 		Target:       bothSides,
 		Priority:     3,
@@ -5321,7 +5431,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{spattack: +1, spdefense: +1, speed: +1})
 		},
 		Type:        BUG,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          20,
 		Target:      user,
 		Priority:    0,
@@ -5332,7 +5442,7 @@ var moveData = []MoveData{
 		Name:         "Rage Powder",
 		functionCode: "117",
 		Type:         BUG,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           20,
 		Target:       user,
 		Priority:     3,
@@ -5356,7 +5466,7 @@ var moveData = []MoveData{
 		Name:         "Rain Dance",
 		functionCode: "100",
 		Type:         WATER,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           5,
 		Target:       usersSide,
 		Priority:     0,
@@ -5421,7 +5531,7 @@ var moveData = []MoveData{
 		Name:         "Recover",
 		functionCode: "0D5",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       user,
 		Priority:     0,
@@ -5432,7 +5542,7 @@ var moveData = []MoveData{
 		Name:         "Recycle",
 		functionCode: "0F6",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       user,
 		Priority:     0,
@@ -5443,7 +5553,7 @@ var moveData = []MoveData{
 		Name:         "Reflect Type",
 		functionCode: "062",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           15,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -5454,7 +5564,7 @@ var moveData = []MoveData{
 		Name:         "Reflect",
 		functionCode: "0A2",
 		Type:         PSYCHIC,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           20,
 		Target:       bothSides,
 		Priority:     0,
@@ -5465,7 +5575,7 @@ var moveData = []MoveData{
 		Name:         "Refresh",
 		functionCode: "018",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           20,
 		Target:       user,
 		Priority:     0,
@@ -5473,8 +5583,13 @@ var moveData = []MoveData{
 		Description:  "The user rests to cure itself of a poisoning, burn, or paralysis.",
 	},
 	{
-		Name:            "Relic Song",
-		functionCode:    "003",
+		Name:         "Relic Song",
+		functionCode: "003",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			sleep := NewSleep()
+			success := t.setNonVolatile(sleep)
+			log.nonVolatileCondition(t.Name, ti, success, sleep)
+		},
 		Power:           75,
 		Type:            NORMAL,
 		Category:        special,
@@ -5490,7 +5605,7 @@ var moveData = []MoveData{
 		Name:         "Rest",
 		functionCode: "0D9",
 		Type:         PSYCHIC,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       user,
 		Priority:     0,
@@ -5566,7 +5681,7 @@ var moveData = []MoveData{
 		Name:         "Roar",
 		functionCode: "0EB",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           20,
 		Target:       singleNotUser,
@@ -5607,7 +5722,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{speed: +2})
 		},
 		Type:        ROCK,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          20,
 		Target:      user,
 		Priority:    0,
@@ -5689,7 +5804,7 @@ var moveData = []MoveData{
 		Name:         "Role Play",
 		functionCode: "065",
 		Type:         PSYCHIC,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -5727,7 +5842,7 @@ var moveData = []MoveData{
 		Name:         "Roost",
 		functionCode: "0D6",
 		Type:         FLYING,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       user,
 		Priority:     0,
@@ -5749,7 +5864,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Sacred Fire",
-		functionCode:    "00A",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Burn{})
+			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		},
 		Power:           100,
 		Type:            FIRE,
 		Category:        physical,
@@ -5778,7 +5896,7 @@ var moveData = []MoveData{
 		Name:         "Safeguard",
 		functionCode: "01A",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           25,
 		Target:       bothSides,
 		Priority:     0,
@@ -5802,7 +5920,7 @@ var moveData = []MoveData{
 		Name:         "Sand-Attack",
 		functionCode: "047",
 		Type:         GROUND,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           15,
 		Target:       singleNotUser,
@@ -5814,7 +5932,7 @@ var moveData = []MoveData{
 		Name:         "Sandstorm",
 		functionCode: "101",
 		Type:         ROCK,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       usersSide,
 		Priority:     0,
@@ -5824,6 +5942,11 @@ var moveData = []MoveData{
 	{
 		Name:            "Scald",
 		functionCode:    "00A",
+		// TODO: Gen 6: For Scald only, thaws the target if the move hits and the target is frozen.
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Burn{})
+			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		},
 		Power:           80,
 		Type:            WATER,
 		Category:        special,
@@ -5841,7 +5964,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{speed: -2})
 		},
 		Type:        NORMAL,
-		Category:    status,
+		Category:    statusEffect,
 		Accuracy:    100,
 		PP:          10,
 		Target:      singleNotUser,
@@ -5867,7 +5990,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{defense: -2})
 		},
 		Type:        NORMAL,
-		Category:    status,
+		Category:    statusEffect,
 		Accuracy:    85,
 		PP:          40,
 		Target:      singleNotUser,
@@ -5877,7 +6000,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Searing Shot",
-		functionCode:    "00A",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Burn{})
+			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		},
 		Power:           100,
 		Type:            FIRE,
 		Category:        special,
@@ -6042,7 +6168,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{attack: +1})
 		},
 		Type:        NORMAL,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          30,
 		Target:      user,
 		Priority:    0,
@@ -6068,7 +6194,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{attack: +2, defense: -1, spattack: +2, spdefense: -1, speed: +2})
 		},
 		Type:        NORMAL,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          15,
 		Target:      user,
 		Priority:    0,
@@ -6081,7 +6207,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{attack: +1, speed: +2})
 		},
 		Type:        STEEL,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          10,
 		Target:      user,
 		Priority:    0,
@@ -6133,7 +6259,7 @@ var moveData = []MoveData{
 		Name:         "Simple Beam",
 		functionCode: "063",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     10,
 		PP:           15,
 		Target:       singleNotUser,
@@ -6142,22 +6268,26 @@ var moveData = []MoveData{
 		Description:  "The user's mysterious psychic wave changes the target's Ability to Simple.",
 	},
 	{
-		Name:         "Sing",
-		functionCode: "003",
-		Type:         NORMAL,
-		Category:     status,
-		Accuracy:     55,
-		PP:           15,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "bcek",
-		Description:  "A soothing lullaby is sung in a calming voice that puts the target into a deep slumber.",
+		Name: "Sing",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			sleep := NewSleep()
+			success := t.setNonVolatile(sleep)
+			log.nonVolatileCondition(t.Name, ti, success, sleep)
+		},
+		Type:        NORMAL,
+		Category:    statusEffect,
+		Accuracy:    55,
+		PP:          15,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "bcek",
+		Description: "A soothing lullaby is sung in a calming voice that puts the target into a deep slumber.",
 	},
 	{
 		Name:         "Sketch",
 		functionCode: "05D",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           1,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -6168,7 +6298,7 @@ var moveData = []MoveData{
 		Name:         "Skill Swap",
 		functionCode: "067",
 		Type:         PSYCHIC,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -6233,7 +6363,7 @@ var moveData = []MoveData{
 		Name:         "Slack Off",
 		functionCode: "0D5",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       user,
 		Priority:     0,
@@ -6265,22 +6395,26 @@ var moveData = []MoveData{
 		Description: "The target is attacked with a slash of claws or blades. Critical hits land more easily.",
 	},
 	{
-		Name:         "Sleep Powder",
-		functionCode: "003",
-		Type:         GRASS,
-		Category:     status,
-		Accuracy:     75,
-		PP:           15,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "bce",
-		Description:  "The user scatters a big cloud of sleep-inducing dust around the target.",
+		Name: "Sleep Powder",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			sleep := NewSleep()
+			success := t.setNonVolatile(sleep)
+			log.nonVolatileCondition(t.Name, ti, success, sleep)
+		},
+		Type:        GRASS,
+		Category:    statusEffect,
+		Accuracy:    75,
+		PP:          15,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "bce",
+		Description: "The user scatters a big cloud of sleep-inducing dust around the target.",
 	},
 	{
 		Name:         "Sleep Talk",
 		functionCode: "0B4",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       none,
 		Priority:     0,
@@ -6289,7 +6423,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Sludge Bomb",
-		functionCode:    "005",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Poison{})
+			log.nonVolatileCondition(t.Name, ti, success, Poison{})
+		},
 		Power:           90,
 		Type:            POISON,
 		Category:        special,
@@ -6303,7 +6440,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Sludge Wave",
-		functionCode:    "005",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Poison{})
+			log.nonVolatileCondition(t.Name, ti, success, Poison{})
+		},
 		Power:           95,
 		Type:            POISON,
 		Category:        special,
@@ -6317,7 +6457,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Sludge",
-		functionCode:    "005",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Poison{})
+			log.nonVolatileCondition(t.Name, ti, success, Poison{})
+		},
 		Power:           65,
 		Type:            POISON,
 		Category:        special,
@@ -6358,7 +6501,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Smog",
-		functionCode:    "005",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Poison{})
+			log.nonVolatileCondition(t.Name, ti, success, Poison{})
+		},
 		Power:           20,
 		Type:            POISON,
 		Category:        special,
@@ -6374,7 +6520,7 @@ var moveData = []MoveData{
 		Name:         "SmokeScreen",
 		functionCode: "047",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           20,
 		Target:       singleNotUser,
@@ -6401,7 +6547,7 @@ var moveData = []MoveData{
 		Name:         "Snatch",
 		functionCode: "0B2",
 		Type:         DARK,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       user,
 		Priority:     4,
@@ -6426,7 +6572,7 @@ var moveData = []MoveData{
 		Name:         "Soak",
 		functionCode: "061",
 		Type:         WATER,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           20,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -6437,7 +6583,7 @@ var moveData = []MoveData{
 		Name:         "Softboiled",
 		functionCode: "0D5",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       user,
 		Priority:     0,
@@ -6486,7 +6632,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Spark",
-		functionCode:    "007",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Paralysis{})
+			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		},
 		Power:           65,
 		Type:            ELECTRIC,
 		Category:        physical,
@@ -6502,7 +6651,7 @@ var moveData = []MoveData{
 		Name:         "Spider Web",
 		functionCode: "0EF",
 		Type:         BUG,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -6526,7 +6675,7 @@ var moveData = []MoveData{
 		Name:         "Spikes",
 		functionCode: "103",
 		Type:         GROUND,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           20,
 		Target:       opposingSide,
 		Priority:     0,
@@ -6550,7 +6699,7 @@ var moveData = []MoveData{
 		Name:         "Spite",
 		functionCode: "10E",
 		Type:         GHOST,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           10,
 		Target:       singleNotUser,
@@ -6562,7 +6711,7 @@ var moveData = []MoveData{
 		Name:         "Splash",
 		functionCode: "001",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           40,
 		Target:       user,
 		Priority:     0,
@@ -6570,22 +6719,26 @@ var moveData = []MoveData{
 		Description:  "The user just flops and splashes around to no effect at all…",
 	},
 	{
-		Name:         "Spore",
-		functionCode: "003",
-		Type:         GRASS,
-		Category:     status,
-		Accuracy:     100,
-		PP:           15,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "bce",
-		Description:  "The user scatters bursts of spores that induce sleep.",
+		Name: "Spore",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			sleep := NewSleep()
+			success := t.setNonVolatile(sleep)
+			log.nonVolatileCondition(t.Name, ti, success, sleep)
+		},
+		Type:        GRASS,
+		Category:    statusEffect,
+		Accuracy:    100,
+		PP:          15,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "bce",
+		Description: "The user scatters bursts of spores that induce sleep.",
 	},
 	{
 		Name:         "Stealth Rock",
 		functionCode: "105",
 		Type:         ROCK,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           20,
 		Target:       opposingSide,
 		Priority:     0,
@@ -6626,7 +6779,7 @@ var moveData = []MoveData{
 		Name:         "Stockpile",
 		functionCode: "112",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           20,
 		Target:       user,
 		Priority:     0,
@@ -6703,7 +6856,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{speed: -1})
 		},
 		Type:        BUG,
-		Category:    status,
+		Category:    statusEffect,
 		Accuracy:    95,
 		PP:          40,
 		Target:      allOpposing,
@@ -6740,9 +6893,12 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Stun Spore",
-		functionCode: "007",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Paralysis{})
+			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		},
 		Type:         GRASS,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     75,
 		PP:           30,
 		Target:       singleNotUser,
@@ -6767,7 +6923,7 @@ var moveData = []MoveData{
 		Name:         "Substitute",
 		functionCode: "10C",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       user,
 		Priority:     0,
@@ -6791,7 +6947,7 @@ var moveData = []MoveData{
 		Name:         "Sunny Day",
 		functionCode: "0FF",
 		Type:         FIRE,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           5,
 		Target:       usersSide,
 		Priority:     0,
@@ -6833,7 +6989,7 @@ var moveData = []MoveData{
 		Name:         "Supersonic",
 		functionCode: "013",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     55,
 		PP:           20,
 		Target:       singleNotUser,
@@ -6858,7 +7014,7 @@ var moveData = []MoveData{
 		Name:         "Swagger",
 		functionCode: "041",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     90,
 		PP:           15,
 		Target:       singleNotUser,
@@ -6870,7 +7026,7 @@ var moveData = []MoveData{
 		Name:         "Swallow",
 		functionCode: "114",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       user,
 		Priority:     0,
@@ -6881,7 +7037,7 @@ var moveData = []MoveData{
 		Name:         "Sweet Kiss",
 		functionCode: "013",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     75,
 		PP:           10,
 		Target:       singleNotUser,
@@ -6893,7 +7049,7 @@ var moveData = []MoveData{
 		Name:         "Sweet Scent",
 		functionCode: "048",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           20,
 		Target:       allOpposing,
@@ -6916,7 +7072,7 @@ var moveData = []MoveData{
 		Name:         "Switcheroo",
 		functionCode: "0F2",
 		Type:         DARK,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           10,
 		Target:       singleNotUser,
@@ -6930,7 +7086,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{attack: +2})
 		},
 		Type:        NORMAL,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          30,
 		Target:      user,
 		Priority:    0,
@@ -6954,7 +7110,7 @@ var moveData = []MoveData{
 		Name:         "Synthesis",
 		functionCode: "0D8",
 		Type:         GRASS,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           5,
 		Target:       user,
 		Priority:     0,
@@ -6979,7 +7135,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{spattack: +3})
 		},
 		Type:        BUG,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          20,
 		Target:      user,
 		Priority:    0,
@@ -7005,7 +7161,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{defense: -1})
 		},
 		Type:        NORMAL,
-		Category:    status,
+		Category:    statusEffect,
 		Accuracy:    100,
 		PP:          30,
 		Target:      allOpposing,
@@ -7017,7 +7173,7 @@ var moveData = []MoveData{
 		Name:         "Tailwind",
 		functionCode: "05B",
 		Type:         FLYING,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           30,
 		Target:       bothSides,
 		Priority:     0,
@@ -7041,7 +7197,7 @@ var moveData = []MoveData{
 		Name:         "Taunt",
 		functionCode: "0BA",
 		Type:         DARK,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           20,
 		Target:       singleNotUser,
@@ -7066,7 +7222,7 @@ var moveData = []MoveData{
 		Name:         "Teeter Dance",
 		functionCode: "013",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           20,
 		Target:       allButUser,
@@ -7078,7 +7234,7 @@ var moveData = []MoveData{
 		Name:         "Telekinesis",
 		functionCode: "11A",
 		Type:         PSYCHIC,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           15,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -7089,7 +7245,7 @@ var moveData = []MoveData{
 		Name:         "Teleport",
 		functionCode: "0EA",
 		Type:         PSYCHIC,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           20,
 		Target:       user,
 		Priority:     0,
@@ -7139,8 +7295,13 @@ var moveData = []MoveData{
 	{
 		Name:         "Thunder Wave",
 		functionCode: "007",
+		// TODO: For Thunder Wave only, fails if the target is immune to the move's type.
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Paralysis{})
+			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		},
 		Type:         ELECTRIC,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           20,
 		Target:       singleNotUser,
@@ -7151,6 +7312,10 @@ var moveData = []MoveData{
 	{
 		Name:            "Thunder",
 		functionCode:    "008",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Paralysis{})
+			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		},
 		Power:           120,
 		Type:            ELECTRIC,
 		Category:        special,
@@ -7164,7 +7329,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Thunderbolt",
-		functionCode:    "007",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Paralysis{})
+			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		},
 		Power:           95,
 		Type:            ELECTRIC,
 		Category:        special,
@@ -7177,8 +7345,11 @@ var moveData = []MoveData{
 		Description:     "A strong electric blast is loosed at the target. It may also leave the target with paralysis.",
 	},
 	{
-		Name:            "ThunderPunch",
-		functionCode:    "007",
+		Name:            "Thunder Punch",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Paralysis{})
+			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		},
 		Power:           75,
 		Type:            ELECTRIC,
 		Category:        physical,
@@ -7191,8 +7362,11 @@ var moveData = []MoveData{
 		Description:     "The target is punched with an electrified fist. It may also leave the target with paralysis.",
 	},
 	{
-		Name:            "ThunderShock",
-		functionCode:    "007",
+		Name:            "Thunder Shock",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Paralysis{})
+			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		},
 		Power:           40,
 		Type:            ELECTRIC,
 		Category:        special,
@@ -7210,7 +7384,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{attack: -1, defense: -1})
 		},
 		Type:        NORMAL,
-		Category:    status,
+		Category:    statusEffect,
 		Accuracy:    100,
 		PP:          20,
 		Target:      singleNotUser,
@@ -7222,7 +7396,7 @@ var moveData = []MoveData{
 		Name:         "Torment",
 		functionCode: "0B7",
 		Type:         DARK,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           15,
 		Target:       singleNotUser,
@@ -7234,7 +7408,7 @@ var moveData = []MoveData{
 		Name:         "Toxic Spikes",
 		functionCode: "104",
 		Type:         POISON,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           20,
 		Target:       opposingSide,
 		Priority:     0,
@@ -7244,8 +7418,15 @@ var moveData = []MoveData{
 	{
 		Name:         "Toxic",
 		functionCode: "006",
+		// TODO: Toxic will never miss if used by a Poison-type Pokémon,
+		// even during the semi-invulnerable turn of moves such as Fly and Dig.
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			badPoison := NewBadPoison()
+			success := t.setNonVolatile(badPoison)
+			log.nonVolatileCondition(t.Name, ti, success, badPoison)
+		},
 		Type:         POISON,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     90,
 		PP:           10,
 		Target:       singleNotUser,
@@ -7257,7 +7438,7 @@ var moveData = []MoveData{
 		Name:         "Transform",
 		functionCode: "069",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -7282,7 +7463,7 @@ var moveData = []MoveData{
 		Name:         "Trick Room",
 		functionCode: "11F",
 		Type:         PSYCHIC,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           5,
 		Target:       usersSide,
 		Priority:     -7,
@@ -7293,7 +7474,7 @@ var moveData = []MoveData{
 		Name:         "Trick",
 		functionCode: "0F2",
 		Type:         PSYCHIC,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           10,
 		Target:       singleNotUser,
@@ -7539,7 +7720,7 @@ var moveData = []MoveData{
 		Name:         "Water Sport",
 		functionCode: "09E",
 		Type:         WATER,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           15,
 		Target:       usersSide,
 		Priority:     0,
@@ -7603,7 +7784,7 @@ var moveData = []MoveData{
 		Name:         "Whirlwind",
 		functionCode: "0EB",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           20,
 		Target:       singleNotUser,
@@ -7615,7 +7796,7 @@ var moveData = []MoveData{
 		Name:         "Wide Guard",
 		functionCode: "0AC",
 		Type:         ROCK,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       bothSides,
 		Priority:     3,
@@ -7637,9 +7818,12 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Will-O-Wisp",
-		functionCode: "00A",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Burn{})
+			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		},
 		Type:         FIRE,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     75,
 		PP:           15,
 		Target:       singleNotUser,
@@ -7663,7 +7847,7 @@ var moveData = []MoveData{
 		Name:         "Wish",
 		functionCode: "0D7",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       user,
 		Priority:     0,
@@ -7676,7 +7860,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{defense: +1})
 		},
 		Type:        WATER,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          40,
 		Target:      user,
 		Priority:    0,
@@ -7687,7 +7871,7 @@ var moveData = []MoveData{
 		Name:         "Wonder Room",
 		functionCode: "124",
 		Type:         PSYCHIC,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       usersSide,
 		Priority:     -7,
@@ -7713,7 +7897,7 @@ var moveData = []MoveData{
 			changeStatStages(l, t, ti, Stats{attack: +1, spattack: +1})
 		},
 		Type:        NORMAL,
-		Category:    status,
+		Category:    statusEffect,
 		PP:          30,
 		Target:      user,
 		Priority:    0,
@@ -7724,7 +7908,7 @@ var moveData = []MoveData{
 		Name:         "Worry Seed",
 		functionCode: "064",
 		Type:         GRASS,
-		Category:     status,
+		Category:     statusEffect,
 		Accuracy:     100,
 		PP:           10,
 		Target:       singleNotUser,
@@ -7774,7 +7958,7 @@ var moveData = []MoveData{
 		Name:         "Yawn",
 		functionCode: "004",
 		Type:         NORMAL,
-		Category:     status,
+		Category:     statusEffect,
 		PP:           10,
 		Target:       singleNotUser,
 		Priority:     0,
@@ -7783,7 +7967,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Zap Cannon",
-		functionCode:    "007",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			success := t.setNonVolatile(Paralysis{})
+			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		},
 		Power:           120,
 		Type:            ELECTRIC,
 		Category:        special,

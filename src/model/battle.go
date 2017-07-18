@@ -45,13 +45,22 @@ func HandleMoves(b Battle, attemptedMoves []attemptedMove) error {
 			return err
 		}
 	}
+	for _, m := range sortedMoves {
+		HandlePostMoveEffect(b, m.Source)
+	}
 
 	return nil
 }
 
 func HandleMove(b Battle, m attemptedMove) error {
 	md := m.Move.Data
-	b.Log().logf("%s used %s!", m.Source.Name, md.Name)
+	b.Log().f("%s used %s!", m.Source.Name, md.Name)
+	if md.functionCode != "" {
+		b.Log().f("Debug: this move is not (fully) implemented")
+	}
+	if cantAttack := HandlePreMoveEffect(b, m.Source, m.SourceIndex); cantAttack {
+		return nil
+	}
 	for _, targetIndex := range b.getTargets(m.SourceIndex, m.TargetIndex, md.Target) {
 		target, err := b.pokemonAtIndex(targetIndex)
 		if err != nil {
@@ -59,13 +68,13 @@ func HandleMove(b Battle, m attemptedMove) error {
 		}
 		miss := determineHit(md, m.Source.Accuracy(), target.Evasion())
 		if miss {
-			b.Log().logf("%s's attack missed!", m.Source.Name)
+			b.Log().f("%s's attack missed!", m.Source.Name)
 			continue
 		}
 
-		if md.Category != status {
+		if md.Category != statusEffect {
 			dmg, t, crit := dealDamage(m.Source, target, md)
-			b.Log().logDamageWithMessages(target.Name, targetIndex, dmg, t, crit)
+			b.Log().damageWithMessages(target.Name, targetIndex, dmg, t, crit)
 			target.TakeDamage(dmg)
 		}
 
@@ -75,6 +84,20 @@ func HandleMove(b Battle, m attemptedMove) error {
 		md.effect(b.Log(), m.Source, target, m.SourceIndex, targetIndex)
 	}
 	return nil
+}
+
+func HandlePreMoveEffect(b Battle, p *Pokemon, index int) (cantAttack bool) {
+	if p.NonVolatileCondition == nil {
+		return false
+	}
+	return p.NonVolatileCondition.preMoveEffect(b.Log(), p, index)
+}
+
+func HandlePostMoveEffect(b Battle, p *Pokemon) {
+	if p.NonVolatileCondition == nil {
+		return
+	}
+	p.NonVolatileCondition.postMoveEffect(b.Log(), p)
 }
 
 //Semantics of Battle.total right now (prone to change):

@@ -88,7 +88,7 @@ func modifyStat(stat, stage int) float64 {
 
 func accuracyOrEvasionToMod(stage int) float64 {
 	if stage >= 0 {
-		return float64(stage+3) * 100 / 3.0
+		return float64(stage+3) / 3.0
 	}
-	return 300 / float64(3-stage)
+	return 3 / float64(3-stage)
 }

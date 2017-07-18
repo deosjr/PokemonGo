@@ -8,7 +8,6 @@ import (
 var random = rand.New(rand.NewSource(time.Now().UnixNano()))
 
 func MustLoadConfig() {
-	initTypeData()
 	initMoveData()
 	initSpeciesData()
 }

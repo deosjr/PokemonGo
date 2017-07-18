@@ -29,12 +29,6 @@ func TestHandleMoveSingleBattle(t *testing.T) {
 			logs:   []battleLog{damageLog{Index: 1}},
 		},
 		{
-			source: testPokemon{100, PONYTA},
-			target: testPokemon{10, CHARMANDER},
-			move:   FLAMETHROWER,
-			logs:   []battleLog{damageLog{Index: 1}},
-		},
-		{
 			source: testPokemon{5, CHARMANDER},
 			target: testPokemon{5, BULBASAUR},
 			move:   GROWL,
@@ -47,6 +41,14 @@ func TestHandleMoveSingleBattle(t *testing.T) {
 			logs: []battleLog{
 				damageLog{Index: 1},
 				statStageLog{Index: 0, Changes: Stats{speed: +1}},
+			},
+		},
+		{
+			source: testPokemon{5, PIKACHU},
+			target: testPokemon{5, RATTATA},
+			move:   THUNDERWAVE,
+			logs: []battleLog{
+				nonVolatileConditionLog{Index: 1, Condition: Paralysis{}},
 			},
 		},
 	} {
@@ -75,9 +77,9 @@ func TestMovePriority(t *testing.T) {
 		logs       []battleLog
 	}{
 		{
-			source:     testPokemon{10, PIKACHU},
+			source:     testPokemon{10, RATTATA},
 			target:     testPokemon{10, RATTATA},
-			sourceMove: SPARK,
+			sourceMove: TACKLE,
 			targetMove: QUICKATTACK,
 			logs:       []battleLog{damageLog{Index: 0}, damageLog{Index: 1}},
 		},

@@ -18,24 +18,24 @@ func NewLogger() *Logger {
 	//b.logf("P2: %+v", b.pokemon[1])
 }
 
-func (l *Logger) nextTurn() {
-	l.turn++
+func (log *Logger) nextTurn() {
+	log.turn++
 }
 
-func (l *Logger) Turn() int {
-	return l.turn
+func (log *Logger) Turn() int {
+	return log.turn
 }
 
 type battleLog interface {
 	replay(Battle) string
 }
 
-func (l *Logger) addToLogs(bl battleLog) {
-	if list, ok := l.logs[l.turn]; ok {
-		l.logs[l.turn] = append(list, bl)
+func (log *Logger) add(bl battleLog) {
+	if list, ok := log.logs[log.turn]; ok {
+		log.logs[log.turn] = append(list, bl)
 		return
 	}
-	l.logs[l.turn] = []battleLog{bl}
+	log.logs[log.turn] = []battleLog{bl}
 }
 
 type textLog struct {
@@ -57,26 +57,26 @@ func (l damageLog) replay(b Battle) string {
 	return fmt.Sprintf("Debug: %s took %d damage!", target.Name, l.Damage)
 }
 
-func (l *Logger) logf(f string, s ...interface{}) {
-	l.addToLogs(textLog{fmt.Sprintf(f, s...)})
+func (log *Logger) f(f string, s ...interface{}) {
+	log.add(textLog{fmt.Sprintf(f, s...)})
 }
 
-func (l *Logger) logDamage(index, damage int) {
-	l.addToLogs(damageLog{index, damage})
+func (log *Logger) damage(index, damage int) {
+	log.add(damageLog{index, damage})
 }
 
-func (l *Logger) logDamageWithMessages(name string, index, dmg int, t, crit float64) {
-	l.logDamage(index, dmg)
+func (log *Logger) damageWithMessages(name string, index, dmg int, t, crit float64) {
+	log.damage(index, dmg)
 	if crit > 1 {
-		l.logf("Critical hit!")
+		log.f("Critical hit!")
 	}
 	switch {
 	case t == 0:
-		l.logf("It doesn't affect %s.", name)
+		log.f("It doesn't affect %s.", name)
 	case t > 1:
-		l.logf("It's super effective!")
+		log.f("It's super effective!")
 	case t < 1:
-		l.logf("It's not very effective..")
+		log.f("It's not very effective..")
 	}
 }
 
@@ -103,8 +103,8 @@ func sharply(n int) string {
 
 var statNames = []string{"attack", "defense", "special attack", "special defense", "speed"}
 
-func (l *Logger) logStatStages(name string, index int, changes Stats, maxed [6]bool) {
-	l.addToLogs(statStageLog{index, changes})
+func (log *Logger) statStages(name string, index int, changes Stats, maxed [6]bool) {
+	log.add(statStageLog{index, changes})
 	for i, v := range changes.stats() {
 		if i == 0 {
 			continue
@@ -112,20 +112,51 @@ func (l *Logger) logStatStages(name string, index int, changes Stats, maxed [6]b
 		statName := statNames[i-1]
 		if v > 0 {
 			if maxed[i] {
-				l.logf("%s's %s won't go any higher!", name, statName)
+				log.f("%s's %s won't go any higher!", name, statName)
 				continue
 			}
-			l.logf("%s's %s%s rose!", name, statName, sharply(v))
+			log.f("%s's %s%s rose!", name, statName, sharply(v))
 			continue
 		}
 		if v < 0 {
 			if maxed[i] {
-				l.logf("%s's %s won't go any lower!", name, statName)
+				log.f("%s's %s won't go any lower!", name, statName)
 				continue
 			}
-			l.logf("%s's %s%s fell!", name, statName, sharply(v))
+			log.f("%s's %s%s fell!", name, statName, sharply(v))
 		}
 	}
+}
+
+type volatileConditionLog struct {
+	Index     int               `json:"index"`
+	Condition VolatileCondition `json:"condition"`
+}
+
+func (l volatileConditionLog) replay(b Battle) string {
+	return "TODO"
+}
+
+func (log *Logger) volatileCondition() {
+
+}
+
+type nonVolatileConditionLog struct {
+	Index     int                  `json:"index"`
+	Condition NonVolatileCondition `json:"condition"`
+}
+
+func (l nonVolatileConditionLog) replay(b Battle) string {
+	return "TODO"
+}
+
+func (log *Logger) nonVolatileCondition(name string, index int, success bool, condition NonVolatileCondition) {
+	if !success {
+		log.f("%s is already %s", name, condition.name())
+		return
+	}
+	log.add(nonVolatileConditionLog{Index: index, Condition: condition})
+	log.f(condition.initMessage(), name)
 }
 
 // ugly catch-all log for edge cases
@@ -139,8 +170,8 @@ func (l genericUpdateLog) replay(b Battle) string {
 	return fmt.Sprintf("Debug: TODO!")
 }
 
-func (l *Logger) Logs() map[int][]battleLog {
-	return l.logs
+func (log *Logger) Logs() map[int][]battleLog {
+	return log.logs
 }
 
 //TODO: func loadBattleFromLog(string) *Battle
