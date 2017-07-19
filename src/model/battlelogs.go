@@ -81,50 +81,72 @@ func (log *Logger) damageWithMessages(name string, index, dmg int, t, crit float
 }
 
 type statStageLog struct {
-	Index   int   `json:"index"`
-	Changes Stats `json:"statStageChanges"`
+	Index    int   `json:"index"`
+	Changes  Stats `json:"statStageChanges"`
+	Accuracy int   `json:"accuracy"`
+	Evasion  int   `json:"evasion"`
 }
 
 func (l statStageLog) replay(b Battle) string {
 	target, _ := b.pokemonAtIndex(l.Index)
-	effectiveChanges, _ := target.ChangeStatStages(l.Changes)
-	return fmt.Sprintf("Debug: %s changed stats: %v!", target.Name, effectiveChanges)
+	target.ChangeStatStages(l.Changes)
+	target.ChangeAccuracy(l.Accuracy)
+	target.ChangeEvasion(l.Evasion)
+	return fmt.Sprintf("Debug: %s changed stats: %v %d %d!", target.Name, target.Stats, target.accuracyStage, target.evasionStage)
 }
 
 func sharply(n int) string {
-	if n > 1 {
-		return " sharply"
+	if n > 3 {
+		n = 3
 	}
-	if n < -1 {
-		return " harshly"
+	if n < -3 {
+		n = -3
 	}
-	return ""
+	switch n {
+	case 1:
+		return "rose"
+	case 2:
+		return "sharply rose"
+	case 3:
+		return "rose drastically"
+	case -1:
+		return "fell"
+	case -2:
+		return "sharply fell"
+	case -3:
+		return "severely fell"
+	default:
+		return ""
+	}
 }
 
 var statNames = []string{"attack", "defense", "special attack", "special defense", "speed"}
 
 func (log *Logger) statStages(name string, index int, changes Stats, maxed [6]bool) {
-	log.add(statStageLog{index, changes})
+	log.add(statStageLog{Index: index, Changes:changes})
 	for i, v := range changes.stats() {
 		if i == 0 {
+			// ignore HP
 			continue
 		}
-		statName := statNames[i-1]
-		if v > 0 {
-			if maxed[i] {
-				log.f("%s's %s won't go any higher!", name, statName)
-				continue
-			}
-			log.f("%s's %s%s rose!", name, statName, sharply(v))
-			continue
+		log.statStage(name, index, statNames[i-1], v, maxed[i])
+	}
+}
+func (log *Logger) statStage(name string, index int, statName string, change int, maxed bool) {
+	if change > 0 {
+		if maxed {
+			log.f("%s's %s won't go any higher!", name, statName)
+			return
 		}
-		if v < 0 {
-			if maxed[i] {
-				log.f("%s's %s won't go any lower!", name, statName)
-				continue
-			}
-			log.f("%s's %s%s fell!", name, statName, sharply(v))
+		log.f("%s's %s %s!", name, statName, sharply(change))
+		return
+	}
+	if change < 0 {
+		if maxed {
+			log.f("%s's %s won't go any lower!", name, statName)
+			return
 		}
+		log.f("%s's %s %s!", name, statName, sharply(change))
 	}
 }
 
@@ -167,6 +189,8 @@ type genericUpdateLog struct {
 }
 
 func (l genericUpdateLog) replay(b Battle) string {
+	target, _ := b.pokemonAtIndex(l.Index)
+	target.statStages = l.StatStages
 	return fmt.Sprintf("Debug: TODO!")
 }
 

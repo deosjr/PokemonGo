@@ -59,6 +59,14 @@ func (p *Pokemon) ChangeStatStages(changes Stats) (Stats, [6]bool) {
 	p.statStages = newStages
 	return effectiveChanges, maxed
 }
+func (p *Pokemon) ChangeAccuracy(change int) (effective int, maxed bool) {
+	p.accuracyStage, effective, maxed = validStatStage(p.accuracyStage, change)
+	return effective, maxed
+}
+func (p *Pokemon) ChangeEvasion(change int) (effective int, maxed bool) {
+	p.evasionStage, effective, maxed = validStatStage(p.evasionStage, change)
+	return effective, maxed
+}
 
 // Returns modified stat rounded down to an int
 func (p *Pokemon) Attack() int {

@@ -120,6 +120,18 @@ func changeStatStages(log *Logger, p *Pokemon, index int, changes Stats) {
 	log.statStages(p.Name, index, effectiveChanges, maxed)
 }
 
+func changeAccuracy(log *Logger, p *Pokemon, index int, change int) {
+	effectiveChanges, maxed := p.ChangeAccuracy(change)
+	log.add(statStageLog{Index: index, Accuracy: effectiveChanges})
+	log.statStage(p.Name, index, "accuracy", effectiveChanges, maxed)
+}
+
+func changeEvasion(log *Logger, p *Pokemon, index int, change int) {
+	effectiveChanges, maxed := p.ChangeEvasion(change)
+	log.add(statStageLog{Index: index, Evasion: effectiveChanges})
+	log.statStage(p.Name, index, "evasion", effectiveChanges, maxed)
+}
+
 func fixedDamage(damage int, typ pType, target *Pokemon) (int, float64, float64) {
 	t := typeEffectiveness(typ, target.getSpecies().Types)
 	if t == 0 {

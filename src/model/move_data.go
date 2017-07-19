@@ -1358,6 +1358,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Bulldoze",
+		// TODO: For Bulldoze only, power is halved if Grassy Terrain is in effect.
 		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
 			changeStatStages(l, t, ti, Stats{speed: -1})
 		},
@@ -1453,6 +1454,8 @@ var moveData = []MoveData{
 	{
 		Name:         "Charge",
 		functionCode: "021",
+		// TODO: Until the end of the next round, the power of the user's damaging Electric attacks is doubled.
+		// The effect ends if the user is switched out.
 		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
 			changeStatStages(l, t, ti, Stats{spdefense: +1})
 		},
@@ -1563,9 +1566,9 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Coil",
-		functionCode: "025",
 		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
 			changeStatStages(l, t, ti, Stats{attack: +1, defense: +1})
+			changeAccuracy(l, t, ti, +1)
 		},
 		Type:        POISON,
 		Category:    statusEffect,
@@ -1884,6 +1887,8 @@ var moveData = []MoveData{
 	{
 		Name:         "Defense Curl",
 		functionCode: "01E",
+		// TODO: The user curls up (making the user's Ice Ball/Rollout do double damage),
+		// even if Defense is not boosted. Curling up is not cumulative.
 		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
 			changeStatStages(l, t, ti, Stats{defense: +1})
 		},
@@ -2038,7 +2043,9 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Double Team",
-		functionCode: "022",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			changeEvasion(log, s, si, +1)
+		},
 		Type:         NORMAL,
 		Category:     statusEffect,
 		PP:           15,
@@ -2805,7 +2812,9 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Flash",
-		functionCode: "047",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			changeAccuracy(log, t, ti, -1)
+		},
 		Type:         NORMAL,
 		Category:     statusEffect,
 		Accuracy:     100,
@@ -3605,9 +3614,9 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Hone Claws",
-		functionCode: "029",
 		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
 			changeStatStages(l, t, ti, Stats{attack: +1})
+			changeAccuracy(l, t, ti, +1)
 		},
 		Type:        DARK,
 		Category:    statusEffect,
@@ -4027,7 +4036,9 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Kinesis",
-		functionCode: "047",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			changeAccuracy(log, t, ti, -1)
+		},
 		Type:         PSYCHIC,
 		Category:     statusEffect,
 		Accuracy:     80,
@@ -4110,7 +4121,9 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Leaf Tornado",
-		functionCode:    "047",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			changeAccuracy(log, t, ti, -1)
+		},
 		Power:           65,
 		Type:            GRASS,
 		Category:        special,
@@ -4577,6 +4590,9 @@ var moveData = []MoveData{
 	{
 		Name:         "Minimize",
 		functionCode: "034",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			changeEvasion(log, t, ti, +2)
+		},
 		Type:         NORMAL,
 		Category:     statusEffect,
 		PP:           20,
@@ -4622,7 +4638,9 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Mirror Shot",
-		functionCode:    "047",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			changeAccuracy(log, t, ti, -1)
+		},
 		Power:           65,
 		Type:            STEEL,
 		Category:        special,
@@ -4685,7 +4703,9 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Mud Bomb",
-		functionCode:    "047",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			changeAccuracy(log, t, ti, -1)
+		},
 		Power:           65,
 		Type:            GROUND,
 		Category:        special,
@@ -4726,7 +4746,9 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Mud-Slap",
-		functionCode:    "047",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			changeAccuracy(log, t, ti, -1)
+		},
 		Power:           20,
 		Type:            GROUND,
 		Category:        special,
@@ -4740,7 +4762,9 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Muddy Water",
-		functionCode:    "047",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			changeAccuracy(log, t, ti, -1)
+		},
 		Power:           95,
 		Type:            WATER,
 		Category:        special,
@@ -4805,7 +4829,9 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Night Daze",
-		functionCode:    "047",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			changeAccuracy(log, t, ti, -1)
+		},
 		Power:           85,
 		Type:            DARK,
 		Category:        special,
@@ -4858,7 +4884,9 @@ var moveData = []MoveData{
 	},
 	{
 		Name:            "Octazooka",
-		functionCode:    "047",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			changeAccuracy(log, t, ti, -1)
+		},
 		Power:           65,
 		Type:            WATER,
 		Category:        special,
@@ -5918,7 +5946,9 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Sand-Attack",
-		functionCode: "047",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			changeAccuracy(log, t, ti, -1)
+		},
 		Type:         GROUND,
 		Category:     statusEffect,
 		Accuracy:     100,
@@ -6517,8 +6547,10 @@ var moveData = []MoveData{
 		Description:     "The target is attacked with a discharge of filthy gases. It may also poison the target.",
 	},
 	{
-		Name:         "SmokeScreen",
-		functionCode: "047",
+		Name:         "Smokescreen",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			changeAccuracy(log, t, ti, -1)
+		},
 		Type:         NORMAL,
 		Category:     statusEffect,
 		Accuracy:     100,
@@ -7047,7 +7079,10 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Sweet Scent",
-		functionCode: "048",
+		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+			// TODO: Gen 6: Decreases the target's evasiveness by 2 stages instead.
+			changeEvasion(log, t, ti, -1)
+		},
 		Type:         NORMAL,
 		Category:     statusEffect,
 		Accuracy:     100,

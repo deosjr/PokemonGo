@@ -22,33 +22,31 @@ func (s Stats) stats() [6]int {
 
 func (s Stats) updateStages(changes Stats) (Stats, Stats, [6]bool) {
 	newStages := [6]int{}
-	effectiveChanges := [6]int{}
-	maxedOut := [6]bool{}
+	effective := [6]int{}
+	maxed := [6]bool{}
 	stats, changeStats := s.stats(), changes.stats()
 	for i := 0; i < 6; i++ {
-		changedStat, maxed := validStatStage(stats[i], changeStats[i])
-		effectiveChanges[i] = changedStat - stats[i]
-		newStages[i] = changedStat
-		maxedOut[i] = maxed
+		newStages[i], effective[i], maxed[i] = validStatStage(stats[i], changeStats[i])
 	}
-	return GetStats(newStages), GetStats(effectiveChanges), maxedOut
+	return GetStats(newStages), GetStats(effective), maxed
 }
 
-func validStatStage(stage, change int) (effect int, maxed bool) {
+func validStatStage(stage, change int) (changed, effective int, maxed bool) {
 	switch {
 	case stage == 6 && change > 0:
-		return 6, true
+		return 6, 0, true
 	case stage == -6 && change < 0:
-		return -6, true
+		return -6, 0, true
 	default:
-		changed := stage + change
+		totalChanged := stage + change
+		effective = totalChanged - stage
 		switch {
-		case changed > 6:
-			return 6, false
-		case changed < -6:
-			return -6, false
+		case totalChanged > 6:
+			return 6, effective, false
+		case totalChanged < -6:
+			return -6, effective, false
 		default:
-			return changed, false
+			return totalChanged, effective, false
 		}
 	}
 }
