@@ -115,27 +115,15 @@ func sortMoves(unsorted []attemptedMove) []attemptedMove {
 	return moves
 }
 
-func changeStatStages(log *Logger, p *Pokemon, index int, changes Stats) {
-	effectiveChanges, maxed := p.ChangeStatStages(changes)
-	log.statStages(p.Name, index, effectiveChanges, maxed)
-}
-
-func changeAccuracy(log *Logger, p *Pokemon, index int, change int) {
-	effectiveChanges, maxed := p.ChangeAccuracy(change)
-	log.add(statStageLog{Index: index, Accuracy: effectiveChanges})
-	log.statStage(p.Name, index, "accuracy", effectiveChanges, maxed)
-}
-
-func changeEvasion(log *Logger, p *Pokemon, index int, change int) {
-	effectiveChanges, maxed := p.ChangeEvasion(change)
-	log.add(statStageLog{Index: index, Evasion: effectiveChanges})
-	log.statStage(p.Name, index, "evasion", effectiveChanges, maxed)
-}
-
-func fixedDamage(damage int, typ pType, target *Pokemon) (int, float64, float64) {
-	t := typeEffectiveness(typ, target.getSpecies().Types)
-	if t == 0 {
-		return 0, 0, 1
+func min(a, b int) int {
+	if a < b {
+		return a
 	}
-	return damage, 1, 1
+	return b
+}
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }

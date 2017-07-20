@@ -23,9 +23,9 @@ func TestHandleMoveSingleBattle(t *testing.T) {
 			logs:   []battleLog{damageLog{Index: 1}},
 		},
 		{
-			source: testPokemon{10, CHARMANDER},
-			target: testPokemon{10, BULBASAUR},
-			move:   EMBER,
+			source: testPokemon{10, SQUIRTLE},
+			target: testPokemon{10, CHARMANDER},
+			move:   WATERGUN,
 			logs:   []battleLog{damageLog{Index: 1}},
 		},
 		{

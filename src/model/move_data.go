@@ -594,21 +594,23 @@ const (
 
 var moveData = []MoveData{
 	{
-		Name:         "Absorb",
-		functionCode: "0DD",
-		Power:        20,
-		Type:         GRASS,
-		Category:     special,
-		Accuracy:     100,
-		PP:           25,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "be",
-		Description:  "A nutrient-draining attack. The user's HP is restored by half the damage taken by the target.",
+		Name: "Absorb",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			drain(log, s, dmg, t.Name)
+		},
+		Power:       20,
+		Type:        GRASS,
+		Category:    special,
+		Accuracy:    100,
+		PP:          25,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "be",
+		Description: "A nutrient-draining attack. The user's HP is restored by half the damage taken by the target.",
 	},
 	{
 		Name: "Acid Armor",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{defense: +2})
 		},
 		Type:        POISON,
@@ -621,7 +623,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Acid Spray",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{spdefense: -2})
 		},
 		Power:           40,
@@ -637,7 +639,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Acid",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{spdefense: -1})
 		},
 		Power:           40,
@@ -711,7 +713,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Agility",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{speed: +2})
 		},
 		Type:        PSYCHIC,
@@ -761,7 +763,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Amnesia",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{spdefense: +2})
 		},
 		Type:        PSYCHIC,
@@ -774,7 +776,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Ancient Power",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, s, si, Stats{attack: +1, defense: +1, speed: +1, spattack: +1, spdefense: +1})
 		},
 		Power:           60,
@@ -922,7 +924,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Aurora Beam",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{attack: -1})
 		},
 		Power:           65,
@@ -939,7 +941,7 @@ var moveData = []MoveData{
 	{
 		Name:         "Autotomize",
 		functionCode: "031",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{speed: +2})
 		},
 		Type:        STEEL,
@@ -978,7 +980,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Barrier",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{defense: +2})
 		},
 		Type:        PSYCHIC,
@@ -1088,10 +1090,9 @@ var moveData = []MoveData{
 		Description:  "The target is razed by a fiery explosion. The user must rest on the next turn, however.",
 	},
 	{
-		Name:            "Blaze Kick",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Burn{})
-			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		Name: "Blaze Kick",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Burn{})
 		},
 		Power:           85,
 		Type:            FIRE,
@@ -1105,11 +1106,10 @@ var moveData = []MoveData{
 		Description:     "The user launches a kick that lands a critical hit more easily. It may also leave the target with a burn.",
 	},
 	{
-		Name:            "Blizzard",
-		functionCode:    "00D",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Freeze{})
-			log.nonVolatileCondition(t.Name, ti, success, Freeze{})
+		Name:         "Blizzard",
+		functionCode: "00D",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Freeze{})
 		},
 		Power:           120,
 		Type:            ICE,
@@ -1134,12 +1134,11 @@ var moveData = []MoveData{
 		Description:  "The user blocks the target's way with arms spread wide to prevent escape.",
 	},
 	{
-		Name:            "Blue Flare",
-		functionCode:    "00A",
+		Name:         "Blue Flare",
+		functionCode: "00A",
 		// TODO: For Blue Flare only, will double the power of the next Fusion Bolt used this round.
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Burn{})
-			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Burn{})
 		},
 		Power:           130,
 		Type:            FIRE,
@@ -1153,11 +1152,10 @@ var moveData = []MoveData{
 		Description:     "The user attacks by engulfing the target in an intense, yet beautiful, blue flame. It may leave the target with a burn.",
 	},
 	{
-		Name:            "Body Slam",
+		Name: "Body Slam",
 		// TODO: Gen 6: For Body Slam only, power is doubled and accuracy is perfect if the target is Minimized.
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Paralysis{})
-			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Paralysis{})
 		},
 		Power:           85,
 		Type:            NORMAL,
@@ -1171,12 +1169,11 @@ var moveData = []MoveData{
 		Description:     "The user drops onto the target with its full body weight. It may leave the target with paralysis.",
 	},
 	{
-		Name:            "Bolt Strike",
-		functionCode:    "007",
+		Name:         "Bolt Strike",
+		functionCode: "007",
 		// TODO: For Bolt Strike only, will double the power of the next Fusion Flare used this round.
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Paralysis{})
-			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Paralysis{})
 		},
 		Power:           130,
 		Type:            ELECTRIC,
@@ -1284,7 +1281,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Bubble",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{speed: -1})
 		},
 		Power:           20,
@@ -1300,7 +1297,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Bubble Beam",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{speed: -1})
 		},
 		Power:           65,
@@ -1329,7 +1326,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Bug Buzz",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{spdefense: -1})
 		},
 		Power:           90,
@@ -1345,7 +1342,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Bulk Up",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{attack: +1, defense: +1})
 		},
 		Type:        FIGHTING,
@@ -1359,7 +1356,7 @@ var moveData = []MoveData{
 	{
 		Name: "Bulldoze",
 		// TODO: For Bulldoze only, power is halved if Grassy Terrain is in effect.
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{speed: -1})
 		},
 		Power:           60,
@@ -1400,10 +1397,9 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Calm Mind",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{spattack: +1, spdefense: +1})
 		},
-		//statStageChanges: Stats{spattack: +1, spdefense: +1},
 		Type:        PSYCHIC,
 		Category:    statusEffect,
 		PP:          20,
@@ -1437,7 +1433,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Charge Beam",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, s, si, Stats{spattack: +1})
 		},
 		Power:           50,
@@ -1456,7 +1452,7 @@ var moveData = []MoveData{
 		functionCode: "021",
 		// TODO: Until the end of the next round, the power of the user's damaging Electric attacks is doubled.
 		// The effect ends if the user is switched out.
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{spdefense: +1})
 		},
 		Type:        ELECTRIC,
@@ -1469,7 +1465,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Charm",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{attack: -2})
 		},
 		Type:        NORMAL,
@@ -1535,7 +1531,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Clear Smog",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
 			t.statStages = emptyStages
 			log.add(genericUpdateLog{Index: ti, StatStages: emptyStages})
 			log.f("%s's stat changes were removed!", t.Name)
@@ -1551,7 +1547,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Close Combat",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, s, si, Stats{defense: -1, spdefense: -1})
 		},
 		Power:       120,
@@ -1565,8 +1561,8 @@ var moveData = []MoveData{
 		Description: "The user fights the target up close without guarding itself. It also cuts the user's Defense and Sp. Def.",
 	},
 	{
-		Name:         "Coil",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		Name: "Coil",
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{attack: +1, defense: +1})
 			changeAccuracy(l, t, ti, +1)
 		},
@@ -1619,7 +1615,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Constrict",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{speed: -1})
 		},
 		Power:           10,
@@ -1668,7 +1664,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Cosmic Power",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{defense: +1, spdefense: +1})
 		},
 		Type:        PSYCHIC,
@@ -1681,7 +1677,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Cotton Guard",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{defense: +3})
 		},
 		Type:        GRASS,
@@ -1694,7 +1690,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Cotton Spore",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{speed: -2})
 		},
 		Type:        GRASS,
@@ -1757,10 +1753,9 @@ var moveData = []MoveData{
 		Description: "The user delivers a double chop with its forearms crossed. Critical hits land more easily.",
 	},
 	{
-		Name:            "Cross Poison",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Poison{})
-			log.nonVolatileCondition(t.Name, ti, success, Poison{})
+		Name: "Cross Poison",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Poison{})
 		},
 		Power:           70,
 		Type:            POISON,
@@ -1775,7 +1770,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Crunch",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{defense: -1})
 		},
 		Power:           80,
@@ -1791,7 +1786,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Crush Claw",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{defense: -1})
 		},
 		Power:           75,
@@ -1857,10 +1852,8 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Dark Void",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			sleep := NewSleep()
-			success := t.setNonVolatile(sleep)
-			log.nonVolatileCondition(t.Name, ti, success, sleep)
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, NewSleep())
 		},
 		Type:        DARK,
 		Category:    statusEffect,
@@ -1873,7 +1866,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Defend Order",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{defense: +1, spdefense: +1})
 		},
 		Type:        BUG,
@@ -1889,7 +1882,7 @@ var moveData = []MoveData{
 		functionCode: "01E",
 		// TODO: The user curls up (making the user's Ice Ball/Rollout do double damage),
 		// even if Defense is not boosted. Curling up is not cumulative.
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{defense: +1})
 		},
 		Type:        NORMAL,
@@ -1959,10 +1952,9 @@ var moveData = []MoveData{
 		Description:  "For four turns, this move prevents the target from using the move it last used.",
 	},
 	{
-		Name:            "Discharge",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Paralysis{})
-			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		Name: "Discharge",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Paralysis{})
 		},
 		Power:           80,
 		Type:            ELECTRIC,
@@ -2042,17 +2034,17 @@ var moveData = []MoveData{
 		Description:  "The target is quickly kicked twice in succession using both feet.",
 	},
 	{
-		Name:         "Double Team",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+		Name: "Double Team",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeEvasion(log, s, si, +1)
 		},
-		Type:         NORMAL,
-		Category:     statusEffect,
-		PP:           15,
-		Target:       user,
-		Priority:     0,
-		Flags:        "d",
-		Description:  "By moving rapidly, the user makes illusory copies of itself to raise its evasiveness.",
+		Type:        NORMAL,
+		Category:    statusEffect,
+		PP:          15,
+		Target:      user,
+		Priority:    0,
+		Flags:       "d",
+		Description: "By moving rapidly, the user makes illusory copies of itself to raise its evasiveness.",
 	},
 	{
 		Name:         "Double-Edge",
@@ -2082,7 +2074,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Draco Meteor",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, s, si, Stats{spattack: -2})
 		},
 		Power:           140,
@@ -2110,7 +2102,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Dragon Dance",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{attack: +1, speed: +1})
 		},
 		Type:        DRAGON,
@@ -2176,10 +2168,9 @@ var moveData = []MoveData{
 		Description:  "The user knocks away the target and drags out another Pokémon in its party. In the wild, the battle ends.",
 	},
 	{
-		Name:            "Dragon Breath",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Paralysis{})
-			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		Name: "Dragon Breath",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Paralysis{})
 		},
 		Power:           60,
 		Type:            DRAGON,
@@ -2193,30 +2184,36 @@ var moveData = []MoveData{
 		Description:     "The user exhales a mighty gust that inflicts damage. It may also leave the target with paralysis.",
 	},
 	{
-		Name:         "Drain Punch",
-		functionCode: "0DD",
-		Power:        75,
-		Type:         FIGHTING,
-		Category:     physical,
-		Accuracy:     100,
-		PP:           10,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "abefj",
-		Description:  "An energy-draining punch. The user's HP is restored by half the damage taken by the target.",
+		Name: "Drain Punch",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			drain(log, s, dmg, t.Name)
+		},
+		Power:       75,
+		Type:        FIGHTING,
+		Category:    physical,
+		Accuracy:    100,
+		PP:          10,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "abefj",
+		Description: "An energy-draining punch. The user's HP is restored by half the damage taken by the target.",
 	},
 	{
 		Name:         "Dream Eater",
 		functionCode: "0DE",
-		Power:        100,
-		Type:         PSYCHIC,
-		Category:     special,
-		Accuracy:     100,
-		PP:           15,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "be",
-		Description:  "The user eats the dreams of a sleeping target. It absorbs half the damage caused to heal the user's HP.",
+		// TODO: Fails if the target is not asleep
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			drain(log, s, dmg, t.Name)
+		},
+		Power:       100,
+		Type:        PSYCHIC,
+		Category:    special,
+		Accuracy:    100,
+		PP:          15,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "be",
+		Description: "The user eats the dreams of a sleeping target. It absorbs half the damage caused to heal the user's HP.",
 	},
 	{
 		Name:        "Drill Peck",
@@ -2271,7 +2268,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Earth Power",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{spdefense: -1})
 		},
 		Power:           90,
@@ -2338,7 +2335,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Electroweb",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{speed: -1})
 		},
 		Power:       55,
@@ -2364,10 +2361,9 @@ var moveData = []MoveData{
 		Description:  "It prevents the target from using its held item. Its Trainer is also prevented from using items on it.",
 	},
 	{
-		Name:            "Ember",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Burn{})
-			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		Name: "Ember",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Burn{})
 		},
 		Power:           40,
 		Type:            FIRE,
@@ -2418,7 +2414,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Energy Ball",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{spdefense: -1})
 		},
 		Power:           80,
@@ -2536,7 +2532,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Fake Tears",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{spdefense: -2})
 		},
 		Type:        DARK,
@@ -2563,7 +2559,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Feather Dance",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{attack: -2})
 		},
 		Type:        FLYING,
@@ -2590,7 +2586,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Fiery Dance",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, s, si, Stats{spattack: +1})
 		},
 		Power:           80,
@@ -2618,10 +2614,9 @@ var moveData = []MoveData{
 		Description:  "The user risks everything to attack its target. The user faints but does damage equal to the user's HP.",
 	},
 	{
-		Name:            "Fire Blast",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Burn{})
-			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		Name: "Fire Blast",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Burn{})
 		},
 		Power:           120,
 		Type:            FIRE,
@@ -2662,10 +2657,9 @@ var moveData = []MoveData{
 		Description:  "A column of fire hits opposing Pokémon. When used with its Grass equivalent, its damage increases into a vast sea of fire.",
 	},
 	{
-		Name:            "Fire Punch",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Burn{})
-			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		Name: "Fire Punch",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Burn{})
 		},
 		Power:           75,
 		Type:            FIRE,
@@ -2732,7 +2726,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Flame Charge",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, s, si, Stats{speed: +1})
 		},
 		Power:           50,
@@ -2747,10 +2741,9 @@ var moveData = []MoveData{
 		Description:     "The user cloaks itself with flame and attacks. Building up more power, it raises the user's Speed stat.",
 	},
 	{
-		Name:            "Flame Wheel",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Burn{})
-			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		Name: "Flame Wheel",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Burn{})
 		},
 		Power:           60,
 		Type:            FIRE,
@@ -2764,10 +2757,9 @@ var moveData = []MoveData{
 		Description:     "The user cloaks itself in fire and charges at the target. It may also leave the target with a burn.",
 	},
 	{
-		Name:            "Flamethrower",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Burn{})
-			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		Name: "Flamethrower",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Burn{})
 		},
 		Power:           95,
 		Type:            FIRE,
@@ -2796,7 +2788,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Flash Cannon",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{spdefense: -1})
 		},
 		Power:           80,
@@ -2811,18 +2803,18 @@ var moveData = []MoveData{
 		Description:     "The user gathers all its light energy and releases it at once. It may also lower the target's Sp. Def stat.",
 	},
 	{
-		Name:         "Flash",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+		Name: "Flash",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeAccuracy(log, t, ti, -1)
 		},
-		Type:         NORMAL,
-		Category:     statusEffect,
-		Accuracy:     100,
-		PP:           20,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "bce",
-		Description:  "The user flashes a light that cuts the target's accuracy. It can also be used to illuminate caves.",
+		Type:        NORMAL,
+		Category:    statusEffect,
+		Accuracy:    100,
+		PP:          20,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "bce",
+		Description: "The user flashes a light that cuts the target's accuracy. It can also be used to illuminate caves.",
 	},
 	{
 		Name:         "Flatter",
@@ -2864,7 +2856,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Focus Blast",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{spdefense: -1})
 		},
 		Power:           120,
@@ -2914,10 +2906,9 @@ var moveData = []MoveData{
 		Description:  "The user draws attention to itself, making all targets take aim only at the user.",
 	},
 	{
-		Name:            "Force Palm",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Paralysis{})
-			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		Name: "Force Palm",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Paralysis{})
 		},
 		Power:           60,
 		Type:            FIGHTING,
@@ -3111,17 +3102,19 @@ var moveData = []MoveData{
 		Description:  "The user attacks by throwing two steel gears at its target.",
 	},
 	{
-		Name:         "Giga Drain",
-		functionCode: "0DD",
-		Power:        75,
-		Type:         GRASS,
-		Category:     special,
-		Accuracy:     100,
-		PP:           10,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "be",
-		Description:  "A nutrient-draining attack. The user's HP is restored by half the damage taken by the target.",
+		Name: "Giga Drain",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			drain(log, s, dmg, t.Name)
+		},
+		Power:       75,
+		Type:        GRASS,
+		Category:    special,
+		Accuracy:    100,
+		PP:          10,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "be",
+		Description: "A nutrient-draining attack. The user's HP is restored by half the damage taken by the target.",
 	},
 	{
 		Name:         "Giga Impact",
@@ -3138,7 +3131,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Glaciate",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{speed: -1})
 		},
 		Power:           65,
@@ -3153,19 +3146,18 @@ var moveData = []MoveData{
 		Description:     "The user attacks by blowing freezing cold air at opposing Pokémon. This attack reduces the targets' Speed stat.",
 	},
 	{
-		Name:         "Glare",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Paralysis{})
-			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		Name: "Glare",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Paralysis{})
 		},
-		Type:         NORMAL,
-		Category:     statusEffect,
-		Accuracy:     90,
-		PP:           30,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "bce",
-		Description:  "The user intimidates the target with the pattern on its belly to cause paralysis.",
+		Type:        NORMAL,
+		Category:    statusEffect,
+		Accuracy:    90,
+		PP:          30,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "bce",
+		Description: "The user intimidates the target with the pattern on its belly to cause paralysis.",
 	},
 	{
 		Name:         "Grass Knot",
@@ -3195,10 +3187,8 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Grass Whistle",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			sleep := NewSleep()
-			success := t.setNonVolatile(sleep)
-			log.nonVolatileCondition(t.Name, ti, success, sleep)
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, NewSleep())
 		},
 		Type:        GRASS,
 		Category:    statusEffect,
@@ -3222,7 +3212,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Growl",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{attack: -1})
 		},
 		Type:        NORMAL,
@@ -3237,7 +3227,7 @@ var moveData = []MoveData{
 	{
 		Name:         "Growth",
 		functionCode: "028",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{attack: +1, spattack: +1})
 		},
 		Type:        NORMAL,
@@ -3272,7 +3262,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Guard Swap",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
 			s.statStages.defense, t.statStages.defense = t.statStages.defense, s.statStages.defense
 			s.statStages.spdefense, t.statStages.spdefense = t.statStages.spdefense, s.statStages.spdefense
 			log.add(genericUpdateLog{Index: si, StatStages: s.statStages})
@@ -3301,10 +3291,9 @@ var moveData = []MoveData{
 		Description:  "A vicious, tearing attack with big pincers. The target will faint instantly if this attack hits.",
 	},
 	{
-		Name:            "Gunk Shot",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Poison{})
-			log.nonVolatileCondition(t.Name, ti, success, Poison{})
+		Name: "Gunk Shot",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Poison{})
 		},
 		Power:           120,
 		Type:            POISON,
@@ -3356,7 +3345,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Hammer Arm",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, s, si, Stats{speed: -1})
 		},
 		Power:       100,
@@ -3371,7 +3360,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Harden",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{defense: +1})
 		},
 		Type:        NORMAL,
@@ -3459,17 +3448,24 @@ var moveData = []MoveData{
 	{
 		Name:         "Heal Order",
 		functionCode: "0D5",
-		Type:         BUG,
-		Category:     statusEffect,
-		PP:           10,
-		Target:       user,
-		Priority:     0,
-		Flags:        "di",
-		Description:  "The user calls out its underlings to heal it. The user regains up to half of its max HP.",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			healWithFail(log, s, s.Stats.hp / 2)
+		},
+		Type:        BUG,
+		Category:    statusEffect,
+		PP:          10,
+		Target:      user,
+		Priority:    0,
+		Flags:       "di",
+		Description: "The user calls out its underlings to heal it. The user regains up to half of its max HP.",
 	},
 	{
 		Name:         "Heal Pulse",
-		functionCode: "0DF",
+		// TODO: Fail if target has substitute
+		// cannot be used if USER is affected by Heal Block, NOT target!
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			healWithFail(log, t, t.Stats.hp / 2)
+		},
 		Type:         PSYCHIC,
 		Category:     statusEffect,
 		PP:           10,
@@ -3505,7 +3501,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Heart Swap",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
 			s.statStages, t.statStages = t.statStages, s.statStages
 			log.add(genericUpdateLog{Index: si, StatStages: s.statStages})
 			log.add(genericUpdateLog{Index: ti, StatStages: t.statStages})
@@ -3533,10 +3529,9 @@ var moveData = []MoveData{
 		Description:  "The user slams its target with its flame-covered body. The more the user outweighs the target, the greater the damage.",
 	},
 	{
-		Name:            "Heat Wave",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Burn{})
-			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		Name: "Heat Wave",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Burn{})
 		},
 		Power:           100,
 		Type:            FIRE,
@@ -3613,8 +3608,8 @@ var moveData = []MoveData{
 		Description:  "A unique attack that varies in type and intensity depending on the Pokémon using it.",
 	},
 	{
-		Name:         "Hone Claws",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		Name: "Hone Claws",
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{attack: +1})
 			changeAccuracy(l, t, ti, +1)
 		},
@@ -3652,21 +3647,23 @@ var moveData = []MoveData{
 		Description:  "The user stabs the target with a horn that rotates like a drill. If it hits, the target faints instantly.",
 	},
 	{
-		Name:         "Horn Leech",
-		functionCode: "0DD",
-		Power:        75,
-		Type:         GRASS,
-		Category:     physical,
-		Accuracy:     100,
-		PP:           10,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "abe",
-		Description:  "The user drains the target's energy with its horns. The user's HP is restored by half the damage taken by the target.",
+		Name: "Horn Leech",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			drain(log, s, dmg, t.Name)
+		},
+		Power:       75,
+		Type:        GRASS,
+		Category:    physical,
+		Accuracy:    100,
+		PP:          10,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "abe",
+		Description: "The user drains the target's energy with its horns. The user's HP is restored by half the damage taken by the target.",
 	},
 	{
 		Name: "Howl",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{attack: +1})
 		},
 		Type:        NORMAL,
@@ -3757,10 +3754,8 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Hypnosis",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			sleep := NewSleep()
-			success := t.setNonVolatile(sleep)
-			log.nonVolatileCondition(t.Name, ti, success, sleep)
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, NewSleep())
 		},
 		Type:        PSYCHIC,
 		Category:    statusEffect,
@@ -3785,10 +3780,9 @@ var moveData = []MoveData{
 		Description:  "The user continually rolls into the target over five turns. It becomes stronger each time it hits.",
 	},
 	{
-		Name:            "Ice Beam",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Freeze{})
-			log.nonVolatileCondition(t.Name, ti, success, Freeze{})
+		Name: "Ice Beam",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Freeze{})
 		},
 		Power:           95,
 		Type:            ICE,
@@ -3830,10 +3824,9 @@ var moveData = []MoveData{
 		Description:     "The user bites with cold-infused fangs. It may also make the target flinch or leave it frozen.",
 	},
 	{
-		Name:            "Ice Punch",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Freeze{})
-			log.nonVolatileCondition(t.Name, ti, success, Freeze{})
+		Name: "Ice Punch",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Freeze{})
 		},
 		Power:           75,
 		Type:            ICE,
@@ -3887,7 +3880,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Icy Wind",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{speed: -1})
 		},
 		Power:           55,
@@ -3926,10 +3919,9 @@ var moveData = []MoveData{
 		Description:  "The user attacks the target with fire. If the target is holding a Berry, the Berry becomes burnt up and unusable.",
 	},
 	{
-		Name:            "Inferno",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Burn{})
-			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		Name: "Inferno",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Burn{})
 		},
 		Power:           100,
 		Type:            FIRE,
@@ -3955,7 +3947,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Iron Defense",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{defense: +2})
 		},
 		Type:        STEEL,
@@ -3982,7 +3974,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Iron Tail",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{defense: -1})
 		},
 		Power:           100,
@@ -4035,18 +4027,18 @@ var moveData = []MoveData{
 		Description: "The target is attacked with a sharp chop. Critical hits land more easily.",
 	},
 	{
-		Name:         "Kinesis",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+		Name: "Kinesis",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeAccuracy(log, t, ti, -1)
 		},
-		Type:         PSYCHIC,
-		Category:     statusEffect,
-		Accuracy:     80,
-		PP:           15,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "bce",
-		Description:  "The user distracts the target by bending a spoon. It lowers the target's accuracy.",
+		Type:        PSYCHIC,
+		Category:    statusEffect,
+		Accuracy:    80,
+		PP:          15,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "bce",
+		Description: "The user distracts the target by bending a spoon. It lowers the target's accuracy.",
 	},
 	{
 		Name:         "Knock Off",
@@ -4075,10 +4067,9 @@ var moveData = []MoveData{
 		Description:  "This move can be used only after the user has used all the other moves it knows in the battle.",
 	},
 	{
-		Name:            "Lava Plume",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Burn{})
-			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		Name: "Lava Plume",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Burn{})
 		},
 		Power:           80,
 		Type:            FIRE,
@@ -4105,7 +4096,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Leaf Storm",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, s, si, Stats{spattack: -2})
 		},
 		Power:           140,
@@ -4120,8 +4111,8 @@ var moveData = []MoveData{
 		Description:     "The user whips up a storm of leaves around the target. The attack's recoil harshly reduces the user's Sp. Atk stat.",
 	},
 	{
-		Name:            "Leaf Tornado",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+		Name: "Leaf Tornado",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeAccuracy(log, t, ti, -1)
 		},
 		Power:           65,
@@ -4136,17 +4127,19 @@ var moveData = []MoveData{
 		Description:     "The user attacks its target by encircling it in sharp leaves. This attack may also lower the foe's accuracy.",
 	},
 	{
-		Name:         "Leech Life",
-		functionCode: "0DD",
-		Power:        20,
-		Type:         BUG,
-		Category:     physical,
-		Accuracy:     100,
-		PP:           15,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "abe",
-		Description:  "The user drains the target's blood. The user's HP is restored by half the damage taken by the target.",
+		Name: "Leech Life",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			drain(log, s, dmg, t.Name)
+		},
+		Power:       20,
+		Type:        BUG,
+		Category:    physical,
+		Accuracy:    100,
+		PP:          15,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "abe",
+		Description: "The user drains the target's blood. The user's HP is restored by half the damage taken by the target.",
 	},
 	{
 		Name:         "Leech Seed",
@@ -4162,7 +4155,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Leer",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{defense: -1})
 		},
 		Type:        NORMAL,
@@ -4175,10 +4168,9 @@ var moveData = []MoveData{
 		Description: "The opposing team gains an intimidating leer with sharp eyes. The opposing team's Defense stats are reduced.",
 	},
 	{
-		Name:            "Lick",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Paralysis{})
-			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		Name: "Lick",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Paralysis{})
 		},
 		Power:           20,
 		Type:            GHOST,
@@ -4215,10 +4207,8 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Lovely Kiss",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			sleep := NewSleep()
-			success := t.setNonVolatile(sleep)
-			log.nonVolatileCondition(t.Name, ti, success, sleep)
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, NewSleep())
 		},
 		Type:        NORMAL,
 		Category:    statusEffect,
@@ -4244,7 +4234,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Low Sweep",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{speed: -1})
 		},
 		Power:       60,
@@ -4281,7 +4271,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Luster Purge",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{spdefense: -1})
 		},
 		Power:           70,
@@ -4412,7 +4402,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Meditate",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{attack: +1})
 		},
 		Type:        PSYCHIC,
@@ -4424,17 +4414,19 @@ var moveData = []MoveData{
 		Description: "The user meditates to awaken the power deep within its body and raise its Attack stat.",
 	},
 	{
-		Name:         "Mega Drain",
-		functionCode: "0DD",
-		Power:        40,
-		Type:         GRASS,
-		Category:     special,
-		Accuracy:     100,
-		PP:           15,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "be",
-		Description:  "A nutrient-draining attack. The user's HP is restored by half the damage taken by the target.",
+		Name: "Mega Drain",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			drain(log, s, dmg, t.Name)
+		},
+		Power:       40,
+		Type:        GRASS,
+		Category:    special,
+		Accuracy:    100,
+		PP:          15,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "be",
+		Description: "A nutrient-draining attack. The user's HP is restored by half the damage taken by the target.",
 	},
 	{
 		Name:        "Mega Kick",
@@ -4499,7 +4491,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Metal Claw",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, s, si, Stats{attack: +1})
 		},
 		Power:           50,
@@ -4515,7 +4507,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Metal Sound",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{spdefense: -2})
 		},
 		Type:        STEEL,
@@ -4529,7 +4521,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Meteor Mash",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, s, si, Stats{attack: +1})
 		},
 		Power:           100,
@@ -4557,13 +4549,16 @@ var moveData = []MoveData{
 	{
 		Name:         "Milk Drink",
 		functionCode: "0D5",
-		Type:         NORMAL,
-		Category:     statusEffect,
-		PP:           10,
-		Target:       user,
-		Priority:     0,
-		Flags:        "di",
-		Description:  "The user restores its own HP by up to half of its maximum HP. May also be used in the field to heal HP.",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			healWithFail(log, s, s.Stats.hp / 2)
+		},
+		Type:        NORMAL,
+		Category:    statusEffect,
+		PP:          10,
+		Target:      user,
+		Priority:    0,
+		Flags:       "di",
+		Description: "The user restores its own HP by up to half of its maximum HP. May also be used in the field to heal HP.",
 	},
 	{
 		Name:         "Mimic",
@@ -4590,16 +4585,16 @@ var moveData = []MoveData{
 	{
 		Name:         "Minimize",
 		functionCode: "034",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeEvasion(log, t, ti, +2)
 		},
-		Type:         NORMAL,
-		Category:     statusEffect,
-		PP:           20,
-		Target:       user,
-		Priority:     0,
-		Flags:        "d",
-		Description:  "The user compresses its body to make itself look smaller, which sharply raises its evasiveness.",
+		Type:        NORMAL,
+		Category:    statusEffect,
+		PP:          20,
+		Target:      user,
+		Priority:    0,
+		Flags:       "d",
+		Description: "The user compresses its body to make itself look smaller, which sharply raises its evasiveness.",
 	},
 	{
 		Name:         "Miracle Eye",
@@ -4637,8 +4632,8 @@ var moveData = []MoveData{
 		Description:  "The user counters the target by mimicking the target's last move.",
 	},
 	{
-		Name:            "Mirror Shot",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+		Name: "Mirror Shot",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeAccuracy(log, t, ti, -1)
 		},
 		Power:           65,
@@ -4654,7 +4649,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Mist Ball",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{spattack: -1})
 		},
 		Power:           70,
@@ -4702,8 +4697,8 @@ var moveData = []MoveData{
 		Description:  "The user restores its own HP. The amount of HP regained varies with the weather.",
 	},
 	{
-		Name:            "Mud Bomb",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+		Name: "Mud Bomb",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeAccuracy(log, t, ti, -1)
 		},
 		Power:           65,
@@ -4719,7 +4714,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Mud Shot",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{speed: -1})
 		},
 		Power:           55,
@@ -4745,8 +4740,8 @@ var moveData = []MoveData{
 		Description:  "The user covers itself with mud. It weakens Electric-type moves while the user is in the battle.",
 	},
 	{
-		Name:            "Mud-Slap",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+		Name: "Mud-Slap",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeAccuracy(log, t, ti, -1)
 		},
 		Power:           20,
@@ -4761,8 +4756,8 @@ var moveData = []MoveData{
 		Description:     "The user hurls mud in the target's face to inflict damage and lower its accuracy.",
 	},
 	{
-		Name:            "Muddy Water",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+		Name: "Muddy Water",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeAccuracy(log, t, ti, -1)
 		},
 		Power:           95,
@@ -4778,7 +4773,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Nasty Plot",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{spattack: +2})
 		},
 		Type:        DARK,
@@ -4828,8 +4823,8 @@ var moveData = []MoveData{
 		Description:     "The user attacks by wildly swinging its thorny arms. It may also make the target flinch.",
 	},
 	{
-		Name:            "Night Daze",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+		Name: "Night Daze",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeAccuracy(log, t, ti, -1)
 		},
 		Power:           85,
@@ -4883,8 +4878,8 @@ var moveData = []MoveData{
 		Description:  "A sleeping target sees a nightmare that inflicts some damage every turn.",
 	},
 	{
-		Name:            "Octazooka",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+		Name: "Octazooka",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeAccuracy(log, t, ti, -1)
 		},
 		Power:           65,
@@ -4911,7 +4906,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Ominous Wind",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, s, si, Stats{attack: +1, defense: +1, speed: +1, spattack: +1, spdefense: +1})
 		},
 		Power:           60,
@@ -4940,7 +4935,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Overheat",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, s, si, Stats{spattack: -2})
 		},
 		Power:           140,
@@ -4955,15 +4950,32 @@ var moveData = []MoveData{
 		Description:     "The user attacks the target at full power. The attack's recoil sharply reduces the user's Sp. Atk stat.",
 	},
 	{
-		Name:         "Pain Split",
-		functionCode: "05A",
-		Type:         NORMAL,
-		Category:     statusEffect,
-		PP:           20,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "be",
-		Description:  "The user adds its HP to the target's HP, then equally shares the combined HP with the target.",
+		Name: "Pain Split",
+		// TODO: Gen III-IV: Pain Split now bypasses accuracy checks to always hit,
+		// unless the opponent is in the semi-invulnerable turn of a move such as Dig or Fly.
+		// It will fail if the target is behind a substitute.
+		// TODO: Gen V: Pain Split can now affect a target's substitute,
+		// and the user of the move will gain HP depending on the HP the substitute lost.
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			hp := (s.currentHP + t.currentHP) / 2
+			if s.currentHP > hp {
+				s.TakeDamage(s.currentHP - hp)
+			} else {
+				s.Heal(hp - s.currentHP)
+			}
+			if t.currentHP > hp {
+				t.TakeDamage(t.currentHP - hp)
+			} else {
+				t.Heal(hp - t.currentHP)
+			}
+		},
+		Type:        NORMAL,
+		Category:    statusEffect,
+		PP:          20,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "be",
+		Description: "The user adds its HP to the target's HP, then equally shares the combined HP with the target.",
 	},
 	{
 		Name:         "Pay Day",
@@ -5054,11 +5066,9 @@ var moveData = []MoveData{
 		Description:  "The user pecks the target. If the target is holding a Berry, the user eats it and gains its effect.",
 	},
 	{
-		Name:            "Poison Fang",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			badPoison := NewBadPoison()
-			success := t.setNonVolatile(badPoison)
-			log.nonVolatileCondition(t.Name, ti, success, badPoison)
+		Name: "Poison Fang",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, NewBadPoison())
 		},
 		Power:           50,
 		Type:            POISON,
@@ -5072,25 +5082,23 @@ var moveData = []MoveData{
 		Description:     "The user bites the target with toxic fangs. It may also leave the target badly poisoned.",
 	},
 	{
-		Name:         "Poison Gas",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Poison{})
-			log.nonVolatileCondition(t.Name, ti, success, Poison{})
+		Name: "Poison Gas",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Poison{})
 		},
-		Type:         POISON,
-		Category:     statusEffect,
-		Accuracy:     80,
-		PP:           40,
-		Target:       allOpposing,
-		Priority:     0,
-		Flags:        "bce",
-		Description:  "A cloud of poison gas is sprayed in the face of opposing Pokémon. It may poison those hit.",
+		Type:        POISON,
+		Category:    statusEffect,
+		Accuracy:    80,
+		PP:          40,
+		Target:      allOpposing,
+		Priority:    0,
+		Flags:       "bce",
+		Description: "A cloud of poison gas is sprayed in the face of opposing Pokémon. It may poison those hit.",
 	},
 	{
-		Name:            "Poison Jab",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Poison{})
-			log.nonVolatileCondition(t.Name, ti, success, Poison{})
+		Name: "Poison Jab",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Poison{})
 		},
 		Power:           80,
 		Type:            POISON,
@@ -5104,10 +5112,9 @@ var moveData = []MoveData{
 		Description:     "The target is stabbed with a tentacle or arm seeped with poison. It may also poison the target.",
 	},
 	{
-		Name:            "Poison Sting",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Poison{})
-			log.nonVolatileCondition(t.Name, ti, success, Poison{})
+		Name: "Poison Sting",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Poison{})
 		},
 		Power:           15,
 		Type:            POISON,
@@ -5121,10 +5128,9 @@ var moveData = []MoveData{
 		Description:     "The user stabs the target with a poisonous stinger. This may also poison the target.",
 	},
 	{
-		Name:            "Poison Tail",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Poison{})
-			log.nonVolatileCondition(t.Name, ti, success, Poison{})
+		Name: "Poison Tail",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Poison{})
 		},
 		Power:           50,
 		Type:            POISON,
@@ -5138,19 +5144,18 @@ var moveData = []MoveData{
 		Description:     "The user hits the target with its tail. It may also poison the target. Critical hits land more easily.",
 	},
 	{
-		Name:         "PoisonPowder",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Poison{})
-			log.nonVolatileCondition(t.Name, ti, success, Poison{})
+		Name: "Poison Powder",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Poison{})
 		},
-		Type:         POISON,
-		Category:     statusEffect,
-		Accuracy:     75,
-		PP:           35,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "bce",
-		Description:  "The user scatters a cloud of poisonous dust on the target. It may poison the target.",
+		Type:        POISON,
+		Category:    statusEffect,
+		Accuracy:    75,
+		PP:          35,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "bce",
+		Description: "The user scatters a cloud of poisonous dust on the target. It may poison the target.",
 	},
 	{
 		Name:        "Pound",
@@ -5165,10 +5170,9 @@ var moveData = []MoveData{
 		Description: "The target is physically pounded with a long tail or a foreleg, etc.",
 	},
 	{
-		Name:            "Powder Snow",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Freeze{})
-			log.nonVolatileCondition(t.Name, ti, success, Freeze{})
+		Name: "Powder Snow",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Freeze{})
 		},
 		Power:           40,
 		Type:            ICE,
@@ -5206,7 +5210,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Power Swap",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
 			s.statStages.attack, t.statStages.attack = t.statStages.attack, s.statStages.attack
 			s.statStages.spattack, t.statStages.spattack = t.statStages.spattack, s.statStages.spattack
 			log.add(genericUpdateLog{Index: si, StatStages: s.statStages})
@@ -5284,7 +5288,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Psych Up",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
 			s.statStages = t.statStages
 			log.add(genericUpdateLog{Index: si, StatStages: s.statStages})
 			log.f("%s copied %s's stat changes!", s.Name, t.Name)
@@ -5299,7 +5303,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Psychic",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{spdefense: -1})
 		},
 		Power:           90,
@@ -5315,7 +5319,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Psycho Boost",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, s, si, Stats{spattack: -2})
 		},
 		Power:           140,
@@ -5455,7 +5459,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Quiver Dance",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{spattack: +1, spdefense: +1, speed: +1})
 		},
 		Type:        BUG,
@@ -5528,7 +5532,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Razor Shell",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{defense: -1})
 		},
 		Power:           75,
@@ -5558,13 +5562,16 @@ var moveData = []MoveData{
 	{
 		Name:         "Recover",
 		functionCode: "0D5",
-		Type:         NORMAL,
-		Category:     statusEffect,
-		PP:           10,
-		Target:       user,
-		Priority:     0,
-		Flags:        "di",
-		Description:  "Restoring its own cells, the user restores its own HP by half of its max HP.",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			healWithFail(log, s, s.Stats.hp / 2)
+		},
+		Type:        NORMAL,
+		Category:    statusEffect,
+		PP:          10,
+		Target:      user,
+		Priority:    0,
+		Flags:       "di",
+		Description: "Restoring its own cells, the user restores its own HP by half of its max HP.",
 	},
 	{
 		Name:         "Recycle",
@@ -5613,10 +5620,8 @@ var moveData = []MoveData{
 	{
 		Name:         "Relic Song",
 		functionCode: "003",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			sleep := NewSleep()
-			success := t.setNonVolatile(sleep)
-			log.nonVolatileCondition(t.Name, ti, success, sleep)
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, NewSleep())
 		},
 		Power:           75,
 		Type:            NORMAL,
@@ -5632,13 +5637,21 @@ var moveData = []MoveData{
 	{
 		Name:         "Rest",
 		functionCode: "0D9",
-		Type:         PSYCHIC,
-		Category:     statusEffect,
-		PP:           10,
-		Target:       user,
-		Priority:     0,
-		Flags:        "di",
-		Description:  "The user goes to sleep for two turns. It fully restores the user's HP and heals any status problem.",
+		// TODO: Fails if the user's HP is already full, if the user is already asleep,
+		// or if the user cannot fall asleep. Cannot be used if the user is affected by Heal Block.
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			s.Heal(s.Stats.hp)
+			sleep := &Sleep{counter: 2}
+			t.NonVolatileCondition = sleep
+			log.nonVolatileCondition(t.Name, ti, true, sleep)
+		},
+		Type:        PSYCHIC,
+		Category:    statusEffect,
+		PP:          10,
+		Target:      user,
+		Priority:    0,
+		Flags:       "di",
+		Description: "The user goes to sleep for two turns. It fully restores the user's HP and heals any status problem.",
 	},
 	{
 		Name:         "Retaliate",
@@ -5746,7 +5759,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Rock Polish",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{speed: +2})
 		},
 		Type:        ROCK,
@@ -5773,7 +5786,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Rock Smash",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{defense: -1})
 		},
 		Power:           40,
@@ -5801,7 +5814,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Rock Tomb",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{speed: -1})
 		},
 		Power:           50,
@@ -5869,13 +5882,19 @@ var moveData = []MoveData{
 	{
 		Name:         "Roost",
 		functionCode: "0D6",
-		Type:         FLYING,
-		Category:     statusEffect,
-		PP:           10,
-		Target:       user,
-		Priority:     0,
-		Flags:        "di",
-		Description:  "The user lands and rests its body. It restores the user's HP by up to half of its max HP.",
+		// TODO: Fails if its HP is full. Cannot be used if the user is affected by Heal Block.
+		// If the user gains HP, then until the end of the same turn, its Flying type
+		// is ignored for attacks used against the user (or treated as Normal if the user is pure Flying).
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			s.Heal(s.Stats.hp / 2)
+		},
+		Type:        FLYING,
+		Category:    statusEffect,
+		PP:          10,
+		Target:      user,
+		Priority:    0,
+		Flags:       "di",
+		Description: "The user lands and rests its body. It restores the user's HP by up to half of its max HP.",
 	},
 	{
 		Name:         "Round",
@@ -5891,10 +5910,9 @@ var moveData = []MoveData{
 		Description:  "The user attacks the target with a song. Others can join in the Round and make the attack do greater damage.",
 	},
 	{
-		Name:            "Sacred Fire",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Burn{})
-			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		Name: "Sacred Fire",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Burn{})
 		},
 		Power:           100,
 		Type:            FIRE,
@@ -5945,18 +5963,18 @@ var moveData = []MoveData{
 		Description:  "The user traps the target inside a harshly raging sandstorm for four to five turns.",
 	},
 	{
-		Name:         "Sand-Attack",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+		Name: "Sand-Attack",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeAccuracy(log, t, ti, -1)
 		},
-		Type:         GROUND,
-		Category:     statusEffect,
-		Accuracy:     100,
-		PP:           15,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "bce",
-		Description:  "Sand is hurled in the target's face, reducing its accuracy.",
+		Type:        GROUND,
+		Category:    statusEffect,
+		Accuracy:    100,
+		PP:          15,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "bce",
+		Description: "Sand is hurled in the target's face, reducing its accuracy.",
 	},
 	{
 		Name:         "Sandstorm",
@@ -5970,12 +5988,11 @@ var moveData = []MoveData{
 		Description:  "A five-turn sandstorm is summoned to hurt all combatants except the Rock, Ground, and Steel types.",
 	},
 	{
-		Name:            "Scald",
-		functionCode:    "00A",
+		Name:         "Scald",
+		functionCode: "00A",
 		// TODO: Gen 6: For Scald only, thaws the target if the move hits and the target is frozen.
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Burn{})
-			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Burn{})
 		},
 		Power:           80,
 		Type:            WATER,
@@ -5990,7 +6007,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Scary Face",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{speed: -2})
 		},
 		Type:        NORMAL,
@@ -6016,7 +6033,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Screech",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{defense: -2})
 		},
 		Type:        NORMAL,
@@ -6029,10 +6046,9 @@ var moveData = []MoveData{
 		Description: "An earsplitting screech harshly reduces the target's Defense stat.",
 	},
 	{
-		Name:            "Searing Shot",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Burn{})
-			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		Name: "Searing Shot",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Burn{})
 		},
 		Power:           100,
 		Type:            FIRE,
@@ -6086,7 +6102,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Seed Flare",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{spdefense: -2})
 		},
 		Power:           120,
@@ -6130,7 +6146,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Shadow Ball",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{spdefense: -1})
 		},
 		Power:           80,
@@ -6194,7 +6210,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Sharpen",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{attack: +1})
 		},
 		Type:        NORMAL,
@@ -6220,7 +6236,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Shell Smash",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{attack: +2, defense: -1, spattack: +2, spdefense: -1, speed: +2})
 		},
 		Type:        NORMAL,
@@ -6233,7 +6249,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Shift Gear",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{attack: +1, speed: +2})
 		},
 		Type:        STEEL,
@@ -6271,7 +6287,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Silver Wind",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, s, si, Stats{attack: +1, defense: +1, speed: +1, spattack: +1, spdefense: +1})
 		},
 		Power:           60,
@@ -6299,10 +6315,8 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Sing",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			sleep := NewSleep()
-			success := t.setNonVolatile(sleep)
-			log.nonVolatileCondition(t.Name, ti, success, sleep)
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, NewSleep())
 		},
 		Type:        NORMAL,
 		Category:    statusEffect,
@@ -6392,13 +6406,16 @@ var moveData = []MoveData{
 	{
 		Name:         "Slack Off",
 		functionCode: "0D5",
-		Type:         NORMAL,
-		Category:     statusEffect,
-		PP:           10,
-		Target:       user,
-		Priority:     0,
-		Flags:        "di",
-		Description:  "The user slacks off, restoring its own HP by up to half of its maximum HP.",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			healWithFail(log, s, s.Stats.hp / 2)
+		},
+		Type:        NORMAL,
+		Category:    statusEffect,
+		PP:          10,
+		Target:      user,
+		Priority:    0,
+		Flags:       "di",
+		Description: "The user slacks off, restoring its own HP by up to half of its maximum HP.",
 	},
 	{
 		Name:        "Slam",
@@ -6426,10 +6443,8 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Sleep Powder",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			sleep := NewSleep()
-			success := t.setNonVolatile(sleep)
-			log.nonVolatileCondition(t.Name, ti, success, sleep)
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, NewSleep())
 		},
 		Type:        GRASS,
 		Category:    statusEffect,
@@ -6452,10 +6467,9 @@ var moveData = []MoveData{
 		Description:  "While it is asleep, the user randomly uses one of the moves it knows.",
 	},
 	{
-		Name:            "Sludge Bomb",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Poison{})
-			log.nonVolatileCondition(t.Name, ti, success, Poison{})
+		Name: "Sludge Bomb",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Poison{})
 		},
 		Power:           90,
 		Type:            POISON,
@@ -6469,10 +6483,9 @@ var moveData = []MoveData{
 		Description:     "Unsanitary sludge is hurled at the target. It may also poison the target.",
 	},
 	{
-		Name:            "Sludge Wave",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Poison{})
-			log.nonVolatileCondition(t.Name, ti, success, Poison{})
+		Name: "Sludge Wave",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Poison{})
 		},
 		Power:           95,
 		Type:            POISON,
@@ -6486,10 +6499,9 @@ var moveData = []MoveData{
 		Description:     "It swamps the area around the user with a giant sludge wave. It may also poison those hit.",
 	},
 	{
-		Name:            "Sludge",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Poison{})
-			log.nonVolatileCondition(t.Name, ti, success, Poison{})
+		Name: "Sludge",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Poison{})
 		},
 		Power:           65,
 		Type:            POISON,
@@ -6530,10 +6542,9 @@ var moveData = []MoveData{
 		Description:  "This attack inflicts double damage on a target with paralysis. It also cures the target's paralysis, however.",
 	},
 	{
-		Name:            "Smog",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Poison{})
-			log.nonVolatileCondition(t.Name, ti, success, Poison{})
+		Name: "Smog",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Poison{})
 		},
 		Power:           20,
 		Type:            POISON,
@@ -6547,22 +6558,22 @@ var moveData = []MoveData{
 		Description:     "The target is attacked with a discharge of filthy gases. It may also poison the target.",
 	},
 	{
-		Name:         "Smokescreen",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+		Name: "Smokescreen",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeAccuracy(log, t, ti, -1)
 		},
-		Type:         NORMAL,
-		Category:     statusEffect,
-		Accuracy:     100,
-		PP:           20,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "bce",
-		Description:  "The user releases an obscuring cloud of smoke or ink. It reduces the target's accuracy.",
+		Type:        NORMAL,
+		Category:    statusEffect,
+		Accuracy:    100,
+		PP:          20,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "bce",
+		Description: "The user releases an obscuring cloud of smoke or ink. It reduces the target's accuracy.",
 	},
 	{
 		Name: "Snarl",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{spattack: -1})
 		},
 		Power:       55,
@@ -6614,13 +6625,16 @@ var moveData = []MoveData{
 	{
 		Name:         "Softboiled",
 		functionCode: "0D5",
-		Type:         NORMAL,
-		Category:     statusEffect,
-		PP:           10,
-		Target:       user,
-		Priority:     0,
-		Flags:        "di",
-		Description:  "The user restores its own HP by up to half of its maximum HP. May also be used in the field to heal HP.",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			healWithFail(log, s, s.Stats.hp / 2)
+		},
+		Type:        NORMAL,
+		Category:    statusEffect,
+		PP:          10,
+		Target:      user,
+		Priority:    0,
+		Flags:       "di",
+		Description: "The user restores its own HP by up to half of its maximum HP. May also be used in the field to heal HP.",
 	},
 	{
 		Name:         "Solar Beam",
@@ -6663,10 +6677,9 @@ var moveData = []MoveData{
 		Description: "The user tears the target along with the space around it. Critical hits land more easily.",
 	},
 	{
-		Name:            "Spark",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Paralysis{})
-			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		Name: "Spark",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Paralysis{})
 		},
 		Power:           65,
 		Type:            ELECTRIC,
@@ -6752,10 +6765,8 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Spore",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			sleep := NewSleep()
-			success := t.setNonVolatile(sleep)
-			log.nonVolatileCondition(t.Name, ti, success, sleep)
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, NewSleep())
 		},
 		Type:        GRASS,
 		Category:    statusEffect,
@@ -6793,7 +6804,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Steel Wing",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, s, si, Stats{defense: +1})
 		},
 		Power:           70,
@@ -6884,7 +6895,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "String Shot",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{speed: -1})
 		},
 		Type:        BUG,
@@ -6898,7 +6909,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Struggle Bug",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{spattack: -1})
 		},
 		Power:       30,
@@ -6924,19 +6935,18 @@ var moveData = []MoveData{
 		Description:  "An attack that is used in desperation only if the user has no PP. It also hurts the user slightly.",
 	},
 	{
-		Name:         "Stun Spore",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Paralysis{})
-			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		Name: "Stun Spore",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Paralysis{})
 		},
-		Type:         GRASS,
-		Category:     statusEffect,
-		Accuracy:     75,
-		PP:           30,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "bce",
-		Description:  "The user scatters a cloud of paralyzing powder. It may leave the target with paralysis.",
+		Type:        GRASS,
+		Category:    statusEffect,
+		Accuracy:    75,
+		PP:          30,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "bce",
+		Description: "The user scatters a cloud of paralyzing powder. It may leave the target with paralysis.",
 	},
 	{
 		Name:         "Submission",
@@ -6989,8 +6999,7 @@ var moveData = []MoveData{
 	{
 		Name: "Super Fang",
 		damageFunction: func(source, target *Pokemon) (int, float64, float64) {
-			d := target.currentHP / 2
-			return fixedDamage(d, NORMAL, target)
+			return fixedDamage(target.currentHP/2, NORMAL, target)
 		},
 		Power:       1,
 		Type:        NORMAL,
@@ -7004,7 +7013,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Superpower",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, s, si, Stats{attack: -1, defense: -1})
 		},
 		Power:       120,
@@ -7078,19 +7087,19 @@ var moveData = []MoveData{
 		Description:  "The user kisses the target with a sweet, angelic cuteness that causes confusion.",
 	},
 	{
-		Name:         "Sweet Scent",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
+		Name: "Sweet Scent",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
 			// TODO: Gen 6: Decreases the target's evasiveness by 2 stages instead.
 			changeEvasion(log, t, ti, -1)
 		},
-		Type:         NORMAL,
-		Category:     statusEffect,
-		Accuracy:     100,
-		PP:           20,
-		Target:       allOpposing,
-		Priority:     0,
-		Flags:        "bce",
-		Description:  "A sweet scent that lowers the opposing team's evasiveness. It also lures wild Pokémon if used in grass, etc.",
+		Type:        NORMAL,
+		Category:    statusEffect,
+		Accuracy:    100,
+		PP:          20,
+		Target:      allOpposing,
+		Priority:    0,
+		Flags:       "bce",
+		Description: "A sweet scent that lowers the opposing team's evasiveness. It also lures wild Pokémon if used in grass, etc.",
 	},
 	{
 		Name:        "Swift",
@@ -7117,7 +7126,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Swords Dance",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{attack: +2})
 		},
 		Type:        NORMAL,
@@ -7166,7 +7175,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Tail Glow",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{spattack: +3})
 		},
 		Type:        BUG,
@@ -7192,7 +7201,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Tail Whip",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{defense: -1})
 		},
 		Type:        NORMAL,
@@ -7331,25 +7340,23 @@ var moveData = []MoveData{
 		Name:         "Thunder Wave",
 		functionCode: "007",
 		// TODO: For Thunder Wave only, fails if the target is immune to the move's type.
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Paralysis{})
-			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Paralysis{})
 		},
-		Type:         ELECTRIC,
-		Category:     statusEffect,
-		Accuracy:     100,
-		PP:           20,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "bce",
-		Description:  "A weak electric charge is launched at the target. It causes paralysis if it hits.",
+		Type:        ELECTRIC,
+		Category:    statusEffect,
+		Accuracy:    100,
+		PP:          20,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "bce",
+		Description: "A weak electric charge is launched at the target. It causes paralysis if it hits.",
 	},
 	{
-		Name:            "Thunder",
-		functionCode:    "008",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Paralysis{})
-			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		Name:         "Thunder",
+		functionCode: "008",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Paralysis{})
 		},
 		Power:           120,
 		Type:            ELECTRIC,
@@ -7363,10 +7370,9 @@ var moveData = []MoveData{
 		Description:     "A wicked thunderbolt is dropped on the target to inflict damage. It may also leave the target with paralysis.",
 	},
 	{
-		Name:            "Thunderbolt",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Paralysis{})
-			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		Name: "Thunderbolt",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Paralysis{})
 		},
 		Power:           95,
 		Type:            ELECTRIC,
@@ -7380,10 +7386,9 @@ var moveData = []MoveData{
 		Description:     "A strong electric blast is loosed at the target. It may also leave the target with paralysis.",
 	},
 	{
-		Name:            "Thunder Punch",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Paralysis{})
-			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		Name: "Thunder Punch",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Paralysis{})
 		},
 		Power:           75,
 		Type:            ELECTRIC,
@@ -7397,10 +7402,9 @@ var moveData = []MoveData{
 		Description:     "The target is punched with an electrified fist. It may also leave the target with paralysis.",
 	},
 	{
-		Name:            "Thunder Shock",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Paralysis{})
-			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		Name: "Thunder Shock",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Paralysis{})
 		},
 		Power:           40,
 		Type:            ELECTRIC,
@@ -7415,7 +7419,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Tickle",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{attack: -1, defense: -1})
 		},
 		Type:        NORMAL,
@@ -7455,19 +7459,17 @@ var moveData = []MoveData{
 		functionCode: "006",
 		// TODO: Toxic will never miss if used by a Poison-type Pokémon,
 		// even during the semi-invulnerable turn of moves such as Fly and Dig.
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			badPoison := NewBadPoison()
-			success := t.setNonVolatile(badPoison)
-			log.nonVolatileCondition(t.Name, ti, success, badPoison)
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, NewBadPoison())
 		},
-		Type:         POISON,
-		Category:     statusEffect,
-		Accuracy:     90,
-		PP:           10,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "bce",
-		Description:  "A move that leaves the target badly poisoned. Its poison damage worsens every turn.",
+		Type:        POISON,
+		Category:    statusEffect,
+		Accuracy:    90,
+		PP:          10,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "bce",
+		Description: "A move that leaves the target badly poisoned. Its poison damage worsens every turn.",
 	},
 	{
 		Name:         "Transform",
@@ -7599,7 +7601,7 @@ var moveData = []MoveData{
 	{
 		Name:         "V-create",
 		functionCode: "03D",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, s, si, Stats{defense: -1, spdefense: -1, speed: -1})
 		},
 		Power:       180,
@@ -7852,19 +7854,18 @@ var moveData = []MoveData{
 		Description:  "The user shrouds itself in electricity and smashes into its target. It also damages the user a little.",
 	},
 	{
-		Name:         "Will-O-Wisp",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Burn{})
-			log.nonVolatileCondition(t.Name, ti, success, Burn{})
+		Name: "Will-O-Wisp",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Burn{})
 		},
-		Type:         FIRE,
-		Category:     statusEffect,
-		Accuracy:     75,
-		PP:           15,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "bce",
-		Description:  "The user shoots a sinister, bluish-white flame at the target to inflict a burn.",
+		Type:        FIRE,
+		Category:    statusEffect,
+		Accuracy:    75,
+		PP:          15,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "bce",
+		Description: "The user shoots a sinister, bluish-white flame at the target to inflict a burn.",
 	},
 	{
 		Name:        "Wing Attack",
@@ -7891,7 +7892,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Withdraw",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{defense: +1})
 		},
 		Type:        WATER,
@@ -7928,7 +7929,7 @@ var moveData = []MoveData{
 	},
 	{
 		Name: "Work Up",
-		effect: func(l *Logger, s, t *Pokemon, si, ti int) {
+		effect: func(l *Logger, s, t *Pokemon, si, ti, dmg int) {
 			changeStatStages(l, t, ti, Stats{attack: +1, spattack: +1})
 		},
 		Type:        NORMAL,
@@ -8001,10 +8002,9 @@ var moveData = []MoveData{
 		Description:  "The user lets loose a huge yawn that lulls the target into falling asleep on the next turn.",
 	},
 	{
-		Name:            "Zap Cannon",
-		effect: func(log *Logger, s, t *Pokemon, si, ti int) {
-			success := t.setNonVolatile(Paralysis{})
-			log.nonVolatileCondition(t.Name, ti, success, Paralysis{})
+		Name: "Zap Cannon",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictNonVolatileCondition(log, t, ti, Paralysis{})
 		},
 		Power:           120,
 		Type:            ELECTRIC,

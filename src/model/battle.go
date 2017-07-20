@@ -72,16 +72,17 @@ func HandleMove(b Battle, m attemptedMove) error {
 			continue
 		}
 
+		var damageTaken int
 		if md.Category != statusEffect {
 			dmg, t, crit := dealDamage(m.Source, target, md)
 			b.Log().damageWithMessages(target.Name, targetIndex, dmg, t, crit)
-			target.TakeDamage(dmg)
+			damageTaken = target.TakeDamage(dmg)
 		}
 
 		if md.effect == nil || !moveHasEffect(md.AddEffectChance) {
 			continue
 		}
-		md.effect(b.Log(), m.Source, target, m.SourceIndex, targetIndex)
+		md.effect(b.Log(), m.Source, target, m.SourceIndex, targetIndex, damageTaken)
 	}
 	return nil
 }

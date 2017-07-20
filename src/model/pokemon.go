@@ -45,13 +45,13 @@ func (p *Pokemon) getSpecies() Species {
 	return GetSpeciesByID(p.Species)
 }
 
-func (p *Pokemon) TakeDamage(damage int) {
-	hp := p.currentHP - damage
-	if hp < 1 {
-		p.currentHP = 1
-		return
-	}
-	p.currentHP = hp
+func (p *Pokemon) TakeDamage(damage int) int {
+	temp := p.currentHP
+	p.currentHP = max(0, p.currentHP-damage)
+	return temp - p.currentHP
+}
+func (p *Pokemon) Heal(n int) {
+	p.currentHP = min(p.Stats.hp, p.currentHP+n)
 }
 
 func (p *Pokemon) ChangeStatStages(changes Stats) (Stats, [6]bool) {
