@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"handler"
-	"model"
+	"github.com/deosjr/PokemonGo/src/handler"
+	"github.com/deosjr/PokemonGo/src/model"
 )
 
 func main() {
@@ -18,9 +18,10 @@ func main() {
 	p2.Moves[0] = &model.Move{Data: model.GetMoveDataByID(model.EMBER)}
 	battle := model.NewSingleBattle(p1, p2)
 
-	go handler.Handle(battle)
+	h := handler.NewHandler()
+	h.AddBattle("test", battle)
 
-	http.HandleFunc("/move", handler.HandleMove)
+	http.HandleFunc("/move", h.HandleMove)
 	http.ListenAndServe(":8080", nil)
 
 }

@@ -5,37 +5,62 @@ import (
 	"fmt"
 	"net/http"
 
-	"model"
+	"github.com/deosjr/PokemonGo/src/model"
 )
 
-var (
-	battle         model.Battle
-	requestChannel chan request
-)
+type Handler struct {
+	battles map[string]*battleInfo
+}
+
+func NewHandler() *Handler {
+	return &Handler{
+		battles: make(map[string]*battleInfo),
+	}
+}
+
+type battleInfo struct {
+	battle   model.Battle
+	sources  map[int]struct{}
+	commands []model.Command
+	channels []chan []byte
+}
+
+func (h *Handler) AddBattle(name string, b model.Battle) {
+	bi := battleInfo{
+		battle:  b,
+		sources: map[int]struct{}{},
+	}
+	h.battles[name] = &bi
+}
 
 type request struct {
-	Command         model.Command
-	ResponseChannel chan int
+	command         model.Command
+	responseChannel chan []byte
 }
 
 type input struct {
+	Game    string        `json:"game"`
 	Player  string        `json:"player"`
 	Command model.Command `json:"command"`
 }
 
-func HandleMove(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) HandleMove(w http.ResponseWriter, r *http.Request) {
 	var i input
 	err := json.NewDecoder(r.Body).Decode(&i)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	fmt.Printf("Player %s issued command %+v \n", i.Player, i.Command)
-	// TODO: command validation
 
-	resp := make(chan int)
+	resp := make(chan []byte, 1)
 	req := request{i.Command, resp}
-	requestChannel <- req
+	err = h.handle(i.Game, req)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	fmt.Printf("Game %s: %s issued command %+v \n", i.Game, i.Player, i.Command)
 
 	// CORS Headers
 	w.Header().Set("Content-Type", "application/json")
@@ -44,34 +69,43 @@ func HandleMove(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
 	w.Header().Set("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers")
 
-	resolvedTurn := <-resp
-	turnResolution := battle.Log().Logs()[resolvedTurn]
-	json.NewEncoder(w).Encode(turnResolution)
+	turnResolution := <-resp
+	w.Write(turnResolution)
 }
 
-func Handle(b model.Battle) {
-	var commands []model.Command
-	var channels []chan int
-	battle = b
-	requestChannel = make(chan request)
-
-	for {
-		select {
-		case req := <-requestChannel:
-			commands = append(commands, req.Command)
-			channels = append(channels, req.ResponseChannel)
-			if len(commands) != 2 {
-				break
-			}
-			err := model.HandleTurn(battle, commands)
-			if err != nil {
-				panic(err)
-			}
-			for _, r := range channels {
-				r <- battle.Log().Turn() - 1
-			}
-			commands = []model.Command{}
-			channels = []chan int{}
-		}
+func (h *Handler) handle(game string, req request) error {
+	battleInfo, ok := h.battles[game]
+	if !ok {
+		return fmt.Errorf("game %s does not exist", game)
 	}
+	if _, ok := battleInfo.sources[req.command.SourceIndex]; ok {
+		return fmt.Errorf("source %s already issues command this turn", req.command.SourceIndex)
+	}
+
+	battleInfo.sources[req.command.SourceIndex] = struct{}{}
+	battleInfo.commands = append(battleInfo.commands, req.command)
+	battleInfo.channels = append(battleInfo.channels, req.responseChannel)
+
+	if len(battleInfo.commands) != 2 {
+		return nil
+	}
+
+	err := model.HandleTurn(battleInfo.battle, battleInfo.commands)
+	if err != nil {
+		return err
+	}
+
+	resolvedTurn := battleInfo.battle.Log().Turn() - 1
+	turnResolution := battleInfo.battle.Log().Logs()[resolvedTurn]
+	turnJSON, err := json.Marshal(turnResolution)
+	if err != nil {
+		return err
+	}
+	for _, r := range battleInfo.channels {
+		r <- turnJSON
+	}
+	battleInfo.sources = map[int]struct{}{}
+	battleInfo.commands = nil
+	battleInfo.channels = nil
+	return nil
 }
