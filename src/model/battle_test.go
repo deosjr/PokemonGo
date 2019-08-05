@@ -152,6 +152,82 @@ func TestExactDamage(t *testing.T) {
 	}
 }
 
+func TestEntireBattle(t *testing.T) {
+	for i, tt := range []struct {
+		source         testPokemon
+		target         testPokemon
+		sourceMoves    []move
+		targetMoves    []move
+		sourceMoveFunc func() int
+		targetMoveFunc func() int
+		numTurns       int
+		alwaysHit      bool
+	}{
+		{
+			source:         testPokemon{15, HAUNTER},
+			target:         testPokemon{100, RATICATE},
+			sourceMoves:    []move{NIGHTSHADE},
+			targetMoves:    []move{BITE},
+			sourceMoveFunc: func() int { return 0 },
+			targetMoveFunc: func() int { return 0 },
+			numTurns:       1,
+		},
+		{
+			source:         testPokemon{15, HAUNTER},
+			target:         testPokemon{100, MAGIKARP},
+			sourceMoves:    []move{TOXIC},
+			targetMoves:    []move{SPLASH},
+			sourceMoveFunc: func() int { return 0 },
+			targetMoveFunc: func() int { return 0 },
+			numTurns:       6,
+			alwaysHit:      true,
+		},
+	} {
+		source := GetPokemon(tt.source.level, tt.source.species)
+		target := GetPokemon(tt.target.level, tt.target.species)
+		for i := 0; i < len(tt.sourceMoves); i++ {
+			m := &Move{Data: GetMoveDataByID(tt.sourceMoves[i])}
+			if tt.alwaysHit {
+				m.Data.Accuracy = 100
+			}
+			source.Moves[i] = m
+		}
+		for i := 0; i < len(tt.targetMoves); i++ {
+			m := &Move{Data: GetMoveDataByID(tt.targetMoves[i])}
+			if tt.alwaysHit {
+				m.Data.Accuracy = 100
+			}
+			target.Moves[i] = m
+		}
+		battle := NewSingleBattle(source, target)
+		for !battle.isOver() {
+			sourceCommand := Command{
+				SourceIndex: 0,
+				TargetIndex: 1,
+				MoveIndex:   tt.sourceMoveFunc(),
+			}
+			targetCommand := Command{
+				SourceIndex: 1,
+				TargetIndex: 0,
+				MoveIndex:   tt.targetMoveFunc(),
+			}
+			commands := []Command{sourceCommand, targetCommand}
+			err := HandleTurn(battle, commands)
+			if err != nil {
+				t.Errorf("%d): %v", i, err)
+				break
+			}
+			// numTurns+1 since turncounter is upped at end of HandleTurn
+			if battle.Log().turn > tt.numTurns+1 {
+				t.Errorf("%#v", battle.Log().Logs())
+				t.Errorf("%d): battle taking too long", i)
+				break
+			}
+		}
+
+	}
+}
+
 func evaluateLogs(t *testing.T, n int, gotLogs, wantLogs []battleLog) {
 	got, want := filterLogs(gotLogs), wantLogs
 	if len(got) != len(want) {

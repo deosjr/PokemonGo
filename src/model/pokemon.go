@@ -24,6 +24,11 @@ type XP struct {
 	NextXPLevelReq     int
 }
 
+func GetPokemonByName(level int, name string) *Pokemon {
+	p := pokemon(GetSpecies(name).ID - 1)
+	return GetPokemon(level, p)
+}
+
 func GetPokemon(level int, pType pokemon) *Pokemon {
 	ivs := generateIVs()
 	species := GetSpeciesByID(pType)

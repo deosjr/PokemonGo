@@ -8,6 +8,7 @@ type Battle interface {
 	Log() *Logger
 	pokemonAtIndex(int) (*Pokemon, error)
 	getTargets(int, int, target) []int
+	isOver() bool
 }
 
 type singleBattle struct {
@@ -159,4 +160,8 @@ func (b *singleBattle) getTargets(sourceIndex, targetIndex int, target target) [
 	default:
 		return []int{targetIndex}
 	}
+}
+
+func (b *singleBattle) isOver() bool {
+	return b.pokemon[0].currentHP == 0 || b.pokemon[1].currentHP == 0
 }
