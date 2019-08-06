@@ -179,8 +179,7 @@ func TestEntireBattle(t *testing.T) {
 			targetMoves:    []move{SPLASH},
 			sourceMoveFunc: func() int { return 0 },
 			targetMoveFunc: func() int { return 0 },
-			numTurns:       6,
-			alwaysHit:      true,
+			numTurns:       6, // 1 + 2 + 3 + 4 + 5 + 6 = 21/16
 		},
 	} {
 		source := GetPokemon(tt.source.level, tt.source.species)

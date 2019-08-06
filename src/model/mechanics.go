@@ -5,8 +5,13 @@ import (
 	"sort"
 )
 
-func determineHit(moveData MoveData, accuracy, evasion float64) (miss bool) {
+func determineHit(moveData MoveData, source, target *Pokemon) (miss bool) {
+	accuracy := source.Accuracy()
+	evasion := target.Evasion()
 	if moveData.Accuracy == 0 {
+		return false
+	}
+	if moveData.canNotMiss != nil && moveData.canNotMiss(source) {
 		return false
 	}
 	p := float64(moveData.Accuracy) / 100 * (accuracy / evasion)

@@ -22,6 +22,7 @@ type MoveData struct {
 	functionCode   string //TODO: replace with other properties
 	effect         func(logger *Logger, source, target *Pokemon, sourceIndex, targetIndex, dmgTaken int)
 	damageFunction func(source, target *Pokemon) (dmg int, t, crit float64)
+	canNotMiss     func(source *Pokemon) bool
 }
 
 func initMoveData() {

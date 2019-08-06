@@ -3449,7 +3449,7 @@ var moveData = []MoveData{
 		Name:         "Heal Order",
 		functionCode: "0D5",
 		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
-			healWithFail(log, s, s.Stats.hp / 2)
+			healWithFail(log, s, s.Stats.hp/2)
 		},
 		Type:        BUG,
 		Category:    statusEffect,
@@ -3460,19 +3460,19 @@ var moveData = []MoveData{
 		Description: "The user calls out its underlings to heal it. The user regains up to half of its max HP.",
 	},
 	{
-		Name:         "Heal Pulse",
+		Name: "Heal Pulse",
 		// TODO: Fail if target has substitute
 		// cannot be used if USER is affected by Heal Block, NOT target!
 		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
-			healWithFail(log, t, t.Stats.hp / 2)
+			healWithFail(log, t, t.Stats.hp/2)
 		},
-		Type:         PSYCHIC,
-		Category:     statusEffect,
-		PP:           10,
-		Target:       singleNotUser,
-		Priority:     0,
-		Flags:        "bci",
-		Description:  "The user emits a healing pulse which restores the target's HP by up to half of its max HP.",
+		Type:        PSYCHIC,
+		Category:    statusEffect,
+		PP:          10,
+		Target:      singleNotUser,
+		Priority:    0,
+		Flags:       "bci",
+		Description: "The user emits a healing pulse which restores the target's HP by up to half of its max HP.",
 	},
 	{
 		Name:         "Healing Wish",
@@ -4550,7 +4550,7 @@ var moveData = []MoveData{
 		Name:         "Milk Drink",
 		functionCode: "0D5",
 		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
-			healWithFail(log, s, s.Stats.hp / 2)
+			healWithFail(log, s, s.Stats.hp/2)
 		},
 		Type:        NORMAL,
 		Category:    statusEffect,
@@ -5563,7 +5563,7 @@ var moveData = []MoveData{
 		Name:         "Recover",
 		functionCode: "0D5",
 		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
-			healWithFail(log, s, s.Stats.hp / 2)
+			healWithFail(log, s, s.Stats.hp/2)
 		},
 		Type:        NORMAL,
 		Category:    statusEffect,
@@ -5607,15 +5607,26 @@ var moveData = []MoveData{
 		Description:  "A wondrous wall of light is put up to suppress damage from physical attacks for five turns.",
 	},
 	{
-		Name:         "Refresh",
-		functionCode: "018",
-		Type:         NORMAL,
-		Category:     statusEffect,
-		PP:           20,
-		Target:       user,
-		Priority:     0,
-		Flags:        "d",
-		Description:  "The user rests to cure itself of a poisoning, burn, or paralysis.",
+		Name: "Refresh",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			if s.NonVolatileCondition == nil {
+				return
+			}
+			switch s.NonVolatileCondition.(type) {
+			case Poison, *BadPoison, Burn, Paralysis:
+				log.f("%s's status returned to normal!", s.Name)
+				s.clearNonVolatile()
+			default:
+				return
+			}
+		},
+		Type:        NORMAL,
+		Category:    statusEffect,
+		PP:          20,
+		Target:      user,
+		Priority:    0,
+		Flags:       "d",
+		Description: "The user rests to cure itself of a poisoning, burn, or paralysis.",
 	},
 	{
 		Name:         "Relic Song",
@@ -6407,7 +6418,7 @@ var moveData = []MoveData{
 		Name:         "Slack Off",
 		functionCode: "0D5",
 		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
-			healWithFail(log, s, s.Stats.hp / 2)
+			healWithFail(log, s, s.Stats.hp/2)
 		},
 		Type:        NORMAL,
 		Category:    statusEffect,
@@ -6626,7 +6637,7 @@ var moveData = []MoveData{
 		Name:         "Softboiled",
 		functionCode: "0D5",
 		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
-			healWithFail(log, s, s.Stats.hp / 2)
+			healWithFail(log, s, s.Stats.hp/2)
 		},
 		Type:        NORMAL,
 		Category:    statusEffect,
@@ -6753,15 +6764,17 @@ var moveData = []MoveData{
 		Description:  "The user unleashes its grudge on the move last used by the target by cutting 4,PP from it.",
 	},
 	{
-		Name:         "Splash",
-		functionCode: "001",
-		Type:         NORMAL,
-		Category:     statusEffect,
-		PP:           40,
-		Target:       user,
-		Priority:     0,
-		Flags:        "l",
-		Description:  "The user just flops and splashes around to no effect at all…",
+		Name: "Splash",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			log.f("But nothing happened!")
+		},
+		Type:        NORMAL,
+		Category:    statusEffect,
+		PP:          40,
+		Target:      user,
+		Priority:    0,
+		Flags:       "l",
+		Description: "The user just flops and splashes around to no effect at all…",
 	},
 	{
 		Name: "Spore",
@@ -7337,10 +7350,13 @@ var moveData = []MoveData{
 		Description:     "The user bites with electrified fangs. It may also make the target flinch or leave it with paralysis.",
 	},
 	{
-		Name:         "Thunder Wave",
-		functionCode: "007",
-		// TODO: For Thunder Wave only, fails if the target is immune to the move's type.
+		Name: "Thunder Wave",
 		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			//TODO: what if thunder wave's type has changed?
+			if typeEffectiveness(ELECTRIC, t.getSpecies().Types) == 0 {
+				log.f("It doesn't affect %s.", t.Name)
+				return
+			}
 			inflictNonVolatileCondition(log, t, ti, Paralysis{})
 		},
 		Type:        ELECTRIC,
@@ -7455,12 +7471,12 @@ var moveData = []MoveData{
 		Description:  "The user lays a trap of poison spikes at the opponent's feet. They poison opponents that switch into battle.",
 	},
 	{
-		Name:         "Toxic",
-		functionCode: "006",
-		// TODO: Toxic will never miss if used by a Poison-type Pokémon,
-		// even during the semi-invulnerable turn of moves such as Fly and Dig.
+		Name: "Toxic",
 		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
 			inflictNonVolatileCondition(log, t, ti, NewBadPoison())
+		},
+		canNotMiss: func(s *Pokemon) bool {
+			return typeContains(POISON, s.getSpecies().Types)
 		},
 		Type:        POISON,
 		Category:    statusEffect,
@@ -7483,8 +7499,17 @@ var moveData = []MoveData{
 		Description:  "The user transforms into a copy of the target right down to having the same move set.",
 	},
 	{
-		Name:            "Tri Attack",
-		functionCode:    "017",
+		Name: "Tri Attack",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			switch random.Intn(3) {
+			case 0:
+				inflictNonVolatileCondition(log, t, ti, Burn{})
+			case 1:
+				inflictNonVolatileCondition(log, t, ti, Freeze{})
+			case 2:
+				inflictNonVolatileCondition(log, t, ti, Paralysis{})
+			}
+		},
 		Power:           80,
 		Type:            NORMAL,
 		Category:        special,
