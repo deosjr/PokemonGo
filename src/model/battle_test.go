@@ -153,6 +153,7 @@ func TestExactDamage(t *testing.T) {
 }
 
 func TestEntireBattle(t *testing.T) {
+Test:
 	for i, tt := range []struct {
 		source         testPokemon
 		target         testPokemon
@@ -162,6 +163,7 @@ func TestEntireBattle(t *testing.T) {
 		targetMoveFunc func() int
 		numTurns       int
 		alwaysHit      bool
+		exactTargetHP  int
 	}{
 		{
 			source:         testPokemon{15, HAUNTER},
@@ -173,6 +175,17 @@ func TestEntireBattle(t *testing.T) {
 			numTurns:       1,
 		},
 		{
+			source:         testPokemon{15, BUTTERFREE},
+			target:         testPokemon{100, MAGIKARP},
+			sourceMoves:    []move{POISONPOWDER},
+			targetMoves:    []move{SPLASH},
+			sourceMoveFunc: func() int { return 0 },
+			targetMoveFunc: func() int { return 0 },
+			numTurns:       8,
+			exactTargetHP:  80,
+			alwaysHit:      true,
+		},
+		{
 			source:         testPokemon{15, HAUNTER},
 			target:         testPokemon{100, MAGIKARP},
 			sourceMoves:    []move{TOXIC},
@@ -180,10 +193,15 @@ func TestEntireBattle(t *testing.T) {
 			sourceMoveFunc: func() int { return 0 },
 			targetMoveFunc: func() int { return 0 },
 			numTurns:       6, // 1 + 2 + 3 + 4 + 5 + 6 = 21/16
+			exactTargetHP:  160,
 		},
 	} {
 		source := GetPokemon(tt.source.level, tt.source.species)
 		target := GetPokemon(tt.target.level, tt.target.species)
+		if tt.exactTargetHP != 0 {
+			target.Stats.hp = tt.exactTargetHP
+			target.currentHP = tt.exactTargetHP
+		}
 		for i := 0; i < len(tt.sourceMoves); i++ {
 			m := &Move{Data: GetMoveDataByID(tt.sourceMoves[i])}
 			if tt.alwaysHit {
@@ -218,12 +236,17 @@ func TestEntireBattle(t *testing.T) {
 			}
 			// numTurns+1 since turncounter is upped at end of HandleTurn
 			if battle.Log().turn > tt.numTurns+1 {
-				t.Errorf("%#v", battle.Log().Logs())
+				testPrintLogs(t, battle.Log().Logs())
+				t.Errorf("%d/%d", target.currentHP, target.Stats.hp)
 				t.Errorf("%d): battle taking too long", i)
-				break
+				continue Test
 			}
 		}
-
+		if battle.Log().turn != tt.numTurns+1 {
+			t.Errorf("%d/%d", target.currentHP, target.Stats.hp)
+			testPrintLogs(t, battle.Log().Logs())
+			t.Errorf("%d): expected battle to take %d but took %d turns instead", i, tt.numTurns, battle.Log().turn-1)
+		}
 	}
 }
 
@@ -262,4 +285,10 @@ func filterLogs(logs []battleLog) []battleLog {
 		}
 	}
 	return l
+}
+
+func testPrintLogs(t *testing.T, logs map[int][]battleLog) {
+	for i := 1; i <= len(logs); i++ {
+		t.Errorf("%#v", logs[i])
+	}
 }

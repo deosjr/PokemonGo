@@ -47,7 +47,7 @@ func HandleMoves(b Battle, attemptedMoves []attemptedMove) error {
 		}
 	}
 	for _, m := range sortedMoves {
-		HandlePostMoveEffect(b, m.Source)
+		HandlePostMoveEffect(b, m.SourceIndex, m.Source)
 	}
 
 	return nil
@@ -95,11 +95,11 @@ func HandlePreMoveEffect(b Battle, p *Pokemon, index int) (cantAttack bool) {
 	return p.NonVolatileCondition.preMoveEffect(b.Log(), p, index)
 }
 
-func HandlePostMoveEffect(b Battle, p *Pokemon) {
+func HandlePostMoveEffect(b Battle, i int, p *Pokemon) {
 	if p.NonVolatileCondition == nil {
 		return
 	}
-	p.NonVolatileCondition.postMoveEffect(b.Log(), p)
+	p.NonVolatileCondition.postMoveEffect(b.Log(), i, p)
 }
 
 //Semantics of Battle.total right now (prone to change):

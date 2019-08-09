@@ -9,7 +9,7 @@ type NonVolatileCondition interface {
 	initMessage() string
 	applicable(*Pokemon) bool
 	preMoveEffect(*Logger, *Pokemon, int) (cantAttack bool)
-	postMoveEffect(*Logger, *Pokemon)
+	postMoveEffect(*Logger, int, *Pokemon)
 }
 
 type nonVolatileCondition struct{}
@@ -18,7 +18,7 @@ func (c nonVolatileCondition) name() string                              { retur
 func (c nonVolatileCondition) initMessage() string                       { return "" }
 func (c nonVolatileCondition) applicable(*Pokemon) bool                  { return true }
 func (c nonVolatileCondition) preMoveEffect(*Logger, *Pokemon, int) bool { return false }
-func (c nonVolatileCondition) postMoveEffect(*Logger, *Pokemon)          {}
+func (c nonVolatileCondition) postMoveEffect(*Logger, int, *Pokemon)     {}
 
 type Burn struct {
 	nonVolatileCondition
@@ -38,10 +38,11 @@ func (c Burn) applicable(p *Pokemon) bool {
 	return true
 }
 
-func (c Burn) postMoveEffect(log *Logger, p *Pokemon) {
+func (c Burn) postMoveEffect(log *Logger, i int, p *Pokemon) {
 	// TODO: hp / 16 since Gen VII
 	damage := int(math.Ceil(float64(p.Stats.hp) / 8))
-	p.TakeDamage(damage)
+	damageTaken := p.TakeDamage(damage)
+	log.damage(i, damageTaken)
 	log.f("%s is hurt by its burn!", p.Name)
 }
 
@@ -119,9 +120,10 @@ func (c Poison) applicable(p *Pokemon) bool {
 	return true
 }
 
-func (c Poison) postMoveEffect(log *Logger, p *Pokemon) {
-	damage := int(math.Ceil(float64(p.Stats.hp) / 8))
-	p.TakeDamage(damage)
+func (c Poison) postMoveEffect(log *Logger, i int, p *Pokemon) {
+	damage := max(1, p.Stats.hp/8)
+	damageTaken := p.TakeDamage(damage)
+	log.damage(i, damageTaken)
 	log.f("%s is hurt by poison!", p.Name)
 }
 
@@ -151,9 +153,10 @@ func (c *BadPoison) applicable(p *Pokemon) bool {
 	return true
 }
 
-func (c *BadPoison) postMoveEffect(log *Logger, p *Pokemon) {
-	damage := int(math.Ceil(float64(p.Stats.hp) / 16))
-	p.TakeDamage(damage * c.counter)
+func (c *BadPoison) postMoveEffect(log *Logger, i int, p *Pokemon) {
+	damage := max(1, p.Stats.hp/16)
+	damageTaken := p.TakeDamage(damage * c.counter)
+	log.damage(i, damageTaken)
 	c.counter += 1
 	log.f("%s is hurt by poison!", p.Name)
 }
@@ -190,4 +193,4 @@ func (c *Sleep) preMoveEffect(log *Logger, p *Pokemon, index int) bool {
 }
 
 // TODO
-type VolatileCondition struct {}
+type VolatileCondition struct{}
