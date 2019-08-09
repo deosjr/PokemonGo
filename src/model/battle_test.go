@@ -165,6 +165,7 @@ Test:
 		alwaysHit      bool
 		exactTargetHP  int
 	}{
+		// overkill: kills in one turn
 		{
 			source:         testPokemon{15, HAUNTER},
 			target:         testPokemon{100, RATICATE},
@@ -174,6 +175,7 @@ Test:
 			targetMoveFunc: func() int { return 0 },
 			numTurns:       1,
 		},
+		// poison kills in 8 turns (1/8th per turn)
 		{
 			source:         testPokemon{15, BUTTERFREE},
 			target:         testPokemon{100, MAGIKARP},
@@ -185,6 +187,7 @@ Test:
 			exactTargetHP:  80,
 			alwaysHit:      true,
 		},
+		// bad poison kills in 6 turns (1 + 2 + 3 + 4 + 5 + 6 = 21/16)
 		{
 			source:         testPokemon{15, HAUNTER},
 			target:         testPokemon{100, MAGIKARP},
@@ -192,8 +195,19 @@ Test:
 			targetMoves:    []move{SPLASH},
 			sourceMoveFunc: func() int { return 0 },
 			targetMoveFunc: func() int { return 0 },
-			numTurns:       6, // 1 + 2 + 3 + 4 + 5 + 6 = 21/16
+			numTurns:       6,
 			exactTargetHP:  160,
+		},
+		// dragon rage deals exactly 40 dmg
+		{
+			source:         testPokemon{50, DRAGONITE},
+			target:         testPokemon{1, MAGIKARP},
+			sourceMoves:    []move{DRAGONRAGE},
+			targetMoves:    []move{SPLASH},
+			sourceMoveFunc: func() int { return 0 },
+			targetMoveFunc: func() int { return 0 },
+			numTurns:       2,
+			exactTargetHP:  80,
 		},
 	} {
 		source := GetPokemon(tt.source.level, tt.source.species)
