@@ -231,7 +231,7 @@ Test:
 			target.Moves[i] = m
 		}
 		battle := NewSingleBattle(source, target)
-		for !battle.isOver() {
+		for !battle.IsOver() {
 			sourceCommand := Command{
 				SourceIndex: 0,
 				TargetIndex: 1,

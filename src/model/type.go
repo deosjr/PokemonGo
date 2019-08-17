@@ -3,7 +3,8 @@ package model
 type pType byte
 
 const (
-	NORMAL pType = iota
+	NOTYPE pType = iota
+	NORMAL
 	FIGHTING
 	FLYING
 	POISON
@@ -30,6 +31,9 @@ type Type struct {
 }
 
 var typeData = []Type{
+	{
+		Name: "NOTYPE",
+	},
 	{
 		Name:       "Normal",
 		Weaknesses: []pType{FIGHTING},

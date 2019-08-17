@@ -67,7 +67,7 @@ func (c Freeze) applicable(p *Pokemon) bool {
 func (c Freeze) preMoveEffect(log *Logger, p *Pokemon, index int) bool {
 	if random.Float64() < 0.2 {
 		p.clearNonVolatile()
-		log.add(nonVolatileConditionLog{Index: index, Condition: nil})
+		log.add(NonVolatileConditionLog{Index: index, Condition: nil})
 		log.f("%s thaws!", p.Name)
 		return false
 	}
@@ -184,7 +184,7 @@ func (c *Sleep) preMoveEffect(log *Logger, p *Pokemon, index int) bool {
 	c.counter -= 1
 	if c.counter == 0 {
 		p.clearNonVolatile()
-		log.add(nonVolatileConditionLog{Index: index, Condition: nil})
+		log.add(NonVolatileConditionLog{Index: index, Condition: nil})
 		log.f("%s woke up!", p.Name)
 		return false
 	}
@@ -192,5 +192,72 @@ func (c *Sleep) preMoveEffect(log *Logger, p *Pokemon, index int) bool {
 	return true
 }
 
-// TODO
-type VolatileCondition struct{}
+type VolatileConditionLabel int
+
+const (
+	ConfusionLabel VolatileConditionLabel = iota
+)
+
+type VolatileCondition interface {
+	getLabel() VolatileConditionLabel
+	initMessage() string
+	failMessage() string
+	preMoveEffect(*Logger, *Pokemon, int) (cantAttack bool)
+}
+
+type volatileCondition struct {
+	label VolatileConditionLabel
+}
+
+func (v volatileCondition) getLabel() VolatileConditionLabel {
+	return v.label
+}
+
+func (v volatileCondition) initMessage() string                       { return "" }
+func (v volatileCondition) failMessage() string                       { return "" }
+func (v volatileCondition) preMoveEffect(*Logger, *Pokemon, int) bool { return false }
+
+type Confusion struct {
+	volatileCondition
+	counter int
+}
+
+func NewConfusion() *Confusion {
+	return &Confusion{
+		volatileCondition: volatileCondition{
+			label: ConfusionLabel,
+		},
+		// random integer [1,2,3,4]
+		counter: random.Intn(4) + 1,
+	}
+}
+
+func (c *Confusion) initMessage() string {
+	return "%s became confused!"
+}
+
+func (c *Confusion) failMessage() string {
+	return "%s is already confused!"
+}
+
+func (c *Confusion) preMoveEffect(log *Logger, p *Pokemon, index int) bool {
+	if c.counter == 0 {
+		p.clearVolatile(c.label)
+		log.add(VolatileConditionLog{Index: index, Label: c.label, Condition: nil})
+		log.f("%s snapped out of its confusion!", p.Name)
+		return false
+	}
+	log.f("%s is confused!", p.Name)
+	cantAttack := false
+	if random.Float64() < 0.5 {
+		cantAttack = true
+		log.f("It hurt itself in its confusion!")
+		// TODO: attack itself w 40power notype physical attack, never crits
+		typelessMove := MoveData{Power: 40, Type: NOTYPE, Category: physical}
+		dmg, _, _ := dealDamage(p, p, typelessMove)
+		log.damage(index, dmg)
+		p.TakeDamage(dmg)
+	}
+	c.counter -= 1
+	return cantAttack
+}

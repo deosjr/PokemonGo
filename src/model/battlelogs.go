@@ -38,31 +38,34 @@ func (log *Logger) add(bl battleLog) {
 	log.logs[log.turn] = []battleLog{bl}
 }
 
-type textLog struct {
+type TextLog struct {
 	Text string `json:"text"`
 }
 
-func (l textLog) replay(b Battle) string {
+func (l TextLog) replay(b Battle) string {
 	return l.Text
 }
 
-type damageLog struct {
+type DamageLog struct {
 	Index  int `json:"index"`
 	Damage int `json:"damage"`
 }
 
-func (l damageLog) replay(b Battle) string {
+func (l DamageLog) replay(b Battle) string {
 	target, _ := b.pokemonAtIndex(l.Index)
 	target.TakeDamage(l.Damage)
 	return fmt.Sprintf("Debug: %s took %d damage!", target.Name, l.Damage)
 }
 
 func (log *Logger) f(f string, s ...interface{}) {
-	log.add(textLog{fmt.Sprintf(f, s...)})
+	log.add(TextLog{fmt.Sprintf(f, s...)})
 }
 
 func (log *Logger) damage(index, damage int) {
-	log.add(damageLog{index, damage})
+	log.add(DamageLog{index, damage})
+}
+func (log *Logger) heal(index, amount int) {
+	log.add(DamageLog{index, -amount})
 }
 
 func (log *Logger) damageWithMessages(name string, index, dmg int, t, crit float64) {
@@ -80,14 +83,14 @@ func (log *Logger) damageWithMessages(name string, index, dmg int, t, crit float
 	}
 }
 
-type statStageLog struct {
+type StatStageLog struct {
 	Index    int   `json:"index"`
 	Changes  Stats `json:"statStageChanges"`
 	Accuracy int   `json:"accuracy"`
 	Evasion  int   `json:"evasion"`
 }
 
-func (l statStageLog) replay(b Battle) string {
+func (l StatStageLog) replay(b Battle) string {
 	target, _ := b.pokemonAtIndex(l.Index)
 	target.ChangeStatStages(l.Changes)
 	target.ChangeAccuracy(l.Accuracy)
@@ -123,7 +126,7 @@ func sharply(n int) string {
 var statNames = []string{"attack", "defense", "special attack", "special defense", "speed"}
 
 func (log *Logger) statStages(name string, index int, changes Stats, maxed [6]bool) {
-	log.add(statStageLog{Index: index, Changes:changes})
+	log.add(StatStageLog{Index: index, Changes: changes})
 	for i, v := range changes.stats() {
 		if i == 0 {
 			// ignore HP
@@ -150,25 +153,31 @@ func (log *Logger) statStage(name string, index int, statName string, change int
 	}
 }
 
-type volatileConditionLog struct {
-	Index     int               `json:"index"`
-	Condition VolatileCondition `json:"condition"`
+type VolatileConditionLog struct {
+	Index     int                    `json:"index"`
+	Label     VolatileConditionLabel `json:"label"`
+	Condition VolatileCondition      `json:"condition"`
 }
 
-func (l volatileConditionLog) replay(b Battle) string {
+func (l VolatileConditionLog) replay(b Battle) string {
 	return "TODO"
 }
 
-func (log *Logger) volatileCondition() {
-
+func (log *Logger) volatileCondition(name string, index int, success bool, condition VolatileCondition) {
+	if !success {
+		log.f(condition.failMessage(), name)
+		return
+	}
+	log.add(VolatileConditionLog{Index: index, Label: condition.getLabel(), Condition: condition})
+	log.f(condition.initMessage(), name)
 }
 
-type nonVolatileConditionLog struct {
+type NonVolatileConditionLog struct {
 	Index     int                  `json:"index"`
 	Condition NonVolatileCondition `json:"condition"`
 }
 
-func (l nonVolatileConditionLog) replay(b Battle) string {
+func (l NonVolatileConditionLog) replay(b Battle) string {
 	return "TODO"
 }
 
@@ -177,18 +186,18 @@ func (log *Logger) nonVolatileCondition(name string, index int, success bool, co
 		log.f("%s is already %s", name, condition.name())
 		return
 	}
-	log.add(nonVolatileConditionLog{Index: index, Condition: condition})
+	log.add(NonVolatileConditionLog{Index: index, Condition: condition})
 	log.f(condition.initMessage(), name)
 }
 
 // ugly catch-all log for edge cases
 // might change a lot in the future
-type genericUpdateLog struct {
+type GenericUpdateLog struct {
 	Index      int   `json:"index"`
 	StatStages Stats `json:"statStages"`
 }
 
-func (l genericUpdateLog) replay(b Battle) string {
+func (l GenericUpdateLog) replay(b Battle) string {
 	target, _ := b.pokemonAtIndex(l.Index)
 	target.statStages = l.StatStages
 	return fmt.Sprintf("Debug: TODO!")

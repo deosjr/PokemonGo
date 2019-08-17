@@ -15,7 +15,7 @@ type Pokemon struct {
 
 	Moves                []*Move
 	NonVolatileCondition NonVolatileCondition
-	VolatileConditions   []VolatileCondition
+	VolatileConditions   map[VolatileConditionLabel]VolatileCondition
 }
 
 type XP struct {
@@ -35,14 +35,15 @@ func GetPokemon(level int, pType pokemon) *Pokemon {
 	stats := calculateStats(ivs, species.Stats, level)
 
 	return &Pokemon{
-		Level:      level,
-		Species:    pType,
-		Name:       species.Name,
-		Stats:      stats,
-		iv:         ivs,
-		currentHP:  stats.hp,
-		statStages: GetStats([6]int{}),
-		Moves:      make([]*Move, 4),
+		Level:              level,
+		Species:            pType,
+		Name:               species.Name,
+		Stats:              stats,
+		iv:                 ivs,
+		currentHP:          stats.hp,
+		statStages:         GetStats([6]int{}),
+		Moves:              make([]*Move, 4),
+		VolatileConditions: map[VolatileConditionLabel]VolatileCondition{},
 	}
 }
 
@@ -50,13 +51,19 @@ func (p *Pokemon) getSpecies() Species {
 	return GetSpeciesByID(p.Species)
 }
 
+func (p *Pokemon) GetTotalHP() int {
+	return p.Stats.hp
+}
+
 func (p *Pokemon) TakeDamage(damage int) int {
 	temp := p.currentHP
 	p.currentHP = max(0, p.currentHP-damage)
 	return temp - p.currentHP
 }
-func (p *Pokemon) Heal(n int) {
+func (p *Pokemon) Heal(n int) int {
+	temp := p.currentHP
 	p.currentHP = min(p.Stats.hp, p.currentHP+n)
+	return p.currentHP - temp
 }
 
 func (p *Pokemon) ChangeStatStages(changes Stats) (Stats, [6]bool) {
@@ -102,7 +109,6 @@ func (p *Pokemon) Speed() int {
 }
 
 // These stats are handled a little differently
-// TODO: changes in these stats
 func (p *Pokemon) Accuracy() float64 {
 	return accuracyOrEvasionToMod(p.accuracyStage)
 }
@@ -111,7 +117,7 @@ func (p *Pokemon) Evasion() float64 {
 }
 
 func (p *Pokemon) setNonVolatile(c NonVolatileCondition) (succes bool) {
-	if p.NonVolatileCondition != nil || !c.applicable(p) {
+	if p.NonVolatileCondition != nil {
 		return false
 	}
 	p.NonVolatileCondition = c
@@ -123,5 +129,18 @@ func (p *Pokemon) clearNonVolatile() {
 }
 
 func (p *Pokemon) addVolatile(c VolatileCondition) (succes bool) {
+	_, ok := p.VolatileConditions[c.getLabel()]
+	if ok {
+		return false
+	}
+	p.VolatileConditions[c.getLabel()] = c
 	return true
+}
+
+func (p *Pokemon) clearVolatile(label VolatileConditionLabel) {
+	delete(p.VolatileConditions, label)
+}
+
+func (p *Pokemon) clearAllVolatile() {
+	p.VolatileConditions = map[VolatileConditionLabel]VolatileCondition{}
 }

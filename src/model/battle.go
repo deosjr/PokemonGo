@@ -8,7 +8,7 @@ type Battle interface {
 	Log() *Logger
 	pokemonAtIndex(int) (*Pokemon, error)
 	getTargets(int, int, target) []int
-	isOver() bool
+	IsOver() bool
 }
 
 type singleBattle struct {
@@ -49,23 +49,33 @@ func HandleMoves(b Battle, attemptedMoves []attemptedMove) error {
 	for _, m := range sortedMoves {
 		HandlePostMoveEffect(b, m.SourceIndex, m.Source)
 	}
+	if b.IsOver() {
+		return nil
+	}
 
 	return nil
 }
 
 func HandleMove(b Battle, m attemptedMove) error {
 	md := m.Move.Data
+	if cantAttack := HandlePreMoveEffect(b, m.Source, m.SourceIndex); cantAttack {
+		return nil
+	}
+	if b.IsOver() {
+		return nil
+	}
 	b.Log().f("%s used %s!", m.Source.Name, md.Name)
 	if md.functionCode != "" {
 		b.Log().f("Debug: this move is not (fully) implemented")
-	}
-	if cantAttack := HandlePreMoveEffect(b, m.Source, m.SourceIndex); cantAttack {
-		return nil
 	}
 	for _, targetIndex := range b.getTargets(m.SourceIndex, m.TargetIndex, md.Target) {
 		target, err := b.pokemonAtIndex(targetIndex)
 		if err != nil {
 			return err
+		}
+		if md.applicable != nil && !md.applicable(m.Source, target) {
+			b.Log().f("But it failed!")
+			continue
 		}
 		miss := determineHit(md, m.Source, target)
 		if miss {
@@ -79,20 +89,33 @@ func HandleMove(b Battle, m attemptedMove) error {
 			b.Log().damageWithMessages(target.Name, targetIndex, dmg, t, crit)
 			damageTaken = target.TakeDamage(dmg)
 		}
+		// TODO: this ends the battle too early if a recoil move was used
+		if b.IsOver() {
+			return nil
+		}
 
 		if md.effect == nil || !moveHasEffect(md.AddEffectChance) {
 			continue
 		}
 		md.effect(b.Log(), m.Source, target, m.SourceIndex, targetIndex, damageTaken)
+		if b.IsOver() {
+			return nil
+		}
 	}
 	return nil
 }
 
 func HandlePreMoveEffect(b Battle, p *Pokemon, index int) (cantAttack bool) {
-	if p.NonVolatileCondition == nil {
-		return false
+	if p.NonVolatileCondition != nil && p.NonVolatileCondition.preMoveEffect(b.Log(), p, index) {
+		return true
 	}
-	return p.NonVolatileCondition.preMoveEffect(b.Log(), p, index)
+	// TODO: sort so that flinch comes before/after confusion?
+	for _, c := range p.VolatileConditions {
+		if c.preMoveEffect(b.Log(), p, index) {
+			return true
+		}
+	}
+	return false
 }
 
 func HandlePostMoveEffect(b Battle, i int, p *Pokemon) {
@@ -162,6 +185,6 @@ func (b *singleBattle) getTargets(sourceIndex, targetIndex int, target target) [
 	}
 }
 
-func (b *singleBattle) isOver() bool {
+func (b *singleBattle) IsOver() bool {
 	return b.pokemon[0].currentHP == 0 || b.pokemon[1].currentHP == 0
 }

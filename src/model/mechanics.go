@@ -38,7 +38,7 @@ func determineDamage(source, target *Pokemon, m MoveData) (dmg int, t, crit floa
 	r := 1.0 - 0.15*random.Float64()
 	mod := stab * typeEffectiveness * critical * other * r
 	formula := math.Floor(math.Floor(math.Floor(2*level/5+2)*(attack/defense)*power)/50) + 2
-	return int(math.Max(1.0, math.Floor(formula*mod))), typeEffectiveness, critical
+	return int(math.Floor(formula * mod)), typeEffectiveness, critical
 }
 
 func moveHasEffect(effectChance int) bool {
