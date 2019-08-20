@@ -196,6 +196,7 @@ type VolatileConditionLabel int
 
 const (
 	ConfusionLabel VolatileConditionLabel = iota
+	FlinchLabel
 )
 
 type VolatileCondition interface {
@@ -203,6 +204,7 @@ type VolatileCondition interface {
 	initMessage() string
 	failMessage() string
 	preMoveEffect(*Logger, *Pokemon, int) (cantAttack bool)
+	postMoveEffect(*Pokemon)
 }
 
 type volatileCondition struct {
@@ -216,6 +218,7 @@ func (v volatileCondition) getLabel() VolatileConditionLabel {
 func (v volatileCondition) initMessage() string                       { return "" }
 func (v volatileCondition) failMessage() string                       { return "" }
 func (v volatileCondition) preMoveEffect(*Logger, *Pokemon, int) bool { return false }
+func (v volatileCondition) postMoveEffect(*Pokemon)                   {}
 
 type Confusion struct {
 	volatileCondition
@@ -260,4 +263,23 @@ func (c *Confusion) preMoveEffect(log *Logger, p *Pokemon, index int) bool {
 	}
 	c.counter -= 1
 	return cantAttack
+}
+
+type Flinch struct {
+	volatileCondition
+}
+
+func NewFlinch() Flinch {
+	return Flinch{volatileCondition{FlinchLabel}}
+}
+
+// TODO: p only flinches if hit with flinch this turn before p could attack
+func (f Flinch) preMoveEffect(log *Logger, p *Pokemon, index int) bool {
+	p.clearVolatile(f.label)
+	log.f("%s flinched!", p.Name)
+	return true
+}
+
+func (f Flinch) postMoveEffect(p *Pokemon) {
+	p.clearVolatile(f.label)
 }

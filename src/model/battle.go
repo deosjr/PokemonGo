@@ -84,17 +84,19 @@ func HandleMove(b Battle, m attemptedMove) error {
 		}
 
 		var damageTaken int
+		typeEffectiveness := 1.0
 		if md.Category != statusEffect {
 			dmg, t, crit := dealDamage(m.Source, target, md)
 			b.Log().damageWithMessages(target.Name, targetIndex, dmg, t, crit)
 			damageTaken = target.TakeDamage(dmg)
+			typeEffectiveness = t
 		}
 		// TODO: this ends the battle too early if a recoil move was used
 		if b.IsOver() {
 			return nil
 		}
 
-		if md.effect == nil || !moveHasEffect(md.AddEffectChance) {
+		if md.effect == nil || typeEffectiveness == 0 || !moveHasEffect(md.AddEffectChance) {
 			continue
 		}
 		md.effect(b.Log(), m.Source, target, m.SourceIndex, targetIndex, damageTaken)
@@ -119,10 +121,12 @@ func HandlePreMoveEffect(b Battle, p *Pokemon, index int) (cantAttack bool) {
 }
 
 func HandlePostMoveEffect(b Battle, i int, p *Pokemon) {
-	if p.NonVolatileCondition == nil {
-		return
+	if p.NonVolatileCondition != nil {
+		p.NonVolatileCondition.postMoveEffect(b.Log(), i, p)
 	}
-	p.NonVolatileCondition.postMoveEffect(b.Log(), i, p)
+	for _, c := range p.VolatileConditions {
+		c.postMoveEffect(p)
+	}
 }
 
 //Semantics of Battle.total right now (prone to change):

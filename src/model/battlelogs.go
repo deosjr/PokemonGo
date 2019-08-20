@@ -62,9 +62,15 @@ func (log *Logger) f(f string, s ...interface{}) {
 }
 
 func (log *Logger) damage(index, damage int) {
+	if damage == 0 {
+		return
+	}
 	log.add(DamageLog{index, damage})
 }
 func (log *Logger) heal(index, amount int) {
+	if amount == 0 {
+		return
+	}
 	log.add(DamageLog{index, -amount})
 }
 
@@ -164,6 +170,9 @@ func (l VolatileConditionLog) replay(b Battle) string {
 }
 
 func (log *Logger) volatileCondition(name string, index int, success bool, condition VolatileCondition) {
+	if condition.initMessage() == "" && condition.failMessage() == "" {
+		return
+	}
 	if !success {
 		log.f(condition.failMessage(), name)
 		return

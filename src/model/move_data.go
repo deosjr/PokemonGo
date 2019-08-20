@@ -737,8 +737,10 @@ var moveData = []MoveData{
 		Description: "The user launches razor-like wind to slash the opposing team. Critical hits land more easily.",
 	},
 	{
-		Name:            "Air Slash",
-		functionCode:    "00F",
+		Name: "Air Slash",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictVolatileCondition(log, t, ti, NewFlinch())
+		},
 		Power:           75,
 		Type:            FLYING,
 		Category:        special,
@@ -874,8 +876,10 @@ var moveData = []MoveData{
 		Description:  "If the target has already taken some damage in the same turn, this attack's power is doubled.",
 	},
 	{
-		Name:            "Astonish",
-		functionCode:    "00F",
+		Name: "Astonish",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictVolatileCondition(log, t, ti, NewFlinch())
+		},
 		Power:           30,
 		Type:            GHOST,
 		Category:        physical,
@@ -1063,8 +1067,10 @@ var moveData = []MoveData{
 		Description:  "Things such as long bodies or tentacles are used to bind and squeeze the foe for four to five turns.",
 	},
 	{
-		Name:            "Bite",
-		functionCode:    "00F",
+		Name: "Bite",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictVolatileCondition(log, t, ti, NewFlinch())
+		},
 		Power:           60,
 		Type:            DARK,
 		Category:        physical,
@@ -1187,8 +1193,10 @@ var moveData = []MoveData{
 		Description:     "The user charges its target, surrounding itself with a great amount of electricity. It may leave the target with paralysis.",
 	},
 	{
-		Name:            "Bone Club",
-		functionCode:    "00F",
+		Name: "Bone Club",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictVolatileCondition(log, t, ti, NewFlinch())
+		},
 		Power:           65,
 		Type:            GROUND,
 		Category:        physical,
@@ -1843,8 +1851,10 @@ var moveData = []MoveData{
 		Description: "The target is cut with a scythe or a claw. It can also be used to cut down thin trees.",
 	},
 	{
-		Name:            "Dark Pulse",
-		functionCode:    "00F",
+		Name: "Dark Pulse",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictVolatileCondition(log, t, ti, NewFlinch())
+		},
 		Power:           80,
 		Type:            DARK,
 		Category:        special,
@@ -2151,8 +2161,10 @@ var moveData = []MoveData{
 		Description: "This attack hits the target with a shock wave of pure rage. This attack always inflicts 40,HP damage.",
 	},
 	{
-		Name:            "Dragon Rush",
-		functionCode:    "00F",
+		Name: "Dragon Rush",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictVolatileCondition(log, t, ti, NewFlinch())
+		},
 		Power:           100,
 		Type:            DRAGON,
 		Category:        physical,
@@ -2484,8 +2496,10 @@ var moveData = []MoveData{
 		Description:  "The user explodes to inflict damage on those around it. The user faints upon using this move.",
 	},
 	{
-		Name:            "Extrasensory",
-		functionCode:    "00F",
+		Name: "Extrasensory",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictVolatileCondition(log, t, ti, NewFlinch())
+		},
 		Power:           80,
 		Type:            PSYCHIC,
 		Category:        special,
@@ -2647,14 +2661,21 @@ var moveData = []MoveData{
 		Description:     "The target is attacked with an intense blast of all-consuming fire. It may also leave the target with a burn.",
 	},
 	{
-		Name:            "Fire Fang",
-		functionCode:    "00B",
+		Name: "Fire Fang",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			if random.Float64() < 0.1 {
+				inflictNonVolatileCondition(log, t, ti, Burn{})
+			}
+			if random.Float64() < 0.1 {
+				inflictVolatileCondition(log, t, ti, NewFlinch())
+			}
+		},
 		Power:           65,
 		Type:            FIRE,
 		Category:        physical,
 		Accuracy:        95,
 		PP:              15,
-		AddEffectChance: 10,
+		AddEffectChance: 100,
 		Target:          singleNotUser,
 		Priority:        0,
 		Flags:           "abef",
@@ -3439,8 +3460,10 @@ var moveData = []MoveData{
 		Description: "The user attacks the target with a hazardous, full-power headbutt. The user also takes terrible damage.",
 	},
 	{
-		Name:            "Headbutt",
-		functionCode:    "00F",
+		Name: "Headbutt",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictVolatileCondition(log, t, ti, NewFlinch())
+		},
 		Power:           70,
 		Type:            NORMAL,
 		Category:        physical,
@@ -3516,8 +3539,10 @@ var moveData = []MoveData{
 		Description:  "The user faints. In return, the Pokémon taking its place will have its HP restored and status cured.",
 	},
 	{
-		Name:            "Heart Stamp",
-		functionCode:    "00F",
+		Name: "Heart Stamp",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictVolatileCondition(log, t, ti, NewFlinch())
+		},
 		Power:           60,
 		Type:            PSYCHIC,
 		Category:        physical,
@@ -3757,8 +3782,10 @@ var moveData = []MoveData{
 		Description:  "The target is attacked with a powerful beam. The user must rest on the next turn to regain its energy.",
 	},
 	{
-		Name:            "Hyper Fang",
-		functionCode:    "00F",
+		Name: "Hyper Fang",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictVolatileCondition(log, t, ti, NewFlinch())
+		},
 		Power:           80,
 		Type:            NORMAL,
 		Category:        physical,
@@ -3840,14 +3867,21 @@ var moveData = []MoveData{
 		Description:     "On the second turn, an ultracold, freezing wind surrounds the target. This may leave the target with a burn.",
 	},
 	{
-		Name:            "Ice Fang",
-		functionCode:    "00E",
+		Name: "Ice Fang",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			if random.Float64() < 0.1 {
+				inflictNonVolatileCondition(log, t, ti, Freeze{})
+			}
+			if random.Float64() < 0.1 {
+				inflictVolatileCondition(log, t, ti, NewFlinch())
+			}
+		},
 		Power:           65,
 		Type:            ICE,
 		Category:        physical,
 		Accuracy:        95,
 		PP:              15,
-		AddEffectChance: 10,
+		AddEffectChance: 100,
 		Target:          singleNotUser,
 		Priority:        0,
 		Flags:           "abef",
@@ -3882,8 +3916,10 @@ var moveData = []MoveData{
 		Description: "The user flash freezes chunks of ice and hurls them at the target. This move always goes first.",
 	},
 	{
-		Name:            "Icicle Crash",
-		functionCode:    "00F",
+		Name: "Icicle Crash",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictVolatileCondition(log, t, ti, NewFlinch())
+		},
 		Power:           85,
 		Type:            ICE,
 		Category:        physical,
@@ -3989,8 +4025,10 @@ var moveData = []MoveData{
 		Description: "The user hardens its body's surface like iron, sharply raising its Defense stat.",
 	},
 	{
-		Name:            "Iron Head",
-		functionCode:    "00F",
+		Name: "Iron Head",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictVolatileCondition(log, t, ti, NewFlinch())
+		},
 		Power:           80,
 		Type:            STEEL,
 		Category:        physical,
@@ -4839,8 +4877,10 @@ var moveData = []MoveData{
 		Description:  "An attack that makes use of nature's power. Its effects vary depending on the user's environment.",
 	},
 	{
-		Name:            "Needle Arm",
-		functionCode:    "00F",
+		Name: "Needle Arm",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictVolatileCondition(log, t, ti, NewFlinch())
+		},
 		Power:           60,
 		Type:            GRASS,
 		Category:        physical,
@@ -5825,8 +5865,10 @@ var moveData = []MoveData{
 		Description: "The user polishes its body to reduce drag. It can sharply raise the Speed stat.",
 	},
 	{
-		Name:            "Rock Slide",
-		functionCode:    "00F",
+		Name: "Rock Slide",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictVolatileCondition(log, t, ti, NewFlinch())
+		},
 		Power:           75,
 		Type:            ROCK,
 		Category:        physical,
@@ -5907,8 +5949,10 @@ var moveData = []MoveData{
 		Description:  "The user mimics the target completely, copying the target's natural Ability.",
 	},
 	{
-		Name:            "Rolling Kick",
-		functionCode:    "00F",
+		Name: "Rolling Kick",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictVolatileCondition(log, t, ti, NewFlinch())
+		},
 		Power:           60,
 		Type:            FIGHTING,
 		Category:        physical,
@@ -7394,8 +7438,15 @@ var moveData = []MoveData{
 		Description:  "The user rampages and attacks for two to three turns. It then becomes confused, however.",
 	},
 	{
-		Name:            "Thunder Fang",
-		functionCode:    "009",
+		Name: "Thunder Fang",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			if random.Float64() < 0.1 {
+				inflictNonVolatileCondition(log, t, ti, Paralysis{})
+			}
+			if random.Float64() < 0.1 {
+				inflictVolatileCondition(log, t, ti, NewFlinch())
+			}
+		},
 		Power:           65,
 		Type:            ELECTRIC,
 		Category:        physical,
@@ -7410,6 +7461,11 @@ var moveData = []MoveData{
 	{
 		Name: "Thunder Wave",
 		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			//TODO: what if thunder wave's type has changed?
+			if typeEffectiveness(ELECTRIC, t.getSpecies().Types) == 0 {
+				log.f("It doesn't affect %s.", t.Name)
+				return
+			}
 			inflictNonVolatileCondition(log, t, ti, Paralysis{})
 		},
 		Type:        ELECTRIC,
@@ -7863,8 +7919,10 @@ var moveData = []MoveData{
 		Description:  "The user spouts water to damage the opposing team. The lower the user's HP, the less powerful it becomes.",
 	},
 	{
-		Name:            "Waterfall",
-		functionCode:    "00F",
+		Name: "Waterfall",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictVolatileCondition(log, t, ti, NewFlinch())
+		},
 		Power:           80,
 		Type:            WATER,
 		Category:        physical,
@@ -8107,8 +8165,10 @@ var moveData = []MoveData{
 		Description:     "The user fires an electric blast like a cannon to inflict damage and cause paralysis.",
 	},
 	{
-		Name:            "Zen Headbutt",
-		functionCode:    "00F",
+		Name: "Zen Headbutt",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+			inflictVolatileCondition(log, t, ti, NewFlinch())
+		},
 		Power:           80,
 		Type:            PSYCHIC,
 		Category:        physical,

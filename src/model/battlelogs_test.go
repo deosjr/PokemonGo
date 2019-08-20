@@ -11,7 +11,7 @@ func TestLogText(t *testing.T) {
 	}{
 		{
 			text: "Critical hit!",
-			want: []battleLog{textLog{Text: "Critical hit!"}},
+			want: []battleLog{TextLog{Text: "Critical hit!"}},
 		},
 	} {
 		log := NewLogger()
@@ -44,15 +44,14 @@ func TestDamageLog(t *testing.T) {
 			crit:   1.0,
 			index:  1,
 			damage: 42,
-			want:   []battleLog{damageLog{Index: 1, Damage: 42}},
+			want:   []battleLog{DamageLog{Index: 1, Damage: 42}},
 		},
 		{
 			name: "Pikachu",
 			t:    0.0,
 			crit: 1.0,
 			want: []battleLog{
-				damageLog{Index: 0, Damage: 0},
-				textLog{Text: "It doesn't affect Pikachu."},
+				TextLog{Text: "It doesn't affect Pikachu."},
 			},
 		},
 		{
@@ -60,9 +59,9 @@ func TestDamageLog(t *testing.T) {
 			crit:   2.0,
 			damage: 100,
 			want: []battleLog{
-				damageLog{Index: 0, Damage: 100},
-				textLog{Text: "Critical hit!"},
-				textLog{Text: "It's super effective!"},
+				DamageLog{Index: 0, Damage: 100},
+				TextLog{Text: "Critical hit!"},
+				TextLog{Text: "It's super effective!"},
 			},
 		},
 	} {

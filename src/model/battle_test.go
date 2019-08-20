@@ -1,6 +1,7 @@
 package model
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -9,6 +10,8 @@ type testPokemon struct {
 	species pokemon
 }
 
+// test whether battle flow through a single move is correct
+// for more specific move tests, check move_test.go
 func TestHandleMoveSingleBattle(t *testing.T) {
 	for i, tt := range []struct {
 		source testPokemon
@@ -20,27 +23,27 @@ func TestHandleMoveSingleBattle(t *testing.T) {
 			source: testPokemon{10, BULBASAUR},
 			target: testPokemon{10, CHARMANDER},
 			move:   TACKLE,
-			logs:   []battleLog{damageLog{Index: 1}},
+			logs:   []battleLog{DamageLog{Index: 1}},
 		},
 		{
 			source: testPokemon{10, SQUIRTLE},
 			target: testPokemon{10, CHARMANDER},
 			move:   WATERGUN,
-			logs:   []battleLog{damageLog{Index: 1}},
+			logs:   []battleLog{DamageLog{Index: 1}},
 		},
 		{
 			source: testPokemon{5, CHARMANDER},
 			target: testPokemon{5, BULBASAUR},
 			move:   GROWL,
-			logs:   []battleLog{statStageLog{Index: 1, Changes: Stats{attack: -1}}},
+			logs:   []battleLog{StatStageLog{Index: 1, Changes: Stats{attack: -1}}},
 		},
 		{
 			source: testPokemon{5, CHARMANDER},
-			target: testPokemon{5, BULBASAUR},
+			target: testPokemon{5, SQUIRTLE},
 			move:   FLAMECHARGE,
 			logs: []battleLog{
-				damageLog{Index: 1},
-				statStageLog{Index: 0, Changes: Stats{speed: +1}},
+				DamageLog{Index: 1},
+				StatStageLog{Index: 0, Changes: Stats{speed: +1}},
 			},
 		},
 		{
@@ -48,7 +51,7 @@ func TestHandleMoveSingleBattle(t *testing.T) {
 			target: testPokemon{5, RATTATA},
 			move:   THUNDERWAVE,
 			logs: []battleLog{
-				nonVolatileConditionLog{Index: 1, Condition: Paralysis{}},
+				NonVolatileConditionLog{Index: 1, Condition: Paralysis{}},
 			},
 		},
 	} {
@@ -64,7 +67,7 @@ func TestHandleMoveSingleBattle(t *testing.T) {
 		battle := NewSingleBattle(source, target)
 		HandleMove(battle, attemptedMove)
 
-		evaluateLogs(t, i, battle.Log().Logs()[1], tt.logs)
+		evaluateNonTextLogs(t, battle.Log().Logs()[1], tt.logs, fmt.Sprintf("%d)", i))
 	}
 }
 
@@ -81,7 +84,7 @@ func TestMovePriority(t *testing.T) {
 			target:     testPokemon{10, RATTATA},
 			sourceMove: TACKLE,
 			targetMove: QUICKATTACK,
-			logs:       []battleLog{damageLog{Index: 0}, damageLog{Index: 1}},
+			logs:       []battleLog{DamageLog{Index: 0}, DamageLog{Index: 1}},
 		},
 	} {
 		source := GetPokemon(tt.source.level, tt.source.species)
@@ -91,7 +94,7 @@ func TestMovePriority(t *testing.T) {
 		battle := NewSingleBattle(source, target)
 		HandleTurn(battle, []Command{{0, 1, 0}, {1, 0, 0}})
 
-		evaluateLogs(t, i, battle.Log().Logs()[1], tt.logs)
+		evaluateNonTextLogs(t, battle.Log().Logs()[1], tt.logs, fmt.Sprintf("%d)", i))
 	}
 }
 
@@ -142,9 +145,12 @@ func TestExactDamage(t *testing.T) {
 		HandleMove(battle, attemptedMove)
 
 		log := battle.Log().Logs()[1][1]
-		dLog, ok := log.(damageLog)
+		dLog, ok := log.(DamageLog)
 		if !ok {
-			t.Fatalf("%d): expected a damageLog got %v", i, log)
+			if tt.damage == 0 {
+				continue
+			}
+			t.Fatalf("%d): expected a DamageLog got %v", i, log)
 		}
 		if dLog.Damage != tt.damage {
 			t.Errorf("%d): got %d want %d", i, dLog.Damage, tt.damage)
@@ -154,7 +160,7 @@ func TestExactDamage(t *testing.T) {
 
 func TestEntireBattle(t *testing.T) {
 Test:
-	for i, tt := range []struct {
+	for k, tt := range map[string]struct {
 		source         testPokemon
 		target         testPokemon
 		sourceMoves    []move
@@ -165,8 +171,7 @@ Test:
 		alwaysHit      bool
 		exactTargetHP  int
 	}{
-		// overkill: kills in one turn
-		{
+		"overkill: kills in one turn": {
 			source:         testPokemon{15, HAUNTER},
 			target:         testPokemon{100, RATICATE},
 			sourceMoves:    []move{NIGHTSHADE},
@@ -175,8 +180,7 @@ Test:
 			targetMoveFunc: func() int { return 0 },
 			numTurns:       1,
 		},
-		// poison kills in 8 turns (1/8th per turn)
-		{
+		"poison kills in 8 turns (1/8th per turn)": {
 			source:         testPokemon{15, BUTTERFREE},
 			target:         testPokemon{100, MAGIKARP},
 			sourceMoves:    []move{POISONPOWDER},
@@ -187,8 +191,7 @@ Test:
 			exactTargetHP:  80,
 			alwaysHit:      true,
 		},
-		// bad poison kills in 6 turns (1 + 2 + 3 + 4 + 5 + 6 = 21/16)
-		{
+		"bad poison kills in 6 turns (1 + 2 + 3 + 4 + 5 + 6 = 21/16)": {
 			source:         testPokemon{15, HAUNTER},
 			target:         testPokemon{100, MAGIKARP},
 			sourceMoves:    []move{TOXIC},
@@ -198,8 +201,7 @@ Test:
 			numTurns:       6,
 			exactTargetHP:  160,
 		},
-		// dragon rage deals exactly 40 dmg
-		{
+		"dragon rage deals exactly 40 dmg": {
 			source:         testPokemon{50, DRAGONITE},
 			target:         testPokemon{1, MAGIKARP},
 			sourceMoves:    []move{DRAGONRAGE},
@@ -245,44 +247,46 @@ Test:
 			commands := []Command{sourceCommand, targetCommand}
 			err := HandleTurn(battle, commands)
 			if err != nil {
-				t.Errorf("%d): %v", i, err)
+				t.Errorf("%s: %v", k, err)
 				break
 			}
 			// numTurns+1 since turncounter is upped at end of HandleTurn
 			if battle.Log().turn > tt.numTurns+1 {
 				testPrintLogs(t, battle.Log().Logs())
-				t.Errorf("%d/%d", target.currentHP, target.Stats.hp)
-				t.Errorf("%d): battle taking too long", i)
+				t.Errorf("%s: battle taking too long", k)
 				continue Test
 			}
 		}
 		if battle.Log().turn != tt.numTurns+1 {
-			t.Errorf("%d/%d", target.currentHP, target.Stats.hp)
 			testPrintLogs(t, battle.Log().Logs())
-			t.Errorf("%d): expected battle to take %d but took %d turns instead", i, tt.numTurns, battle.Log().turn-1)
+			t.Errorf("%s): expected battle to take %d but took %d turns instead", k, tt.numTurns, battle.Log().turn-1)
 		}
 	}
 }
 
-func evaluateLogs(t *testing.T, n int, gotLogs, wantLogs []battleLog) {
-	got, want := filterLogs(gotLogs), wantLogs
+func evaluateNonTextLogs(t *testing.T, gotLogs, wantLogs []battleLog, testpref string) {
+	got := filterLogs(gotLogs)
+	evaluateLogs(t, got, wantLogs, testpref)
+}
+
+func evaluateLogs(t *testing.T, got, want []battleLog, testpref string) {
 	if len(got) != len(want) {
-		t.Fatalf("%d: got %v want %v", n, got, want)
+		t.Fatalf("%s: got %v want %v", testpref, got, want)
 	}
 	for i, g := range got {
 		wantLog := want[i]
 		switch gotLog := g.(type) {
-		case damageLog:
-			wantDamageLog, ok := wantLog.(damageLog)
+		case DamageLog:
+			wantDamageLog, ok := wantLog.(DamageLog)
 			if !ok {
-				t.Errorf("%d: got %+v want %+v", n, gotLog, wantLog)
+				t.Errorf("%s: got %+v want %+v", testpref, gotLog, wantLog)
 			}
 			if gotLog.Index != wantDamageLog.Index {
-				t.Errorf("%d: got %+v want %+v (exact damage doesn't matter)", n, gotLog, wantLog)
+				t.Errorf("%s: got %+v want %+v (exact damage doesn't matter)", testpref, gotLog, wantLog)
 			}
 		default:
 			if gotLog != wantLog {
-				t.Errorf("%d: got %+v want %+v", n, gotLog, wantLog)
+				t.Errorf("%s: got %+v want %+v", testpref, gotLog, wantLog)
 			}
 		}
 	}
@@ -292,7 +296,7 @@ func filterLogs(logs []battleLog) []battleLog {
 	l := []battleLog{}
 	for _, log := range logs {
 		switch log.(type) {
-		case textLog:
+		case TextLog:
 			continue
 		default:
 			l = append(l, log)
