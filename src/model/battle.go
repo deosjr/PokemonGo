@@ -6,9 +6,11 @@ import (
 
 type Battle interface {
 	Log() *Logger
+	IsOver() bool
+	Graphics(player int) graphicInfo
+
 	pokemonAtIndex(int) (*Pokemon, error)
 	getTargets(int, int, target) []int
-	IsOver() bool
 }
 
 type singleBattle struct {
@@ -191,4 +193,38 @@ func (b *singleBattle) getTargets(sourceIndex, targetIndex int, target target) [
 
 func (b *singleBattle) IsOver() bool {
 	return b.pokemon[0].currentHP == 0 || b.pokemon[1].currentHP == 0
+}
+
+type graphicInfo struct {
+	// list of species per side
+	Sides [][]int
+	Moves [4]string
+}
+
+func (b *singleBattle) Graphics(player int) graphicInfo {
+	if player != 0 && player != 1 {
+		panic("unexpected player")
+	}
+	var self, opp *Pokemon
+	switch player {
+	case 0:
+		self = b.pokemon[0]
+		opp = b.pokemon[1]
+	case 1:
+		self = b.pokemon[1]
+		opp = b.pokemon[0]
+	}
+
+	moves := [4]string{}
+	for i, m := range self.Moves {
+		if m == nil {
+			moves[i] = "-"
+			continue
+		}
+		moves[i] = m.Data.Name
+	}
+	return graphicInfo{
+		Sides: [][]int{{self.ID()}, {opp.ID()}},
+		Moves: moves,
+	}
 }

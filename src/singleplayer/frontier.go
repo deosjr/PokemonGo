@@ -11,7 +11,7 @@ type rentalPokemon struct {
 	item    string
 }
 
-func getRentalPokemon() *model.Pokemon {
+func GetRentalPokemon() *model.Pokemon {
 	rental := rentals[random.Intn(len(rentals))]
 	p := model.GetPokemonByName(100, rental.species)
 	for i := 0; i < 4; i++ {

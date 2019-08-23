@@ -47,6 +47,10 @@ func GetPokemon(level int, pType pokemon) *Pokemon {
 	}
 }
 
+func (p *Pokemon) ID() int {
+	return int(p.Species) + 1
+}
+
 func (p *Pokemon) getSpecies() Species {
 	return GetSpeciesByID(p.Species)
 }

@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/deosjr/PokemonGo/src/model"
+	"github.com/deosjr/PokemonGo/src/singleplayer"
 )
 
 type Handler struct {
@@ -126,10 +127,8 @@ func (h *Handler) HandleNewGame(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	p1 := model.GetPokemonByName(10, "bulbasaur")
-	p2 := model.GetPokemonByName(10, "charmander")
-	p1.Moves[0] = &model.Move{Data: model.GetMoveDataByID(model.TACKLE)}
-	p2.Moves[0] = &model.Move{Data: model.GetMoveDataByID(model.EMBER)}
+	p1 := singleplayer.GetRentalPokemon()
+	p2 := singleplayer.GetRentalPokemon()
 	battle := model.NewSingleBattle(p1, p2)
 	h.addBattle(gi, battle)
 
@@ -142,6 +141,12 @@ type joininput struct {
 	Player string `json:"player"`
 }
 
+type joinoutput struct {
+	SpeciesSelf int       `json:"self"`
+	SpeciesOpp  int       `json:"opp"`
+	Moves       [4]string `json:"moves"`
+}
+
 func (h *Handler) HandleJoinGame(w http.ResponseWriter, r *http.Request) {
 	var ji joininput
 	err := json.NewDecoder(r.Body).Decode(&ji)
@@ -150,15 +155,37 @@ func (h *Handler) HandleJoinGame(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if _, ok := h.battles[ji.Name]; !ok {
+	bi, ok := h.battles[ji.Name]
+	if !ok {
 		http.Error(w, "game not found", http.StatusBadRequest)
 		return
 	}
 
-	//TODO
+	var resp joinoutput
+	switch {
+	case ji.Player == bi.p1:
+		gi := bi.battle.Graphics(0)
+		resp.SpeciesSelf = gi.Sides[0][0]
+		resp.SpeciesOpp = gi.Sides[1][0]
+		resp.Moves = gi.Moves
+	case ji.Player == bi.p2:
+		gi := bi.battle.Graphics(1)
+		resp.SpeciesSelf = gi.Sides[0][0]
+		resp.SpeciesOpp = gi.Sides[1][0]
+		resp.Moves = gi.Moves
+	default:
+		w.WriteHeader(403)
+		return
+	}
+
+	respJSON, err := json.Marshal(resp)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 
 	cors(w)
-	w.WriteHeader(200)
+	w.Write(respJSON)
 }
 
 //TODO: check how to do this properly

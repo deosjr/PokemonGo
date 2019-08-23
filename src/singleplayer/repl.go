@@ -1,8 +1,10 @@
 package singleplayer
 
 import (
+	"bufio"
 	"fmt"
 	"math/rand"
+	"os"
 	"time"
 
 	"github.com/deosjr/PokemonGo/src/model"
@@ -10,10 +12,9 @@ import (
 
 var random = rand.New(rand.NewSource(time.Now().UnixNano()))
 
-// TODO: take input, now fully automatic
 func Repl() {
-	p1 := getRentalPokemon()
-	p2 := getRentalPokemon()
+	p1 := GetRentalPokemon()
+	p2 := GetRentalPokemon()
 	battle := model.NewSingleBattle(p1, p2)
 	fmt.Printf("%s vs %s!\n", p1.Name, p2.Name)
 
@@ -36,10 +37,15 @@ func Repl() {
 	i := 0
 	for !battle.IsOver() {
 		i++
+		// very rough implementation: only takes 1-4 as valid input
+		reader := bufio.NewReader(os.Stdin)
+		char, _, err := reader.ReadRune()
+		choice := int(char) - 49
+
 		sourceCommand := model.Command{
 			SourceIndex: 0,
 			TargetIndex: 1,
-			MoveIndex:   random.Intn(4),
+			MoveIndex:   choice,
 		}
 		targetCommand := model.Command{
 			SourceIndex: 1,
@@ -47,7 +53,7 @@ func Repl() {
 			MoveIndex:   random.Intn(4),
 		}
 		commands := []model.Command{sourceCommand, targetCommand}
-		err := model.HandleTurn(battle, commands)
+		err = model.HandleTurn(battle, commands)
 		if err != nil {
 			panic(err)
 		}
