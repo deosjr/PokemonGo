@@ -92,7 +92,7 @@ func TestMovePriority(t *testing.T) {
 		source.Moves[0] = &Move{Data: GetMoveDataByID(tt.sourceMove)}
 		target.Moves[0] = &Move{Data: GetMoveDataByID(tt.targetMove)}
 		battle := NewSingleBattle(source, target)
-		HandleTurn(battle, []Command{{0, 1, 0}, {1, 0, 0}})
+		HandleTurn(battle, []MoveCommand{{0, 1, 0}, {1, 0, 0}})
 
 		evaluateNonTextLogs(t, battle.Log().Logs()[1], tt.logs, fmt.Sprintf("%d)", i))
 	}
@@ -234,17 +234,17 @@ Test:
 		}
 		battle := NewSingleBattle(source, target)
 		for !battle.IsOver() {
-			sourceCommand := Command{
+			sourceCommand := MoveCommand{
 				SourceIndex: 0,
 				TargetIndex: 1,
 				MoveIndex:   tt.sourceMoveFunc(),
 			}
-			targetCommand := Command{
+			targetCommand := MoveCommand{
 				SourceIndex: 1,
 				TargetIndex: 0,
 				MoveIndex:   tt.targetMoveFunc(),
 			}
-			commands := []Command{sourceCommand, targetCommand}
+			commands := []MoveCommand{sourceCommand, targetCommand}
 			err := HandleTurn(battle, commands)
 			if err != nil {
 				t.Errorf("%s: %v", k, err)

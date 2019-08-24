@@ -18,7 +18,7 @@ type singleBattle struct {
 	logger  *Logger
 }
 
-type Command struct {
+type MoveCommand struct {
 	SourceIndex int `json:"source"`
 	TargetIndex int `json:"target"`
 	MoveIndex   int `json:"move"`
@@ -31,7 +31,7 @@ type attemptedMove struct {
 	Move        *Move
 }
 
-func HandleTurn(b Battle, commands []Command) error {
+func HandleTurn(b Battle, commands []MoveCommand) error {
 	m, err := lookupAttemptedMoves(b, commands)
 	if err != nil {
 		return err
@@ -137,7 +137,7 @@ func HandlePostMoveEffect(b Battle, i int, p *Pokemon) {
 //
 //	side1 [0 ... n-1] and side2 [n ... m-1]
 
-func lookupAttemptedMoves(b Battle, commands []Command) ([]attemptedMove, error) {
+func lookupAttemptedMoves(b Battle, commands []MoveCommand) ([]attemptedMove, error) {
 	attemptedMoves := []attemptedMove{}
 	for _, c := range commands {
 		m, err := lookupAttemptedMove(b, c)
@@ -149,7 +149,7 @@ func lookupAttemptedMoves(b Battle, commands []Command) ([]attemptedMove, error)
 	return attemptedMoves, nil
 }
 
-func lookupAttemptedMove(b Battle, c Command) (attemptedMove, error) {
+func lookupAttemptedMove(b Battle, c MoveCommand) (attemptedMove, error) {
 	source, err := b.pokemonAtIndex(c.SourceIndex)
 	if err != nil {
 		return attemptedMove{}, fmt.Errorf("error parsing command: %v", err)

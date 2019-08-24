@@ -23,8 +23,8 @@ type battleInfo struct {
 	battle   model.Battle
 	p1       string
 	p2       string
-	sources  map[int]struct{}
-	commands []model.Command
+	sources  map[string]struct{}
+	commands []model.MoveCommand
 	channels []chan []byte
 }
 
@@ -33,19 +33,21 @@ func (h *Handler) addBattle(gi gameinput, b model.Battle) {
 		battle:  b,
 		p1:      gi.P1,
 		p2:      gi.P2,
-		sources: map[int]struct{}{},
+		sources: map[string]struct{}{},
 	}
 	h.battles[gi.Name] = &bi
 }
 
 type request struct {
-	command         model.Command
+	input           input
 	responseChannel chan []byte
 }
 
 type input struct {
-	Game    string        `json:"game"`
-	Command model.Command `json:"command"`
+	GameName   string `json:"game"`
+	PlayerName string `json:"player"`
+	//TargetIndex int    `json:"target"`
+	MoveIndex int `json:"move"`
 }
 
 func (h *Handler) HandleMove(w http.ResponseWriter, r *http.Request) {
@@ -57,31 +59,44 @@ func (h *Handler) HandleMove(w http.ResponseWriter, r *http.Request) {
 	}
 
 	resp := make(chan []byte, 1)
-	req := request{i.Command, resp}
-	err = h.handle(i.Game, req)
+	req := request{i, resp}
+	err = h.handle(req)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	fmt.Printf("Game %s: P%d issued command %+v \n", i.Game, i.Command.SourceIndex+1, i.Command)
+	fmt.Printf("Game %s: %s issued move %d \n", i.GameName, i.PlayerName, i.MoveIndex)
 
 	turnResolution := <-resp
 	cors(w)
 	w.Write(turnResolution)
 }
 
-func (h *Handler) handle(game string, req request) error {
-	battleInfo, ok := h.battles[game]
+func (h *Handler) handle(req request) error {
+	gamename := req.input.GameName
+	playername := req.input.PlayerName
+	battleInfo, ok := h.battles[gamename]
 	if !ok {
-		return fmt.Errorf("game %s does not exist", game)
+		return fmt.Errorf("game %s does not exist", gamename)
 	}
-	if _, ok := battleInfo.sources[req.command.SourceIndex]; ok {
-		return fmt.Errorf("source %d already issues command this turn", req.command.SourceIndex)
+	if _, ok := battleInfo.sources[playername]; ok {
+		return fmt.Errorf("player %s already issues command this turn", playername)
 	}
 
-	battleInfo.sources[req.command.SourceIndex] = struct{}{}
-	battleInfo.commands = append(battleInfo.commands, req.command)
+	battleInfo.sources[playername] = struct{}{}
+	sourceIndex := 0
+	targetIndex := 1
+	if playername == battleInfo.p2 {
+		sourceIndex = 1
+		targetIndex = 0
+	}
+	moveCommand := model.MoveCommand{
+		SourceIndex: sourceIndex,
+		TargetIndex: targetIndex,
+		MoveIndex:   req.input.MoveIndex,
+	}
+	battleInfo.commands = append(battleInfo.commands, moveCommand)
 	battleInfo.channels = append(battleInfo.channels, req.responseChannel)
 
 	if len(battleInfo.commands) != 2 {
@@ -102,7 +117,7 @@ func (h *Handler) handle(game string, req request) error {
 	for _, r := range battleInfo.channels {
 		r <- turnJSON
 	}
-	battleInfo.sources = map[int]struct{}{}
+	battleInfo.sources = map[string]struct{}{}
 	battleInfo.commands = nil
 	battleInfo.channels = nil
 	return nil

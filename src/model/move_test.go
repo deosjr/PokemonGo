@@ -105,7 +105,7 @@ func TestOneTurnMoveInteractions(t *testing.T) {
 		source.Moves[0] = sm
 		target.Moves[0] = tm
 		battle := NewSingleBattle(source, target)
-		HandleTurn(battle, []Command{{0, 1, 0}, {1, 0, 0}})
+		HandleTurn(battle, []MoveCommand{{0, 1, 0}, {1, 0, 0}})
 
 		if tt.testTextLogs {
 			evaluateLogs(t, battle.Log().Logs()[1], tt.logs, k)

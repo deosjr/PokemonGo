@@ -42,17 +42,17 @@ func Repl() {
 		char, _, err := reader.ReadRune()
 		choice := int(char) - 49
 
-		sourceCommand := model.Command{
+		sourceCommand := model.MoveCommand{
 			SourceIndex: 0,
 			TargetIndex: 1,
 			MoveIndex:   choice,
 		}
-		targetCommand := model.Command{
+		targetCommand := model.MoveCommand{
 			SourceIndex: 1,
 			TargetIndex: 0,
 			MoveIndex:   random.Intn(4),
 		}
-		commands := []model.Command{sourceCommand, targetCommand}
+		commands := []model.MoveCommand{sourceCommand, targetCommand}
 		err = model.HandleTurn(battle, commands)
 		if err != nil {
 			panic(err)
