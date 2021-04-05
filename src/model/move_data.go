@@ -1933,7 +1933,22 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Detect",
-		functionCode: "0AA",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+            c, ok := s.VolatileConditions[ProtectCounterLabel]
+            if !ok {
+                c = NewProtectCounter()
+                s.addVolatile(c)
+            } else {
+                c.(*ProtectCounter).counter += 1
+            }
+            counter := c.(*ProtectCounter)
+            if counter.Success() {
+			    inflictVolatileCondition(log, s, si, NewProtect())
+                return
+            }
+            log.f("But it failed!")
+            s.clearVolatile(ProtectCounterLabel)
+		},
 		Type:         FIGHTING,
 		Category:     statusEffect,
 		PP:           5,
@@ -5333,7 +5348,22 @@ var moveData = []MoveData{
 	},
 	{
 		Name:         "Protect",
-		functionCode: "0AA",
+		effect: func(log *Logger, s, t *Pokemon, si, ti, dmg int) {
+            c, ok := s.VolatileConditions[ProtectCounterLabel]
+            if !ok {
+                c = NewProtectCounter()
+                s.addVolatile(c)
+            } else {
+                c.(*ProtectCounter).counter += 1
+            }
+            counter := c.(*ProtectCounter)
+            if counter.Success() {
+			    inflictVolatileCondition(log, s, si, NewProtect())
+                return
+            }
+            log.f("But it failed!")
+            s.clearVolatile(ProtectCounterLabel)
+		},
 		Type:         NORMAL,
 		Category:     statusEffect,
 		PP:           10,

@@ -11,9 +11,11 @@ import (
 )
 
 var serve bool
+var move string
 
 func init() {
 	flag.BoolVar(&serve, "serve", false, "run as server")
+	flag.StringVar(&move, "move", "", "with specific move")
 	flag.Parse()
 }
 
@@ -30,6 +32,6 @@ func main() {
 		http.ListenAndServe(":8080", nil)
 	} else {
 		fmt.Println("Starting single player battle")
-		singleplayer.Repl()
+		singleplayer.Repl(move)
 	}
 }

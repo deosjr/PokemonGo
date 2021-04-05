@@ -197,6 +197,8 @@ type VolatileConditionLabel int
 const (
 	ConfusionLabel VolatileConditionLabel = iota
 	FlinchLabel
+    ProtectCounterLabel
+    ProtectLabel
 )
 
 type VolatileCondition interface {
@@ -282,4 +284,38 @@ func (f Flinch) preMoveEffect(log *Logger, p *Pokemon, index int) bool {
 
 func (f Flinch) postMoveEffect(p *Pokemon) {
 	p.clearVolatile(f.label)
+}
+
+// shared by Protect, Detect etc
+type ProtectCounter struct {
+    volatileCondition
+    counter int
+}
+
+func NewProtectCounter() *ProtectCounter {
+    return &ProtectCounter{
+        volatileCondition:volatileCondition{ProtectCounterLabel},
+        counter: 0,
+    }
+}
+
+func (c *ProtectCounter) Success() bool {
+    return random.Float64() < math.Pow(1.0/3.0, float64(c.counter))
+}
+
+type Protect struct {
+	volatileCondition
+}
+
+func NewProtect() Protect {
+	return Protect{volatileCondition{ProtectLabel}}
+}
+
+func (p Protect) initMessage() string {
+    return "%s protected itself!"
+}
+
+func (f Protect) preMoveEffect(log *Logger, p *Pokemon, index int) bool {
+	p.clearVolatile(f.label)
+    return false
 }

@@ -24,6 +24,25 @@ func GetRentalPokemon() *model.Pokemon {
 	return p
 }
 
+func GetRentalWithMove(requested string) *model.Pokemon {
+	rental := rentals[random.Intn(len(rentals))]
+    if rental.moves[0] != requested &&
+        rental.moves[1] != requested &&
+        rental.moves[2] != requested &&
+        rental.moves[3] != requested {
+        return GetRentalWithMove(requested)
+    }
+	p := model.GetPokemonByName(100, rental.species)
+	for i := 0; i < 4; i++ {
+		move, ok := model.GetMoveByName(rental.moves[i])
+		if !ok {
+			panic(rental.moves[i])
+		}
+		p.Moves[i] = move
+	}
+	return p
+}
+
 var rentals []rentalPokemon = []rentalPokemon{
 	{
 		ability: "Overgrow",

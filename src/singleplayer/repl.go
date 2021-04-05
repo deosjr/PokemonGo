@@ -12,8 +12,13 @@ import (
 
 var random = rand.New(rand.NewSource(time.Now().UnixNano()))
 
-func Repl() {
-	p1 := GetRentalPokemon()
+func Repl(requestedMove string) {
+    var p1 *model.Pokemon
+    if requestedMove != "" {
+        p1 = GetRentalWithMove(requestedMove)
+    } else {
+	    p1 = GetRentalPokemon()
+    }
 	p2 := GetRentalPokemon()
 	battle := model.NewSingleBattle(p1, p2)
 	fmt.Printf("%s vs %s!\n", p1.Name, p2.Name)

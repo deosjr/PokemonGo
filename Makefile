@@ -3,3 +3,6 @@ singleplayer:
 
 server:
 	go run src/main.go -serve
+
+test:
+	go test ./...

@@ -54,6 +54,13 @@ func HandleMoves(b Battle, attemptedMoves []attemptedMove) error {
 	if b.IsOver() {
 		return nil
 	}
+    // TODO: generic clear of effects at end of round
+    for _, m := range attemptedMoves {
+        movename := m.Move.Data.Name
+        if movename != "Protect" && movename != "Detect" {
+            m.Source.clearVolatile(ProtectCounterLabel)
+        }
+    }
 
 	return nil
 }
@@ -79,6 +86,10 @@ func HandleMove(b Battle, m attemptedMove) error {
 			b.Log().f("But it failed!")
 			continue
 		}
+        if _, ok := target.VolatileConditions[ProtectLabel]; ok {
+            b.Log().f("%s protected itself!", target.Name)
+            continue
+        }
 		miss := determineHit(md, m.Source, target)
 		if miss {
 			b.Log().f("%s's attack missed!", m.Source.Name)
