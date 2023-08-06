@@ -87,7 +87,7 @@ func (p *Pokemon) ChangeEvasion(change int) (effective int, maxed bool) {
 // Returns modified stat rounded down to an int
 func (p *Pokemon) Attack() int {
 	attack := int(modifyStat(p.Stats.attack, p.statStages.attack))
-	if p.NonVolatileCondition == nil || p.NonVolatileCondition.name() == "burned" {
+	if p.NonVolatileCondition != nil && p.NonVolatileCondition.name() == "burned" {
 		// TODO: (since Gen III) Instead of modifying the Attack stat,
 		// a burn now technically halves the damage a burned Pokémon does with physical moves;
 		// it still does not reduce damage done by moves that deal direct damage (such as Seismic Toss)
@@ -106,7 +106,7 @@ func (p *Pokemon) SpDefense() int {
 }
 func (p *Pokemon) Speed() int {
 	speed := int(modifyStat(p.Stats.speed, p.statStages.speed))
-	if p.NonVolatileCondition == nil || p.NonVolatileCondition.name() == "paralyzed" {
+	if p.NonVolatileCondition != nil && p.NonVolatileCondition.name() == "paralyzed" {
 		return speed / 4 // speed / 2 since Gen VII
 	}
 	return speed

@@ -71,13 +71,14 @@ func TestHandleMoveSingleBattle(t *testing.T) {
 	}
 }
 
-func TestMovePriority(t *testing.T) {
+func TestMoveSpeedAndPriority(t *testing.T) {
 	for i, tt := range []struct {
 		source     testPokemon
 		target     testPokemon
 		sourceMove move
 		targetMove move
 		logs       []battleLog
+        status     NonVolatileCondition
 	}{
 		{
 			source:     testPokemon{10, RATTATA},
@@ -86,8 +87,26 @@ func TestMovePriority(t *testing.T) {
 			targetMove: QUICKATTACK,
 			logs:       []battleLog{DamageLog{Index: 0}, DamageLog{Index: 1}},
 		},
+        /* TEST paralysis actually slows; is flakey due to paralysis effect!
+		{
+			source:     testPokemon{10, JOLTEON},
+			target:     testPokemon{10, SLOWPOKE},
+			sourceMove: TACKLE,
+			targetMove: TACKLE,
+			logs:       []battleLog{DamageLog{Index: 1}, DamageLog{Index: 0}},
+		},
+		{
+			source:     testPokemon{10, JOLTEON},
+			target:     testPokemon{10, SLOWPOKE},
+			sourceMove: TACKLE,
+			targetMove: TACKLE,
+			logs:       []battleLog{DamageLog{Index: 0}, DamageLog{Index: 1}},
+            status:     Paralysis{},
+		},
+        */
 	} {
 		source := GetPokemon(tt.source.level, tt.source.species)
+        source.NonVolatileCondition = tt.status
 		target := GetPokemon(tt.target.level, tt.target.species)
 		source.Moves[0] = &Move{Data: GetMoveDataByID(tt.sourceMove)}
 		target.Moves[0] = &Move{Data: GetMoveDataByID(tt.targetMove)}
